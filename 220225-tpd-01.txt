@@ -1,0 +1,211 @@
+RE: TPDS-2021-04-0271, "Peer-to-Peer Consensus via Authoring Reputation"
+Manuscript Type: Regular
+
+25-Feb-2022
+
+Dear Dr. Sant'Anna,
+
+
+We have completed the review process of the above referenced paper for the IEEE Transactions on Parallel and Distributed Systems and recommend that your paper undergo a Major Revision.
+
+Your reviews are enclosed. We would suggest that you revise your paper according to the reviewers' comments and resubmit the paper for a second round of reviews. If you wish to revise the paper, please do so by 26-May-2022.
+
+If you do not intend to submit a revised version of your paper, please let us know so that we can formally close your file.
+
+To revise your manuscript, log into https://mc.manuscriptcentral.com/tpds-cs and enter your Author Center, where you will find your manuscript title listed under "Manuscripts with Decisions." Under "Actions," click on "Create a Revision." Your manuscript number has been appended to denote a revision.
+
+Once the revised manuscript is prepared, you can upload it and submit it through your Author Center.
+
+When submitting your revised manuscript, you will be able to respond to the comments made by the reviewer(s) in the space provided. You can use this space to document any changes you make to the original manuscript. In order to expedite the processing of the revised manuscript, please be as specific as possible in your response to the reviewer(s)'questions and comments. You may also upload your responses as separate files for review along with your revision. If you choose to do this, please choose "Summary of Changes" as the file designation.
+
+When the submission process is complete, you will receive an automated confirmation email immediately. If you did not receive that email, your submission is not yet complete.
+
+The Administrator will contact you should we have any concerns or questions regarding your revision. Otherwise, your revision will be forwarded to the assigned Associate Editor with a request for a final decision.
+
+Please be mindful when making your revisions that you still need to maintain the size limitations for papers submitted to TPDS.  TPDS manuscript types and submission length guidelines (including the main text, the abstract, index terms, illustrations, references, and author biographies/photos) are found at,
+
+http://www.computer.org/portal/web/peerreviewjournals/author#manuscript
+
+Please note that double column will translate more readily into the final publication format.  Our peer review double column templates can be found at,
+
+http://www.computer.org/portal/web/peerreviewjournals/author#templates
+
+Text in any color other than black is not acceptable. Your revised paper must include the following:
+
+-abstract
+-index terms
+-author affiliation information
+-main text
+-references
+-figure captions
+-table titles
+-*brief biography of each author*
+(biographies are not required for comments papers)
+
+NOTE: All materials must fit within the paging guidelines. Papers that exceed the page limit will be returned for further editing.
+
+Please do not hesitate in contacting me if you should have any questions about our process or are experiencing technical difficulties. You can reach the administrator, Christine Shaughnessy, at tpds@computer.org
+
+Thank you for your contribution to TPDS, and we look forward to receiving your revised manuscript.
+
+Sincerely,
+
+Manish Parashar, EIC,
+Transactions on Parallel and Distributed Systems
+tpds@computer.org
+
+***********
+
+Editor Comments
+
+Associate Editor
+Comments to the Author:
+(There are no comments. Please check to see if comments were included as a file attachment with this e-mail or as an attachment in your Author Center.)
+
+**********
+Reviewers' Comments
+
+Please note that some reviewers may have included additional comments in a separate file. If a review contains the note "see the attached file" under Section III A - Public Comments, you will need to log on to ScholarOne Manuscripts  to view the file. After logging in, select the Author Center, click on the "Manuscripts with Decisions" queue and then clicking on the "view decision letter" link for this manuscript. You must scroll down to the very bottom of the letter to see the file(s), if any.  This will open the file that the reviewer(s) or the Associate Editor included for you along with their review.
+
+Reviewer: 1
+
+Recommendation: Author Should Prepare A Minor Revision
+
+Comments:
+1. Keywords should include blockchain.
+2. In the abstract and introduction, it is emphasized many times that the protocol proposed in this paper is a publish-subscribe protocol. However, the following design does not reflect the characteristics of the publish-subscribe system.
+3. Authors should use pseudo-code or flowcharts to describe the system design. The use of commands can be designated as supplemental material.
+4. Authors should illustrate the contents in Figure 1, Figure 3, and Figure 6 by tables.
+5. This paper lacks analysis or experiments to prove the correctness of the design. For example, is it possible for attackers to manipulate the block order in the ordering algorithm shown in Figure 4.A? Does the prototype system have sufficient performance to support real Internet forums?
+6. The organization of the paper can be improved.
+
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: In this paper, the authors design a decentralized content publishing system for public Internet forums based on blockchain technology. Most blockchain systems employ proof-of-work (or similar methods) to mitigate Sybil attacks. However, content publishing and verification are subjective, based on human creativity and judgment. Therefore, the authors propose a permissionless consensus mechanism based on authoring reputation. Users accumulate tokens named reps by creating new posts that can be accepted by others, and transfer reps by rating posts with likes and dislikes. Besides, this paper proposes an algorithm to merge and order branches, and prototyped a permissionless distributed version control system.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Yes
+
+1. Which category describes this manuscript?: Research/Technology
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: Yes
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: References are sufficient and appropriate
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Could be improved
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Could be improved
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): Does not apply, no supplementary files included
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Good
+
+
+Reviewer: 2
+
+Recommendation: Author Should Prepare A Major Revision For A Second Review
+
+Comments:
+This paper presents a publish-subscribe peer-to-peer protocol to model content dissemination without centralized control. The author draws a parallel between this protocol and the application of Bitcoin, with users rating content posted on public Internet forums with reputation tokens. The proposed protocol works on reputational ranking amongst peers to provide a transparent mechanism for content authoring in a public forum.
+The abstract is very lightweight, presenting only a very brief description of what the paper will be addressing. It does not clearly explain the application of Bitcoin, and does not address the novelty. The abstract is lacking a full rounded  overview of the paper by not including some of the findings. Similarly, the conclusion does not talk to the protocol’s novelty or innovation, nor does it provide context in terms of implications or real world applications.
+The introduction’s second paragraph provides a good insight into the problem that is being addressed. The rest of the introduction, however, delves too much into the mechanisms of the system. The introduction should be restructured to simply state what the proposed model is all about, what the main contributions are, why this is different from other existing models and why this is novel. The novelty does not come across strongly currently. The author needs to start the paper strong to really pull the reader in and convince about the novelty of the proposed model.
+Some specific comments:
+- Page 1: “Content publishing in public Internet forums and social media platforms is increasingly more centralized in a few companies.” Which companies? Adding an example here would make it easier for the reader to connect with the paper.
+- Page 1: ‘DAG’ is not introduced as a full term the first time it is used.
+- Page 2: What is labelled as Figure 1 is actually a table. This should be updated. Same with Figure 6.
+- Section 2 provides a functional description of Freechains and some metadata at the end of the section. By moving this metadata to the beginning of the section, and just structuring the beginning so that it is clear what the intention of the section is, readability will be greatly improved. At the moment, Section 1 mentions that Freechains will be used to integrate the protocol, but Section 2 does not shape this within the bigger context of the paper. It would be good if the introduction of Section 2 just guides the reader a bit in terms of why Freechains and how it contributes to the bigger goal of the paper.
+- Figure 2(C), it is not clear how the ‘likes’ are stored. The figure indicates two arrows, but how is this recorded and stored in the chain?
+- Section 3.1: The solution proposed at the top of page 4 should be extended a bit. It is unclear at the moment how malicious users cooperating in the forum matches the problem posed before this, that is, a dislike negates a user’s post. The problem and solution seem a bit disconnected at the moment - somebody disliking a post does not necessarily means malicious intent.
+- Figure 4(a): adding the reputation score in the figure will make this more reader friendly and make the examples in the text more self-explanatory.
+- Section 3.1: “If a branch creates enough reps to reach 50% of its prefix”. 50% of what? This sentence needs a bit more context. “If a branch creates enough reps to reach 50% of its prefix, then the algorithm orders this branch first in future merges. In the example, suppose that the common prefix accumulates 50 reps considering users a, b, and c. If branch-1 creates at least 25 new reps, then the merge with branch-2 will fail and the chains will never synchronize again.” This seems contradictory. If a branch reaches 50% reps of the prefix, then it will be ordered first. That is, using Figure 4, it will be ordered as common prefix, then branch 1, then branch 2. However, in the narrative quoted above, it states the branches will split totally, that would be ordered as prefix, then branch 1 and separately, prefix and then branch 2. This is not the same scenario.
+- Section 3.2: More details about the pioneers needed. How many pioneers? From the discussion it seems that there would be multiple pioneers, but then the last sentence of paragraph 2 refers to ‘single pioneer’. This is not well written and causing some confusion.
+- Figure 6 refers to a discount period. This is not clearly explained in the text. The time aspect is also a bit ambiguous. During a 24 hour period, a poster can only get rewarded with 1 rep, although they can post multiple times during that 24 hour period, as long as they have reps available. Is that one rep reward additional to the initial 30 available reps? If not, how would this encourage discussion? If this is addressed in the paper, it did not come across well and needs a bit further refinement to remove ambiguity.
+- Section 3.2 alludes to the chicken and egg problem, but this is not expanded on. Please do so to ensure that the reader knows exactly what you are referring to.
+- Section 4 could do with a bit of context at the beginning to explain how CRDTs fit within the bigger scope of the paper.
+- Section 4.1 document the merge process with patching, but the principle of patching is not sufficiently addressed.
+- Section 5 only provides a very basic related work section. This section needs to be further developed to truly show how this system differs from and approves upon currently available technologies. Particularly Section 5.1 just scratches the surface and needs to be extended.
+
+There are minor language and spelling issues to address:
+- Page 2: of-fline  off-line
+- Page 2: “… others peers have to initialize the example chain..” others other
+- Section 3: “million of messages”  “millions of messages”
+- Section 3.1: “can take advantage”  “can take advantage of”
+- Section 3.1: “User c represents here a malicious user trying to cultivate the fake identities x and y in separate of the network to accumulate reps.” Sentence missing some words.
+- Figure 6: tranfer  transfer
+
+There are some references that are incomplete, specifically [1], [7], [14]. Reference [16] is incorrectly capitalised. The reference list is overall a bit unbalanced, with not enough recent academic citations.
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: This paper presents a publish-subscribe peer-to-peer protocol to model content dissemination without centralized control. The author draws a parallel between this protocol and the application of Bitcoin, with users rating content posted on public Internet forums with reputation tokens. The proposed protocol works on reputational ranking amongst peers to provide a transparent mechanism for content authoring in a public forum.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Appears to be - but didn't check completely
+
+1. Which category describes this manuscript?: Research/Technology
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: No
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: Important references are missing; more references are needed
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Could be improved
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Satisfactory
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): Does not apply, no supplementary files included
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Fair
+
+
+Reviewer: 3
+
+Recommendation: Author Should Prepare A Major Revision For A Second Review
+
+Comments:
+The author in this paper presents a security protocol dedicated to peer to peer networks. He proposes a reputation and consensus mechanism based on a simple DVCS with cooperative authoring and automatic conflict resolution. Freechains are used to create, rate, and disseminate posts. The originality of this work is that it allows users or human authority to determine consensus. It prevents peer to peer networks from Sybil attacks.
+The paper is well written however the novelty is not well defined. Here are some comments:
+
+• The author should clearly identify the novelty and the motivation of his work in the introduction comparing it to existing work.
+• What is the complexity of the proposed algorithm?
+• The discussion part needs to be expanded. The author must discuss the efficiency of the proposed approach to deal with different attacks, and mention the advantages and disadvantages of the proposed protocol. The attacks that the algorithm can detect and those that cannot detect.
+• An experimental or simulation results with comparison to existing works is missing in this paper.
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: This paper presents a security protocol dedicated to peer to peer networks. He proposes a reputation and consensus mechanism based on a simple DVCS with cooperative authoring and automatic conflict resolution. Freechains are used to create, rate, and disseminate posts. The originality of this work is that it allows users or human authority to determine consensus. It prevents peer to peer networks from Sybil attacks.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Appears to be - but didn't check completely
+
+1. Which category describes this manuscript?: Practice / Application / Case Study / Experience Report
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: Yes
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: Important references are missing; more references are needed
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Could be improved
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Could be improved
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): Does not apply, no supplementary files included
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Fair 

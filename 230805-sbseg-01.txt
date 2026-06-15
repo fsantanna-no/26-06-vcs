@@ -1,0 +1,96 @@
+ #231868: Peer-to-Peer Permissionless Consensus via Reputation
+Authors:	
+Correspondence author	146357	Francisco Sant'Anna (UERJ)
+ 	238883	Lucas Pires (UERJ)
+ 	238800	Fabio Bosisio (UERJ)
+
+Send a message to these authors using your personal email client: francisco.santanna@gmail.com; lucasampires@gmail.com; fbosisio@gmail.com
+Abstract:	Public Internet forums suffer from excess and abuse, such as SPAM and fake news. Centralized platforms employ filtering and anti-abuse policies, but imply full trust from users. We propose a permissionless Sybil-resistant peer-to-peer protocol for content sharing. Our main contribution is a reputation system that moderates content and, at the same time, delivers network consensus. We can trace a parallel with Bitcoin as follows: consolidated posts create reputation (vs proof-of-work), likes and dislikes transfer reputation (vs transactions), and aggregate reputation determines consensus (vs longest chain). The reputation mechanism depends exclusively on the human authoring ability (proof-of-authoring), which is slow and scarce, thus suitable to establish consensus.
+Topics:	Criptomoedas e mecanismos de consenso distribuído
+Manipulação maliciosa de informação e fake news
+Segurança em redes de computadores
+Conference and track:	SBSeg 2023 / Full Papers
+Session:	Paper 2 on 2023-09-20 13:30:00 (ST 11 - FULL PAPERS - Criptografia e criptoanálise: Algoritmos, Protocolos e Aplicações II)
+Paper identifier:	502280564
+Notes:
+Edit	 
+Printing problems:
+Printing Problems?	
+Status:	
+Accepted
+Uploaded files:	
+Description	Upload deadline	Allowed file types	Max size	Upload	Show	Size	Bibtex	Created	Delete
+Paper manuscript	Jun 30, 2023 - 03:55 AM (-03)	pdf	unlimited		PDF 	0.5 MB	[Bibtex]	Jun 08, 2023 - 06:24 PM	
+Mandatory Rebuttal Letter	Aug 18, 2023 - 11:55 PM (-03)	pdf	unlimited		PDF 	85.9 KB	[Bibtex]	Aug 14, 2023 - 08:38 AM	
+Camera-ready Version	Aug 18, 2023 - 11:55 PM (-03)	pdf	unlimited		PDF 	0.5 MB	[Bibtex]	Aug 14, 2023 - 08:39 AM	
+Authorization Term for Publication	Aug 19, 2023 - 09:55 AM (-03)	pdf	unlimited		PDF 	0.2 MB	[Bibtex]	Aug 09, 2023 - 06:44 PM	
+Copy of the Registration Fee receipt	Aug 24, 2023 - 11:55 PM (-03)	pdf	unlimited		PDF 	22.6 KB	[Bibtex]	Aug 10, 2023 - 06:54 PM	
+Paper Metadata Form Submission Receipt	Aug 24, 2023 - 11:55 PM (-03)	pdf	unlimited		PDF 	70.5 KB	[Bibtex]	Aug 23, 2023 - 12:02 AM	
+Type	Reviewer	Assigned (history)	Assigned by	Confirmed	Reminded	Due	Completed
+review	 	2023-06-30 22:08:01	2023-06-30 22:08:01	2023-07-03 15:44:39	 	2023-08-01	2023-07-10 15:35:51
+Paper's relevance to the field of Security: Consider aspects like the proposed topic, the review of the state of the art and the relevance of the results themselves. Rate the proposed topic, timeliness, and audience.	References to Related Work: Considering the overall literature on the topic of this paper, how do you rate the quality of the references?	Novelty & contribution: Does the paper present any novel contribution?	Technical quality: Paper's quality regarding its technical soundness, namely the applied methodology, mathematical formalism and depth, and the quality of results.	Presentation & readability: Paper's organization, spelling and grammar, presentation of results/diagrams/figures, and paper length.	Confidence level: Please, consider your familiarity with the paper's area of research.	Final recommendation: Please, make a final recommendation regarding this paper.
+4: Extremely relevant	4: Excellent	3: Novel contribution with minor impact	3: Good	3: Good	3: Quite confident (I missed some details)	4: Weak accept
+
+SECOND ROUND: Strong aspects: What are the strong aspects of the paper? Please, present the main strengths of this paper. In case of a (weak) accept recommendation, please elaborate on the reasons.
+
+SECOND ROUND: Weak aspects: What are the weak aspects of the paper? Please, present the main weaknesses and/or flaws present in the paper. In case of a (weak) reject recommendation, please elaborate on the reasons.
+
+Comments to the authors: Please, provide your comments and recommendations to the authors. Following your recommendation, give advice and suggestions for improvements.
+    O artigo propõe um mecanismo de consenso não permissionado baseado em reputação para o compartilhamento de conteúdo em redes P2P. Experimentos analisam o overhead em termos de metadados, tempo para consenso, quantidade de forks e mensagens bloqueadas.
+
+    No geral o artigo apresenta boas ideias.
+
+    Quanto a solução, senti falta de alguma discussão sobre as limitações. Em especial, a falta de finalidade, i.e., um post pode ser excluído devido aos forks (no momento do merge). Este post poderia ser de um usuário legitimo ? quanto isso ocorre e quais as implicações?
+
+    Além disso, é possível que um usuário malicioso participe de mais de uma cadeia em um fork? neste caso como fica a regra de merge? e se der empate, todos devem escolher o mesmo fork para começar, como isso seria feito?
+
+    Pela descrição, aparentemente na Figura 3 deveria ter uma transição de revoked  para accepted.
+
+review	 	2023-06-30 22:08:01	2023-06-30 22:08:01	2023-07-06 17:35:32	 	2023-08-01	2023-07-12 22:48:31
+Paper's relevance to the field of Security: Consider aspects like the proposed topic, the review of the state of the art and the relevance of the results themselves. Rate the proposed topic, timeliness, and audience.	References to Related Work: Considering the overall literature on the topic of this paper, how do you rate the quality of the references?	Novelty & contribution: Does the paper present any novel contribution?	Technical quality: Paper's quality regarding its technical soundness, namely the applied methodology, mathematical formalism and depth, and the quality of results.	Presentation & readability: Paper's organization, spelling and grammar, presentation of results/diagrams/figures, and paper length.	Confidence level: Please, consider your familiarity with the paper's area of research.	Final recommendation: Please, make a final recommendation regarding this paper.
+4: Extremely relevant	3: Good	2: Questionable novelty and contribution	3: Good	3: Good	4: Extremely confident (I am an expert and studied the paper in-depth)	3: Borderline
+
+SECOND ROUND: Strong aspects: What are the strong aspects of the paper? Please, present the main strengths of this paper. In case of a (weak) accept recommendation, please elaborate on the reasons.
+
+SECOND ROUND: Weak aspects: What are the weak aspects of the paper? Please, present the main weaknesses and/or flaws present in the paper. In case of a (weak) reject recommendation, please elaborate on the reasons.
+
+Comments to the authors: Please, provide your comments and recommendations to the authors. Following your recommendation, give advice and suggestions for improvements.
+    The idea of the paper is an interesting one and does have the potential for publication. The main problem is that most of the techniques that are used are well-known. It is strange that known techniques like EigenTrust are not even mentioned, even though we are in the blockchain domain.
+    We do not know if the results are good or bad because there was no comparison to the state of the art or baseline. Also, at the end of the day, we do not know if the proposal is resistant to Sybil attacks because there was no validation of the consensus and reputation mechanisms.
+
+review	 	2023-07-16 00:57:55	2023-07-16 00:57:55	2023-07-16 23:48:43	 	2023-08-01	2023-08-02 15:03:38
+Paper's relevance to the field of Security: Consider aspects like the proposed topic, the review of the state of the art and the relevance of the results themselves. Rate the proposed topic, timeliness, and audience.	References to Related Work: Considering the overall literature on the topic of this paper, how do you rate the quality of the references?	Novelty & contribution: Does the paper present any novel contribution?	Technical quality: Paper's quality regarding its technical soundness, namely the applied methodology, mathematical formalism and depth, and the quality of results.	Presentation & readability: Paper's organization, spelling and grammar, presentation of results/diagrams/figures, and paper length.	Confidence level: Please, consider your familiarity with the paper's area of research.	Final recommendation: Please, make a final recommendation regarding this paper.
+3: Quite relevant 	3: Good	4: Novel contribution with major impact	4: Excellent	3: Good	4: Extremely confident (I am an expert and studied the paper in-depth)	5: Accept
+
+SECOND ROUND: Strong aspects: What are the strong aspects of the paper? Please, present the main strengths of this paper. In case of a (weak) accept recommendation, please elaborate on the reasons.
+    The paper proposes a permissionless consensus and reputation mechanism for social content sharing in P2P networks. The main contributions are: (i) using human-authored content as a scarce resource for consensus, (ii) creating diversified public forums as independent blockchains with subjective moderation rules, and (iii) enabling the removal of abusive content while preserving data integrity.
+
+    The consensus mechanism relies on the scarcity of human authoring ability instead of resource-intensive alternatives like CPU power. Users can rate posts with likes and dislikes, transferring reputation between them. Reputation is generated by authoring new content and verified in a cheap and decentralized manner.
+
+    The proposed reputation and consensus mechanism are integrated into Freechains allowing users to create public forums with diverse moderation policies. Content considered abusive can be revoked based on majority consensus without relying on centralized authorities. The paper demonstrates the practicality of the protocol as a decentralized alternative for existing chat and newsgroup forums.
+
+SECOND ROUND: Weak aspects: What are the weak aspects of the paper? Please, present the main weaknesses and/or flaws present in the paper. In case of a (weak) reject recommendation, please elaborate on the reasons.
+    It's important to note that the reputation system does not enforce "good" human behavior but provides a transparent and quantitative way for users to understand forum evolution and act accordingly.
+
+    I am also concerned that the content removal is too weak to work in practice. For example, a Forum may be taken over by extremists, and they can upvote illegal content. That would require removal due to legal process, or face blocking at network level.
+
+    The paper is too descriptive, so reading sometime is tiresome.
+
+Comments to the authors: Please, provide your comments and recommendations to the authors. Following your recommendation, give advice and suggestions for improvements.
+    Maybe a way to go is to create a pool of super-reputations that could answer to injunctions and administratively remove the content and a measure to avoid illegal content being broadcasted in subverted grupus.
+
+    Reading could be improves by using some figures to explain ideas. Sometimes it is difficult to follow the text.
+
+Withdraw this paper withdrawn
+
+All conferences
+JEMS portal	Conference home
+SBSeg 2023	log out
+Logout
+	
+[Conference chair]
+	
+A service of
+Brazilian Computing Society	 	Maintained by
+Federal University of Rio Grande do Sul		Cooperation with
+

@@ -1,0 +1,264 @@
+Dear Francisco Sant&#39;Anna,
+
+Unfortunately your submission #457 entitled "Peer-to-Peer Permissionless Consensus via Authoring Reputation" could not be accepted for Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos (SBRC 2023). SBRC 2023 received many high-quality papers, of which only 36.2% were accepted.
+
+
+Reviews are below or can be found at:
+https://jems3.sbc.org.br/submissions/457/
+
+We hope these review suggestions will help you improve the quality of your submission.
+
+We sincerely hope this decision does not deter you from submitting your research to future editions of the SBRC 2023.
+
+Best regards,
+SBRC 2023
+Technical Program Co-Chairs.
+
+
+
+Review 2
+
+*** Familiarity
+   1: Novice
+   2: Some knowledge
+   3: Familiar
+   4: Expert
+
+  Evaluation = 4: Expert
+
+*** Relevance
+   1: Out of Scope
+   2: Somewhat Relevant
+   3: Highly Relevant
+
+  Evaluation = 3: Highly Relevant
+
+*** Technical Content and Originality
+   1: Poor
+   2: Fair
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 2: Fair
+
+*** Organization and Presentation
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Reference to Related Work
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Overall Recommendation
+   1: Strong Reject
+   2: Weak Reject
+   3: Weak Accept
+   4: Strong Accept
+
+  Evaluation = 2: Weak Reject
+
+*** Industrial Track? This question is for the reviewers to be aware of whether this paper was submitted to the industrial track and requires a different review approach.
+   1: Yes
+   2: No
+
+  Evaluation = 2: No
+
+*** What are the major strengths of this paper? (minimum of 100 characters)
+
+  Evaluation = + O artigo propõe um sistema de reputação baseado na autoria de mensagens em um fórum de discussão peer-to-peer. A reputação é construída a partir de “likes” e “dislikes” que as mensagens angariam após publicação. Os autores afirmam que o mecanismo de reputação permite estabelecer um consenso na rede peer-to-peer quanto à ordem das mensagens.
+
++ O tema é atual e de relevância para o simpósio.
+
+*** What are the major shortcomings of this paper? (minimum of 100 characters)
+
+  Evaluation = - Os autores afirmam que o consenso é crucial para impedir ataques Sybil. Contudo, não é claro que os protocolos de consenso são responsáveis por resistir a ataques Sybil, mas tais protocolos normalmente provêm mecanismos para impedir a geração de identidades falsas.
+- A prova de trabalho do Bitcoin que se vale do fato de poder forjar poder computacional para impedir o ataque de Sybil. O consenso, no Bitcoin, se vale do fato de ser improvável que dois nós calculem um nonce válido para o bloco ao mesmo tempo. A afirmação de que o Bitcoin resiste ao ataque de Sybil devido ao consenso é imprecisa.
+- A proposta é voltada para um protocolo de consenso baseado em autoria. Contudo, os autores não apresentam qualquer prova das propriedades dos protocolos de consenso. Como é possível provar as propriedades de validade, acordo e terminação do protocolo proposto?
+- Os autores mostram um exemplo, porém não provam que a ordem parcial de mensagens pode ser expandida em uma ordem global. O exemplo mostrado é trivial (Figura 1), pois não há qualquer conflito entre os “branches”. Como é possível definir uma ordem global se houver prefixos que participem de ordens parciais destoantes entre dois “branches” distintos?
+- Não há qualquer referência ao protocolo ser ou não ser tolerante a partições na rede. Qual é o comportamento esperado do protocolo no caso de haver partições da rede?
+- A ideia da criação de fóruns de interesses é muito semelhante ao consenso em canais. Por que não usar outros protocolos de consenso já usados em cadeias de blocos com suporte a canais?
+- Não há a indicação no texto como o protocolo de consenso proposto procede com a troca de mensagens entre os pares. O protocolo envia as mensagens em broadcast? As mensagens são assinadas?
+- Não há qualquer discussão de sobre a presença de nós maliciosos. Qual é o comportamento da proposta na presença de ataques Bizantinos?
+- Da forma como está descrita no artigo, a proposta aparenta estar sujeita a ataques de conluio. Por se tratar de uma proposta voltada à moderação de mensagens em fóruns, o conluio pode se dar através da criação de câmaras de eco. Caso um pequeno grupo de participantes ingresse no fórum, há a tendência de que esse participantes se retroalimentem, dobrando o número de “reps” disponíveis no grupo a cada dia. Como o protocolo combate a criação de câmaras de eco/conluio entre participantes?
+
+*** Detailed comments for the authors Please, make sure to provide a solid and constructive review for the authors to improve their paper. Include detailed comments and inform of any missing related work. (minimum of 100 characters)
+
+  Evaluation = As principais sugestões para os autores são:
+1)      Rever os conceitos de ataques de Sybil e como eles se relacionam com os protocolos de consenso;
+2)      Provar as propriedades de validade, acordo e terminação do protocolo proposto;
+3)      Descrever o comportamento do protocolo na presença de partições na rede e de ataques de conluio;
+4)      Discutir o comportamento da proposta na presença de participantes malicioso;
+5)      Comparar a proposta com protocolos de consensos já estabelecidos baseados em reputação e adotados em cadeias de blocos com canais de pagamento;
+6)      Explicar as escolhas de valores para 30 reps no início de um novo fórum e a razão de 3 dislikes para descontar 1 rep e 1 like para retornar o rep;
+7)      Apresentar resultados da evolução do número de reps disponíveis na rede ao passar do tempo.
+
+
+Review 3
+
+*** Familiarity
+   1: Novice
+   2: Some knowledge
+   3: Familiar
+   4: Expert
+
+  Evaluation = 3: Familiar
+
+*** Relevance
+   1: Out of Scope
+   2: Somewhat Relevant
+   3: Highly Relevant
+
+  Evaluation = 3: Highly Relevant
+
+*** Technical Content and Originality
+   1: Poor
+   2: Fair
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Organization and Presentation
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Reference to Related Work
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 4: Good
+
+*** Overall Recommendation
+   1: Strong Reject
+   2: Weak Reject
+   3: Weak Accept
+   4: Strong Accept
+
+  Evaluation = 2: Weak Reject
+
+*** Industrial Track? This question is for the reviewers to be aware of whether this paper was submitted to the industrial track and requires a different review approach.
+   1: Yes
+   2: No
+
+  Evaluation = 2: No
+
+*** What are the major strengths of this paper? (minimum of 100 characters)
+
+  Evaluation = Os impactos da solução proposta no desempenho e armazenamento foram analisados e, a princípio, parecem aceitáveis.
+
+*** What are the major shortcomings of this paper? (minimum of 100 characters)
+
+  Evaluation = O protocolo precisa ser melhor explicado, principalmente os aspectos relacionados com as assinaturas utilizadas (ver abaixo)
+
+*** Detailed comments for the authors Please, make sure to provide a solid and constructive review for the authors to improve their paper. Include detailed comments and inform of any missing related work. (minimum of 100 characters)
+
+  Evaluation = O artigo apresenta boas ideias, mas alguns pontos merecem destaque.
+
+Primeiro, é dito que o consenso é uma peça chave para suportar ataques Sybil ( &quot;Consensus is key to eradicate Sybil attacks&quot;). No entanto, estes ataques são facilmente contornados através do uso de criptografia (assinaturas), como usado na solução e descrito na Seção 3 (&quot;Authors have to sign posts in order to be accounted by the reputation system and operate in the chains.&quot;). Parece, no entanto, que consenso é necessário para controlar os gastos de &quot;rep&quot;. Estes pontos precisam ser melhor descritos e explicados.
+
+Outro ponto importante é que a utilização de assinaturas não são usuais ou até mesmo possíveis em uma rede não permissionada. Como isso foi possível na solução apresentada? como as chaves são gerenciadas? existe uma autoridade certificadora? seria este autoridade um ponto centralizador?
+
+Finalmente, de uma forma geral, as seções 2 e 3 estão bastante misturadas. Sugiro separar a parte do protocolo, regras, etc (Seção 2) da parte da implementação no Frechains (Seção 3).
+
+
+Review 4
+
+*** Familiarity
+   1: Novice
+   2: Some knowledge
+   3: Familiar
+   4: Expert
+
+  Evaluation = 3: Familiar
+
+*** Relevance
+   1: Out of Scope
+   2: Somewhat Relevant
+   3: Highly Relevant
+
+  Evaluation = 3: Highly Relevant
+
+*** Technical Content and Originality
+   1: Poor
+   2: Fair
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Organization and Presentation
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 3: Average
+
+*** Reference to Related Work
+   1: Unacceptable
+   2: Poor
+   3: Average
+   4: Good
+   5: Excellent
+
+  Evaluation = 4: Good
+
+*** Overall Recommendation
+   1: Strong Reject
+   2: Weak Reject
+   3: Weak Accept
+   4: Strong Accept
+
+  Evaluation = 2: Weak Reject
+
+*** Industrial Track? This question is for the reviewers to be aware of whether this paper was submitted to the industrial track and requires a different review approach.
+   1: Yes
+   2: No
+
+  Evaluation = 2: No
+
+*** What are the major strengths of this paper? (minimum of 100 characters)
+
+  Evaluation = * Soluçõo interessante que aplica conceitos já bem estabelecidos em um cenário novo (até onde posso avaliar)
+
+* Avaliação com dados reais
+
+*** What are the major shortcomings of this paper? (minimum of 100 characters)
+
+  Evaluation = - Avaliação preliminar e com alguns resultados que não impressionam
+
+- Ideia interessante mas sem validação suficiente
+
+*** Detailed comments for the authors Please, make sure to provide a solid and constructive review for the authors to improve their paper. Include detailed comments and inform of any missing related work. (minimum of 100 characters)
+
+  Evaluation = O artigo apresenta a proposta de um mecanismo de reputação que viabiliza a moderação de conteúdo em sistemas de compartilhamento de conteúdo decentralizados (peer-to-peer)  baseados em protocolo publish-subscribe. A ideia é interessante e é baseada em um paralelo direto com conceitos do bitcoin. 
+
+A apresentação  do artigo poderia ser melhorada tornando a leitura bem mais fácil se o contexto específico em foco fosse explicitado logo de início  (sistemas de compartilhamento decentralizado)  com um exemplo concreto do funcionamento da proposta. A ideia fica mais clara apenas na Seção 3, quando os autores apresentam a implementação da proposta no protocolo Freechains. Recomendo apresentar um exemplo logo no início, seguido da proposta e dos detalhes de implementação.
+
+O ponto mais forte do artigo são as ideias, até certo ponto inovadoras.
+
+O ponto mais fraco é a validação muito preliminar da proposta.  Embora baseada em dados reais de dois fóruns públicos com características diferentes, a avaliação aborda cenários específicos (parâmetros fixos), não claramente justificados. De fato, os resultados apresentados são muito pontuais.  Ainda assim, alguns deles não impressionam muito. Por exemplo, o overhead computado para os cenários analisados é bem alto,  No geral, a avaliação não é convincente.
+
+Em conclusão, este é um trabalho interessante mas com validação  muito preliminar. Do ponto de vista científico, a contribuição é limitada.

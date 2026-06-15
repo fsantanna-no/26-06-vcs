@@ -1,0 +1,146 @@
+RE: TPDS-2021-04-0271.R1, "Peer-to-Peer Permissionless Consensus via Authoring Reputation"
+Manuscript Type: Regular
+
+11-Dec-2022
+
+Dear Dr. Sant'Anna,
+
+We have completed the review process of the above referenced paper that was submitted to the IEEE Transactions on Parallel and Distributed Systems.  Enclosed are your reviews. We hope that you will find the editor's and reviewers’ comments and suggestions helpful.
+
+I regret to inform you that based on the reviewer feedback and the Associate Editor's feedback, EIC, Manish Parashar could not recommend publishing your paper. Final decisions on acceptance are based on the referees' reviews and such factors as restriction of space, topic, and the overall balance of articles.
+
+We hope that this decision does not deter you from submitting your new contributions to us in the future. Please note, however, that TPDS policy is that a rejected paper (or modified versions thereof) may not be resubmitted for review.  Thank you for your interest in the IEEE Transactions on Parallel and Distributed Systems.
+
+Sincerely,
+
+Manish Parashar, EIC
+Transactions on Parallel and Distributed Systems
+parashar@ieee.org
+
+***********
+Editor Comments
+
+Associate Editor
+Comments to the Author:
+(There are no comments. Please check to see if comments were included as a file attachment with this e-mail or as an attachment in your Author Center.)
+
+***********************
+
+Reviewers' Comments
+
+Please note that some reviewers may have included additional comments in a separate file. If a review contains the note "see the attached file" under Section III A - Public Comments, you will need to log on to ScholarOne Manuscripts  to view the file. After logging in, select the Author Center, click on the "Manuscripts with Decisions" queue and then clicking on the "view decision letter" link for this manuscript. You must scroll down to the very bottom of the letter to see the file(s), if any.  This will open the file that the reviewer(s) or the Associate Editor included for you along with their review.
+
+Reviewer: 3
+
+Recommendation: Accept With No Changes
+
+Comments:
+The author answer all my comments.
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: The paper proposes a a permissionless consensus and
+reputation mechanism for content sharing in peer-to-peer
+networks. The studied problem is interesting and the proposed solution is well explained and the results are satisfactory.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Yes
+
+1. Which category describes this manuscript?: Research/Technology
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: Yes
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: References are sufficient and appropriate
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Yes
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Satisfactory
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): No, it should not be included at all
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Good
+
+
+Reviewer: 4
+
+Recommendation: Reject
+
+Comments:
+This paper proposes a permission-less consensus mechanism for a decentralized content authoring system. The unique angle brought by this paper is the use of content production or human effort as a scarce resource in designing a bitcoin like consensus mechanism. However, the proposed mechanism's byzantine fault tolerance capabilities are not theoretically proved.
+
+Furthermore, there are practical limitations of using content production as a scarce resource in the protocol. At the core of the consensus model proposed in this paper is the assumption that producing content requires non-trivial amount of human effort, hence, it is a scarce resource. However, a number of practical factors make this assumption weaker, hence, weaking the sybil resiliency of the protocol. First, the proliferation of generative neural models for text and image is lowering the barrier for producing seemingly legitimate content, hence, lowering the barrier for bots (or human operated "like farms") to obtain "reputation" (the currency in the proposed platform). Second, the observed power-law nature of content producer/consumer in various online platforms suggest it will be possible for a small fraction of users to obtain a large portion of total reputation (the currency proposed in this paper) available in the system. A direct consequence of a skewed distribution of reputation is the ease of recruiting sybils for small part of the population. From the paper, it is unclear if the system will still remain sybil attack resilient at the presence of skewed distribution of reputation. If a skewed distribution of reputation makes it possible to easily launch sybil attacks then that will incentivize possible attackers.
+
+Given that the proposed consensus mechanism is not mathematically proved to be byzantine fault tolerant and can possibly breakdown or incentive sybil attack under practical scenarios, significant work may be required to improve the paper. Hence, the decision to reject.
+
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: This paper proposes a permission-less consensus mechanism for a decentralized content authoring system. Both permission-less consensus mechanisms and decentralized content authoring/sharing systems are not new in both research and practice. The unique angle brought by this paper is the use of content production or human effort as a scarce resource in designing a bitcoin like consensus mechanism. However, the proposed mechanism's byzantine fault tolerance capabilities are not theoretically proved. Furthermore, there are practical limitations of using content production as a scarce resource in the protocol.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Yes
+
+1. Which category describes this manuscript?: Research/Technology
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: Yes
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: References are sufficient and appropriate
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Yes
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Satisfactory
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): Does not apply, no supplementary files included
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Fair
+
+
+Reviewer: 5
+
+Recommendation: Author Should Prepare A Major Revision For A Second Review
+
+Comments:
+This paper proposes a reputation-based sybil attack defense mechanism for P2P content-sharing platforms. It adopts blockchain's longest-chain idea to order user posts and defines a reputation scheme to mitigate malicious users.  
+
+The paper is good overall but I have the following concerns that should be addressed, if possible:
+1- There are many similar work in the literature that propose to use of blockchain for online social networks with reputation systems such as SteemIt, Sapien, and LIT. This paper should clearly identify the unique differences. Also, please extend related work to cite more related work in this area.
+2-  Scalability: I don't see any analysis in terms of scalability. Is the proposed system scalable to 100s of users? Also, it seems like it's possible for all reps in the system will be spent via dislike. Are there any mechanisms in the proposed solution to overcome such situations?
+
+Additional Questions:
+1.  Please explain how this manuscript advances this field of research and/or contributes something new to the literature.: This paper proposes a reputation scheme to prevent Sybil attacks on p2p social sites.
+
+2. Is the manuscript technically sound? Please explain your answer under Public Comments below.: Yes
+
+1. Which category describes this manuscript?: Research/Technology
+
+2. How relevant is this manuscript to the readers of this periodical? Please explain your rating under Public Comments below.: Interesting - but not very relevant
+
+1. Are the title, abstract, and keywords appropriate? Please explain under Public Comments below.: Yes
+
+2. Does the manuscript contain sufficient and appropriate references? Please explain under Public Comments below.: Important references are missing; more references are needed
+
+3. Does the introduction state the objectives of the manuscript in terms that encourage the reader to read on? Please explain your answer under Public Comments below.: Could be improved
+
+4. How would you rate the organization of the manuscript? Is it focused? Is the length appropriate for the topic? Please explain under Public Comments below.: Satisfactory
+
+5. Please rate the readability of the manuscript. Explain your rating under Public Comments below.: Readable - but requires some effort to understand
+
+6. Should the supplemental material be included? (Click on the Supplementary Files icon to view files): Does not apply, no supplementary files included
+
+7. If yes to 6, should it be accepted:
+
+8. Would you recommend adding the code/data associated with this paper to help address your concerns and/or strengthen the paper?: No
+
+Please rate the manuscript. Please explain your choice.: Good

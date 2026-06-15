@@ -1,0 +1,102 @@
+Dear Francisco Sant&#39;Anna,
+
+There is your rebuttal message of #457 "Peer-to-Peer Permissionless Consensus via Authoring Reputation" for SBRC 2023.
+
+Rebuttal: "# REVIEWER 1:
+
+&gt; Os autores afirmam que o consenso é crucial para impedir ataques Sybil.
+&gt; ...mas tais protocolos normalmente provêm mecanismos para impedir a geração de identidades falsas.
+
+Entendemos que tanto o Bitcoin quanto o Freechains são não permissionados, e que não existe uma autoridade verificadora de identidades.
+Dessa forma, cada par verifica se uma dada identidade tem permissão para escrever no final da cadeia.
+Por sua vez, o final da cadeia é determinado pelo consenso entre os pares.
+Por isso o consenso se torna necessário para evitar ataques Sybil (escritas por identidades sem reputação/sem tokens/sem prova de trabalho).
+De fato, essa discussão pode ser mais bem apresentada no trabalho.
+
+&gt; A proposta é voltada para um protocolo de consenso baseado em autoria.
+&gt; Como é possível provar as propriedades de validade, acordo e terminação do protocolo proposto?
+
+Assim como no Bitcoin, os pares trocam blocos entre si de modo que possuam os mesmos dados replicados.
+O consenso sobre esses dados é um cálculo determinístico das reputações a partir do bloco gêneses, que é previamente conhecido por todos.
+Dessa forma, assumindo um conjunto idêntico de dados, um ponto inicial em comum, e um algoritmo determinístico, o consenso será atingido.
+
+&gt; O exemplo mostrado é trivial (Figura 1), pois não há qualquer conflito entre os “branches”.
+&gt; Como é possível definir uma ordem global se houver prefixos que participem de ordens parciais destoantes entre dois “branches” distintos?
+
+O texto que acompanha a Figura 1 apresenta duas possibilidades de conflitos entre os branches:
+
+1. User &quot;c&quot; here might represent a malicious user trying to cultivate fake identities &quot;x&quot; and &quot;y&quot; in separate of the network during weeks to accumulate reps.
+2. As a counterpoint..., maybe users a and b have abandoned the forum for months, and thus branch-1 is actually legit...
+
+A ordem total entre os branches é determinada pelo seu prefixo comum, que é necessariamente conhecido pelos nós (por ser um prefixo).
+Portanto, a decisão sobre qual branch aparece primeiro é consensual, havendo ou não conflitos entre eles.
+Entendemos que essa discussão poderia ficar mais próxima do exemplo.
+
+&gt; Não há qualquer referência ao protocolo ser ou não ser tolerante a partições na rede.
+&gt; Qual é o comportamento esperado do protocolo no caso de haver partições da rede?
+
+O fork da Figura 1 também discute uma 3a possibilidade em que &quot;both branches are legit but became disconnected for a long period of time&quot;, caracterizando uma partição na rede.
+Diferentemente do Bitcoin, a nossa proposta de consenso atua em cima de um DAG, permitindo assim partições de até 7 dias, conforme discutido após a Figura 1.
+De qualquer forma, essa discussão poderia ser mais explícita no texto.
+
+&gt; A ideia da criação de fóruns de interesses é muito semelhante ao consenso em canais.
+&gt; Por que não usar outros protocolos de consenso já usados em cadeias de blocos com suporte a canais?
+
+O nosso principal requisito é o de funcionar em redes não permissionadas, sem qualquer conhecimento prévio sobre os participantes da rede.
+Isso nos fez partir do mecanismo de consenso do Bitcoin.
+
+&gt; Não há a indicação no texto como o protocolo de consenso proposto procede com a troca de mensagens entre os pares.
+&gt; O protocolo envia as mensagens em broadcast? As mensagens são assinadas?
+
+Por falta de espaço, nós removemos a descrição dos mecanismos externos ao consenso.
+A comunicação é feita por gossip par a par de maneira explícita, ou seja, o protocolo oferece operações de send e recv entre pares.
+Os pares da rede sincronizam um Merkle-DAG único para cada cadeia, em que cada nó do grafo é assinado pelo autor e verificado por outros.
+Os nós do grafo que falharem permanecem no estado BLOCKED da Figura 3 e não são repassados a outros pares.
+
+&gt; Não há qualquer discussão sobre a presença de nós maliciosos.
+&gt; Qual é o comportamento da proposta na presença de ataques Bizantinos?
+
+Considerando que os pares da rede compartilham um Merkle-DAG verificável e inviolável, a existência de pares com falhas bizantinas (mesmo que por razões maliciosas) não inviabiliza o protocolo: a comunicação par-a-par continua sendo possível, e o consenso não é violado.
+
+&gt; Caso um pequeno grupo de participantes ingresse no fórum, há a tendência de que esse participantes se retroalimentem, dobrando o número de “reps” disponíveis no grupo a cada dia.
+&gt; Como o protocolo combate a criação de câmaras de eco/conluio entre participantes?
+
+De fato, mesmo que uma pequena fração de participantes entrem em conluio e atinjam 50% da reputação, eles assumirão o controle do fórum (de maneira análoga ao Bitcoin).
+No entanto, o controle fica restrito a esse fórum e os usuários afetados podem realizar um hard fork em um bloco anterior.
+Diferentemente do Bitcoin, os blocos entre os forks podem ser recriados sem prejuízos, uma vez que não estão associados a recursos externos (e.g., compra de bens com tokens).
+
+Em suma, o Revisor #1 levantou diversos questionamentos válidos e apontou para discussões que não receberam o devido destaque no trabalho.
+Acreditamos que seja possível modificar a estrutura da Seção 2 para uma discussão mais explícita sobre os pontos a seguir:
+
+- Conflitos entre galhos (extrair da Figura 1)
+- Partições na rede (extrair da Figura 1)
+- Falhas bizantinas (discussão acima sobre Merkle-DAGs e consenso)
+- Conluio entre participantes (discussão acima sobre controle de 50% da reputação)
+
+# REVIEWER 2
+
+&gt; O protocolo precisa ser melhor explicado, principalmente os aspectos relacionados com as assinaturas utilizadas (ver abaixo)
+&gt; ... ataques Sybil ... são facilmente contornados através do uso de criptografia (assinaturas)...
+&gt; ...como as chaves são gerenciadas? existe uma autoridade certificadora?
+
+Assim como no Bitcoin, assinaturas digitais são parte da solução aos Sybils, mas não evitam o gasto duplo de reps.
+O consenso é necessário para esse controle, justamente por não haver uma autoridade central certificadora.
+Os próprios autores se certificam através da transferência de reputação.
+Acreditamos que seja possível concentrar essas informações de maneira mais direta para atender às demandas do Revisor #2.
+
+# REVIEWER 3
+
+&gt; Avaliação preliminar e com alguns resultados que não impressionam
+&gt; Por exemplo, o overhead computado para os cenários analisados é bem alto,
+&gt; No geral, a avaliação não é convincente.
+&gt; Do ponto de vista científico, a contribuição é limitada.
+
+A nossa contribuição científica é a de oferecer um sistema não permissionado para compartilhamento de conteúdo.
+Conforme discutido nos trabalhos relacionados, as soluções descentralizadas existentes não resistem a Sybils em cenários não permissionados.
+Considerando o cenário atual das redes sociais, acreditamos que a Internet está carente de soluções não permissionadas para fóruns públicos.
+O nosso ponto principal com os experimentos era mostrar a viabilidade de fóruns públicos não permissionados com características diferentes, apesar do overhead."
+When: February 21, 2023 at 23:41:04 UTC
+
+Link to submission: https://jems3.sbc.org.br/submissions/457
+
+
