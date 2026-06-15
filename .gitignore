@@ -1,5 +1,6 @@
 old/
 main.pdf
+.*.swp
 *.aux
 *.log
 *.bbl
