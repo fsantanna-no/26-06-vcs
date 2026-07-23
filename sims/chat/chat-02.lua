@@ -2,8 +2,12 @@
 
 -- Port of tpd-21/chat/chat-02.lua to freechains.vcs (single root).
 
-os.execute("rm -rf /tmp/fc-chat-02 /tmp/fc-keys")
-os.execute("mkdir -p /tmp/fc-keys")
+local BASE = '../.freechains'
+local ROOT = BASE .. '/root'
+local KEYS = BASE .. '/keys'
+
+os.execute("rm -rf " .. BASE)
+os.execute("mkdir -p " .. KEYS)
 
 local USERS = {}
 
@@ -16,10 +20,10 @@ end
 
 function keys (user)
     if not USERS[user] then
-        os.execute("ssh-keygen -t ed25519 -N '' -C '' -f /tmp/fc-keys/" .. user .. " -q")
+        os.execute("ssh-keygen -t ed25519 -N '' -C '' -f " .. KEYS .. "/" .. user .. " -q")
         USERS[user] = {
             user  = user,
-            pub   = exec("cat /tmp/fc-keys/" .. user .. ".pub"),
+            pub   = exec("cat " .. KEYS .. "/" .. user .. ".pub"),
             n     = 0,
             likes = 0,
         }
@@ -29,7 +33,7 @@ end
 
 -- the pioneer creates the chain and thus holds the initial reps
 keys('Ashlee')
-print(exec("freechains --root=/tmp/fc-chat-02 --now=0 chains add '#chat' init inline --sign=/tmp/fc-keys/Ashlee"))
+print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init inline --sign=" .. KEYS .. "/Ashlee"))
 
 local N = 0
 for l in io.lines('wikimedia.chat') do
@@ -41,15 +45,15 @@ for l in io.lines('wikimedia.chat') do
         t.n = t.n + 1
 
         -- query reps at the same virtual time as the post
-        local reps = tonumber(exec("freechains --root=/tmp/fc-chat-02 --now=" .. ts .. " chain '#chat' reps author \"" .. t.pub .. "\""))
+        local reps = tonumber(exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' reps author \"" .. t.pub .. "\""))
         local beg  = (reps <= 0) and ' --beg' or ''
 
-        local hash = exec("freechains --root=/tmp/fc-chat-02 --now=" .. ts .. " chain '#chat' post inline '" .. msg .. "'" .. beg .. " --sign=/tmp/fc-keys/" .. user)
+        local hash = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' post inline '" .. msg .. "'" .. beg .. " --sign=" .. KEYS .. "/" .. user)
         assert(string.match(hash, '^%x+$'), user .. ' : ' .. hash)
 
         -- welcoming like from the pioneer unblocks a begging post
         if beg ~= '' then
-            local v = exec("freechains --root=/tmp/fc-chat-02 --now=" .. ts .. " chain '#chat' like 1 post " .. hash .. " --sign=/tmp/fc-keys/Ashlee")
+            local v = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' like 1 post " .. hash .. " --sign=" .. KEYS .. "/Ashlee")
             assert(string.match(v, '^%x+$'), user .. ' : like : ' .. v)
             t.likes = t.likes + 1
         end
