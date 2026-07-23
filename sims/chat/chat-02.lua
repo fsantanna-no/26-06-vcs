@@ -51,7 +51,8 @@ for l in io.lines('wikimedia.chat') do
         local reps = tonumber(exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' reps author \"" .. t.pub .. "\""))
         local beg  = (reps <= 0) and ' --beg' or ''
 
-        local hash = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' post inline '" .. msg .. "'" .. beg .. " --sign=" .. KEYS .. "/" .. user)
+        -- '--' ends option parsing so a message starting with '-' is text
+        local hash = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' post --sign=" .. KEYS .. "/" .. user .. beg .. " inline -- '" .. msg .. "'")
         assert(string.match(hash, '^%x+$'), user .. ' : ' .. hash)
 
         -- welcoming like from the pioneer unblocks a begging post
