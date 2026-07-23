@@ -72,7 +72,7 @@ for l in io.lines('wikimedia.chat') do
         print(N, ts, user, reps, hash)
     end
     N = N + 1
-    if N == 30 then
+    if N == 10000 then
         break
     end
 end
