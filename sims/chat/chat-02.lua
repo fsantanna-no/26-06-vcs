@@ -27,6 +27,8 @@ function keys (user)
             pub   = exec("cat " .. KEYS .. "/" .. user .. ".pub"),
             n     = 0,
             likes = 0,
+            new   = 0,
+            extra = 0,
         }
     end
     return USERS[user]
@@ -56,6 +58,13 @@ for l in io.lines('wikimedia.chat') do
         if beg ~= '' then
             local v = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' like 1 post " .. hash .. " --sign=" .. KEYS .. "/Ashlee")
             assert(string.match(v, '^%x+$'), user .. ' : like : ' .. v)
+
+            -- (c) first like bootstraps a new user; (d) later ones are extra
+            if t.likes == 0 then
+                t.new = 1
+            else
+                t.extra = t.extra + 1
+            end
             t.likes = t.likes + 1
         end
 
@@ -68,7 +77,7 @@ for l in io.lines('wikimedia.chat') do
 end
 
 local T = {}
-local ns, nlikes = 0, 0
+local ns, nlikes, nnew, nextra = 0, 0, 0, 0
 for _,t in pairs(USERS) do
     T[#T+1] = t
 end
@@ -76,6 +85,12 @@ table.sort(T, function (t1,t2) return t1.likes > t2.likes end)
 for _,t in ipairs(T) do
     ns     = ns + t.n
     nlikes = nlikes + t.likes
+    nnew   = nnew + t.new
+    nextra = nextra + t.extra
     print(string.format("%12s", string.sub(t.user,1,12)), t.likes, t.n)
 end
-print(#T, 'users', '|', (nlikes-#T)/(ns-#T), 'pct', '|', 'n/lk', ns, nlikes)
+
+-- (c) new-user unblocks, (d) extra likes to unblock existing users
+print(#T, 'users', '|', 'likes', nlikes, '|', 'msgs', ns)
+print('(c) new  ', nnew, nnew/ns, 'pct')
+print('(d) extra', nextra, nextra/ns, 'pct')
