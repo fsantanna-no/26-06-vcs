@@ -2,7 +2,15 @@
 
 -- Port of tpd-21/chat/chat-02.lua to freechains.vcs (single root).
 
-local BASE = '../.freechains'
+function exec (cmd)
+    local f = io.popen(cmd .. " 2>&1")
+    local v = f:read('*a')
+    f:close()
+    return (string.gsub(v, "%s+$", ""))
+end
+
+-- absolute paths: git '-C <repo>' chdirs first, so a relative --sign breaks
+local BASE = exec("realpath -m ../.freechains")
 local ROOT = BASE .. '/root'
 local KEYS = BASE .. '/keys'
 
@@ -10,13 +18,6 @@ os.execute("rm -rf " .. BASE)
 os.execute("mkdir -p " .. KEYS)
 
 local USERS = {}
-
-function exec (cmd)
-    local f = io.popen(cmd .. " 2>&1")
-    local v = f:read('*a')
-    f:close()
-    return (string.gsub(v, "%s+$", ""))
-end
 
 function keys (user)
     if not USERS[user] then
