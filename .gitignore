@@ -7,3 +7,5 @@ main.pdf
 *.blg
 *.out
 *.toc
+#sims/chat/*.chat
+#sims/usenet/*.mbox
