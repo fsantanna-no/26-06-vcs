@@ -1,6 +1,8 @@
 #!/usr/bin/env lua5.4
 
 -- Port of tpd-21/chat/chat-02.lua to freechains.vcs (single root).
+-- SINGLE INSTANCE: the shared root is wiped on start, so two
+-- concurrent runs corrupt each other.
 
 function exec (cmd)
     local f = io.popen(cmd .. " 2>&1")
@@ -14,6 +16,18 @@ local BASE = exec("realpath -m ../.freechains")
 local ROOT = BASE .. '/root'
 local KEYS = BASE .. '/keys'
 
+-- chain disk: state now lives in git blobs (refs/states/*), so
+-- measure the whole .git and split packed vs loose. count-objects -v
+-- reports size / size-pack in KiB.
+function disk ()
+    local git   = ROOT .. "/chains/*/.git"
+    local total = tonumber(exec("du -sb " .. git .. " 2>/dev/null | cut -f1")) or 0
+    local co    = exec("cd " .. ROOT .. "/chains/*/ 2>/dev/null && git count-objects -v")
+    local loose = (tonumber(co:match("size: (%d+)"))      or 0) * 1024
+    local pack  = (tonumber(co:match("size%-pack: (%d+)")) or 0) * 1024
+    return total, pack, loose
+end
+
 os.execute("rm -rf " .. BASE)
 os.execute("mkdir -p " .. KEYS)
 
@@ -23,12 +37,13 @@ function keys (user)
     if not USERS[user] then
         os.execute("ssh-keygen -t ed25519 -N '' -C '' -f " .. KEYS .. "/" .. user .. " -q")
         USERS[user] = {
-            user  = user,
-            pub   = exec("cat " .. KEYS .. "/" .. user .. ".pub"),
-            n     = 0,
-            likes = 0,
-            new   = 0,
-            extra = 0,
+            user    = user,
+            pub     = exec("cat " .. KEYS .. "/" .. user .. ".pub"),
+            n       = 0,
+            likes   = 0,
+            new     = 0,
+            extra   = 0,
+            blocked = 0,
         }
     end
     return USERS[user]
@@ -48,28 +63,42 @@ for l in io.lines('wikimedia.chat') do
         t.n = t.n + 1
 
         -- query reps at the same virtual time as the post
+        -- raw units: a signed post needs `cost` (500); below that,
+        -- `--beg` is the only path (and is refused at >= 500)
         local reps = tonumber(exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' reps author \"" .. t.pub .. "\""))
-        local beg  = (reps <= 0) and ' --beg' or ''
+        local beg  = (reps < 500) and ' --beg' or ''
 
         -- '--' ends option parsing so a message starting with '-' is text
         local hash = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' post --sign=" .. KEYS .. "/" .. user .. beg .. " inline -- '" .. msg .. "'")
         assert(string.match(hash, '^%x+$'), user .. ' : ' .. hash)
 
         -- welcoming like from the pioneer unblocks a begging post
+        -- (a beg like must carry at least `cost`: 1000 admits the
+        -- post and leaves its author 450, the old `like 1`)
         if beg ~= '' then
-            local v = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' like 1 post " .. hash .. " --sign=" .. KEYS .. "/Ashlee")
-            assert(string.match(v, '^%x+$'), user .. ' : like : ' .. v)
-
-            -- (c) first like bootstraps a new user; (d) later ones are extra
-            if t.likes == 0 then
-                t.new = 1
+            local v = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' like 1000 action " .. hash .. " --sign=" .. KEYS .. "/Ashlee")
+            if string.match(v, '^%x+$') then
+                -- (c) first like bootstraps a new user; (d) later ones are extra
+                if t.likes == 0 then
+                    t.new = 1
+                else
+                    t.extra = t.extra + 1
+                end
+                t.likes = t.likes + 1
             else
-                t.extra = t.extra + 1
+                -- the pioneer's budget is finite: an unaffordable
+                -- welcome leaves the beg parked (message undelivered)
+                assert(string.find(v, 'insufficient reputation', 1, true), user .. ' : like : ' .. v)
+                t.blocked = t.blocked + 1
             end
-            t.likes = t.likes + 1
         end
 
         print(N, ts, user, reps, hash)
+        if N % 500 == 0 then
+            local g, pack, loose = disk()
+            print(string.format("== N=%d  git=%.1f MB  (pack %.1f, loose %.1f)",
+                N, g/1e6, pack/1e6, loose/1e6))
+        end
     end
     N = N + 1
     if N == 10000 then
@@ -78,16 +107,17 @@ for l in io.lines('wikimedia.chat') do
 end
 
 local T = {}
-local ns, nlikes, nnew, nextra = 0, 0, 0, 0
+local ns, nlikes, nnew, nextra, nblocked = 0, 0, 0, 0, 0
 for _,t in pairs(USERS) do
     T[#T+1] = t
 end
 table.sort(T, function (t1,t2) return t1.likes > t2.likes end)
 for _,t in ipairs(T) do
-    ns     = ns + t.n
-    nlikes = nlikes + t.likes
-    nnew   = nnew + t.new
-    nextra = nextra + t.extra
+    ns       = ns + t.n
+    nlikes   = nlikes + t.likes
+    nnew     = nnew + t.new
+    nextra   = nextra + t.extra
+    nblocked = nblocked + t.blocked
     print(string.format("%12s", string.sub(t.user,1,12)), t.likes, t.n)
 end
 
@@ -95,3 +125,8 @@ end
 print(#T, 'users', '|', 'likes', nlikes, '|', 'msgs', ns)
 print('(c) new  ', nnew, nnew/ns, 'pct')
 print('(d) extra', nextra, nextra/ns, 'pct')
+print('blocked  ', nblocked, nblocked/ns, 'pct')
+
+local g, pack, loose = disk()
+print(string.format("DISK  git=%.1f MB  (pack %.1f, loose %.1f)",
+    g/1e6, pack/1e6, loose/1e6))
