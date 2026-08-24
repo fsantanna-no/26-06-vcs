@@ -69,10 +69,9 @@ increasingly more centralized in a few companies (e.g. Facebook and
 Twitter)~\cite{internet.fixing,p2p.osn,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
-On the one hand, these companies offer free storage, friendly user interfaces,
-and robust access.
-On the other hand, they concentrate excessive power, controlling and
-monetizing over private user data.
+These companies offer free storage, friendly user interfaces, and robust
+access, but concentrate excessive power, controlling and monetizing over
+private user data.
 %
 Peer-to-peer alternatives~\cite{p2p.survey} eliminate intermediaries, but
 strive to achieve consistency when dealing with malicious users.
@@ -88,9 +87,8 @@ availability and delivery order, while item (iii) requires users to trust the
 service policies.
 In decentralized systems, however, none of these demands are easily
 accomplished.
-A common approach in gossiping protocols is to proactively replicate and
-disseminate posts among peers until they reach all
-users~\cite{p2p.survey,p2p.byz}.
+A common approach in gossiping protocols is to proactively disseminate posts
+among peers until they reach all users~\cite{p2p.survey,p2p.byz}.
 However, gossiping does not guarantee consensus since posts can be received in
 conflicting orders~\cite{p2p.intention,p2p.dvcs}.
 %As an example, antagonistic messages such as \emph{"X is final"} vs
@@ -129,11 +127,10 @@ Our goal is to provide \emph{multi-user/multi-node consensus} (just
 \emph{consensus}, from now on) in the context of decentralized content sharing.
 
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
-Sybils through consensus.
-Its key insight is to rely on a scarce resource---the \emph{proof-of-work}---to
-establish consensus.
+Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
+consensus.
 %The protocol maintains a single dispendious timeline consisting of linked
-%blocks with transactions, which represent the consensus.
+%posts with transactions, which represent the consensus.
 %Alternative timelines need to spend more resources to substitute the consensus.
 The protocol is Sybil resistant because it is expensive to write to its
 unique timeline (either via proof-of-work or transaction fees).
@@ -203,7 +200,7 @@ remove payloads, only forwarding associated blockchain metadata.
 \end{enumerate}
 %
 We integrated the proposed consensus algorithm into \FC~\cite{fcs.sbseg20}, a
-peer-to-peer content dissemination protocol that provides strong eventual
+peer-to-peer (P2P) content dissemination protocol that provides strong eventual
 consistency~\cite{p2p.crdts,p2p.sec}.
 
 As an application example, we prototyped a permissionless decentralized version
@@ -229,7 +226,7 @@ As a main limitation, the forum causal graphs are ever growing data structures
 that carry considerable metadata overhead.
 The costs to store and validate posts increase over time, which is a limitation
 of blockchains in general.
-%In addition, they require per-block validations that may become a bottleneck
+%In addition, they require per-post validations that may become a bottleneck
 %for real-time applications.
 %
 Nevertheless, to show the feasibility of the protocol, we simulated months of
@@ -399,8 +396,8 @@ group chain (prefix~$\$$), and (iii) posts a message into the chain:
 \includegraphics[width=\textwidth]{family.png}
 \caption{
     Three DAG configurations.
-    (A) Single head pointing to genesis block.
-    (B) Fork with heads pointing to genesis block.
+    (A) Single head pointing to genesis post.
+    (B) Fork with heads pointing to genesis post.
     (C) Like pointing to previous heads and also to its target.
 }
 \label{fig.family}
@@ -412,12 +409,12 @@ A \code{join} only initializes the DAG locally in the file system, and a
 \code{post} also only modifies the local structure.
 No communication occurs at this point.
 Figure~\ref{fig.family}.A depicts the state of the chain after the first post.
-The genesis block with height $0$ and hash \code{42209B..}
+The genesis post with height $0$ and hash \code{42209B..}
 depends only on the arguments given to \code{join}.
-The next block with height $1$ and hash \code{EF5DE3..} contains the posted
+The next post with height $1$ and hash \code{EF5DE3..} contains the posted
 message.
-%As expected from a Merkle~DAG, the hash of a block depends on its payload and
-%hash of previous block.
+%As expected from a Merkle~DAG, the hash of a post depends on its payload and
+%hash of previous post.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
 which networked applications can work locally while offline.
@@ -431,7 +428,7 @@ with the same step (ii).
 In \FC, the operation to synchronize chain DAGs is explicit, in pairs, and
 unidirectional.
 For instance, the command \code{recv} asks the daemon in \emph{localhost} to
-connect to daemon in \emph{remote-ip} to receive all missing blocks from there:
+connect to daemon in \emph{remote-ip} to receive all missing posts from there:
 
 {\footnotesize
 \begin{verbatim}
@@ -454,8 +451,8 @@ In this sense, \FC is conceptually a \emph{pubsub} on how users publish and
 consume content, but it still requires extra network automation.
 
 In order to query the state of the replica, the next sequence of commands
-checks the hash(es) of the block(s) at the head of the local DAG (the latest
-blocks), and then reads the payload of the single head found:
+checks the hash(es) of the post(s) at the head of the local DAG (the latest
+posts), and then reads the payload of the single head found:
 
 %\newpage
 
@@ -481,12 +478,12 @@ Hence, continuing with the example in Figure~\ref{fig.family}, suppose that the
 new peer posted a message before the \code{recv} above, when its local DAG was
 still in its genesis state.
 In this case, as illustrated in Figure~\ref{fig.family}.B, the resulting graph
-after synchronizing would now contain two blocks with height $1$.
+after synchronizing would now contain two posts with height $1$.
 %
 Note that forks in the DAG create ambiguity in the order of messages, which is
 a fundamental obstacle to reach consensus.
 In private chains, we could apply simple methods, such as relying on the local
-source timestamps of the blocks.
+source timestamps of the posts.
 However, in public forums, a malicious user could modify his local time to
 manipulate the order of messages.
 
@@ -502,11 +499,11 @@ To conclude the basic operations of chains, users can rate posts with
 \end{verbatim}
 }
 
-As illustrated in Figure~\ref{fig.family}.C, a like is a regular block with an
+As illustrated in Figure~\ref{fig.family}.C, a like is a regular post with an
 extra link to its target.
-Every new block points to the previous heads, establishing a causal logical
+Every new post points to the previous heads, establishing a causal logical
 timeline in the chain.
-For instance, the JSON that follows represents the block \code{2\_DDA222..}
+For instance, the JSON that follows represents the post \code{2\_DDA222..}
 with the backs and extra like links:
 
 {\footnotesize
@@ -582,7 +579,7 @@ desktop systems.
 
 Without moderation, permissionless peer-to-peer public forums are
 impractical due to Sybils abusing the system.
-For instance, it should take a few seconds to generate thousands of fake
+For instance, it should take seconds to generate thousands of fake
 identities and SPAM millions of messages.
 %Hence, without moderation, there are no limits on the number and size of posts
 %and no reasonable policy to distinguish quality.
@@ -665,8 +662,11 @@ these messages should be accepted by the network.
 However, without consensus, it is not possible to globally determine which
 message to accept, since each peer would supposedly accept the first message it
 receives.
-Therefore, in order to validate operations consistently, we need the same
+On the one hand, in order to validate operations consistently, we need the same
 message ordering across all peers in the network.
+On the other hand, due to network partitions, we can only represent public
+forums as DAGs (directed acyclic graphs) with causal relationships between
+messages, which provides at most partial order.
 
 \begin{figure*}
 \centering
@@ -674,7 +674,7 @@ message ordering across all peers in the network.
 \caption{
     (A) A public forum DAG with a common prefix, two branches, and a common
         suffix.
-    (B) Total order between blocks of the DAG after consensus.
+    (B) Total order between posts of the DAG after consensus.
 }
 \label{fig.reps}
 \end{figure*}
@@ -720,7 +720,7 @@ identities $x$ and $y$ in separate of the network during weeks to accumulate
 %\code{branch-2} with more previous reputation take the priority and can
 %overthrow user $c$.
 
-Figure~\ref{fig.reps}.B indicates the resulting consensus order between blocks
+Figure~\ref{fig.reps}.B indicates the resulting consensus order between posts
 in the forum.
 All operations in \code{branch-2} appear before any operation in
 \code{branch-1}.
@@ -731,19 +731,20 @@ Whenever a fork is found, we create sets of users with posts in each branch
 Then, we take each set, and sum its users \reps based on the common prefix
 ($S1=3$ and $S2=13$), since it is the maximum information that all branches
 agree.
-Finally, we order the branches based on the highest sum of \reps found.
+Finally, we order the branches based on the highest sum of \reps found
+(Figure~\ref{fig.reps}.B).
 
 Note that the consensus order exists only for accountability purposes, and is
 a view of the primary DAG structure.
 At any point in the consensus timeline, if an operation fails, all remaining
-blocks in the offending branch are removed from the primary DAG.
+posts in the offending branch are removed from the primary DAG.
 As an example, suppose that the last post by $a$ (in gray) is a dislike to user
 $c$.
 Then, it's possible that the last post by $c$ (in red), now suppose with
 \nreps{0}, is rejected together with all posts in sequence, including those in
 the common suffix.
 %
-Note that in a Merkle~DAG, it is not possible to remove only the block with the
+Note that in a Merkle~DAG, it is not possible to remove only the post with the
 failing operation, instead, we need to remove the remaining branch completely,
 as if it never existed.
 %
@@ -752,7 +753,7 @@ prefix is the basis of consensus, users in the branch with more reputation can
 still react even a posteriori.
 For instance, users $a$ and $b$ can pretend that they did not yet see
 \code{branch-1} and post extra dislikes to user $c$ from \code{branch-2} so
-that a further merge removes all blocks of \code{branch-1} from the DAG.
+that a further merge removes all posts of \code{branch-1} from the DAG.
 %
 This kind of attack is thus innocuous because it requires at least half of the
 \reps accumulated in the common prefix.
@@ -760,10 +761,10 @@ This kind of attack is thus innocuous because it requires at least half of the
 There are some other relevant considerations about forks and merges:
 %
 Peers that first received branches with less reputation will need to reorder
-all blocks starting at the forking point.
+all posts starting at the forking point.
 This might involve removing content in the end-user software.
 This behavior is similar to Bitcoin's blockchain reorganization, when a peer
-detects a new longest chain. % and disconsiders old blocks.
+detects a new longest chain. % and disconsiders old posts.
 %
 Likewise, peers that first saw branches with more reputation just need to put
 the other branch in sequence with no reordering.
@@ -814,33 +815,34 @@ which reconciling branches is no longer possible.
 Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
 consensus}, which cannot be reordered, from \emph{unstable consensus}, which may
 still be affected by incoming branches.
-The activity threshold counts backwards, from the latest local block in the
+The activity threshold counts backwards, from the latest local post in the
 unstable consensus.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.49\textwidth]{n100-d7.png}
 \caption{
-    Stable consensus freezes the order of blocks once they cross the activity
+    Stable consensus freezes the order of posts once they cross the activity
     threshold.
     The remaining unstable order may still be affected by incoming branches.
 }
 \label{fig.hard}
 \end{figure}
 
-In summary, the rules to merge a branch from a remote machine \code{j} into a
-branch from a local machine \code{i} are as follows:
+In summary, the rules to merge a branch \code{j} from a remote machine into a
+branch \code{i} from a local machine are as follows:
 \begin{itemize}
-    \item \code{i} is ordered first if it crosses the activity threshold of
+    \item \code{i} is first if it crosses the activity threshold of
           \emph{7 days} or \emph{100 posts}, regardless of \code{j}.
-    \item \code{i} or \code{j} is ordered first, whichever has more reputation
-          in the common prefix.
-    \item otherwise, branches are ordered by an arbitrary criteria, such as
-          lexicographical order of the block hashes immediately after the
+    \item \code{i} or \code{j} is first, whichever has more reputation
+          in the common prefix (Section~\ref{sec.consensus.design}).
+    \item otherwise, branches use the arbitrary criteria of lexicographical
+          order of the post hashes immediately after the
           common prefix.
 \end{itemize}
 
-To conclude, we should keep in mind that our consensus algorithm is based on
+To conclude this section, we should keep in mind that our consensus algorithm
+is based on
 subjective evaluations of users and posts.
 For this reason, unlike Bitcoin, in which forks are discouraged and a single
 blockchain must prevail, public forums can split and diverge indiscriminately.
@@ -853,7 +855,7 @@ leads to hard forks.
 
 \begin{comment}
 A fundamental drawback of Merkle~DAGs is that all replicas in the system need
-to store the complete graph in order to synchronize and verify new blocks.
+to store the complete graph in order to synchronize and verify new posts.
 As a counter measure, tree pruning techniques allow to remove parts of the
 graph to save space~\cite{p2p.prune}.
 Also, the hard fork threshold in the consensus algorithm allows to prune the
@@ -893,7 +895,7 @@ the pioneer in a public chain (prefix~$\#$ in Table~\ref{fig.table}):
 
 The \code{join} command in rule~\code{1.a} bootstraps a public chain,
 assigning \nreps{30} equally distributed between an arbitrary number of
-pioneers indicated through their public keys.
+pioneers indicated through their public keys (one in this example).
 The pioneers shape the initial culture of the chain with the first posts and
 likes, while they gradually transfer \reps to other authors, which also
 transfer to other authors, expanding the community.
@@ -925,7 +927,7 @@ imposed by rule~\code{4.a}: if new authors start with no \reps, but require
 \reps to operate, it is necessary that some authors have initial \reps to boot
 the chains.
 
-In the next sequence of commands, a new user joins the same public chain and
+In the next sequence of commands, a new remote user joins the same public chain and
 posts a message, which is welcomed with a like signed by the pioneer:
 
 {\footnotesize
@@ -943,8 +945,9 @@ posts a message, which is welcomed with a like signed by the pioneer:
 \end{verbatim}
 }
 
-Note that chains with the same name but different pioneers are incompatible
-because the hash of genesis blocks also depend on the pioneers' public keys.
+Note that chains with the same name but different pioneers would be
+incompatible because the hash of genesis posts depends on the pioneers'
+public keys.
 
 Figure~\ref{fig.forum} illustrates the chain DAG up to the like operation.
 The pioneer starts with \nreps{30} (rule~\code{1.a}) and posts the initial
@@ -971,21 +974,21 @@ quickly.
 \label{fig.forum}
 \end{figure}
 
-Back to Figure~\ref{fig.forum}, a new user with \nreps{0} tried to post a
+Back to Figure~\ref{fig.forum}, a new user with \nreps{0} tries to post a
 message (hash~\code{C3A40F..}) and is blocked (rule~\code{4.a}), as the red
 background highlights.
-But the pioneer liked the blocked message, decreasing herself to \nreps{29}
+But the pioneer likes the blocked message, decreasing herself to \nreps{29}
 and increasing new user to \onerep (rule~\code{3.a}).
 Note that the newbie post is not penalized (rule~\code{2}) because it is
 followed by the pioneer like, which still controls all \reps in the chain.
 
 Note that with no additional rules to generate \reps, the initial \nreps{30}
 would constitute the whole ``chain economy'' forever.
-For this reason, rule~\code{1.b} awards authors of new posts with \onerep,
+For this reason, rule~\code{1.b} rewards authors of new posts with \onerep,
 but only after 24 hours.
 This rule stimulates content creation and grows the economy of chains.
 The 24-hour period gives sufficient time for other users to judge the post
-before awarding the author.
+before rewarding the author.
 It also regulates the growth speed of the chain.
 In Figure~\ref{fig.forum}, after 1 day, the pioneer would now accumulate
 \nreps{30} and the new user \nreps{2}, growing the economy in \nreps{2} as
@@ -1064,9 +1067,9 @@ again, since Merkle~DAGs are immutable by design.
 %\emph{like} (Figure~\ref{fig.forum}).
 %
 However, if the number of dislikes exceeds the threshold (rule~\code{3}), the
-block becomes \code{REVOKED} and its payload is not retransmitted to other
+post becomes \code{REVOKED} and its payload is not retransmitted to other
 peers.
-Note that a block hash does not depend on its associated payload, but only on
+Note that a post hash does not depend on its associated payload, but only on
 the payload hash.
 Hence, it is safe to remove the payload as long as one can prove its revoked
 state.
@@ -1089,13 +1092,13 @@ From the perspective of a peer on the receiving side, the overview of the
 consensus and synchronization algorithm is as follows:
 \begin{enumerate}
 \item \textbf{Consensus:}
-    Calculate the consensus order of blocks considering the local DAG.
+    Calculate the consensus order of posts considering the local DAG.
 \item \textbf{Synchronization:}
-    Receive the next missing block respecting topological order.
+    Receive the next missing post respecting topological order.
 \item \textbf{Verification:}
-    Verify that the block is valid and add it to the local DAG.
+    Verify that the post is valid and add it to the local DAG.
 \item \textbf{Repeat:}
-    Restart from step (a) until no blocks are missing.
+    Restart from step (a) until no posts are missing.
 \end{enumerate}
 
 Step (a) is discussed and motivated in extent in the previous sections.
@@ -1107,10 +1110,10 @@ Broadcast}~\cite{p2p.dag.sync}, which also synchronizes DAGs representing
 causal messages:
 % in the presence of malicious nodes:
     (i)   starting from the heads of the DAGs;
-    (ii)  traverse each head backwards until a common block is found;
-    (iii) now traverse forward all missing blocks, respecting topological order;
-    (iv)  each block represents an iteration of Step (b).
-What distinguishes our algorithm is that \code{BLOCKED} blocks are not
+    (ii)  traverse each head backwards until a common post is found;
+    (iii) now traverse forward all missing posts, respecting topological order;
+    (iv)  each post represents an iteration of Step (b).
+What distinguishes our algorithm is that \code{BLOCKED} posts are not
 synchronized, which mitigates denial of service attacks with very long
 malicious branches.
 We also limit the number of iterations on Step (b.ii) to ensure that the
@@ -1118,28 +1121,28 @@ algorithm terminates.
 If necessary, a remote peer that is disconnected for too long can try older
 heads to adapt to this constraint.
 
-Step (c) verifies if the next missing block found in Step (b) can be added to
+Step (c) verifies if the next missing post found in Step (b) can be added to
 the local DAG considering the consensus order found in Step (a).
 It verifies the following properties:
-    (i)   Merkle DAG structure is consistent (e.g., block hash and back pointers);
+    (i)   Merkle DAG structure is consistent (e.g., post hash and back pointers);
     (ii)  Back pointers are not in \emph{BLOCKED} state;
-    (iii) Author signing the block has enough reputation.
-In case of success, the block is added to the DAG and the next iteration of the
+    (iii) Author signing the post has enough reputation.
+In case of success, the post is added to the DAG and the next iteration of the
 consensus algorithm already considers it.
-Otherwise, the block is marked as \emph{BLOCKED}, and the remaining branch is
+Otherwise, the post is marked as \emph{BLOCKED}, and the remaining branch is
 ignored in Step (b.iii).
 
 The topological sorting for the Consensus Step (a) is an adaptation of Kahn's
 algorithm~\cite{kahn}:
 %
 \begin{enumerate}
-\item The set $S$ of all blocks in the DAG with no incoming edges starts with
+\item The set $S$ of all posts in the DAG with no incoming edges starts with
       the chain genesis.
-\item Removes from $S$ the block $B$ in the branch with more reputation
+\item Removes from $S$ the post $B$ in the branch with more reputation
       (Figure~\ref{fig.reps}) and adds it to the end of the consensus list $L$.
       (This is the only step that differs from Kahn's algorithm, which would
-      take any block from $S$.)
-\item Adds to $S$ all blocks directly in front of $B$, excluding those
+      take any post from $S$.)
+\item Adds to $S$ all posts directly in front of $B$, excluding those
       reachable from any node still in $S$.
 \item When $S$ is empty, the list $L$ holds the consensus order.
 \end{enumerate}
@@ -1150,7 +1153,7 @@ The comparison function needs to find the non-common authors in the suffix of
 the two branches in order to compare the sum of their reputations.
 %
 For this reason, the algorithm also needs to track negative, neutral, and
-positive blocks according to Table~\ref{fig.rules}.
+positive posts according to Table~\ref{fig.rules}.
 %
 We take advantage of the hard fork rule that freezes the consensus list $L$
 when crossing the activity threshold (stable consensus in Figure~\ref{fig.hard}).
@@ -1159,7 +1162,7 @@ to a short fixed size that does not depend on arbitrary chain sizes.
 
 Currently, we hold the DAG structure directly in the file system with no
 database support.
-Each chain uses a separate directory, and each block uses two separate files:
+Each chain uses a separate directory, and each post uses two separate files:
 a \emph{JSON} for the metadata and a payload exactly as posted.
 We save the cache and current consensus order in an index file.
 We build the DAG by traversing the chain directory.
@@ -1169,20 +1172,20 @@ We build the DAG by traversing the chain directory.
 
 Similarly to Bitcoin, the underlying network protocol replicates on each peer
 the full state of the Merkle~DAG representing the causal relationships between
-blocks.
+posts.
 When peers synchronize, they mutually exchange missing branches such that they
 reach the same DAG structure~\cite{p2p.byz}.
 As they synchronize, each peer runs the consensus algorithm locally and
-verifies if all received blocks are consistent.
+verifies if all received posts are consistent.
 
 Because the protocol relies on tamper-proof DAGs, and because each peer self
-verifies the blocks as they synchronize, the protocol becomes tolerant to
+verifies the posts as they synchronize, the protocol becomes tolerant to
 Byzantine faults~\cite{lamport.byz}.
 %
 Note that no information coming from any peer is trusted a priori.
 %
 For instance, a malicious peer that tries to synchronize branches with erratic
-data can be detected on the first inconsistent block.
+data can be detected on the first inconsistent post.
 This allows the correct peer to close the connection immediately and blacklist
 the malicious peer from future connections.
 
@@ -1194,10 +1197,10 @@ directly.
 \subsection{Experiments}
 \label{sec.consensus.eval}
 
-In this section, we perform experiments to evaluate the performance and
-practicability of the protocol.
+We performed experiments to evaluate the performance of \FC and its consensus
+algorithm.
 %
-As detailed further, we evaluate the following parameters:
+As detailed next, we measure the following evaluation parameters:
     (a) metadata overhead,
     (b) consensus runtime,
     (c) graph forks, and
@@ -1226,7 +1229,7 @@ represent 3 months of activity in the chat and 9 years in the newsgroup.
 For longer periods, we assume that the protocol would employ archiving or
 pruning techniques~\cite{p2p.prune}.
 For instance, an archive operation over a chain would freeze the reputation of
-posts and authors back to some past block in the hard consensus, and disallow
+posts and authors back to some past post in the hard consensus, and disallow
 back links to the archive (e.g., likes and dislikes).
 We leave this operation to future work.
 \end{comment}
@@ -1253,7 +1256,7 @@ nature of the protocol.
 For the chat, we use \texttt{N=5} and \texttt{M=3}, which represents a smaller
 number of peers with more interconnections.
 %
-We executed each simulation $4$ times in a conventional desktop PC (\texttt{i7}
+We executed each simulation $4$ times in a desktop PC (\texttt{i7}
 CPU, \texttt{8GB} RAM, \texttt{512GB} SSD).
 Since the variations were negligible, we always discuss the median measures.
 
@@ -1265,7 +1268,7 @@ related to network distribution, which may vary from applications.
 \end{comment}
 
 Evaluation item (a) measures the protocol overhead due to blockchain metadata,
-which consists of a timestamp, author signature, and hashes (block id, payload,
+which consists of a timestamp, author signature, and hashes (post id, payload,
 backlinks, and likes).
 %
 The original chat archive is \texttt{800kB} in size, or \texttt{80B} for each
@@ -1287,26 +1290,26 @@ $50\%$ overhead.
 It is clear that the metatada overhead is not negligible, specially for short
 chat messages, but decreases as the payload increases.
 
-Item (b) evaluates the consensus step depicted in
-Section~\ref{sec.consensus.algo}.
-We measured the time to sort blocks in a local DAG both for the first time
-(without any caches), and incrementally (from stable consensus caches).
+Evaluation item (b) accounts the consensus algorithm applied locally.
+We measured the time to sort posts in a local DAG both for the first time,
+and incrementally from stable consensus caches.
 %
 For the chat chain, it takes \texttt{125s} and \texttt{50ms} for the initial
-and incremental sorts respectively, while for the newsgroup chain, it takes
+and incremental sorts, while for the newsgroup chain, it takes
 \texttt{100s} and \texttt{70ms}.
 %
 %Currently, we synchronize the DAGs takes hours because we the synchronization time
 %
-The incremental sort is limited to 7 days or 100 posts, regardless of the size
-of the chain, which conveniently settles an upper bound on the input size of
-the consensus algorithm.
+The incremental sort is limited to 7 days or 100 posts by design (as discussed
+in Section~\ref{sec.consensus.design}), regardless of the size of the chain,
+which conveniently settles an upper bound on the input size of the consensus
+algorithm.
 %
 Given that we use plain JSON files in the file system, we consider an
 incremental consensus under \texttt{100ms} to be a practical upper bound.
 
-Item (c) evaluates the number of forks in chain DAGs, which indicates the level
-of asynchrony between peers following the local-first principle (supposedly).
+Evaluation item (c) counts the number of forks in chain DAGs, which indicates
+the level of asynchrony between peers following the local-first principle.
 We calculate the ratio of forks over the total number of messages, e.g., a DAG
 with $100$ messages and $10$ forks has a ratio of $10\%$.
 %Based on the choices for $M$ and $N$ for each forum, we expect the newsgroup to
@@ -1314,11 +1317,11 @@ with $100$ messages and $10$ forks has a ratio of $10\%$.
 We found a ratio of $18\%$ for the chat and $14\%$ for the newsgroup, which
 confirms that the simulation achieves a reasonable level of asynchrony.
 
-Item (d) evaluates how much bookkeeping is required to sustain active users in
-the forums.
+Evaluation item (d) measures how much bookkeeping is required to sustain active
+users in the forums.
 Even though the newbie rule~\code{4.a} in Table~\ref{fig.rules} is key to
-combat Sybils, ideally it should not deny access to active users with low
-reputation recurrently.
+combat Sybils, ideally it should not recurrently deny access to active users
+with low reputation.
 %
 The evaluation counts the number of blocked messages requiring extra likes
 after the welcoming likes (which are disconsidered) and calculates the ratio
@@ -1326,14 +1329,16 @@ over the total number of messages in the chain.
 %This situation occurs when an user with low reputation tries to post multiple
 %messages in a row without the necessary interval imposed by rule~\code{2}.
 As an example, if $10$ users posted $110$ messages requiring $20$ likes, we
-discount the $10$ initial messages and welcoming likes and find a ratio of
+discount the $10$ initial messages and welcoming likes (when the user first
+appears), and find a ratio of
 $10\%$ (\code{(20-10)/(110-10)}).
 %
 For the chat with $80$ users, we found a ratio of $3.7\%$.
 For the newsgroup with $5000$ users, we found a ratio of $3.5\%$.
 %
 Considering that users were not aware of the reputation rules, the low ratios
-indicate that their "natural" posting behavior matches the rules constraints.
+indicate that their "natural" posting behavior matches the constraints of the
+rules.
 %As expected, the newsgroup has a lower bookkeeping given the higher interval
 %between messages.
 %
@@ -1501,7 +1506,7 @@ converge to the same state on synchronization~\cite{p2p.merkle-crdts}.
 At the application layer, however, DAGs loose this property because branches
 might be processed in different orders across peers, resulting in incompatible
 states.
-An interesting approach is to require blocks to represent commutative
+An interesting approach is to require posts to represent commutative
 operations, thus resulting in CmRDTs~\cite{p2p.merkle-crdts}.
 %
 CmRDTs have the advantage to store only small updates that are sufficient to
@@ -1601,7 +1606,7 @@ and then edits and commits it back:
 }
 
 A \code{checkout} recreates the latest version of the file in the repository by
-applying all patches since the genesis block.
+applying all patches since the genesis post.
 Recall that each patch represents a CmRDT operation to recreate the final state
 of the data.
 The \code{checkout} expands as follows:
@@ -1621,15 +1626,15 @@ The \code{checkout} expands as follows:
 }
 
 The \code{consensus} operation of \FC returns all hashes since
-the genesis block, respecting the consensus order.
+the genesis post, respecting the consensus order.
 The loop reads each of the payloads representing the patches and apply them in
 order to recreate the file.
 If any of the patches fail, the command exhibits the hash of the offending
-block and terminates.
+post and terminates.
 We discuss this behavior further, when we illustrate commit conflicts.
 
 Since the last commit above is clearly wrong (P2P networks do scale!), other
-users in the network will dislike it until the block becomes
+users in the network will dislike it until the post becomes
 \code{REVOKED} in the chain: % (as described before in Figure~\ref{fig.state}):
 
 {\footnotesize
@@ -1645,7 +1650,7 @@ users in the network will dislike it until the block becomes
 }
 
 This way, the checkout operation above will apply an empty patch associated
-with the revoked block, effectively removing the wrong line from the file.
+with the revoked post, effectively removing the wrong line from the file.
 This mechanism illustrates how the reputation system enables collaborative
 permissionless edition and curation.
 
@@ -1692,7 +1697,7 @@ branches.
 We chose to adopt a \emph{first write wins} resolution to favor work in the
 branches with more reputation.
 Nevertheless, the failing patch branch is not totally ignored, since the
-checkout saves the conflict file and indicates the block causing it.
+checkout saves the conflict file and indicates the post causing it.
 %
 We believe this optimistic choice that does not reject both patches is the most
 advantageous, since it keeps the file in an usable state and warns about the
@@ -1737,7 +1742,7 @@ Applications that rely only on commutative operations can traverse the DAG in
 any causal order, possibly in parallel.
 This is the case of most social apps with threaded conversations, in which
 branches typically do not interfere with each other.
-For instance, it is not problematic to rely on block timestamps to display
+For instance, it is not problematic to rely on post timestamps to display
 messages in chats, forums, and social media posts.
 This is also the general case for notifications in these applications, such as
 status updates and social engagements.
@@ -1785,7 +1790,7 @@ built on top of them.
 %
 In contrast, as stated in Section~\ref{sec.freechains}, the pubsub of \FC is
 conceptually at the application level and is integrated with the semantics of
-chains, which already verifies blocks at publishing time.
+chains, which already verifies posts at publishing time.
 For instance, to flood the network with posts, malicious peers need to spend
 reputation, which takes hours to recharge (rule~\code{2} in
 Table~\ref{fig.rules}).
@@ -1846,7 +1851,7 @@ Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
 centralization issue entirely, given the high costs of equipment and energy.
 Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
 that centralization is inevitable, and thus uses a function of time and wealth
-to elect peers to mint new blocks.
+to elect peers to mint new posts.
 As an advantage, these proof mechanisms are generic and apply to multiple
 domains, since they depend on an extrinsic scarce resource.
 % (i.e., the richer gets richer)
@@ -2062,7 +2067,7 @@ where else can we use this?
 
 \begin{comment}
 - content
-- CPU work to create blocks, easy objective verification, 50+1 attack, collapse
+- CPU work to create posts, easy objective verification, 50+1 attack, collapse
 - Human work to create content, easy subjective verification, 50+1 attack,
   community fork (actually encouraged)
 - unique identity based on CPU
