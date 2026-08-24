@@ -24,7 +24,7 @@
 \begin{document}
 
 \title{
-    Peer-to-Peer Permissionless Consensus via Authoring Reputation
+    Peer-to-Peer Permissionless Consensus for Version Control Systems via Authoring Reputation
 }
 
 \author{
@@ -40,13 +40,13 @@ Centralized platforms employ filtering and anti-abuse policies, but imply full
 trust from users.
 %
 We propose a permissionless Sybil-resistant peer-to-peer protocol for content
-sharing. % that combats abuse.
+sharing.
 Our main contribution is a reputation system that moderates content and, at the
 same time, delivers network consensus.
-We can trace a parallel with Bitcoin:
-    new posts create reputation (vs proof-of-work),
-    likes and dislikes transfer reputation (vs transactions),
-    and aggregate reputation determines consensus (vs longest chain).
+We can trace a parallel with Bitcoin as follows:
+    consolidated posts create reputation (vs proof-of-work),
+    likes and dislikes transfer reputation (vs transactions), and
+    aggregate reputation determines consensus (vs longest chain).
 %
 The reputation mechanism depends exclusively on the human authoring ability
 (\emph{proof-of-authoring}), which is slow and scarce, thus suitable to
@@ -56,7 +56,7 @@ control system that, based on consensus, resolves conflicts automatically.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
-Bitcoin, blockchains, CRDT, distributed consensus, peer-to-peer,
+Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer,
 publish-subscribe, reputation system, VCS
 
 % TOTAL: 12 pages
@@ -71,40 +71,42 @@ Twitter)~\cite{internet.fixing,p2p.osn,p2p.dosn}.
 %users locked in their platforms.
 On the one hand, these companies offer free storage, friendly user interfaces,
 and robust access.
-On the other hand, they concentrate more power than required to operate by
-collecting users' data and ``algorithmizing'' consumption.
+On the other hand, they concentrate excessive power, controlling and
+monetizing over private user data.
 %
 Peer-to-peer alternatives~\cite{p2p.survey} eliminate intermediaries, but
-strive to achieve consistency while dealing with malicious users.
+strive to achieve consistency when dealing with malicious users.
 %given the decentralization of authority and infrastructure.
 % and push to end users the responsibility to manage data and connectivity.
 
 In an ideal Internet forum, all messages or posts
 (i)   reach all users,
-(ii)  are delivered in a consistent order, and
+(ii)  are delivered in consistent order, and
 (iii) are respectful and on topic.
-In a centralized system, items (i) and (ii) are trivially achieved assuming
-availability and delivery order in the service, while for item (iii), users
-have to trust the service to moderate content.
-In a decentralized setting, however, none of these demands are easily
+In centralized systems, items (i) and (ii) are trivially achieved assuming
+availability and delivery order, while item (iii) requires users to trust the
+service policies.
+In decentralized systems, however, none of these demands are easily
 accomplished.
 A common approach in gossiping protocols is to proactively replicate and
 disseminate posts among peers until they reach all
 users~\cite{p2p.survey,p2p.byz}.
-However, this approach does not guarantee consensus since posts can be received
-in conflicting orders~\cite{p2p.intention,p2p.dvcs}.
+However, gossiping does not guarantee consensus since posts can be received in
+conflicting orders~\cite{p2p.intention,p2p.dvcs}.
 %As an example, antagonistic messages such as \emph{"X is final"} vs
 %\emph{"Y is final"} might be sent concurrently, preventing the network to
 %determine as a group its intention as \emph{X} or \emph{Y}.
 %
-Consensus is key to eradicate Sybil attacks~\cite{p2p.sybil}, which are the
-major threats to decentralized applications in general: without consensus, it
-is not possible, \emph{at the protocol level}, to distinguish between correct
-and malicious users in order to satisfy item (iii).
+Consensus is key to distinguish malicious behavior \emph{at the protocol
+level}, and therefore, satisfy item (iii).
+Without consensus, each client must rely on local anti-abuse policies, such as
+SPAM filters, but which only apply a posteriori, when the abusive messages have
+already been flooded in the network by potential Sybils~\cite{p2p.sybil}.
+%
 %fundamental in collaborative applications, such as open discussion
 %forums, chat rooms, and trading services (e.g., delivery \& auction).
 %Otherwise, they become impractical due to excess and abuse (e.g., SPAM and
-%illegal content).
+%illicit content).
 %At the very core, consensus is
 
 Consensus is notably challenging to the point that decentralized protocols
@@ -115,7 +117,7 @@ partially abdicate of it.
 %
 On the one hand, federated protocols~\cite{p2p.ecosystem} offer
 \emph{multi-user/single-node consensus}, in which multiple users can exchange
-messages consistenlty within a single trusted server, but not globally across
+messages consistently within a single trusted server, but not globally across
 multiple servers.
 %
 On the other hand, a protocol like Scuttlebutt~\cite{p2p.scuttlebutt} offers
@@ -136,47 +138,54 @@ establish consensus.
 The protocol is Sybil resistant because it is expensive to write to its
 unique timeline (either via proof-of-work or transaction fees).
 %
-However, Bitcoin and cryptocurrencies in general are not suitable for content
-sharing:
+However, Bitcoin and cryptocurrencies in general are not suitable for social
+content sharing because
     (i)   they enforce a unique timeline to preserve value and immunity to
           attacks;
     (ii)  they lean towards concentration of power due to scaling effects;
     (iii) they impose an external economic cost to use the protocol; and
     (iv)  they rely exclusively on objective rules to reach consensus.
+%
 These issues threaten our original decentralization goals, and more
 importantly, they renounce subjectivity, which is inherent to content
 moderation.
-In particular, a unique timeline implies that all Internet content should be
-subject to the same consensus rules, while objective rules alone cannot
-distinguish abuse amid content.
+%
+For instance, a unique timeline implies that all Internet content is subject
+to the same consensus rules, while objective rules alone cannot distinguish
+abuse amid content.
 %For instance, high quality posts from minority groups may be suppressed in
 %favor of more popular content.
+%
 Another limitation of cryptocurrencies is that it is not possible to revoke
-content in the middle of the blockchain, which is inadmissible considering
-illegal content (e.g., hate speech).
+content in the middle of a blockchain, which is inadmissible considering
+illicit content (e.g., hate speech)~\cite{btc.content}.
+%For instance, Bitcoin transactions permanently store arbitrary human-authored
+%content, including harmful texts and images.
+%~\cite{btc.data}
 
-In this work, we adapt Bitcoin's idea of a scarce resource to reach consensus
-in the context of content sharing.
+In this work, we adapt the idea of scarce resources to reach consensus and
+eradicate Sybils, but in the context of social content sharing.
+We indicate 4 main contributions:
 %
-Our first contribution is to recognize the actual published contents as the
-protocol scarce resources, since they require human work.
-%
+\begin{enumerate}
+\item Recognizing published contents as scarce resources, since they require
+human work.
 Work is manifested as new posts, which if approved by others, reward authors
-with reputation tokens, which are used to evaluate other posts with likes and
-dislikes.
+with reputation tokens, which are further used to evaluate other posts with
+likes and dislikes.
 With such \emph{proof-of-authoring} mechanism, token generation is expensive,
-while verification is cheap and made by multiple users.
-% (akin to Bitcoin's proof-of-work).
+while verification is cheap and shared by multiple users.
 %
-Due to decentralization, posts in a timeline form a causal graph with only
-partial order, which we promote to a total order based on the reputation of
-authors.
+\item Using the reputation system to determine consensus.
+Due to decentralization and network partitions, posts in a timeline form a
+causal graph with only partial order, which we promote to a total order based
+on the reputation of authors.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double spending).
 %
-Our second contribution is to allow that users create diversified forums of
-interest (instead of a singleton blockchain), each counting as an independent
-timeline with its own subjective consensus etiquette.
+\item Allowing users to create diversified forums of interest (not a
+singleton blockchain), each as an independent timeline with its own
+subjective authoring etiquette.
 %author's reputation: in the presence of a fork, 
 %a consensus order in which
 %that authors with more reputation are ordered first (akin to
@@ -187,14 +196,15 @@ timeline with its own subjective consensus etiquette.
 %The resulting order is then verified for conflicting operations, such as likes
 %with insufficient \reps (akin to Bitcoin's double spending).
 %
-Our third contribution is to support content removal without compromising the
-integrity of the decentralized blockchain.
+\item Supporting content removal without compromising the integrity of the
+decentralized blockchain.
 Users have the power to revoke posts with dislikes, and peers are forced to
-remove payloads, only forwarding associated metadata.
+remove payloads, only forwarding associated blockchain metadata.
+\end{enumerate}
 %
 We integrated the proposed consensus algorithm into \FC~\cite{fcs.sbseg20}, a
-practical peer-to-peer content dissemination protocol that provides strong
-eventual consistency~\cite{p2p.crdts,p2p.sec}.
+peer-to-peer content dissemination protocol that provides strong eventual
+consistency~\cite{p2p.crdts,p2p.sec}.
 
 As an application example, we prototyped a permissionless decentralized version
 control system (dVCS) that relies on consensus to apply automatic merges.
@@ -204,15 +214,16 @@ A dVCS is relevant because
     (iii) with merges that require human intervention, which we propose to
           automate.
 %
-Hence, as a forth contribution, we show how the consensus mechanism can empower
+Hence, as a fifth contribution, we show how the consensus mechanism can empower
 mostly conflict-free replicated data types (\emph{quasi-CRDTs}) when they do
 encounter conflicting operations.
 
 In summary, we propose
-    (i)   a consensus mechanism based on proof-of-authoring,
-    (ii)  for independent user-generated blockchains,
-    (iii) which supports content removal, and
-    (iv)  which can automate conflict resolution in quasi-CRDTs.
+    (i)   proof-of-authoring as a scarce resource,
+    (ii)  a consensus mechanism based on reputation,
+    (iii) for independent user-generated blockchains,
+    (iv)  which supports content removal, and
+    (v)   which can automate conflict resolution in quasi-CRDTs.
 %
 As a main limitation, the forum causal graphs are ever growing data structures
 that carry considerable metadata overhead.
@@ -221,9 +232,9 @@ of blockchains in general.
 %In addition, they require per-block validations that may become a bottleneck
 %for real-time applications.
 %
-Nevertheless, to show the practicability of the protocol, we simulated months
-of activity of a chat channel and years of a newsgroup forum, both extracted
-from publicly available archives.
+Nevertheless, to show the feasibility of the protocol, we simulated months of
+a chat channel and years of a newsgroup forum, both extracted
+from publicly available Internet archives.
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
@@ -569,14 +580,14 @@ desktop systems.
 \section{Reputation and Consensus Mechanism}
 \label{sec.consensus}
 
-In the absence of moderation, permissionless peer-to-peer public forums are
-impractical, mostly because of Sybils abusing the system.
+Without moderation, permissionless peer-to-peer public forums are
+impractical due to Sybils abusing the system.
 For instance, it should take a few seconds to generate thousands of fake
-identities and SPAM millions of messages into the system.
+identities and SPAM millions of messages.
 %Hence, without moderation, there are no limits on the number and size of posts
 %and no reasonable policy to distinguish quality.
 For this reason, we propose a reputation system that works together with a
-consensus algorithm to resist Sybil attacks.
+consensus algorithm to resist Sybils.
 % and make peer-to-peer public forums practical.
 We consider Sybils as groups of throw-away identities and machines with no
 previous reputation in the forums.
@@ -594,68 +605,79 @@ the performance of the protocol.
 \subsection{Overall Design}
 \label{sec.consensus.design}
 
-In the proposed reputation system, users can spend tokens named \reps to post
-and rate content in the forums:
+In our system, users can spend tokens named \reps to post and rate content in
+forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
 a \code{like} is a positive feedback that helps subscribers to distinguish
 content amid excess;
 a \code{dislike} is a negative feedback that revokes content when crossing a
 threshold.
-Table~\ref{fig.general} summarizes the reputation operations and their goals.
-To prevent Sybils, users with no \reps cannot perform these operations,
+Table~\ref{fig.general} summarizes the general reputation rules and their
+goals.
+To prevent Sybils, users with no \reps cannot operate under these rules,
 requiring a welcoming like from any other user already in the system.
-The fact the likes only transfer reputation (being zero-sum operations)
-eliminates the incentives from malicious to invite Sybils into the system.
-The only way to generate new \reps is to post content that other users approve,
-which demands non-trivial work immune to automation.
+The fact that likes are zero-sum operations, which only transfer reputation,
+eliminates the incentives from malicious users to invite Sybils into the
+system.
+The only way to generate new \reps is to post content that other users
+tolerate, which demands non-trivial work resistant to automation.%
+\footnote{
+    Note that although human and AI content may become indistinguishable, their
+    frequency and relevance in forums is still subject to human evaluation in
+    our proposal.
+}
+In this sense, having one or hundreds of machines in the network does not
+affect the capacity to write into the forums.
 %Therefore, \reps are subject to scarcity, which prevents Sybils from acting
 %indiscriminately.
 
 \begin{table}
 \centering
 \includegraphics[width=0.49\textwidth]{general.png}
-\caption{General reputation operations in public forums.}
+\caption{General reputation rules in public forums.}
 \label{fig.general}
 \end{table}
 
 Bitcoin employs proof-of-work to mitigate Sybil attacks.
 However, CPU or other extrinsic resources are not evenly distributed among
-humans, specially considering that most communications now use
-battery-powered devices.
+humans, specially in communications using battery-powered devices.
 %
-Considering the context of public forums, we can take advantage of the human
-authoring ability as an intrinsic resource instead.
+Instead, considering the context of public forums, we propose to take advantage
+of the human authoring ability as an intrinsic resource.
 Creating new content is hard and takes time, but is comparatively easy to
 verify and rate.
 Therefore, in order to impose scarcity, we determine that only content
-authoring generates \reps, while likes and dislikes just transfer \reps between
+authoring generates \reps, while likes and dislikes only transfer \reps between
 users.
 %but limited by periods of time to prevent excess (e.g., once in a day per user).
 %Additionally,
 %
-Nevertheless, scarce operations are not yet sufficient because they demand
-consensus to establish an order in time across the network to prevent
-inconsistent operations.
-As an example, consider a malicious author with a single unit of \reps posting
-new messages using multiple peers at the same time.
+In our analogy with Bitcoin, Sybil attacks would require to add human resources,
+instead of CPU power.
+
+Nevertheless, posts scarcity is not yet sufficient to combat Sybils because
+consensual order is still required to prevent inconsistent operations.
+For instance, consider a malicious author with a single unit of \reps posting
+SPAM messages from multiple peers at the same time.
 According to the \emph{Expense} rule of Table~\ref{fig.general}, only one of
-these messages should be accepted.
+these messages should be accepted by the network.
 However, without consensus, it is not possible to globally determine which
 message to accept, since each peer would supposedly accept the first message it
-sees.
+receives.
 Therefore, in order to validate operations consistently, we need the same
 message ordering across all peers in the network.
 
-\begin{figure}
+\begin{figure*}
 \centering
-\includegraphics[width=0.49\textwidth]{reps2.png}
+\includegraphics[width=0.85\textwidth]{reps.png}
 \caption{
-    (A) A public forum DAG with a common prefix and two branches.
+    (A) A public forum DAG with a common prefix, two branches, and a common
+        suffix.
     (B) Total order between blocks of the DAG after consensus.
 }
 \label{fig.reps}
-\end{figure}
+\end{figure*}
 
 Our idea to stablish consensus is to favor DAG forks with posts from users that
 constitute the majority of the reputation in the network.
@@ -702,6 +724,15 @@ Figure~\ref{fig.reps}.B indicates the resulting consensus order between blocks
 in the forum.
 All operations in \code{branch-2} appear before any operation in
 \code{branch-1}.
+
+The basic consensus rule is therefore straightforward:
+Whenever a fork is found, we create sets of users with posts in each branch
+($B1=\{c,x,y\}$ and $B2=\{a,b\}$).
+Then, we take each set, and sum its users \reps based on the common prefix
+($S1=3$ and $S2=13$), since it is the maximum information that all branches
+agree.
+Finally, we order the branches based on the highest sum of \reps found.
+
 Note that the consensus order exists only for accountability purposes, and is
 a view of the primary DAG structure.
 At any point in the consensus timeline, if an operation fails, all remaining
@@ -709,17 +740,22 @@ blocks in the offending branch are removed from the primary DAG.
 As an example, suppose that the last post by $a$ (in gray) is a dislike to user
 $c$.
 Then, it's possible that the last post by $c$ (in red), now suppose with
-\nreps{0}, is rejected together with all posts by $y$ and $x$ in sequence.
+\nreps{0}, is rejected together with all posts in sequence, including those in
+the common suffix.
 %
 Note that in a Merkle~DAG, it is not possible to remove only the block with the
 failing operation, instead, we need to remove the remaining branch completely,
 as if it never existed.
 %
-Note also that users in the branch with more reputation can react to attacks
-even after the fact.
+Note also that this kind of attack is refutable because, since the common
+prefix is the basis of consensus, users in the branch with more reputation can
+still react even a posteriori.
 For instance, users $a$ and $b$ can pretend that they did not yet see
 \code{branch-1} and post extra dislikes to user $c$ from \code{branch-2} so
 that a further merge removes all blocks of \code{branch-1} from the DAG.
+%
+This kind of attack is thus innocuous because it requires at least half of the
+\reps accumulated in the common prefix.
 
 There are some other relevant considerations about forks and merges:
 %
@@ -803,6 +839,16 @@ branch from a local machine \code{i} are as follows:
           lexicographical order of the block hashes immediately after the
           common prefix.
 \end{itemize}
+
+To conclude, we should keep in mind that our consensus algorithm is based on
+subjective evaluations of users and posts.
+For this reason, unlike Bitcoin, in which forks are discouraged and a single
+blockchain must prevail, public forums can split and diverge indiscriminately.
+For instance, users can explicitly apply hard forks at any point in time to
+``reboot'' a community from a previous state.
+Ultimately, the consensus algorithm provides a transparent mechanism to help
+users understand the evolution of public forums and act accordingly, even if it
+leads to hard forks.
 %The first rule to apply determines the merging result:
 
 \begin{comment}
@@ -1118,6 +1164,33 @@ a \emph{JSON} for the metadata and a payload exactly as posted.
 We save the cache and current consensus order in an index file.
 We build the DAG by traversing the chain directory.
 
+\subsection{Peer Synchronization and Byzantine Faults}
+\label{sec.consensus.byz}
+
+Similarly to Bitcoin, the underlying network protocol replicates on each peer
+the full state of the Merkle~DAG representing the causal relationships between
+blocks.
+When peers synchronize, they mutually exchange missing branches such that they
+reach the same DAG structure~\cite{p2p.byz}.
+As they synchronize, each peer runs the consensus algorithm locally and
+verifies if all received blocks are consistent.
+
+Because the protocol relies on tamper-proof DAGs, and because each peer self
+verifies the blocks as they synchronize, the protocol becomes tolerant to
+Byzantine faults~\cite{lamport.byz}.
+%
+Note that no information coming from any peer is trusted a priori.
+%
+For instance, a malicious peer that tries to synchronize branches with erratic
+data can be detected on the first inconsistent block.
+This allows the correct peer to close the connection immediately and blacklist
+the malicious peer from future connections.
+
+Therefore, although Byzantine peers may still perform some sort of denial of
+service attacks in the network, they cannot modify the DAG structure, nor
+create arbitrary content, nor impede that two correct nodes synchronize
+directly.
+
 \subsection{Experiments}
 \label{sec.consensus.eval}
 
@@ -1129,6 +1202,10 @@ As detailed further, we evaluate the following parameters:
     (b) consensus runtime,
     (c) graph forks, and
     (d) blocked messages.
+%
+Our goal is to stress the consensus algorithm to show that permissionless
+public forums are viable, regardless of the inherent slower performance in
+comparison to permissioned protocols.
 
 We simulate the behavior of two publicly available forums as if they were using
 \FC:
@@ -1862,6 +1939,21 @@ Our proposed consensus mechanism internalizes such reputation scoring function.
 Integrated reputation also prevents SPAM and abusive behavior from byzantine
 nodes, which could otherwise generate very large graphs that take forever to
 synchronize (as discussed for Byzantine Causal Broadcast~\cite{p2p.dag.sync}).
+
+Some works for P2P file sharing propose to account the reputation of peers to
+form a web of trust based on their behavior
+history~\cite{p2p.rep.wang,p2p.rep.eigentrust}.
+However, there are three key aspects in terms of scope that distinguishes our
+reputation system: its focus on the contents, its subjective nature, and its
+dependency on consensus.
+First, it is the actual contents that are stored and evaluated in the forums,
+with the identities being a secondary attribute.
+Second, content evaluation is subjective, as well as any decision to revoke
+posts or to fork forums.
+Third, at any given point in time, peers must agree on a common forum DAG
+prefix with global and deterministic accuracy to act identically as a whole.
+In this case, consensus is fundamental, since a subtle off-by-one discrepancy
+in reputation creates an irreconcilable fork in the network.
 
 \section{Conclusion}
 \label{sec.conclusion}
