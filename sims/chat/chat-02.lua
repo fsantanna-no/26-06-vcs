@@ -16,13 +16,14 @@ local BASE = exec("realpath -m ../.freechains")
 local ROOT = BASE .. '/root'
 local KEYS = BASE .. '/keys'
 
--- chain disk: state now lives in git blobs (refs/states/*), so
--- measure the whole .git and split packed vs loose. count-objects -v
--- reports size / size-pack in KiB.
+-- chain disk: repos are BARE (the chain dir IS the git dir) and
+-- state lives in git blobs (refs/states/*). Measure the whole dir
+-- and split packed vs loose. count-objects -v reports KiB.
+-- (the '#chat'/ trailing slash follows the alias symlink)
 function disk ()
-    local git   = ROOT .. "/chains/*/.git"
-    local total = tonumber(exec("du -sb " .. git .. " 2>/dev/null | cut -f1")) or 0
-    local co    = exec("cd " .. ROOT .. "/chains/*/ 2>/dev/null && git count-objects -v")
+    local dir   = ROOT .. "/chains/'#chat'/"
+    local total = tonumber(exec("du -sb " .. dir .. " 2>/dev/null | cut -f1")) or 0
+    local co    = exec("git -C " .. dir .. " count-objects -v 2>/dev/null")
     local loose = (tonumber(co:match("size: (%d+)"))      or 0) * 1024
     local pack  = (tonumber(co:match("size%-pack: (%d+)")) or 0) * 1024
     return total, pack, loose
@@ -51,7 +52,7 @@ end
 
 -- the pioneer creates the chain and thus holds the initial reps
 keys('Ashlee')
-print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init inline --sign=" .. KEYS .. "/Ashlee"))
+print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init --pioneer=" .. KEYS .. "/Ashlee"))
 
 local N = 0
 for l in io.lines('wikimedia.chat') do
