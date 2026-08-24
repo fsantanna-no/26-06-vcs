@@ -24,11 +24,12 @@
 \begin{document}
 
 \title{
-    Peer-to-Peer Permissionless Consensus for Version Control Systems via Authoring Reputation
+    Permissionless Peer-to-Peer Forums on top of Git
 }
 
 \author{
-    Francisco Sant'Anna \\ Department of Computer Science, Rio de Janeiro State University
+    Francisco Sant'Anna, Alexandre Sztajnberg
+    \\ Department of Computer Science, Rio de Janeiro State University
 }
 
 \maketitle
@@ -91,21 +92,12 @@ A common approach in gossiping protocols is to proactively disseminate posts
 among peers until they reach all users~\cite{p2p.survey,p2p.byz}.
 However, gossiping does not guarantee consensus since posts can be received in
 conflicting orders~\cite{p2p.intention,p2p.dvcs}.
-%As an example, antagonistic messages such as \emph{"X is final"} vs
-%\emph{"Y is final"} might be sent concurrently, preventing the network to
-%determine as a group its intention as \emph{X} or \emph{Y}.
 %
 Consensus is key to distinguish malicious behavior \emph{at the protocol
 level}, and therefore, satisfy item (iii).
 Without consensus, each client must rely on local anti-abuse policies, such as
 SPAM filters, but which only apply a posteriori, when the abusive messages have
 already been flooded in the network by potential Sybils~\cite{p2p.sybil}.
-%
-%fundamental in collaborative applications, such as open discussion
-%forums, chat rooms, and trading services (e.g., delivery \& auction).
-%Otherwise, they become impractical due to excess and abuse (e.g., SPAM and
-%illicit content).
-%At the very core, consensus is
 
 Consensus is notably challenging to the point that decentralized protocols
 partially abdicate of it.
@@ -143,22 +135,16 @@ content sharing because
     (iii) they impose an external economic cost to use the protocol; and
     (iv)  they rely exclusively on objective rules to reach consensus.
 %
-These issues threaten our original decentralization goals, and more
-importantly, they renounce subjectivity, which is inherent to content
-moderation.
+These issues threaten our decentralization goals, and more importantly, they
+renounce subjectivity, which is inherent to content moderation.
 %
 For instance, a unique timeline implies that all Internet content is subject
 to the same consensus rules, while objective rules alone cannot distinguish
 abuse amid content.
-%For instance, high quality posts from minority groups may be suppressed in
-%favor of more popular content.
 %
 Another limitation of cryptocurrencies is that it is not possible to revoke
 content in the middle of a blockchain, which is inadmissible considering
 illicit content (e.g., hate speech)~\cite{btc.content}.
-%For instance, Bitcoin transactions permanently store arbitrary human-authored
-%content, including harmful texts and images.
-%~\cite{btc.data}
 
 In this work, we adapt the idea of scarce resources to reach consensus and
 eradicate Sybils, but in the context of social content sharing.
@@ -183,15 +169,6 @@ likes with insufficient reputation (akin to Bitcoin's double spending).
 \item Allowing users to create diversified forums of interest (not a
 singleton blockchain), each as an independent timeline with its own
 subjective authoring etiquette.
-%author's reputation: in the presence of a fork, 
-%a consensus order in which
-%that authors with more reputation are ordered first (akin to
-%Bitcoin's longest chain).
-%that does not imply a total
-%order of events (akin to Bitcoin's blockchain).
-%Therefore, to reach consensus, in the case of non-causal relationships, we
-%The resulting order is then verified for conflicting operations, such as likes
-%with insufficient \reps (akin to Bitcoin's double spending).
 %
 \item Supporting content removal without compromising the integrity of the
 decentralized blockchain.
@@ -235,23 +212,17 @@ from publicly available Internet archives.
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
-to create, evaluate, and synchronize posts.
+to create, rate, and synchronize posts.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
-mechanism applied to public forums and evaluate its perfomance.
+mechanism, discuss relevant security threats, and evaluate its perfomance.
 In Section~\ref{sec.crdts}, we discuss the correspondences with CRDTs, and
-prototype a simple dVCS.
+prototype a simple conflict-free Wiki.
 In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
 
 \begin{comment}
-As a derived contribution, the consensus implies a total order among messages,
-which backs the use of CRDTs~\cite{p2p.merkle-crdts} in collaborative authoring
-platforms.
-
 https://twitter.com/francesc/status/794647418222448640?lang=en
-
-
 - CONCLUSION
 Our main contribution is to make decentralized public forums viable in
 practice.
@@ -260,65 +231,13 @@ work, contrasting with most systems that rely on extrinsic resources, such as
 CPU power.
 The general idea of the algorithm can be applied to any system that structures
 its messages as DAGs.
-
-which contributed with more work to the forum.
-
-However, to match our target domain of content publishing, token generation and
-verification are subjective, based on human creativity and judgement.
-
-unopinionated
-For instance, users can be arbitrarily censored or even removed from the
-platform with no justifications.
-In addition, because authored content token, forkeable, diversity
-
-- permissionless
-- social consensus vs economic consensus
-    - participation, linear, topped
-- forkeable, not unique, diversity
-The protocol prevents Sybil attacks with a reputation system
- that moderates
-content and, at the same time, delivers network consensus.
-
-
-- consensus is still important
-but no need to be unique / winner takes all
-thats why other xxx are not a solution
-
-If this decision is left to
-At the application level (e.g., end-user filters), does not eliminate traffic
+If this decision is left to At the application level (e.g., end-user filters), does not eliminate traffic
 The technologies that enable this are “self-certifying protocols”, based on cryptographic signatures and hashes.
 self-certifying protocols that all or nothing
-
-goal
-    - same usability/friendlyness of decentralized protocols
-    - reach consensus
-    - remove economic costs
-
-Scuttlebutt embraces subjectivity...
-No notion of public forums, only independent user timelines
-
-The only way to create new bitcoins is to work towards consensus in the network
-by proposing a total order among transactions in the system.
-%
-This way, Bitcoin prevents double spending~\cite{p2p.bitcoin}, which is
-analogous to conflicting message delivery in public discussions.
-    %deciding between \emph{X} and \emph{Y} as a group is the same as
-    %transferring bitcoins to \emph{X} and \emph{Y} with insufficient funds for
-    %both.
-%
 However, Bitcoin just supports transfers between users, with no subjective
 judgment that could affect the actual transactions.
 In contrast, our goal is to use social interactions between humans to evaluate
 content and mitigate abuse at the same time.
-
-In summary
-more traditional tokenless decentralized protocols
-
-cant directly buy reputation
-    - subject to judgement
-
-token-less protocols
-value is on the contents
 \end{comment}
 
 \section{\FC}
@@ -342,8 +261,8 @@ Considering that the DAG itself represents the state of the peers, the protocol
 ensures strong eventual consistency~\cite{fed.matrix,p2p.byz}.
 %
 The operation of the protocol is typical of publish-subscribe systems: an
-author publishes a post to a chain, and subscribed users eventually receive the
-message.
+author publishes a post to a chain, which subscribed users eventually
+receive.
 % by synchronizing DAGs.
 
 The goals of this section are twofold:
