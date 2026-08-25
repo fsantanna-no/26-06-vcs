@@ -243,6 +243,7 @@ content and mitigate abuse at the same time.
 \section{\FC}
 \label{sec.freechains}
 
+% TODO: arrangement
 \begin{table*}
 \centering
 \includegraphics[width=\textwidth]{arrangements.png}
@@ -270,12 +271,14 @@ The goals of this section are twofold:
     (ii) to illustrate how permissionless protocols inevitably require some
          form of Sybil resistance to become practical.
 
+% TODO: arrangement
 \FC supports multiple arrangements of public and private communications, which
 are detailed in Table~\ref{fig.table}.
 In this section, we operate a \emph{private group} to describe the basic
 behavior of chains without consensus.
 We use the actual command-line tool provided by the protocol to guide the
 discussion through concrete examples.
+% TODO: arrangement
 At the end of this section, we also exemplify a \emph{public identity} chain
 for the sake of completeness.
 In Section~\ref{sec.consensus}, we focus on the behavior of \emph{public
@@ -296,6 +299,7 @@ operations:
 
 The actual chain operations use a separate client to communicate with the
 daemon.
+% TODO: arrangement
 The next sequence of commands (i) creates a shared key, (ii) joins a private
 group chain (prefix~$\$$), and (iii) posts a message into the chain:
 
@@ -322,6 +326,7 @@ group chain (prefix~$\$$), and (iii) posts a message into the chain:
 \label{fig.family}
 \end{figure*}
 
+% TODO: arrangement
 A private chain requires that all participants use the same shared key to join
 the group.
 A \code{join} only initializes the DAG locally in the file system, and a
@@ -401,6 +406,7 @@ after synchronizing would now contain two posts with height $1$.
 %
 Note that forks in the DAG create ambiguity in the order of messages, which is
 a fundamental obstacle to reach consensus.
+% TODO: arrangement
 In private chains, we could apply simple methods, such as relying on the local
 source timestamps of the posts.
 However, in public forums, a malicious user could modify his local time to
@@ -437,12 +443,14 @@ with the backs and extra like links:
 \end{verbatim}
 }
 
+% TODO: arrangement
 %In private groups, like operations are unlimited and are used to quantify
 %engagement, similarly to typical centralized systems.
 %In public forums, however, likes
 As we discuss in the next section, like operations in public forums have to be
 signed by users, and are at the core of our proposed consensus algorithm.
 
+% TODO: arrangement
 For the sake of completeness, \FC also supports public identity chains
 (prefix~$@$) with owners attached to public/private keys:
 
@@ -774,6 +782,7 @@ trust to more powerful peers.
 %
 A more pragmatic approach, but which requires cooperation among users, is to
 revoke past posts, which deletes associated payloads to save some space.
+% TODO: arrangement
 This approach is more feasible in private groups and public identities chains,
 tough.
 \end{comment}
@@ -787,6 +796,7 @@ Table~\ref{fig.rules} details the concrete rules we conceived, which are
 discussed as follows.
 Authors have to sign their posts in order to be accounted by the reputation
 system and operate in the chains.
+% TODO: arrangement
 The example that follows creates an identity whose public key is assigned as
 the pioneer in a public chain (prefix~$\#$ in Table~\ref{fig.table}):
 
@@ -1750,6 +1760,7 @@ network, but serves specifically for electronic cash.
 IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
 hosting large files and applications, respectively.
 Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
+% TODO: arrangement
 to \FC goals and cover human-centric \Xon and \Xnn public communication,
 respectively.
 
@@ -1797,9 +1808,11 @@ This graph is replicated in the network topology as well as in data storage.
 For instance, if identity $A$ follows identity $B$, it means that the computer
 of $A$ connects to $B$'s in a few hops and also that it stores all of his posts
 locally.
+% TODO: arrangement
 Scuttlebutt is aligned to \Xon public identity chains of \FC in
 Table~\ref{fig.table}.
 %
+% TODO: arrangement
 For group \Xnn communication, Scuttlebutt uses the concept of channels, which
 are in fact nothing more than hash tags (e.g. \emph{\#sports}).
 Authors can tag posts, which appear not only in their feeds but also in local
@@ -1813,6 +1826,7 @@ communities because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
 %
 \begin{comment}
+% TODO: arrangement
 For group \Xnn communication, \FC relies on the reputation system to prevent
 abuse, since new users require at least one like for visibility in the
 community.
@@ -1821,6 +1835,7 @@ entire content in the network.
 \end{comment}
 
 Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
+% TODO: arrangement
 with \Xnn public forums of \FC.
 A fundamental difference is that Aether is designed for ephemeral, mutable
 posts with no intention to enforce global consensus across peers.
@@ -1892,6 +1907,7 @@ This way, reputation generation is expensive, while verification is cheap and
 decentralized.
 
 The reputation and consensus mechanism is integrated into \FC, a peer-to-peer
+% TODO: arrangement
 protocol that offers multiple arrangements of public and private
 communications.
 Users have the power to create public forums of interest and apply diverse
