@@ -60,8 +60,6 @@ control system that, based on consensus, resolves conflicts automatically.
 Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer,
 publish-subscribe, reputation system, VCS
 
-% TOTAL: 12 pages
-
 \section{Introduction}
 \label{sec.introduction}
 
@@ -1760,9 +1758,7 @@ network, but serves specifically for electronic cash.
 IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
 hosting large files and applications, respectively.
 Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
-% TODO: arrangement
-to \FC goals and cover human-centric \Xon and \Xnn public communication,
-respectively.
+to \FC goals and cover human communication.
 
 Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
 centralization issue entirely, given the high costs of equipment and energy.
@@ -1770,7 +1766,7 @@ Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
 that centralization is inevitable, and thus uses a function of time and wealth
 to elect peers to mint new blocks.
 As an advantage, these proof mechanisms are generic and apply to multiple
-domains, since they depend on an extrinsic scarce resource.
+domains, since they depend on extrinsic resources.
 % (i.e., the richer gets richer)
 In contrast, we chose an intrinsic resource, which is authored content in the
 chains themselves.
@@ -1808,13 +1804,12 @@ This graph is replicated in the network topology as well as in data storage.
 For instance, if identity $A$ follows identity $B$, it means that the computer
 of $A$ connects to $B$'s in a few hops and also that it stores all of his posts
 locally.
-% TODO: arrangement
-Scuttlebutt is aligned to \Xon public identity chains of \FC in
-Table~\ref{fig.table}.
+Note however that the basic unit of communication in Scuttlebutt is
+unidirectional, with a public identity broadcasting a feed to its
+followers (\Xon).
 %
-% TODO: arrangement
-For group \Xnn communication, Scuttlebutt uses the concept of channels, which
-are in fact nothing more than hash tags (e.g. \emph{\#sports}).
+For open groups communication (\Xnn), Scuttlebutt uses the concept of channels,
+which are in fact nothing more than hash tags (e.g. \emph{\#sports}).
 Authors can tag posts, which appear not only in their feeds but also in local
 virtual feeds representing these channels.
 However, users only see channel posts from authors they already follow.
@@ -1824,19 +1819,9 @@ users in the network (which also implies storing their feeds).
 A limitation of this model is that new users struggle to integrate in channel
 communities because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
-%
-\begin{comment}
-% TODO: arrangement
-For group \Xnn communication, \FC relies on the reputation system to prevent
-abuse, since new users require at least one like for visibility in the
-community.
-Also, a forum chain stores its own posts only, and are not simply tags over the
-entire content in the network.
-\end{comment}
 
 Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
-% TODO: arrangement
-with \Xnn public forums of \FC.
+with public forums of \FC (\Xnn).
 A fundamental difference is that Aether is designed for ephemeral, mutable
 posts with no intention to enforce global consensus across peers.
 Aether employs a very pragmatic approach to mitigate abuse in forums.
@@ -1880,12 +1865,14 @@ Third, at any given point in time, peers must agree on a common forum DAG
 prefix with global and deterministic accuracy to act identically as a whole.
 In this case, consensus is fundamental, since a subtle off-by-one discrepancy
 in reputation creates an irreconcilable fork in the network.
+Achieving consensus on a permissionless network is the key contribution of this
+work.
 
 \section{Conclusion}
 \label{sec.conclusion}
 
 In this paper, we propose a permissionless consensus and reputation mechanism
-for content sharing in peer-to-peer networks.
+for social content sharing in peer-to-peer networks.
 We enumerate four main contributions:
     (i)   human authored content as a scarce resource
           (\emph{proof-of-authoring});
@@ -1907,10 +1894,7 @@ This way, reputation generation is expensive, while verification is cheap and
 decentralized.
 
 The reputation and consensus mechanism is integrated into \FC, a peer-to-peer
-% TODO: arrangement
-protocol that offers multiple arrangements of public and private
-communications.
-Users have the power to create public forums of interest and apply diverse
+protocol, in which users can create public forums of interest and apply diverse
 moderation policies.
 In particular, users can revoke content considered abusive according to the
 majority, not depending on centralized authorities.
@@ -1918,13 +1902,6 @@ majority, not depending on centralized authorities.
 We simulate the behavior of existing chat and newsgroup forums as if they were
 using \FC to show the practicability of the protocol as a descentralized
 alternative for public forums.
-
-%The protocol replicates Merkle~DAGs that represent causal relationships between
-%messages in the network.
-%The consensus algorithm transforms DAGs into totally-ordered sets, which
-%eliminates conflicts analogous to double spending in Bitcoin.
-%This mechanism can be applied to any system that uses DAGs to structure its
-%messages.
 
 On top of the proposed three-layered CRDT architecture, we prototyped a
 decentralized version control system that resolves commit conflicts
@@ -1942,69 +1919,7 @@ Instead, it provides a transparent and quantitative mechanism to help users
 understand the evolution of forums and act accordingly.
 Human creativity contrasts with plain economic resources (e.g.,
 proof-of-work), which do not appraise social interactions and also tend
-to concentrate over the time.
-%
-\begin{comment}
-
-where else can we use this?
-    - reddit
-
-- Users can fork or recreate the chain.
-  Unlike bitcoin, the value is not on the size, but the cohesion is users.
-- Safe for niche topics and minority groups
-- Fulfill the expectations of part of the community
-- Part from the principle that the pioneers want it to decentralize, otherwise would create a public identity chain fig2
-
-- INSIGHT
- Uso descentralizado
- Emissão descentralizada e restrita
- Criação difícil / Verificação fácil
-
-- users that work twice, bots
-
-- summary
-    - parallel w/ bitcoin
-        - ponte entre reputacao -> sybil -> consenso
-    - no problem w/ forks
-    We reach a similar solution to Bitcoin but adapted to our domain
-    - we need consensus to make the reputation system work
-    - we need reputation system to reach consensus
-    - same virutous cycle as bitcoin
-    - The more CPU work is done, the stronger becomes the proposal, the more peers
-        follow it, the more tokens are mined.
-        There is a strong association between work, profit and consensus that enables
-        Bitcoin as a peer-to-peer cash system.
-    - reputation system to rate messages
-        - positively (to distinguish from excess), or
-        - negatively (to block SPAM, fake news, illegal content)
-    - some sort of scarcity (work)
-        - you like you loose
-        - you work you get
-        - otherwise sybil, "likes" abuse
-        - incentives for continuous, good quality posts
-    - Like \emph{bitcoins}, \reps are scarce, hard to generate, and easy to verify.
-      Unlike \emph{bitcoins}, \reps .
-
-\end{comment}
-
-\begin{comment}
-- content
-- CPU work to create posts, easy objective verification, 50+1 attack, collapse
-- Human work to create content, easy subjective verification, 50+1 attack,
-  community fork (actually encouraged)
-- unique identity based on CPU
-- here based on post quality
-- not CDN: Content delivery network
-
-(b) double spend of coins/reps is solved by total ordering all
-Users can like \& dislike posts, which transfer reputation between them.
-Reputation is created from news
-
-Just like Bitcoin reaches consensus with the longest chain
-uses mining to
-
-(excess, SPAM, fake, abuse, illegal)
-\end{comment}
+to concentrate power over the time.
 
 \bibliographystyle{plain}
 \bibliography{main}
