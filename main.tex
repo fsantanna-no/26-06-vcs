@@ -545,8 +545,6 @@ tolerate, which demands non-trivial work resistant to automation.%
 }
 In this sense, having one or hundreds of machines in the network does not
 affect the capacity to write into the forums.
-%Therefore, \reps are subject to scarcity, which prevents Sybils from acting
-%indiscriminately.
 
 \begin{table}
 \centering
@@ -566,8 +564,6 @@ verify and rate.
 Therefore, in order to impose scarcity, we determine that only content
 authoring generates \reps, while likes and dislikes only transfer \reps between
 users.
-%but limited by periods of time to prevent excess (e.g., once in a day per user).
-%Additionally,
 %
 In our analogy with Bitcoin, Sybil attacks would require to add human resources,
 instead of CPU power.
@@ -611,12 +607,8 @@ Going back to the malicious user example, the simultaneous messages would
 appear as forks in the forum DAG.
 Only the message in the fork with more combined work would be accepted, while
 all other Sybil messages would be rejected.
-%This way, in order to misuse a public forum, a malicious user first needs to
-%cooperate in the same magnitude, which requires authoring work that contradicts
-%his original intent.
 
 Figure~\ref{fig.reps}.A illustrates the consensus criteria.
-%, still abstractly, since we did not discuss the actual rules for content creation and rating.
 A public forum DAG has a common prefix with signed posts from users $a$, $b$,
 and $c$.
 Let's assume that within the prefix, users $a$ and $b$ have contributed with
