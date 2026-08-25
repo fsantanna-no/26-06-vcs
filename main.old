@@ -1006,16 +1006,16 @@ Discussion:
 \section{Related Work}
 \label{sec.related}
 
-%Many other systems have been proposed for decentralized content
-%sharing~\cite{p2p.survey,p2p.ecosystem}.
-%Here we consider the classes of publish-subscribe, federated, and P2P
-%protocols.
+Many other systems have been proposed for decentralized content
+sharing~\cite{p2p.survey,p2p.ecosystem}.
+Here we consider the classes of publish-subscribe, federated, and peer-to-peer
+protocols.
 
-%\subsection{Publish-Subscribe Protocols}
+\subsection{Publish-Subscribe Protocols}
 
 Decentralized topic-based publish-subscribe protocols, such as
-    %\emph{XMPP}~\cite{pubsub.xmpp}, and
-    \emph{ActivityPub}~\cite{pubsub.activitypub} and
+    \emph{XMPP}~\cite{pubsub.xmpp},
+    \emph{ActivityPub}~\cite{pubsub.activitypub}, and
     \emph{gossipsub}~\cite{pubsub.gossipsub},
 decouples publishers from subscribers in the network.
 %
@@ -1024,11 +1024,10 @@ communication still have a special role in the network, such as authenticating
 and validating posts.
 %
 Nevertheless, some pubsubs do not rely on server roles, and instead, use
-P2P gossip dissemination~\cite{pubsub.tera,pubsub.rappel,pubsub.gossipsub}.
-%,pubsub.stan,pubsub.vitis
+peer-to-peer gossip dissemination~\cite{pubsub.tera,pubsub.rappel,pubsub.stan,pubsub.vitis,pubsub.gossipsub,pubsub.rappel}.
 Most of these protocols focus on techniques to achieve scalability and
 performance, such as throughput, load balancing, and real-time relaying.
-%
+
 However, these techniques alone are not sufficient to operate permissionless
 networks with malicious Sybils~\cite{pubsub.gossipsub2}.
 Being generic protocols, pubsubs are typically unaware of the applications
@@ -1045,24 +1044,26 @@ because they have limited reachability.
 Another advantage of a tighter integration between the application and protocol
 is that Merkle~DAGs simplify synchronization, provide persistence, and prevent
 duplication of messages.
-%
-%In summary, \FC and \emph{pubsub} middlewares operate at different network
-%layers, which suggests that \FC could benefit of the latter to manage the
-%interconnections between peers.
+Full persistence resists long churn periods, and de-duplication tolerates
+CmRDTs with operations that are not idempotent.
 
-%\subsection{Federated Protocols}
+In summary, \FC and \emph{pubsub} middlewares operate at different network
+layers, which suggests that \FC could benefit of the latter to manage the
+interconnections between peers.
+
+\subsection{Federated Protocols}
 
 Federated protocols, such as e-mail, allow users from one domain to exchange
-messages with users of other domains.
+messages with users of other domains seamlessly.
 \emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
 social media, chat, and microblogging~\cite{p2p.ecosystem}, respectively.
-%
+
 As a drawback, identities in federations are not portable across domains, which
 may become a problem when servers shutdown or users become unsatisfied with the
 service~\cite{fed.distributed}.
 In any of these cases, users have to grab their content, move to another
 server, and announce a new identity to followers.
-%
+
 Moderation is also a major concern in federations~\cite{p2p.ecosystem}.
 As an example, messages crossing domain boundaries may be subject to different
 policies that might affect delivery.
@@ -1073,19 +1074,18 @@ For this reason, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
 but which applies only within clients, after the messages have already been
 flooded in the network.
-%
+
 As a counterpoint, federated protocols seem to be more appropriate for
 real-time applications such as large chats rooms.
 The number of hops and header overhead can be much smaller in client-server
-architectures compared to P2P systems, which typically include message signing,
-hash linking, and extra verification rules (as evaluated in
-Section~\ref{sec.evaluation}).
+architectures compared to peer-to-peer systems, which typically include message
+signing, hash linking, and extra verification rules (as evaluated in
+Section~\ref{sec.consensus.eval}).
 
-%\subsection{Peer-to-Peer Protocols}
+\subsection{Peer-to-Peer Protocols}
 
-Regarding P2P protocols, Bitcoin~\cite{p2p.bitcoin} is probably the most
-successful permissionless network, but serves specifically for electronic
-cash.
+Bitcoin~\cite{p2p.bitcoin} is probably the most successful permissionless
+network, but serves specifically for electronic cash.
 IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
 hosting large files and applications, respectively.
 Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
