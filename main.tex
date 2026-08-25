@@ -594,14 +594,12 @@ messages, which provides at most partial order.
 \label{fig.reps}
 \end{figure*}
 
-Our idea to stablish consensus is to favor DAG forks with posts from users that
-constitute the majority of the reputation in the network.
+Our key idea to stablish consensus in forum DAGs is to favor forks with posts
+from users that constitute the majority of the reputation.
 These forks have more associated work from active users and are analogous to
 longest chains in Bitcoin.
-%Also, the operations in these forks have already been verified and we should
-%avoid extra recalculations due to reorderings.
-In technical terms, we can adapt a topological sorting algorithm to favor
-reputation when deciding between branches in the chain DAG.
+In technical terms, we adapt a topological sorting algorithm to favor
+reputation when deciding between branches in a forum DAG.
 %
 Going back to the malicious user example, the simultaneous messages would
 appear as forks in the forum DAG.
@@ -610,9 +608,9 @@ all other Sybil messages would be rejected.
 
 Figure~\ref{fig.reps}.A illustrates the consensus criteria.
 A public forum DAG has a common prefix with signed posts from users $a$, $b$,
-and $c$.
-Let's assume that within the prefix, users $a$ and $b$ have contributed with
-better content and have more reputation combined than $c$ has alone (i.e.,
+and $c$, when they were still all connected.
+We assume that within the prefix, users $a$ and $b$ have contributed with
+better content and therefore have more reputation combined than $c$ has alone (i.e.,
 $8+5>3$).
 %
 After the prefix, the forum forks in two branches:
@@ -645,8 +643,8 @@ agree.
 Finally, we order the branches based on the highest sum of \reps found
 (Figure~\ref{fig.reps}.B).
 
-Note that the consensus order exists only for accountability purposes, and is
-a view of the primary DAG structure.
+Note that the consensus order exists only to account reputation and verify
+operations, and is only a view of the primary DAG structure of public forums.
 At any point in the consensus timeline, if an operation fails, all remaining
 posts in the offending branch are removed from the primary DAG.
 As an example, suppose that the last post by $a$ (in gray) is a dislike to user
@@ -659,33 +657,34 @@ Note that in a Merkle~DAG, it is not possible to remove only the post with the
 failing operation, instead, we need to remove the remaining branch completely,
 as if it never existed.
 %
-Note also that this kind of attack is refutable because, since the common
+However, this kind of attack is refutable because, since the common
 prefix is the basis of consensus, users in the branch with more reputation can
 still react even a posteriori.
 For instance, users $a$ and $b$ can pretend that they did not yet see
 \code{branch-1} and post extra dislikes to user $c$ from \code{branch-2} so
-that a further merge removes all posts of \code{branch-1} from the DAG.
+that a further merge invalidates all posts from \code{branch-1}, removing them
+from the DAG.
 %
 This kind of attack is thus innocuous because it requires at least half of the
 \reps accumulated in the common prefix.
 
 There are some other relevant considerations about forks and merges:
 %
-Peers that first received branches with less reputation will need to reorder
-all posts starting at the forking point.
+Peers that first receive branches with less reputation need to reorder
+all posts after the forking point.
 This might involve removing content in the end-user software.
-This behavior is similar to Bitcoin's blockchain reorganization, when a peer
-detects a new longest chain. % and disconsiders old posts.
+This behavior is similar to Bitcoin's blockchain reorganization, when peers
+detect new longest chains. % and disconsiders old posts.
 %
-Likewise, peers that first saw branches with more reputation just need to put
-the other branch in sequence with no reordering.
+Likewise, peers that first saw branches with more reputation just need to
+append the other branch, with no reordering at all.
 %and do not need to recompute anything.
-This behavior is expected to happen in the majority of the network.
+This behavior is expected to happen in the majority of the connected network.
 %
 Unlike Bitcoin, forks are not only permitted but encouraged due to the
 local-first software principle.
 However, the longer a peer remains disconnected, the more conflicting
-operations it may see, and the higher are the chances of rejection when
+operations it may see, and the higher are the chances of posts reordering when
 rejoining.
 
 \begin{table*}
@@ -702,32 +701,31 @@ rejoining.
 
 As a counterpoint to the consensus order in Figure~\ref{fig.reps}.B, maybe
 users $a$ and $b$ have abandoned the chain for months, and thus \code{branch-1}
-is actually legit.
+is actually legitimate.
 In this case, users $a$ and $b$ might be the ones trying to take over the
 chain.
-Yet another possibility is that both branches are legit but became disconnected
-for a long period of time.
+Yet another possibility is that both branches are legitimate but became
+disconnected for a long period.
 %It is simply not possible to judge with confidence which is the case.
-In any case, it is unacceptable that a very old remote branch affects a long
-active local chain.
+In any case, it is unacceptable that an old remote branch affects a local
+active chain.
 %
 For this reason, the consensus algorithm includes an extra constraint that
-prevents long-lasting local branches to merge, creating \emph{hard forks} in
-the network.
-A hard fork occurs when a local branch crosses the predetermined and
-irreversible thresholds of \emph{7 days} or \emph{100 posts} of activity.
+prevents long-lasting local branches to merge, leading to \emph{hard forks}.
+A hard fork occurs when a local branch crosses a predetermined
+threshold of \emph{7 days} or \emph{100 posts} of activity.
 In this case, regardless of the remote branch reputation, the local branch
 takes priority and is ordered first.
-This situation is analogous to a hard fork in Bitcoin and the branches will
-never synchronize again.
-More than simply numeric disputes, hard forks represent social conflicts in
+This situation is analogous to a hard fork in Bitcoin and the branches become
+incompatible and will never synchronize again.
+More than simple numeric disputes, a hard fork represents a social conflict in
 which reconciling branches is no longer possible.
 %
 Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
 consensus}, which cannot be reordered, from \emph{unstable consensus}, which may
 still be affected by incoming branches.
-The activity threshold counts backwards, from the latest local post in the
-unstable consensus.
+The activity threshold counts backwards, starting from the newest local post
+in the unstable consensus to older posts until they are permanently frozen.
 
 \begin{figure}
 \centering
@@ -893,7 +891,7 @@ and increasing new user to \onerep (rule~\code{3.a}).
 Note that the newbie post is not penalized (rule~\code{2}) because it is
 followed by the pioneer like, which still controls all \reps in the chain.
 
-Note that with no additional rules to generate \reps, the initial \nreps{30}
+With no additional rules to generate \reps, the initial \nreps{30}
 would constitute the whole ``chain economy'' forever.
 For this reason, rule~\code{1.b} rewards authors of new posts with \onerep,
 but only after 24 hours.
@@ -936,7 +934,7 @@ chains.
 %
 Note that a dislike shrinks the chain economy since it removes \reps from both
 the origin and target.
-As detailed next, the actual contents of a post may be revoked if it has at
+Finally, the actual contents of a post may be revoked if it has at
 least 3 dislikes, and more dislikes than likes (rule~\code{3}).
 However, considering that \reps are scarce, dislikes are encouraged to combat
 abusive behavior, but not to eliminate divergences of opinion.
@@ -963,12 +961,12 @@ chain.
 Otherwise, it is \code{BLOCKED} and requires a like from another user.
 Blocked posts are not considered part of the chain DAG in the sense that new
 posts do not link back to it.
-In addition, peers are not required to hold blocked posts and neither
-retransmit them to other peers.
+In addition, peers are not required to hold blocked posts nor retransmit them
+to other peers.
 However, if blocked posts are not disseminated, new users will never have the
 chance to be welcomed with a like.
-A reasonable policy is to hold blocked posts in a temporary bag and retransmit
-them for some visibility in the network.
+Therefore, a reasonable policy is to hold blocked posts in a temporary bag and
+retransmit them for some visibility.
 Rule~\code{4.c} limits the size of posts to at most \emph{128kB} to prevent
 DDoS attacks using gigantic blocked posts.
 %
@@ -985,7 +983,8 @@ the payload hash.
 Hence, it is safe to remove the payload as long as one can prove its revoked
 state.
 Later, if the post receives new likes, it means that the payload is still known
-somewhere and peers can request it when synchronizing again.
+somewhere and peers can request it when synchronizing again, since the post
+becomes \code{ACCEPTED} again.
 We consider that revoking posts is fundamental in the context of content
 publishing, and thus, an important contribution of this work.
 
@@ -1148,24 +1147,24 @@ We leave this operation to future work.
 A simulation spawns $N$ peers, each joining the same chain with the same
 arguments.
 For each message in the original forum, we
-    (i)   set the timestamp of all peers to match the date,
+    (i)   set the timestamp of peers to match the original date,
     (ii)  create a pair of keys if the author is new,
     (iii) post the message from a random peer in $N$,
     (iv)  like the post if the author has no reputation, and
     (v)   synchronize the chain with $M$ random peers.
 %
 Since all messages are part of the original archive, we always perform step
-(iv) to unblock messages from newbies.
-Evaluation parameter (d) counts extra likes to unblock existing users, which
-could signal excessive bookkeeping in the chain.
+(iv) to unblock messages from newbies, which we also use to measure the
+evaluation parameter (d): it counts extra likes to unblock existing users,
+which could signal excessive bookkeeping in the chain.
 Step (v) will inevitably create forks in the chain for any \texttt{M<N}, which
-is accounted by evaluation parameter (c).
+we measure in evaluation parameter (c).
 
 For the newsgroup, we use \texttt{N=15} and \texttt{M=5}, which represents a
 larger number of peers with few interconnections to stress the local-first
 nature of the protocol.
-For the chat, we use \texttt{N=5} and \texttt{M=3}, which represents a smaller
-number of peers with more interconnections.
+For the chat, we use \texttt{N=5} and \texttt{M=3}, which is a smaller number
+of peers but with more interconnections.
 %
 We executed each simulation $4$ times in a desktop PC (\texttt{i7}
 CPU, \texttt{8GB} RAM, \texttt{512GB} SSD).
@@ -1721,9 +1720,8 @@ interconnections between peers.
 
 Federated protocols, such as e-mail, allow users from one domain to exchange
 messages with users of other domains seamlessly.
-\emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are more recent
-federations for social media, chat, and microblogging~\cite{p2p.ecosystem},
-respectively.
+\emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
+social media, chat, and microblogging~\cite{p2p.ecosystem}, respectively.
 
 As a drawback, identities in federations are not portable across domains, which
 may become a problem when servers shutdown or users become unsatisfied with the
@@ -1746,7 +1744,8 @@ As a counterpoint, federated protocols seem to be more appropriate for
 real-time applications such as large chats rooms.
 The number of hops and header overhead can be much smaller in client-server
 architectures compared to peer-to-peer systems, which typically include message
-signing, hash linking, and extra verification rules.
+signing, hash linking, and extra verification rules (as evaluated in
+Section~\ref{sec.consensus.eval}).
 
 \subsection{Peer-to-Peer Protocols}
 
@@ -1762,7 +1761,7 @@ Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
 centralization issue entirely, given the high costs of equipment and energy.
 Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
 that centralization is inevitable, and thus uses a function of time and wealth
-to elect peers to mint new posts.
+to elect peers to mint new blocks.
 As an advantage, these proof mechanisms are generic and apply to multiple
 domains, since they depend on an extrinsic scarce resource.
 % (i.e., the richer gets richer)
