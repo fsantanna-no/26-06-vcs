@@ -148,6 +148,13 @@ strong eventual consistency~\cite{p2p.crdts,p2p.sec}.
 We highlight four main contributions:
 %
 \begin{description}
+\item [Reputation-based consensus:]
+Due to decentralization and network partitions, posts in a timeline form a
+causal graph with only partial order, which we promote to a total order based
+on the reputation of authors.
+The consensus order is fundamental to detect conflicting operations, such as
+likes with insufficient reputation (akin to Bitcoin's double spending).
+%
 \item [Proof-of-authoring:]
 We recognize content as a scarce resource, since it requires human authoring
 work (akin to Bitcoin's mining).
@@ -155,13 +162,6 @@ If admitted by other members, new posts reward authors with reputation tokens,
 which authors further spend to rate other posts with likes and dislikes.
 In short, token generation is expensive, while assessment is cheap and shared
 by multiple members.
-%
-\item [Reputation-based consensus:]
-Due to decentralization and network partitions, posts in a timeline form a
-causal graph with only partial order, which we promote to a total order based
-on the reputation of authors.
-The consensus order is fundamental to detect conflicting operations, such as
-likes with insufficient reputation (akin to Bitcoin's double spending).
 %
 \item [Independent Sybil-resistant forums:]
 Users can create diversified forums of interest (not a singleton forum), each
