@@ -142,14 +142,18 @@ considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to reach consensus and
 eradicate Sybils, but in the context of public forums.
-We propose a permissionless peer-to-peer protocol with four main contributions:
+We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
+\FC~\cite{fcs.sbseg20}, a
+permissionless peer-to-peer protocol with strong eventual
+consistency~\cite{p2p.crdts,p2p.sec}.
+We highlight four main contributions:
 %
 \begin{description}
 \item [Proof-of-authoring:]
 We recognize content as a scarce resource, since it requires human authoring
 work (akin to Bitcoin's mining).
 If admitted by other members, new posts reward authors with reputation tokens,
-which can further rate other posts with likes and dislikes.
+which can further be spent to rate other posts with likes and dislikes.
 In short, token generation is expensive, while assessment is cheap and shared
 by multiple users.
 %
@@ -160,22 +164,18 @@ on the reputation of authors.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double spending).
 %
-\item [Unbounded sybil-resistant forums:]
-Users can create diversified forums of interest ---not a singleton forum---
-each as an independent timeline with its own subjective authoring etiquette.
+\item [Independent Sybil-resistant forums:]
+Users can create diversified forums of interest (not a singleton forum), each
+as an independent timeline with its own subjective authoring etiquette.
 Unlike proof-of-work, which is extrinsic, reputation tokens are intrinsic to
 each forum.
 %
-\item [Decentralized Moderation:]
-Users can rate and revoke posts without compromising the integrity of the
+\item [Decentralized moderation:]
+Members can rate and revoke posts without compromising the integrity of the
 underlying Merkle-DAG data model.
 Since payloads are only references, peers can prove revocation and refuse to
 forward abusive content.
-\end{enumerate}
-%
-We integrated the proposed consensus algorithm into \FC~\cite{fcs.sbseg20}, a
-peer-to-peer (P2P) content dissemination protocol that provides strong eventual
-consistency~\cite{p2p.crdts,p2p.sec}.
+\end{description}
 
 We also highlight two minor contributions:
 
