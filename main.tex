@@ -141,11 +141,10 @@ content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to reach consensus and
-eradicate Sybils, but in the context of public forums.
+eradicate Sybils in the context of public forums.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
-\FC~\cite{fcs.sbseg20}, a
-permissionless peer-to-peer protocol with strong eventual
-consistency~\cite{p2p.crdts,p2p.sec}.
+\FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
+strong eventual consistency~\cite{p2p.crdts,p2p.sec}.
 We highlight four main contributions:
 %
 \begin{description}
@@ -153,9 +152,9 @@ We highlight four main contributions:
 We recognize content as a scarce resource, since it requires human authoring
 work (akin to Bitcoin's mining).
 If admitted by other members, new posts reward authors with reputation tokens,
-which can further be spent to rate other posts with likes and dislikes.
+which authors further spend to rate other posts with likes and dislikes.
 In short, token generation is expensive, while assessment is cheap and shared
-by multiple users.
+by multiple members.
 %
 \item [Reputation-based consensus:]
 Due to decentralization and network partitions, posts in a timeline form a
@@ -167,14 +166,14 @@ likes with insufficient reputation (akin to Bitcoin's double spending).
 \item [Independent Sybil-resistant forums:]
 Users can create diversified forums of interest (not a singleton forum), each
 as an independent timeline with its own subjective authoring etiquette.
-Unlike proof-of-work, which is extrinsic, reputation tokens are intrinsic to
-each forum.
+Unlike proof-of-work, which is extrinsic to the application, reputation tokens
+are intrinsic to each forum.
 %
 \item [Decentralized moderation:]
 Members can rate and revoke posts without compromising the integrity of the
 underlying Merkle-DAG data model.
-Since payloads are only references, peers can prove revocation and refuse to
-forward abusive content.
+Since the DAG only references payloads by hash, peers can prove revocation and
+refuse to forward abusive content.
 \end{description}
 
 We also highlight two minor contributions:
