@@ -43,21 +43,21 @@ We propose a permissionless Sybil-resistant peer-to-peer protocol for public
 forums.
 Our main contribution is a reputation system that moderates content and, at the
 same time, delivers network consensus.
-We can trace a parallel with Bitcoin as follows:
+The design parallels Bitcoin:
     consolidated posts create reputation (vs proof-of-work),
     likes and dislikes transfer reputation (vs transactions), and
     aggregate reputation determines consensus (vs longest chain).
 %
-The reputation mechanism depends exclusively on the human authoring ability
-(\emph{proof-of-authoring}), which is slow and scarce, thus suitable to
-establish consensus.
+The reputation mechanism depends exclusively on human authoring
+(\emph{proof-of-authoring}), which is slow and scarce, thus suitable for
+consensus.
 As an application example, we prototype a permissionless Wiki that, based on
 consensus, resolves conflicts automatically.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
 Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer, public
-forums, reputation system, social media, wiki platforms
+forums, reputation system, social media, Wikis
 
 \section{Introduction}
 \label{sec.introduction}
@@ -76,7 +76,7 @@ users~\cite{p2p.osn,p2p.byz}.
 %given the decentralization of authority and infrastructure.
 % and push to end users the responsibility to manage data and connectivity.
 
-In an ideal public forum, all messages or posts
+In an ideal public forum, all posts
 (i)   reach all users,
 (ii)  are delivered in a consistent order, and
 (iii) are respectful and on topic.
@@ -210,7 +210,8 @@ The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
 to create, rate, and synchronize posts.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
-mechanism, discuss relevant security threats, and evaluate its performance.
+mechanism, discuss relevant security threats, and evaluate it on real forum
+archives.
 In Section~\ref{sec.crdts}, we discuss the correspondences with
 CRDTs~\cite{p2p.crdts}, and prototype a simple conflict-free Wiki.
 In Section~\ref{sec.related}, we compare our system with publish-subscribe
