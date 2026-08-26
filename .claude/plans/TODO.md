@@ -1,5 +1,8 @@
 # TODO
 
+- Related Work: position vs BEC / Kleppmann line -> see
+  `260826-bec.md`
+
 - Related Work: add AT Protocol / Bluesky (Kleppmann et al., ACM
   CoNEXT DAI-N 2024, doi 10.1145/3694809.3700740, arXiv 2402.03239)
     - fits "Federated Protocols" next to Mastodon/Matrix
