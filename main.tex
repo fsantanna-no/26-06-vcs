@@ -51,8 +51,8 @@ We can trace a parallel with Bitcoin as follows:
 The reputation mechanism depends exclusively on the human authoring ability
 (\emph{proof-of-authoring}), which is slow and scarce, thus suitable to
 establish consensus.
-As an application example, we prototype a permissionless Wiki platform that,
-based on consensus, resolves conflicts automatically.
+As an application example, we prototype a permissionless Wiki that, based on
+consensus, resolves conflicts automatically.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
@@ -177,24 +177,22 @@ refuse to forward abusive content.
 \end{description}
 
 We also highlight two minor contributions:
-
-As an application example, we prototyped a permissionless decentralized version
-control system (dVCS) that relies on consensus to apply automatic merges.
-A dVCS is relevant because
-    (i)   it is a collaborative application,
-    (ii)  with commits that need evaluation from users, and
-    (iii) with merges that require human intervention, which we propose to
-          automate.
 %
-Hence, as a fifth contribution, we show how the consensus mechanism can empower
-mostly conflict-free replicated data types (\emph{quasi-CRDTs}) when they do
-encounter conflicting operations.
-
-Finally, sixth Git
-This transparent design brings a familiar and solid basis, providing content
+\begin{description}
+\item [Permissionless Wiki:]
+A Wiki prototype is relevant because
+    (i)   it is a collaborative application,
+    (ii)  with edits that users need to assess, and
+    (iii) with merges that we propose to automate.
+The goal is to demonstrate how the consensus mechanism can empower mostly
+conflict-free replicated data types (\emph{quasi-CRDTs}) when they do encounter
+conflicting operations.
+\item [Git-based backend:]
+We implement \FC on top of Git as a familiar and solid basis, providing content
 addressing, integrity, signing, and replication for free.
-On top of it, Freechains adds what Git alone cannot provide:
-    reputation, consensus, and moderation.
+Relying only on non-intrusive hooks, we add what Git alone cannot provide:
+reputation, consensus, and moderation.
+\end{description}
 
 
 In summary, we propose
@@ -221,7 +219,7 @@ The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
 to create, rate, and synchronize posts.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
-mechanism, discuss relevant security threats, and evaluate its perfomance.
+mechanism, discuss relevant security threats, and evaluate its performance.
 In Section~\ref{sec.crdts}, we discuss the correspondences with CRDTs, and
 prototype a simple conflict-free Wiki.
 In Section~\ref{sec.related}, we compare our system with publish-subscribe
