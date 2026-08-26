@@ -187,11 +187,11 @@ mostly conflict-free replicated data types (\emph{quasi-CRDTs}) when they do
 encounter conflicting operations.
 
 In summary, we propose
-    (i)   proof-of-authoring as a scarce resource,
-    (ii)  a consensus mechanism based on reputation,
-    (iii) for independent user-generated blockchains,
-    (iv)  which supports content removal, and
-    (v)   which can automate conflict resolution in quasi-CRDTs.
+    (1) proof-of-authoring as a scarce resource,
+    (2) a consensus mechanism based on reputation,
+    (3) for independent user-generated blockchains,
+    (4) which supports content removal, and
+    (5) which can automate conflict resolution in quasi-CRDTs.
 %
 As a main limitation, the forum causal graphs are ever growing data structures
 that carry considerable metadata overhead.
@@ -218,7 +218,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \begin{comment}
 https://twitter.com/francesc/status/794647418222448640?lang=en
 - CONCLUSION
-Our main contribution is to make decentralized public forums viable in
+Our main contribution is to make decentralized forums viable in
 practice.
 The proposed reputation and consensus mechanism depends exclusively on human
 work, contrasting with most systems that rely on extrinsic resources, such as
@@ -403,7 +403,7 @@ a fundamental obstacle to reach consensus.
 TODO: arrangement
 In private chains, we could apply simple methods, such as relying on the local
 source timestamps of the posts.
-However, in public forums, a malicious user could modify his local time to
+However, in forums, a malicious user could modify his local time to
 manipulate the order of messages.
 
 To conclude the basic operations of chains, users can rate posts with
@@ -441,8 +441,8 @@ TODO: arrangement
 %In private groups, like operations are unlimited and are used to quantify
 %engagement, similarly to typical centralized systems.
 %In public forums, however, likes
-As we discuss in the next section, like operations in public forums have to be
-signed by users, and are at the core of our proposed consensus algorithm.
+As we discuss in the next section, like operations have to be signed by users,
+and are at the core of our proposed consensus algorithm.
 
 TODO: arrangement
 For the sake of completeness, \FC also supports public identity chains
@@ -486,8 +486,7 @@ requirement to combat abuse.
 %Bitcoin maintains a single public ledger (\FC's \emph{public forum chains}),
 %and hence, require a consensus mechanism to combat Sybils.
 %
-In the next section, we propose a consensus mechanism to support public forums
-in \FC.
+In the next section, we propose a consensus mechanism in \FC.
 %
 \FC is around $1500$ LoC in Kotlin. %and is publicly available.
 %\footnote{\url{http://www.freechains.org}}.
@@ -514,7 +513,7 @@ Section~\ref{sec.consensus.design} describes the overall reputation and
 consensus mechanism, which can be applied to other systems using DAGs to
 structure its messages.
 Section~\ref{sec.consensus.chains} describes the concrete rules we implemented
-for public forums in \FC.
+in \FC.
 Section~\ref{sec.consensus.algo} details the consensus and synchronization
 algorithm.
 Section~\ref{sec.consensus.eval} simulates the behavior of chains to evaluate
@@ -523,7 +522,7 @@ the performance of the protocol.
 \subsection{Overall Design}
 \label{sec.consensus.design}
 
-In our system, users can spend tokens named \reps to post and rate content in
+In our system, members can spend tokens named \reps to post and rate content in
 forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
@@ -533,12 +532,12 @@ a \code{dislike} is a negative feedback that revokes content when crossing a
 threshold.
 Table~\ref{fig.general} summarizes the general reputation rules and their
 goals.
-To prevent Sybils, users with no \reps cannot operate under these rules,
-requiring a welcoming like from any other user already in the system.
+To prevent Sybils, members with no \reps cannot operate under these rules,
+requiring a welcoming like from any other member already in the system.
 The fact that likes are zero-sum operations, which only transfer reputation,
-eliminates the incentives from malicious users to invite Sybils into the
+eliminates the incentives from malicious members to invite Sybils into the
 system.
-The only way to generate new \reps is to post content that other users
+The only way to generate new \reps is to post content that other members
 tolerate, which demands non-trivial work resistant to automation.%
 \footnote{
     Note that although human and AI content may become indistinguishable, their
@@ -597,28 +596,28 @@ messages, which provides at most partial order.
 \end{figure*}
 
 Our key idea to stablish consensus in forum DAGs is to favor forks with posts
-from users that constitute the majority of the reputation.
-These forks have more associated work from active users and are analogous to
+from members that constitute the majority of the reputation.
+These forks have more associated work from active members and are analogous to
 longest chains in Bitcoin.
 In technical terms, we adapt a topological sorting algorithm to favor
 reputation when deciding between branches in a forum DAG.
 %
-Going back to the malicious user example, the simultaneous messages would
+Going back to the malicious member example, the simultaneous messages would
 appear as forks in the forum DAG.
 Only the message in the fork with more combined work would be accepted, while
 all other Sybil messages would be rejected.
 
 Figure~\ref{fig.reps}.A illustrates the evolution of a forum DAG in the
 presence of a network partition:
-A common prefix has signed posts from users $a$, $b$, and $c$, when they were
+A common prefix has signed posts from members $a$, $b$, and $c$, when they were
 still all connected.
 %
-We assume that within the prefix, users $a$ and $b$ have contributed with
+We assume that within the prefix, members $a$ and $b$ have contributed with
 better content and therefore have more reputation combined than $c$ has alone
 (i.e., $8+5>3$).
 We will use this fact to order branches in the consensus algorithm.
 %
-Then, user $c$ disconnects from $a$ and $b$, and evolves with new users $x$ and
+Then, member $c$ disconnects from $a$ and $b$, and evolves with new members $x$ and
 $y$ in \code{branch-1}.
 In the meantime, $a$ and $b$ participate with new posts in \code{branch-2}.
 After some time, the partitions reconnect and new posts from $x$, $b$ and $c$
@@ -627,7 +626,7 @@ merge the branches now with a common suffix.
 Note that even non-malicious partitions may experience conflicts when
 merging.
 For instance, dislike operations in one branch to past posts in the common
-prefix could possibly block posts from users in the other branch.
+prefix could possibly block posts from members in the other branch.
 %, depending on how the posts are ordered.
 Therefore, we need to order branches with a global consensus, such that we can
 validate operations consistently across the network.
@@ -638,35 +637,36 @@ common prefix.
 
 TODO >>>
 After the prefix, the forum forks in two branches:
-in \code{branch-1}, only user $c$ remains active and we see that new users $x$
+in \code{branch-1}, only member $c$ remains active and we see that new members $x$
 and $y$ (with no previous reputation in the common prefix) generate a lot of
 new content;
-in \code{branch-2}, only users $a$ and $b$ participate but with less activity.
+in \code{branch-2}, only members $a$ and $b$ participate but with less activity.
 Nevertheless, \code{branch-2} would be ordered first because, before the
 forking point, $a$ and $b$ have more reputation than $c$, $x$, and $y$
 combined.
 <<< TODO
 
-Based on the reputation of users in the common prefix, Figure~\ref{fig.reps}.B
+Based on the reputation of members in the common prefix, Figure~\ref{fig.reps}.B
 indicates the resulting consensus order between posts in the forum DAG:
     the common prefix comes first,
     then all posts in \code{branch-2},
     then all posts in \code{branch-1},
     then the common suffix.
 %
-The \code{branch-2} with users $a$ and $b$ takes priority over \code{branch-1}
-with user $c$ because, before the forking point, $a$ and $b$ have more
+The \code{branch-2} with members $a$ and $b$ takes priority over \code{branch-1}
+with member $c$ because, before the forking point, $a$ and $b$ have more
 reputation than $c$, $x$, and $y$ have combined.
 
 The basic consensus rule is therefore straightforward:
-Whenever a fork is found, we create sets of users with posts in each branch
+Whenever a fork is found, we create sets of members with posts in each branch
 ($B1=\{c,x,y\}$ and $B2=\{a,b\}$).
-Then, we take each set, and sum its users \reps based on the common prefix
+Then, we take each set, and sum its members \reps based on the common prefix
 ($S1=3$ and $S2=13$), since it is the maximum information that all branches
 agree.
 Finally, we order the branches based on the highest sum of \reps found
 (Figure~\ref{fig.reps}.B).
 
+TODO: duplicado abaixo
 Note that the consensus order exists only to account reputation and verify
 operations, and is only a view of the primary DAG structure of public forums.
 At any point in the consensus timeline,
@@ -675,7 +675,7 @@ if any post operation fails, all remaining
 posts in the offending branch are rejected and removed from the primary DAG,
 as if they never existed.
 As an example, suppose that the last post by $a$ in \code{branch-2} (in gray)
-is a dislike to user $c$.
+is a dislike to member $c$.
 Then, it's possible that the last post by $c$ in \code{branch-1} (in red), now
 suppose with \nreps{0}, is rejected together with all posts in sequence,
 including those in the common suffix.
@@ -698,8 +698,8 @@ append the other branch, with no reordering at all.
 This behavior is expected to happen in the majority of the connected network.
 %
 Legitimate posts in secondary branches might be removed due to merges, which
-requires that users repost the messages.
-Nevertheless, we expect that legitimate users gossip among themselves more
+requires that members repost the messages.
+Nevertheless, we expect that legitimate members gossip among themselves more
 often, thus preventing this situation.
 %
 Note that unlike Bitcoin, forks are not only permitted but encouraged due to
@@ -728,22 +728,22 @@ In summary, it is important to remark that
     (iv) leading to a global and deterministic result.
 %
 Note that the consensus order exists only to account reputation and verify
-operations, and is only a view of the primary DAG structure of public forums.
+operations, and is only a view of the primary DAG structure of forums.
 
 \subsection{Malicious Behaviors and Hard Forks}
 \label{sec.design.hard}
 
-Consider a malicious scenario in which user $c$ in Figure~\ref{fig.reps}
+Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}
 intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ with the intention to accumulate \reps.
-When merging, these fake users would become legitimate and take over the
+When merging, these fake members would become legitimate and take over the
 majority of \reps in the forum.
 %
 However, this kind of attack is refutable because, since the common prefix is
-the basis of consensus, users in the branch with more reputation can still
+the basis of consensus, members in the branch with more reputation can still
 react even a posteriori.
-For instance, users $a$ and $b$ can pretend that they did not yet see
-\code{branch-1} and post extra dislikes to user $c$ from \code{branch-2} so
+For instance, members $a$ and $b$ can pretend that they did not yet see
+\code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
 that a further merge invalidates all posts from \code{branch-1}, removing them
 from the DAG.
 %
@@ -754,9 +754,9 @@ This kind of attack is thus innocuous because it requires at least half of the
 %colluding to boost or protect their own posts.
 
 As a counterpoint to the consensus order in Figure~\ref{fig.reps}.B, maybe
-users $a$ and $b$ have abandoned the forum for months, and thus
+members $a$ and $b$ have abandoned the forum for months, and thus
 \code{branch-1} is actually legitimate.
-In this case, users $a$ and $b$ would succeed to take over the forum, since
+In this case, members $a$ and $b$ would succeed to take over the forum, since
 they control the majority of \reps in the common prefix.
 Yet another possibility is that both branches are legitimate but became
 disconnected for a long period.
@@ -804,13 +804,13 @@ branch \code{i} from a local machine are as follows:
 \end{itemize}
 
 To conclude this section, we should keep in mind that our consensus algorithm
-is based on subjective evaluations of users and posts.
+is based on subjective evaluations of members and posts.
 For this reason, unlike Bitcoin, in which forks are discouraged and a single
-blockchain must prevail, public forums can split and diverge indiscriminately.
-For instance, users can explicitly apply hard forks at any point in time to
+blockchain must prevail, forums can split and diverge indiscriminately.
+For instance, members can explicitly apply hard forks at any point in time to
 ``reboot'' a community from a previous state.
 Ultimately, the consensus algorithm provides a transparent mechanism to help
-users understand the evolution of public forums and act accordingly, even if it
+members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
 
 \subsection{Public Forum Chains}
@@ -845,23 +845,23 @@ likes, while they gradually transfer \reps to other authors, which also
 transfer to other authors, expanding the community.
 %
 The \code{post} command in sequence is signed by the single pioneer (in this
-example) and indicates the purpose of the chain for future users.
+example) and indicates the purpose of the chain for future members.
 
-The most basic concern in public forums is to resist Sybils abusing the
+The most basic concern in forums is to resist Sybils abusing the
 chains.
 Fully peer-to-peer systems cannot rely on logins or {\footnotesize CAPTCHAs}
 due to the lack of a central authority.
-Viable alternatives include (i) building social trust graphs, in which users
-already in the community vouch for new users, or (ii) imposing explicit costs
+Viable alternatives include (i) building social trust graphs, in which members
+already in the community vouch for new members, or (ii) imposing explicit costs
 for new posts, such as proof of work.
 %
 We propose a mix between social trust graphs and explicit costs for new posts.
 %
 Rule~\code{4.a} requires that authors have at least \onerep to post,
 effectively blocking Sybil actions.
-To vouch for new users, rule~\code{3.a} allows an existing user to like a
+To vouch for new members, rule~\code{3.a} allows an existing member to like a
 newbie's post to unblock it, but at the cost of \onerep.
-This cost prevents malicious members to unblock new users indiscriminately,
+This cost prevents malicious members to unblock new members indiscriminately,
 which would be a breach for Sybils.
 For the same reason, rule~\code{2} imposes a temporary cost of \onerep for
 each new post.
@@ -871,7 +871,7 @@ imposed by rule~\code{4.a}: if new authors start with no \reps, but require
 \reps to operate, it is necessary that some authors have initial \reps to boot
 the chains.
 
-In the next sequence of commands, a new remote user joins the same public chain
+In the next sequence of commands, a new remote member joins the same public chain
 and posts a message, which is welcomed with a like signed by the pioneer:
 
 {\footnotesize
@@ -906,7 +906,7 @@ chain, the penalty falls immediately and she remains with \nreps{30}.
 This mechanism limits the excess of posts in chains dynamically.
 For instance, in slow technical mailing lists, it is more expensive to post
 messages in sequence.
-However, in chats with a lot of active users, the penalty can decrease to zero
+However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
 
 \begin{figure}
@@ -918,11 +918,11 @@ quickly.
 \label{fig.forum}
 \end{figure}
 
-Back to Figure~\ref{fig.forum}, a new user with \nreps{0} tries to post a
+Back to Figure~\ref{fig.forum}, a new member with \nreps{0} tries to post a
 message (hash~\code{C3A40F..}) and is blocked (rule~\code{4.a}), as the red
 background highlights.
 But the pioneer likes the blocked message, decreasing herself to \nreps{29}
-and increasing new user to \onerep (rule~\code{3.a}).
+and increasing new member to \onerep (rule~\code{3.a}).
 Note that the newbie post is not penalized (rule~\code{2}) because it is
 followed by the pioneer like, which still controls all \reps in the chain.
 
@@ -931,11 +931,11 @@ constitute the whole ``chain economy'' forever.
 For this reason, rule~\code{1.b} rewards authors of new posts with \onerep,
 but only after 24 hours.
 This rule stimulates content creation and grows the economy of chains.
-The 24-hour period gives sufficient time for other users to judge the post
+The 24-hour period gives sufficient time for other members to judge the post
 before rewarding the author.
 It also regulates the growth speed of the chain.
 In Figure~\ref{fig.forum}, after 1 day, the pioneer would now accumulate
-\nreps{30} and the new user \nreps{2}, growing the economy in \nreps{2} as
+\nreps{30} and the new member \nreps{2}, growing the economy in \nreps{2} as
 result of the two new consolidated posts.
 Note that rule~\code{1.b} rewards at most one post of each author at a time.
 Hence, extra posts during the 24-hour period do not reward authors with extra
@@ -947,11 +947,11 @@ DDoS attacks using gigantic blocked posts.
 
 Likes and dislikes (rules \code{3.a} and \code{3.b}) serve three purposes
 in the chains:
-    (i) welcoming new users,
+    (i) welcoming new members,
     (ii) measuring the quality of posts, and
     (iii) revoking abusive posts (SPAM, fake news, illicit content, etc).
 %
-The quality of posts is subjective and is up to users to judge them with likes,
+The quality of posts is subjective and is up to members to judge them with likes,
 dislikes, or simply abstaining.
 %
 %This way, access to chains is permissionless in the sense that the actual peers
@@ -962,10 +962,10 @@ The reputation of a given post is the difference between its likes and
 dislikes, which can be used in end-user software for filtering and highlighting
 purposes.
 %
-On the one hand, since \reps are finite, users need to ponder to avoid
+On the one hand, since \reps are finite, members need to ponder to avoid
 indiscriminate expenditure.
 On the other hand, since \reps are limited to at most \nreps{30} per author
-(rule~\code{4.b}), users also have incentives to rate content.
+(rule~\code{4.b}), members also have incentives to rate content.
 Hence, these upper and lower limits work together towards the quality of the
 chains.
 %
@@ -1000,13 +1000,13 @@ Figure~\ref{fig.state} specifies the transitions between states.
 If the author has reputation, a new post is immediately \code{ACCEPTED} in the
 forum.
 %
-Otherwise, it is \code{BLOCKED} and requires a like from another user.
+Otherwise, it is \code{BLOCKED} and requires a like from another member.
 
 Blocked posts are not considered part of the forum DAG in the sense that new
 posts do not link back to it.
 In addition, peers are not required to hold blocked posts nor retransmit them
 to other peers.
-However, if blocked posts are not disseminated, new users will never have the
+However, if blocked posts are not disseminated, new members will never have the
 chance to be welcomed with a like.
 Therefore, a reasonable policy is to hold blocked posts in a temporary bag and
 retransmit them for some visibility.
@@ -1260,9 +1260,9 @@ We found a ratio of $18\%$ for the chat and $14\%$ for the newsgroup, which
 confirms that the simulation achieves a reasonable level of asynchrony.
 
 Evaluation item (d) measures how much bookkeeping is required to sustain active
-users in the forums.
+members in the forums.
 Even though the newbie rule~\code{4.a} in Table~\ref{fig.rules} is key to
-combat Sybils, ideally it should not recurrently deny access to active users
+combat Sybils, ideally it should not recurrently deny access to active members
 with low reputation.
 %
 The evaluation counts the number of blocked messages requiring extra likes
@@ -1270,20 +1270,20 @@ after the welcoming likes (which are disconsidered) and calculates the ratio
 over the total number of messages in the chain.
 %This situation occurs when an user with low reputation tries to post multiple
 %messages in a row without the necessary interval imposed by rule~\code{2}.
-As an example, if $10$ users posted $110$ messages requiring $20$ likes, we
-discount the $10$ initial messages and welcoming likes (when the user first
+As an example, if $10$ members posted $110$ messages requiring $20$ likes, we
+discount the $10$ initial messages and welcoming likes (when the member first
 appears), and find a ratio of $10\%$ (\code{(20-10)/(110-10)}).
 %
-For the chat with $80$ users, we found a ratio of $3.7\%$.
-For the newsgroup with $5000$ users, we found a ratio of $3.5\%$.
+For the chat with $80$ members, we found a ratio of $3.7\%$.
+For the newsgroup with $5000$ members, we found a ratio of $3.5\%$.
 %
-Considering that users were not aware of the reputation rules, the low ratios
+Considering that members were not aware of the reputation rules, the low ratios
 indicate that their "natural" posting behavior matches the constraints of the
 rules.
 %As expected, the newsgroup has a lower bookkeeping given the higher interval
 %between messages.
 %
-We assume that users would use the revoke mechanism to combat abusive content,
+We assume that members would use the revoke mechanism to combat abusive content,
 having no further effects on our evaluation.
 %We also do not evaluate the quality of posts and how they would affect the
 %reputation of users.
@@ -1575,7 +1575,7 @@ post and terminates.
 We discuss this behavior further, when we illustrate commit conflicts.
 
 Since the last commit above is clearly wrong (P2P networks do scale!), other
-users in the network will dislike it until the post becomes
+members in the network will dislike it until the post becomes
 \code{REVOKED} in the chain: % (as described before in Figure~\ref{fig.state}):
 
 {\footnotesize
@@ -1844,7 +1844,7 @@ communities because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
 
 Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
-with public forums of \FC (\Xnn).
+with \FC (\Xnn).
 A fundamental difference is that Aether is designed for ephemeral, mutable
 posts with no intention to enforce global consensus across peers.
 Aether employs a very pragmatic approach to mitigate abuse in forums.
@@ -1909,17 +1909,17 @@ ability as a scarce resource to determine consensus.
 This contrasts with extrinsic resources, such as CPU power, which are
 dispendious and not evenly distributed among people.
 %
-Consensus is backed by a reputation system in which users can rate posts with
+Consensus is backed by a reputation system in which members can rate posts with
 likes and dislikes, which transfer reputation between them.
 The only way to forge reputation is by authoring new content under the
-judgement of other users.
+judgement of other members.
 This way, reputation generation is expensive, while verification is cheap and
 decentralized.
 
 The reputation and consensus mechanism is integrated into \FC, a peer-to-peer
-protocol, in which users can create public forums of interest and apply diverse
+protocol, in which members can create public forums of interest and apply diverse
 moderation policies.
-In particular, users can revoke content considered abusive according to the
+In particular, members can revoke content considered abusive according to the
 majority, not depending on centralized authorities.
 %
 We simulate the behavior of existing chat and newsgroup forums as if they were
@@ -1938,7 +1938,7 @@ automatically:
 
 Finally, we do not claim that the proposed reputation system enforces ``good''
 human behavior in any way.
-Instead, it provides a transparent and quantitative mechanism to help users
+Instead, it provides a transparent and quantitative mechanism to help members
 understand the evolution of forums and act accordingly.
 Human creativity contrasts with plain economic resources (e.g.,
 proof-of-work), which do not appraise social interactions and also tend
