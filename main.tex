@@ -141,38 +141,43 @@ content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to reach consensus and
-eradicate Sybils, but in the context of social content sharing.
-We indicate 4 main contributions:
+eradicate Sybils, but in the context of public forums.
+We propose a permissionless peer-to-peer protocol with four main contributions:
 %
-\begin{enumerate}
-\item Recognizing published contents as scarce resources, since they require
-human work.
-Work is manifested as new posts, which if approved by others, reward authors
-with reputation tokens, which are further used to evaluate other posts with
-likes and dislikes.
-With such \emph{proof-of-authoring} mechanism, token generation is expensive,
-while verification is cheap and shared by multiple users.
+\begin{description}
+\item [Proof-of-authoring:]
+We recognize content as a scarce resource, since it requires human authoring
+work (akin to Bitcoin's mining).
+If admitted by other members, new posts reward authors with reputation tokens,
+which can further rate other posts with likes and dislikes.
+In short, token generation is expensive, while assessment is cheap and shared
+by multiple users.
 %
-\item Using the reputation system to determine consensus.
+\item [Reputation-based consensus:]
 Due to decentralization and network partitions, posts in a timeline form a
 causal graph with only partial order, which we promote to a total order based
 on the reputation of authors.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double spending).
 %
-\item Allowing users to create diversified forums of interest (not a
-singleton blockchain), each as an independent timeline with its own
-subjective authoring etiquette.
+\item [Unbounded sybil-resistant forums:]
+Users can create diversified forums of interest ---not a singleton forum---
+each as an independent timeline with its own subjective authoring etiquette.
+Unlike proof-of-work, which is extrinsic, reputation tokens are intrinsic to
+each forum.
 %
-\item Supporting content removal without compromising the integrity of the
-decentralized blockchain.
-Users have the power to revoke posts with dislikes, and peers are forced to
-remove payloads, only forwarding associated blockchain metadata.
+\item [Decentralized Moderation:]
+Users can rate and revoke posts without compromising the integrity of the
+underlying Merkle-DAG data model.
+Since payloads are only references, peers can prove revocation and refuse to
+forward abusive content.
 \end{enumerate}
 %
 We integrated the proposed consensus algorithm into \FC~\cite{fcs.sbseg20}, a
 peer-to-peer (P2P) content dissemination protocol that provides strong eventual
 consistency~\cite{p2p.crdts,p2p.sec}.
+
+We also highlight two minor contributions:
 
 As an application example, we prototyped a permissionless decentralized version
 control system (dVCS) that relies on consensus to apply automatic merges.
@@ -185,6 +190,13 @@ A dVCS is relevant because
 Hence, as a fifth contribution, we show how the consensus mechanism can empower
 mostly conflict-free replicated data types (\emph{quasi-CRDTs}) when they do
 encounter conflicting operations.
+
+Finally, sixth Git
+This transparent design brings a familiar and solid basis, providing content
+addressing, integrity, signing, and replication for free.
+On top of it, Freechains adds what Git alone cannot provide:
+    reputation, consensus, and moderation.
+
 
 In summary, we propose
     (1) proof-of-authoring as a scarce resource,
@@ -203,6 +215,8 @@ of blockchains in general.
 Nevertheless, to show the feasibility of the protocol, we simulated months of
 a chat channel and years of a newsgroup forum, both extracted
 from publicly available Internet archives.
+
+mostrar tamanhos real vs metas
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
