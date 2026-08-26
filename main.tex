@@ -36,23 +36,18 @@
 
 \begin{abstract}
 Public online forums suffer from excess and abuse, such as SPAM and fake news.
-Centralized platforms employ moderation policies, but require full trust from
-users.
-%
+Centralized platforms moderate content, but require full trust from users.
 We propose a permissionless Sybil-resistant peer-to-peer protocol for public
-forums.
-Our main contribution is a reputation system that moderates content and, at the
-same time, delivers network consensus.
+forums, in which a reputation system moderates content and, at the same time,
+delivers network consensus.
 The design parallels Bitcoin:
     consolidated posts create reputation (vs proof-of-work),
     likes and dislikes transfer reputation (vs transactions), and
     aggregate reputation determines consensus (vs longest chain).
-%
-The reputation mechanism depends exclusively on human authoring
-(\emph{proof-of-authoring}), which is slow and scarce, thus suitable for
-consensus.
-As an application example, we prototype a permissionless Wiki that, based on
-consensus, resolves conflicts automatically.
+Reputation depends exclusively on human authoring (\emph{proof-of-authoring}),
+which is slow and scarce, thus suitable for consensus.
+We implement the protocol on top of Git and prototype a Wiki application that
+resolves conflicts automatically through consensus.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
