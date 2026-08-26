@@ -189,39 +189,30 @@ conflict-free replicated data types (\emph{quasi-CRDTs}) when they do encounter
 conflicting operations.
 \item [Git-based backend:]
 We implement \FC on top of Git as a familiar and solid basis, providing content
-addressing, integrity, signing, and replication for free.
+addressing, integrity, versioning, signing, deduplication, compression, and
+replication for free.
 Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
 
-
-In summary, we propose
-    (1) proof-of-authoring as a scarce resource,
-    (2) a consensus mechanism based on reputation,
-    (3) for independent user-generated blockchains,
-    (4) which supports content removal, and
-    (5) which can automate conflict resolution in quasi-CRDTs.
-%
-As a main limitation, the forum causal graphs are ever growing data structures
-that carry considerable metadata overhead.
-The costs to store and validate posts increase over time, which is a limitation
-of blockchains in general.
-%In addition, they require per-post validations that may become a bottleneck
-%for real-time applications.
+As a main limitation, forum DAGs are ever growing data structures that carry
+considerable metadata overhead.
+The costs to store and validate posts increase over time, which is also a
+limitation of blockchains in general.
 %
 Nevertheless, to show the feasibility of the protocol, we simulated months of
-a chat channel and years of a newsgroup forum, both extracted
-from publicly available Internet archives.
-
-mostrar tamanhos real vs metas
+a chat channel and years of a newsgroup forum, both extracted from publicly
+available Internet archives.
+%
+TODO: expose results (local post time, sync time, DAG/repo disk size).
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
 to create, rate, and synchronize posts.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
 mechanism, discuss relevant security threats, and evaluate its performance.
-In Section~\ref{sec.crdts}, we discuss the correspondences with CRDTs, and
-prototype a simple conflict-free Wiki.
+In Section~\ref{sec.crdts}, we discuss the correspondences with
+CRDTs~\cite{p2p.crdts}, and prototype a simple conflict-free Wiki.
 In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
