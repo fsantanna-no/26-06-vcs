@@ -77,11 +77,11 @@ users~\cite{p2p.osn,p2p.byz}.
 % and push to end users the responsibility to manage data and connectivity.
 
 In an ideal public forum, all messages or posts
-(i)   reach all users,
-(ii)  are delivered in consistent order, and
-(iii) are respectful and on topic.
-In centralized systems, items (i) and (ii) are trivially achieved assuming
-availability and delivery order, while item (iii) requires users to trust the
+(a) reach all users,
+(b) are delivered in consistent order, and
+(c) are respectful and on topic.
+In centralized systems, items (a) and (b) are trivially achieved assuming
+availability and delivery order, while item (c) requires users to trust the
 service policies.
 In decentralized systems, however, none of these demands are easily
 accomplished.
@@ -92,7 +92,7 @@ conflicting orders~\cite{p2p.intention,p2p.crdts}, nor even delivery at
 all~\cite{p2p.nostr}.
 %
 We argue that consensus is key to distinguish malicious behavior \emph{at the
-protocol level}~\cite{p2p.bec}, and a requirement to satisfy item (iii).
+protocol level}~\cite{p2p.bec}, and a requirement to satisfy item (c).
 Without consensus, each client must rely on local anti-abuse policies, such as
 SPAM filters, but which only apply a posteriori, when the abusive messages have
 already been flooded in the network by potential
@@ -117,30 +117,28 @@ Our goal, therefore, is to provide \emph{multi-user/multi-node consensus} (just
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
 consensus.
-%The protocol maintains a single dispendious timeline consisting of linked
-%posts with transactions, which represent the consensus.
-%Alternative timelines need to spend more resources to substitute the consensus.
 The protocol is Sybil resistant because it is expensive to write to its
 unique timeline (either via proof-of-work or transaction fees).
 %
-However, Bitcoin and cryptocurrencies in general are not suitable for social
-content sharing because
-    (i)   they enforce a unique timeline to preserve value and immunity to
-          attacks;
-    (ii)  they lean towards concentration of power due to scaling effects;
-    (iii) they impose an external economic cost to use the protocol; and
-    (iv)  they rely exclusively on objective rules to reach consensus.
+However, we argue that Bitcoin and cryptocurrencies in general are not suitable
+for social content because
+    (a) they encourage a unique global timeline, since forks would dilute value
+        and weaken the network's security;
+    (b) they lean towards concentration of power due to scaling
+        effects~\cite{btc.decentralization};
+    (c) they impose an external economic cost to use the protocol; and
+    (d) they rely exclusively on objective rules to reach consensus.
 %
 These issues threaten our decentralization goals, and more importantly, they
 renounce subjectivity, which is inherent to content moderation.
 %
-For instance, a unique timeline implies that all Internet content is subject
-to the same consensus rules, while objective rules alone cannot distinguish
-abuse amid content.
+For instance, a singleton timeline (a) implies that all forums would be packed
+together and subject to the same consensus rules, while objective rules alone
+(d) cannot distinguish abuse amid content.
 %
 Another limitation of cryptocurrencies is that it is not possible to revoke
-content in the middle of a blockchain, which is inadmissible considering
-illicit content (e.g., hate speech)~\cite{btc.content}.
+content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
+considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to reach consensus and
 eradicate Sybils, but in the context of social content sharing.
