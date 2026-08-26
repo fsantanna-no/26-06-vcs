@@ -23,11 +23,11 @@
 
 \begin{document}
 
-\title{
-    Permissionless Peer-to-Peer Forums on top of Git
+\title {
+    Reputation Consensus for Permissionless Peer-to-Peer Forums
 }
 
-\author{
+\author {
     Francisco Sant'Anna, Alexandre Sztajnberg
     \\ Department of Computer Science, Rio de Janeiro State University
 }
@@ -35,13 +35,12 @@
 \maketitle
 
 \begin{abstract}
-Public Internet forums suffer from excess and abuse, such as SPAM and fake
-news.
-Centralized platforms employ filtering and anti-abuse policies, but imply full
-trust from users.
+Public online forums suffer from excess and abuse, such as SPAM and fake news.
+Centralized platforms employ moderation policies, but require full trust from
+users.
 %
-We propose a permissionless Sybil-resistant peer-to-peer protocol for content
-sharing.
+We propose a permissionless Sybil-resistant peer-to-peer protocol for public
+forums.
 Our main contribution is a reputation system that moderates content and, at the
 same time, delivers network consensus.
 We can trace a parallel with Bitcoin as follows:
@@ -52,20 +51,20 @@ We can trace a parallel with Bitcoin as follows:
 The reputation mechanism depends exclusively on the human authoring ability
 (\emph{proof-of-authoring}), which is slow and scarce, thus suitable to
 establish consensus.
-As an application example, we prototype a permissionless decentralized version
-control system that, based on consensus, resolves conflicts automatically.
+As an application example, we prototype a permissionless Wiki platform that,
+based on consensus, resolves conflicts automatically.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
-Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer,
-publish-subscribe, reputation system, VCS
+Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer, public
+forums, reputation system, social media, wiki platforms
 
 \section{Introduction}
 \label{sec.introduction}
 
-Content publishing in Internet forums and social media is
-increasingly more centralized in a few companies (e.g. Facebook and
-Twitter)~\cite{internet.fixing,p2p.osn,p2p.dosn}.
+Public online forums and social media are increasingly more centralized in the
+hands of a few companies (e.g. Meta and
+X)~\cite{internet.fixing,p2p.osn,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
 These companies offer free storage, friendly user interfaces, and robust
@@ -77,7 +76,7 @@ strive to achieve consistency when dealing with malicious users.
 %given the decentralization of authority and infrastructure.
 % and push to end users the responsibility to manage data and connectivity.
 
-In an ideal Internet forum, all messages or posts
+In an ideal public forum, all messages or posts
 (i)   reach all users,
 (ii)  are delivered in consistent order, and
 (iii) are respectful and on topic.
@@ -719,7 +718,7 @@ rejoining.
 \caption{
     Reputation rules for public forum chains in \FC.
     The chosen constants ($30~reps$, $24h$, etc) are arbitrary and target
-    typical Internet forums with moderate traffic.
+    typical forums with moderate traffic.
     A future revision of the protocol could support them as chain parameters.
 }
 \label{fig.rules}
