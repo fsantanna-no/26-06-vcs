@@ -103,7 +103,7 @@ for l in io.lines('wikimedia.chat') do
     end
     N = N + 1
     if N == 10000 then
-        break
+        --break
     end
 end
 
