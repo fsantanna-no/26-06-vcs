@@ -220,7 +220,6 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \section{\FC Basics}
 \label{sec.freechains}
 
-
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
@@ -248,7 +247,7 @@ In the next sequence of commands we simulate a peer \emph{X}, in which
 \emph{Alice}
     (i)   creates a key pair to sign operations,
     (ii)  initializes chain \emph{chat} as its pioneer,
-    (iii) posts message \emph{Good Morning!} there, and
+    (iii) posts message \emph{Hello World} there, and
     (iv)  query its payload and metadata.
 
 {\footnotesize
@@ -257,10 +256,10 @@ In the next sequence of commands we simulate a peer \emph{X}, in which
  $ ssh-keygen -t ed25519 -f alice
  $ fc chat init --pioneer=alice
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc chat post 'Good Morning!' --sign=alice
+ $ fc chat post 'Hello World' --sign=alice
  b100ce8ca42c1b1c366c41b764cad1bbc116cff8
  $ fc chat payload b100ce8
- Good Morning!
+ Hello World
  $ fc chat metadata b100ce8
  action post
  time 1787850618
@@ -294,59 +293,51 @@ The example chain repository contains two commits:
 \end{verbatim}
 }
 
-Let's now consider a second peer \emph{Y} that replicates \emph{X} through the
-\emph{clone} operation:
+To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
+that replicates \emph{X} through the \emph{clone} operation:
 
 {\footnotesize
 \begin{verbatim}
  # PEER Y
  $ fc chat clone X
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc chat list dag
+ $ fc chat dag
  b100ce8
 \end{verbatim}
 }
 
-
-In \FC, the operation to synchronize chain DAGs is explicit, in pairs, and
-unidirectional.
-For instance, the command \code{recv} asks the daemon in \emph{localhost} to
-connect to daemon in \emph{remote-ip} to receive all missing posts from there:
+Each replica may evolve in separate and synchronize at some point in the future
+through the \emph{sync} operation:
 
 {\footnotesize
 \begin{verbatim}
- > freechains '$family' recv '<remote-ip>'
- 1/1  <-- one block received from <remote-ip>
+ # PEER X
+ $ fc chat post 'From X' --sign=alice
+ eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
+ ...
+ $ fc chat sync Y
+
+ # PEER Y
+ $ fc chat post 'From Y' --sign=alice
+ c7a56bc491d415a8240b7012c0aae846fc632234
+ ...
+ $ fc chat sync X
+
+ # PEER X or Y
+ $ fc chat dag
+       b100ce8
+       /     \
+ c7a56bc     eb18b45
 \end{verbatim}
 }
 
-If applied in the new peer, the command above would put it in the same state as
-the original peer in Figure~\ref{fig.family}.A.
-The complementary command \code{send} would synchronize the DAG in the other
-direction.
-Note that \FC does not synchronize peers automatically.
-There are no preconfigured peers, no root servers, no peer discovery.
-All connections happen through the \code{send} and \code{recv} commands which
-have to specify the peers explicitly.
-%The protocol only gives basic support for communication in pairs of peers and
-%further automation requires external tools.
-In this sense, \FC is conceptually a topic-based gossip on how users publish
-and consume content, but it still requires extra network automation.
 
-In order to query the state of the replica, the next sequence of commands
-checks the hash(es) of the post(s) at the head of the local DAG (the latest
-posts), and then reads the payload of the single head found:
 
-%\newpage
 
-{\footnotesize
-\begin{verbatim}
- > freechains '$family' heads
- 1_EF5DE3..     <-- hash of head block
- > freechains '$family' payload '1_EF5DE3..'
- Good morning!  <-- block payload
-\end{verbatim}
-}
+ We can now post in separate to
+
+no fim falar de git cvrdt
+nao resolve abuso, spam, refernciar sybil/kleppmann
 
 The presented commands to join, post, synchronize, and query the chains are
 sufficient to create decentralized applications that publish and consume
