@@ -1,5 +1,16 @@
 # TODO
 
+- Proof of strong eventual consistency for the consensus order
+    - no local clocks: all timestamps come from the DAG itself
+      (post metadata), so the order is a pure function of the DAG
+    - every rule is deterministic (reputation sums on the common
+      prefix, activity thresholds counted on DAG posts, lexicographic
+      tie-break on hashes)
+    - hence two replicas with the same DAG compute the same order
+      (convergence); DAG union is a CvRDT (see `260826-cvrdt.md`)
+    - state the theorem + proof sketch in the consensus section;
+      relate to SEC (Shapiro `p2p.crdts`) and BEC (`p2p.bec`)
+
 - Related Work / Federated: Usenet (NNTP) as the federated ancestor
     - server-to-server flooding, but users are clients of a server;
       peering is permissioned; no signatures or hash linking; order,
