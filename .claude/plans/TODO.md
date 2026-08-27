@@ -9,7 +9,7 @@
     - hence two replicas with the same DAG compute the same order
       (convergence); DAG union is a CvRDT (see `260826-cvrdt.md`)
     - state the theorem + proof sketch in the consensus section;
-      relate to SEC (Shapiro `p2p.crdts`) and BEC (`p2p.bec`)
+      relate to SEC (Shapiro `p2p.crdts`) and BEC (`p2p.dag.sync`)
     - prove the DAG is a CvRDT: state = causally closed set of
       hash-addressed posts, merge = union; show merge is
       commutative, associative, idempotent, and updates are
