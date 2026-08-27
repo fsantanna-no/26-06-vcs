@@ -231,14 +231,17 @@ TODO: arrangement
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
-The DAG represents the causal relationships between the messages, whose
-cryptographic links ensure persistence and self certification.
-% of the whole chain.
-Considering that the DAG itself represents the state of the peers, the protocol
-ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 %
-The operation of the protocol is simple: an author posts to a chain, which
-subscribed peers eventually receive by gossiping and synchronizing their DAGs.
+The DAG represents the causal relationships between posts, whose cryptographic
+links ensure persistence and self certification.
+Considering that the DAG itself represents the full state of the peers, the
+protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
+%
+We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
+to enforce reputation rules and consensus.
+Therefore, the operation and infrastructure of the protocol are simple:
+    (i)  each post is an individual signed commit in the history graph, and
+    (ii) peers synchronize their full state---the DAGs---through Git tooling.
 
 The goals of this section are twofold:
     (i)  to depict chain DAGs as the result of basic protocol operations; and
