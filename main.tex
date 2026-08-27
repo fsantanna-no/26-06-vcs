@@ -264,27 +264,27 @@ In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC t
 the discussion through concrete examples.
 
 The next sequence of commands simulates a peer \emph{X} that
-    (i)   initializes chain \emph{\#chat},
-    (ii)  posts message \emph{Hello World} there, and
-    (iii) query its payload and metadata.
+    (i)   initializes chain \emph{/chat},
+    (ii)  posts message \emph{``Hello World''} there, and
+    (iii) queries its payload and metadata.
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
- $ fc #chat init
+ $ fc /chat init
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc #chat post 'Hello World'
+ $ fc /chat post 'Hello World'
  b100ce8ca42c1b1c366c41b764cad1bbc116cff8
- $ fc #chat payload b100ce8
+ $ fc /chat payload b100ce8
  Hello World
- $ fc #chat metadata b100ce8
+ $ fc /chat metadata b100ce8
  action post
  time 1787850618
  blob 9d882f4f8568a8f79a5d007a576919fae317ad65
 \end{verbatim}
 }
 
-The post metadata includes the action type, local creation time, and a
+The post metadata includes the action type, a local creation timestamp, and a
 reference to the payload blob.
 Since revocation is a key moderation requirement, only the metadata lives in
 the immutable chain DAG, but not its payload.
@@ -296,14 +296,14 @@ local replica.
 No communication occurs up to this point.
 Since we build upon Git, we can inspect the internal structure of a given
 chain.
-The example chain repository contains two commits with
+For instance, the \emph{/chat} chain repository contains two commits with
     (1) a genesis identification, and
     (2) the post pointing to its payload:
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
- $ git -C chat/ log --oneline
+ $ git -C /chat log --oneline
  b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
  726e329 genesis 0.20.0 5596915440
 \end{verbatim}
@@ -315,116 +315,49 @@ that replicates \emph{X} through the \emph{clone} operation:
 {\footnotesize
 \begin{verbatim}
  # PEER Y
- $ fc #chat clone X
+ $ fc /chat clone X
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc #chat dag
+ $ fc /chat dag
  b100ce8
 \end{verbatim}
 }
 
-Each replica may evolve in separate and synchronize at some point in the future
-through the \emph{sync} operation:
+In local-first applications, each replica may evolve in separate and
+synchronize at some point in the future.
+In the example, after the initial \code{clone}, each peer posts in separate and
+eventually \code{sync} with the other side, both converging to the same forked
+DAG:
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
- $ fc #chat post 'From X'
+ $ fc /chat post 'From X'
  eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
  ...
- $ fc #chat sync Y
+ $ fc /chat sync Y
 
  # PEER Y
- $ fc #chat post 'From Y'
+ $ fc /chat post 'From Y'
  c7a56bc491d415a8240b7012c0aae846fc632234
  ...
- $ fc #chat sync X
+ $ fc /chat sync X
 
  # PEER X or Y
- $ fc #chat dag
+ $ fc /chat dag
        b100ce8
        /     \
  c7a56bc     eb18b45
 \end{verbatim}
 }
 
-=== STOP HERE ===
+Note that forks create ambiguity in the order of messages, which is a
+fundamental obstacle to reach consensus.
+Naturally, in permissionless forums, we cannot rely on local timestamps because
+malicious users could manipulate them.
 
-no fim falar de git cvrdt
-nao resolve abuso, spam, refernciar sybil/kleppmann
-
-As the example illustrates, chains are not simple lists of sequential posts,
-but instead DAGs with multiple heads.
-The main reason is that the network is inherently concurrent and users are
-encouraged to work locally.
-
-
-Note that forks in the DAG create ambiguity in the order of messages, which is
-a fundamental obstacle to reach consensus.
-However, in forums, a malicious user could modify his local time to
-manipulate the order of messages.
-
-To conclude the basic operations of chains, users can rate posts with
-\emph{likes} and \emph{dislikes}, which can be consulted later:
-
-{\footnotesize
-\begin{verbatim}
- > freechains '$family' like '1_EF5DE3..'
- 2_BF3319..     <-- hash representing the like
- > freechains '$family' reps '1_EF5DE3..'
- 1              <-- post received 1 like
-\end{verbatim}
-}
-
-As illustrated in Figure~\ref{fig.family}.C, a like is a regular post with an
-extra link to its target.
-Every new post points to the previous heads, establishing a causal logical
-timeline in the chain.
-For instance, the JSON that follows represents the post \code{2\_DDA222..}
-with the backs and extra like links:
-As we discuss in the next section, like operations have to be signed by users,
-and are at the core of our proposed consensus algorithm.
-
-{\footnotesize
-\begin{verbatim}
-{
-  "id":    "2_DDA222..",  // block hash id
-  "backs": ["1_EF5..","1_A22.."] // back links
-  "time":  1650722072223, // source timestamp
-  "data":  "E95DBF.."     // hash of the payload
-  "like":  "1_EF5DE3.."   // like link (optional)
-}
-\end{verbatim}
-}
-
-
-Note that the basic operations of Freechains to (i) create decentralized
-identities, (ii) publish content-addressable data, (iii) maintain Merkle DAGs,
-and (iv) synchronize peers are not new in the context of peer-to-peer
-protocols.
-% and are present in other peer-to-peer publishing systems
-%(e.g., Scuttlebutt~\cite{p2p.scuttlebutt} and Bitcoin~\cite{p2p.bitcoin}).
-%
-However, without extra restrictions, any number of users at any number or peers
-might inadvertently or maliciously post any kind of content and rate posts any
-number of times, thus threatening the value of the protocol.
-%In addition, self-verifying Merkle DAGs are fundamental in a permissionless
-%setting, which prevent peers to apply local filtering rules, such as moderating
-%malicious content.
-%
-As discussed in the Introdution, Sybil resistance through consensus is a key
-requirement to combat abuse.
-%Scuttlebutt only supports personal feeds (\FC's \emph{public identity chains}),
-%covering single-user/multi-node consensus, which is not quite permissionless.
-%Bitcoin maintains a single public ledger (\FC's \emph{public forum chains}),
-%and hence, require a consensus mechanism to combat Sybils.
-%
-In the next section, we propose a consensus mechanism in \FC.
-%
-\FC is around $1500$ LoC in Kotlin. %and is publicly available.
-%\footnote{\url{http://www.freechains.org}}.
-The binary for the JVM is around $6MB$ in size and works in Android and most
-desktop systems.
-
+Another aspect that Merkle DAGs alone cannot solve is Sybil resistance.
+Without extra restrictions, any user at any peer might vandalize chains with
+excess of posts with xxx content.
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
