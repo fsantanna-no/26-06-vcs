@@ -94,20 +94,19 @@ already been flooded in the network by potential
 Sybils~\cite{p2p.sybil,p2p.mastodon}.
 
 Consensus is notably challenging to the point that decentralized protocols
-partially abdicate it.
+partially abdicate it along two axes:
 %
-On the one hand, federated protocols~\cite{p2p.ecosystem} offer
-\emph{multi-user/single-node consensus}, in which multiple users can exchange
-messages consistently within a single trusted server, but not globally across
-multiple servers.
+On the one hand, \emph{multi-user/single-node consensus}, adopted by
+federated protocols~\cite{p2p.ecosystem}, supports a consistent multi-user
+public forum, but restricted to a single trusted server (ordered by the
+server).
+On the other hand, \emph{single-user/multi-node consensus}, adopted by
+Scuttlebutt~\cite{p2p.scuttlebutt}, supports a consistent message feed
+across multiple machines, but restricted to a single author (ordered by the
+author).
 %
-On the other hand, a protocol like Scuttlebutt~\cite{p2p.scuttlebutt} offers
-\emph{single-user/multi-node consensus}, in which a single user has full
-authority over their own content across machines, but multiple users cannot reach
-consensus even in a local machine.
-%
-Our goal, therefore, is to provide \emph{multi-user/multi-node consensus} (just
-\emph{consensus}, from now on) in the context of peer-to-peer public forums.
+Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
+the context of decentralized public forums.
 
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
