@@ -220,6 +220,26 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \section{\FC Basics}
 \label{sec.freechains}
 
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{ll}
+\hline
+\textbf{Command} & \textbf{Description}                     \\
+\hline
+\code{init}       & Creates a chain with a pioneer author   \\
+\code{clone}      & Replicates a chain from a remote peer   \\
+\code{sync}       & Exchanges posts with a remote peer      \\
+\code{post}       & Appends a post to the chain             \\
+\code{payload}    & Queries the post content (revocable)    \\
+\code{metadata}   & Queries the post metadata (immutable)   \\
+\code{dag}        & Shows the chain DAG                     \\
+\hline
+\end{tabular}
+\caption{Basic \FC operations.}
+\label{tab.commands}
+\end{table}
+
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
@@ -232,7 +252,7 @@ protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
 to enforce reputation rules and consensus.
 Therefore, the operation and infrastructure of the protocol are simple:
-    (i)  each post is an individual signed commit in the history graph, and
+    (i)  each post is an individual commit in the history graph, and
     (ii) peers synchronize their full state---the DAGs---through Git tooling.
 
 The goals of this section are twofold:
@@ -240,10 +260,10 @@ The goals of this section are twofold:
     (b) to illustrate how permissionless protocols inevitably require Sybil
         resistance to become practical.
 %
-We demonstrate the actual protocol operations of \FC to guide the discussion
-through concrete examples.
+In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC to guide
+the discussion through concrete examples.
 
-In the next sequence of commands we simulate a peer \emph{X}, in which
+In the next sequence of commands, we simulate a peer \emph{X}, in which
 \emph{Alice}
     (i)   creates a key pair to sign operations,
     (ii)  initializes chain \emph{chat} as its pioneer,
@@ -331,34 +351,19 @@ through the \emph{sync} operation:
 \end{verbatim}
 }
 
-
-
-
- We can now post in separate to
+=== STOP HERE ===
 
 no fim falar de git cvrdt
 nao resolve abuso, spam, refernciar sybil/kleppmann
 
-The presented commands to join, post, synchronize, and query the chains are
-sufficient to create decentralized applications that publish and consume
-content.
-
-Note that chains do not typically evolve to a simple list of sequential posts,
-but instead become DAGs with multiple heads.
-% that demand a consensus mechanism.
+As the example illustrates, chains are not simple lists of sequential posts,
+but instead DAGs with multiple heads.
 The main reason is that the network is inherently concurrent and users are
 encouraged to work locally.
-Hence, continuing with the example in Figure~\ref{fig.family}, suppose that the
-new peer posted a message before the \code{recv} above, when its local DAG was
-still in its genesis state.
-In this case, as illustrated in Figure~\ref{fig.family}.B, the resulting graph
-after synchronizing would now contain two posts with height $1$.
-%
+
+
 Note that forks in the DAG create ambiguity in the order of messages, which is
 a fundamental obstacle to reach consensus.
-TODO: arrangement
-In private chains, we could apply simple methods, such as relying on the local
-source timestamps of the posts.
 However, in forums, a malicious user could modify his local time to
 manipulate the order of messages.
 
@@ -380,6 +385,8 @@ Every new post points to the previous heads, establishing a causal logical
 timeline in the chain.
 For instance, the JSON that follows represents the post \code{2\_DDA222..}
 with the backs and extra like links:
+As we discuss in the next section, like operations have to be signed by users,
+and are at the core of our proposed consensus algorithm.
 
 {\footnotesize
 \begin{verbatim}
@@ -393,33 +400,6 @@ with the backs and extra like links:
 \end{verbatim}
 }
 
-TODO: arrangement
-%In private groups, like operations are unlimited and are used to quantify
-%engagement, similarly to typical centralized systems.
-%In public forums, however, likes
-As we discuss in the next section, like operations have to be signed by users,
-and are at the core of our proposed consensus algorithm.
-
-TODO: arrangement
-For the sake of completeness, \FC also supports public identity chains
-(prefix~$@$) with owners attached to public/private keys:
-
-{\footnotesize
-\begin{verbatim}
- > freechains keys pubpvt 'other-password'
- EB172E.. 96700A..  <-- public and private keys
- > freechains '@EB172E..' join
- F4EE21..           <-- hash representing the chain
- > freechains '@EB172E..' post 'This is Pelé' \
-    --sign='96700A..'
- 1_547A2D..         <-- hash representing the post
-\end{verbatim}
-}
-
-In the example, a public figure creates a key pair and joins an identity chain
-attached to his public key.
-Every post in the chain needs to be signed with his private key to be accepted
-in the network.
 
 Note that the basic operations of Freechains to (i) create decentralized
 identities, (ii) publish content-addressable data, (iii) maintain Merkle DAGs,
