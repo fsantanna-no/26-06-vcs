@@ -10,6 +10,22 @@
       (convergence); DAG union is a CvRDT (see `260826-cvrdt.md`)
     - state the theorem + proof sketch in the consensus section;
       relate to SEC (Shapiro `p2p.crdts`) and BEC (`p2p.bec`)
+    - prove the DAG is a CvRDT: state = causally closed set of
+      hash-addressed posts, merge = union; show merge is
+      commutative, associative, idempotent, and updates are
+      inflationary (posts only added; revoke erases payloads, not
+      DAG entries); causal closure preserved under union
+    - Git's role is exactly: build the state (`commit`, hashes) and
+      deliver it (`fetch` = union); SEC = CvRDT + eventual delivery
+      (Shapiro: eventual delivery, strong convergence, termination)
+    - the proof needs nothing from Git (sync, storage, transport):
+      DAG convergence is a G-Set union, trivial assuming Git is
+      correct; the theorem is only "order = pure function f(DAG)"
+    - CAVEAT: the hard-fork rule refers to the LOCAL branch (peer
+      history, not DAG content), so f is not pure across settled
+      forks; either state SEC "for replicas that have not
+      hard-forked" or restate the rule as a symmetric DAG-only
+      function (activity measured on each branch's own timestamps)
 
 - Related Work / Federated: Usenet (NNTP) as the federated ancestor
     - server-to-server flooding, but users are clients of a server;

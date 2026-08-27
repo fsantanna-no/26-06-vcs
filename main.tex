@@ -207,7 +207,8 @@ The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
 to create, rate, and synchronize posts.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
-mechanism, and discuss relevant security threats.
+mechanism, discuss relevant security threats, and prove its SEC property
+(TODO).
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
 forum archives.
 In Section~\ref{sec.crdts}, we discuss the correspondences with
@@ -254,7 +255,7 @@ The DAG represents the causal relationships between the messages, whose
 cryptographic links ensure persistence and self certification.
 % of the whole chain.
 Considering that the DAG itself represents the state of the peers, the protocol
-ensures strong eventual consistency~\cite{fed.matrix,p2p.byz}.
+ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 %
 The operation of the protocol is typical of publish-subscribe systems: an
 author publishes a post to a chain, which subscribed users eventually
