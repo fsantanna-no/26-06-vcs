@@ -307,14 +307,6 @@ Let's now consider a second peer \emph{Y} that replicates \emph{X} through the
 \end{verbatim}
 }
 
-\FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
-which networked applications can work locally while offline.
-Except for synchronization, all other operations in the system only affect the
-local replica.
-In particular, joining a chain with the same arguments in another peer results
-in the same genesis state, even if the peers have never met before.
-Hence, before synchronizing, other peers have to initialize the example chain
-with the same step (ii).
 
 In \FC, the operation to synchronize chain DAGs is explicit, in pairs, and
 unidirectional.
