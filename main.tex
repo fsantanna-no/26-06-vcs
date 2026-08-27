@@ -228,20 +228,17 @@ TODO: arrangement
 \label{fig.table}
 \end{table*}
 
-\FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer topic-based
-publish-subscribe protocol, in which each topic or \emph{chain} is a replicated
-\emph{Merkle Directed Acyclic Graph}~\cite{p2p.ipfs} (just \emph{DAG}, from now
-on).
+\FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
+which each topic or \emph{chain} is a replicated
+\emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
 The DAG represents the causal relationships between the messages, whose
 cryptographic links ensure persistence and self certification.
 % of the whole chain.
 Considering that the DAG itself represents the state of the peers, the protocol
 ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 %
-The operation of the protocol is typical of publish-subscribe systems: an
-author publishes a post to a chain, which subscribed users eventually
-receive.
-% by synchronizing DAGs.
+The operation of the protocol is simple: an author posts to a chain, which
+subscribed peers eventually receive by gossiping and synchronizing their DAGs.
 
 The goals of this section are twofold:
     (i)  to depict chain DAGs as the result of basic protocol operations; and
@@ -348,8 +345,8 @@ All connections happen through the \code{send} and \code{recv} commands which
 have to specify the peers explicitly.
 %The protocol only gives basic support for communication in pairs of peers and
 %further automation requires external tools.
-In this sense, \FC is conceptually a \emph{pubsub} on how users publish and
-consume content, but it still requires extra network automation.
+In this sense, \FC is conceptually a topic-based gossip on how users publish
+and consume content, but it still requires extra network automation.
 
 In order to query the state of the replica, the next sequence of commands
 checks the hash(es) of the post(s) at the head of the local DAG (the latest
@@ -1708,9 +1705,9 @@ networks with malicious Sybils~\cite{pubsub.gossipsub2}.
 Being generic protocols, pubsubs are typically unaware of the applications
 built on top of them.
 %
-In contrast, as stated in Section~\ref{sec.freechains}, the pubsub of \FC is
-conceptually at the application level and is integrated with the semantics of
-chains, which already verifies posts at publishing time.
+In contrast, as stated in Section~\ref{sec.freechains}, the gossip layer of
+\FC is conceptually at the application level and is integrated with the
+semantics of chains, which already verifies posts at publishing time.
 For instance, to flood the network with posts, malicious peers need to spend
 reputation, which takes hours to recharge (rule~\code{2} in
 Table~\ref{fig.rules}).
