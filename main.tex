@@ -227,7 +227,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \hline
 \textbf{Command} & \textbf{Description}                     \\
 \hline
-\code{init}       & Creates a chain with a pioneer author   \\
+\code{init}       & Creates a fresh chain                   \\
 \code{clone}      & Replicates a chain from a remote peer   \\
 \code{sync}       & Exchanges posts with a remote peer      \\
 \code{post}       & Appends a post to the chain             \\
@@ -263,33 +263,29 @@ The goals of this section are twofold:
 In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC to guide
 the discussion through concrete examples.
 
-In the next sequence of commands, we simulate a peer \emph{X}, in which
-\emph{Alice}
-    (i)   creates a key pair to sign operations,
-    (ii)  initializes chain \emph{chat} as its pioneer,
-    (iii) posts message \emph{Hello World} there, and
-    (iv)  query its payload and metadata.
+The next sequence of commands simulates a peer \emph{X} that
+    (i)   initializes chain \emph{\#chat},
+    (ii)  posts message \emph{Hello World} there, and
+    (iii) query its payload and metadata.
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
- $ ssh-keygen -t ed25519 -f alice
- $ fc chat init --pioneer=alice
+ $ fc #chat init
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc chat post 'Hello World' --sign=alice
+ $ fc #chat post 'Hello World'
  b100ce8ca42c1b1c366c41b764cad1bbc116cff8
- $ fc chat payload b100ce8
+ $ fc #chat payload b100ce8
  Hello World
- $ fc chat metadata b100ce8
+ $ fc #chat metadata b100ce8
  action post
  time 1787850618
- sign ssh-ed25519 ...(alice pubkey)...
  blob 9d882f4f8568a8f79a5d007a576919fae317ad65
 \end{verbatim}
 }
 
-The post metadata includes the action type, local creation time, author
-signature, and a reference to the payload blob.
+The post metadata includes the action type, local creation time, and a
+reference to the payload blob.
 Since revocation is a key moderation requirement, only the metadata lives in
 the immutable chain DAG, but not its payload.
 
@@ -300,16 +296,16 @@ local replica.
 No communication occurs up to this point.
 Since we build upon Git, we can inspect the internal structure of a given
 chain.
-The example chain repository contains two commits:
-    a genesis identification with \emph{Alice} as the pioneer, and
-    the post pointing to its payload.
+The example chain repository contains two commits with
+    (1) a genesis identification, and
+    (2) the post pointing to its payload:
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
  $ git -C chat/ log --oneline
  b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
- 726e329 id 0.20.0 5596915440 ssh-ed25519 ...(alice)...
+ 726e329 genesis 0.20.0 5596915440
 \end{verbatim}
 }
 
@@ -319,9 +315,9 @@ that replicates \emph{X} through the \emph{clone} operation:
 {\footnotesize
 \begin{verbatim}
  # PEER Y
- $ fc chat clone X
+ $ fc #chat clone X
  #726e32918b7ac760de4088a5959168bde5e5a608
- $ fc chat dag
+ $ fc #chat dag
  b100ce8
 \end{verbatim}
 }
@@ -332,19 +328,19 @@ through the \emph{sync} operation:
 {\footnotesize
 \begin{verbatim}
  # PEER X
- $ fc chat post 'From X' --sign=alice
+ $ fc #chat post 'From X'
  eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
  ...
- $ fc chat sync Y
+ $ fc #chat sync Y
 
  # PEER Y
- $ fc chat post 'From Y' --sign=alice
+ $ fc #chat post 'From Y'
  c7a56bc491d415a8240b7012c0aae846fc632234
  ...
- $ fc chat sync X
+ $ fc #chat sync X
 
  # PEER X or Y
- $ fc chat dag
+ $ fc #chat dag
        b100ce8
        /     \
  c7a56bc     eb18b45
