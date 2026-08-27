@@ -217,16 +217,9 @@ In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
 
-\section{\FC}
+\section{\FC Basics}
 \label{sec.freechains}
 
-TODO: arrangement
-\begin{table*}
-\centering
-\includegraphics[width=\textwidth]{arrangements.png}
-\caption{The three types of chains and arrangements in \FC.}
-\label{fig.table}
-\end{table*}
 
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
@@ -247,72 +240,72 @@ The goals of this section are twofold:
     (a) to depict chain DAGs as the result of basic protocol operations; and
     (b) to illustrate how permissionless protocols inevitably require Sybil
         resistance to become practical.
+%
+We demonstrate the actual protocol operations of \FC to guide the discussion
+through concrete examples.
 
-In this section, we operate a \emph{private group} to describe the basic
-behavior of chains without consensus.
-We use the actual command-line tool provided by the protocol to guide the
-discussion through concrete examples.
-TODO: arrangement
-At the end of this section, we also exemplify a \emph{public identity} chain
-for the sake of completeness.
-In Section~\ref{sec.consensus}, we focus on the behavior of \emph{public
-forums}, which involves untrusted communication between users and require the
-proposed reputation and consensus mechanism.
-
-All \FC operations go through a \emph{daemon} (akin to Bitcoin's full nodes)
-that validates posts, links the DAGs, and communicates with other peers to
-synchronize the graphs.
-The command that follows starts a daemon in the background to serve further
-operations:
+In the next sequence of commands we simulate a peer \emph{X}, in which
+\emph{Alice}
+    (i)   creates a key pair to sign operations,
+    (ii)  initializes chain \emph{chat} as its pioneer,
+    (iii) posts message \emph{Good Morning!} there, and
+    (iv)  query its payload and metadata.
 
 {\footnotesize
 \begin{verbatim}
- > freechains-daemon start '/var/freechains/' &
+ # PEER X
+ $ ssh-keygen -t ed25519 -f alice
+ $ fc chat init --pioneer=alice
+ #726e32918b7ac760de4088a5959168bde5e5a608
+ $ fc chat post 'Good Morning!' --sign=alice
+ b100ce8ca42c1b1c366c41b764cad1bbc116cff8
+ $ fc chat payload b100ce8
+ Good Morning!
+ $ fc chat metadata b100ce8
+ action post
+ time 1787850618
+ sign ssh-ed25519 ...(alice pubkey)...
+ blob 9d882f4f8568a8f79a5d007a576919fae317ad65
 \end{verbatim}
 }
 
-The actual chain operations use a separate client to communicate with the
-daemon.
-TODO: arrangement
-The next sequence of commands (i) creates a shared key, (ii) joins a private
-group chain (prefix~$\$$), and (iii) posts a message into the chain:
+The post metadata includes the action type, local creation time, author
+signature, and a reference to the payload blob.
+Since revocation is a key moderation requirement, only the metadata lives in
+the immutable chain DAG, but not its payload.
+
+\FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
+which networked applications work normally while offline.
+Except for synchronization, all other operations in the system only affect the
+local replica.
+No communication occurs up to this point.
+Since we build upon Git, we can inspect the internal structure of a given
+chain.
+The example chain repository contains two commits:
+    a genesis identification with \emph{Alice} as the pioneer, and
+    the post pointing to its payload.
 
 {\footnotesize
 \begin{verbatim}
- > freechains keys shared 'strong-password'  <- (i)
- A6135D..   <-- returned shared key
- > freechains '$family' join 'A6135D..'      <- (ii)
- 42209B..   <-- hash representing the chain
- > freechains '$family' post 'Good morning!' <- (iii)
- 1_EF5DE3.. <-- hash representing the post
+ # PEER X
+ $ git -C chat/ log --oneline
+ b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
+ 726e329 id 0.20.0 5596915440 ssh-ed25519 ...(alice)...
 \end{verbatim}
 }
 
-\begin{figure*}
-\centering
-\includegraphics[width=\textwidth]{family.png}
-\caption{
-    Three DAG configurations.
-    (A) Single head pointing to genesis post.
-    (B) Fork with heads pointing to genesis post.
-    (C) Like pointing to previous heads and also to its target.
-}
-\label{fig.family}
-\end{figure*}
+Let's now consider a second peer \emph{Y} that replicates \emph{X} through the
+\emph{clone} operation:
 
-TODO: arrangement
-A private chain requires that all participants use the same shared key to join
-the group.
-A \code{join} only initializes the DAG locally in the file system, and a
-\code{post} also only modifies the local structure.
-No communication occurs at this point.
-Figure~\ref{fig.family}.A depicts the state of the chain after the first post.
-The genesis post with height $0$ and hash \code{42209B..}
-depends only on the arguments given to \code{join}.
-The next post with height $1$ and hash \code{EF5DE3..} contains the posted
-message.
-%As expected from a Merkle~DAG, the hash of a post depends on its payload and
-%hash of previous post.
+{\footnotesize
+\begin{verbatim}
+ # PEER Y
+ $ fc chat clone X
+ #726e32918b7ac760de4088a5959168bde5e5a608
+ $ fc chat list dag
+ b100ce8
+\end{verbatim}
+}
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
 which networked applications can work locally while offline.
