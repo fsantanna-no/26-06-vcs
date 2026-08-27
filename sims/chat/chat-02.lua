@@ -54,7 +54,41 @@ end
 keys('Ashlee')
 print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init --pioneer=" .. KEYS .. "/Ashlee"))
 
+-- wall clock in seconds (os.clock ignores child processes)
+function now ()
+    return tonumber(exec("date +%s.%N"))
+end
+
+-- full dump: per-user table, totals, disk (every 5k msgs and at end)
+function report (N)
+    local T = {}
+    local ns, nlikes, nnew, nextra, nblocked = 0, 0, 0, 0, 0
+    for _,t in pairs(USERS) do
+        T[#T+1] = t
+    end
+    table.sort(T, function (t1,t2) return t1.likes > t2.likes end)
+    for _,t in ipairs(T) do
+        ns       = ns + t.n
+        nlikes   = nlikes + t.likes
+        nnew     = nnew + t.new
+        nextra   = nextra + t.extra
+        nblocked = nblocked + t.blocked
+        print(string.format("%12s", string.sub(t.user,1,12)), t.likes, t.n)
+    end
+
+    -- (c) new-user unblocks, (d) extra likes to unblock existing users
+    print(#T, 'users', '|', 'likes', nlikes, '|', 'msgs', ns)
+    print('(c) new  ', nnew, nnew/ns, 'pct')
+    print('(d) extra', nextra, nextra/ns, 'pct')
+    print('blocked  ', nblocked, nblocked/ns, 'pct')
+
+    local g, pack, loose = disk()
+    print(string.format("== N=%d  git=%.1f MB  (pack %.1f, loose %.1f)",
+        N, g/1e6, pack/1e6, loose/1e6))
+end
+
 local N = 0
+local tpost, npost = 0, 0     -- accumulated post time in the window
 for l in io.lines('wikimedia.chat') do
     l = string.gsub(l, "'", " ")
     local y,m,d,hh,mm,ss,user,msg = string.match(l, "(%d%d%d%d)(%d%d)(%d%d) %[(%d%d):(%d%d):(%d%d)%] %<([%a%d-_]+)%>\t(.*)")
@@ -70,7 +104,10 @@ for l in io.lines('wikimedia.chat') do
         local beg  = (reps < 500) and ' --beg' or ''
 
         -- '--' ends option parsing so a message starting with '-' is text
+        local t0 = now()
         local hash = exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' post --sign=" .. KEYS .. "/" .. user .. beg .. " inline -- '" .. msg .. "'")
+        tpost = tpost + (now() - t0)
+        npost = npost + 1
         assert(string.match(hash, '^%x+$'), user .. ' : ' .. hash)
 
         -- welcoming like from the pioneer unblocks a begging post
@@ -95,39 +132,14 @@ for l in io.lines('wikimedia.chat') do
         end
 
         print(N, ts, user, reps, hash)
-        if N % 500 == 0 then
-            local g, pack, loose = disk()
-            print(string.format("== N=%d  git=%.1f MB  (pack %.1f, loose %.1f)",
-                N, g/1e6, pack/1e6, loose/1e6))
-        end
     end
     N = N + 1
-    if N == 10000 then
-        --break
+    if N % 5000 == 0 then
+        print(string.format("== N=%d  post avg=%.2fs (%d posts)",
+            N, tpost/npost, npost))
+        tpost, npost = 0, 0
+        report(N)
     end
 end
 
-local T = {}
-local ns, nlikes, nnew, nextra, nblocked = 0, 0, 0, 0, 0
-for _,t in pairs(USERS) do
-    T[#T+1] = t
-end
-table.sort(T, function (t1,t2) return t1.likes > t2.likes end)
-for _,t in ipairs(T) do
-    ns       = ns + t.n
-    nlikes   = nlikes + t.likes
-    nnew     = nnew + t.new
-    nextra   = nextra + t.extra
-    nblocked = nblocked + t.blocked
-    print(string.format("%12s", string.sub(t.user,1,12)), t.likes, t.n)
-end
-
--- (c) new-user unblocks, (d) extra likes to unblock existing users
-print(#T, 'users', '|', 'likes', nlikes, '|', 'msgs', ns)
-print('(c) new  ', nnew, nnew/ns, 'pct')
-print('(d) extra', nextra, nextra/ns, 'pct')
-print('blocked  ', nblocked, nblocked/ns, 'pct')
-
-local g, pack, loose = disk()
-print(string.format("DISK  git=%.1f MB  (pack %.1f, loose %.1f)",
-    g/1e6, pack/1e6, loose/1e6))
+report(N)
