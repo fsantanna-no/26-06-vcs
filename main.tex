@@ -90,11 +90,14 @@ We argue that consensus is key to distinguish malicious behavior \emph{at the
 protocol level}~\cite{p2p.bec}, and a requirement to satisfy item (iii).
 Without consensus, each client must rely on local anti-abuse policies, such as
 SPAM filters, which only apply a posteriori, when the abusive messages have
-already been flooded in the network by potential
-Sybils~\cite{p2p.sybil,p2p.mastodon}.
+already been flooded in the network.
+%
+Abuse is particularly acute considering Sybils~\cite{p2p.sybil,p2p.mastodon} in
+\emph{permissionless} networks~\cite{permissionless,blockchain.wild}, where
+anybody can join with unlimited free identities.
 
-Consensus is notably challenging to the point that decentralized protocols
-partially abdicate it along two axes.
+Nevertheless, consensus is notably challenging to the point that decentralized
+protocols partially abdicate it along two axes.
 %
 On the one hand, \emph{multi-user/single-node consensus}, adopted by
 federated protocols~\cite{p2p.ecosystem}, supports a consistent multi-user
@@ -106,8 +109,8 @@ across multiple machines, but restricted to a single author (ordered by the
 author).
 %
 Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
-the context of decentralized public forums, i.e., peer-to-peer counterparts of
-IRC/Discord or Usenet/Reddit.
+the context of peer-to-peer public forums, i.e., permissionless counterparts
+of IRC/Discord or Usenet/Reddit.
 
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish

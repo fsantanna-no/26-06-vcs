@@ -1,5 +1,12 @@
 # TODO
 
+- Related Work / Federated: Usenet (NNTP) as the federated ancestor
+    - server-to-server flooding, but users are clients of a server;
+      peering is permissioned; no signatures or hash linking; order,
+      expiry, and moderation are per-server; delivery best-effort
+    - ties the experiments to a forum whose original protocol had
+      none of the properties we add
+
 - Related Work: one sentence on Stack Exchange -- reputation-gated
   posting works socially at scale, just centralized; closest
   centralized analogue to reps
