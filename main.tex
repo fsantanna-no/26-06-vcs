@@ -356,8 +356,13 @@ Naturally, in permissionless forums, we cannot rely on local timestamps because
 malicious users could manipulate them.
 
 Another aspect that Merkle DAGs alone cannot solve is Sybil resistance.
-Without extra restrictions, any user at any peer might vandalize chains with
-excess of posts with xxx content.
+Without extra restrictions, any user at any peer could flood chains with
+excessive or abusive posts.
+%
+For instance, CRDT-based systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest
+replicas or only address integrity, not volume or content quality, while
+federated protocols explicitly leave SPAM filtering to the server
+side~\cite{pubsub.activitypub}.
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
