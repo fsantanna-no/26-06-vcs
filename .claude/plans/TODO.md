@@ -1,5 +1,11 @@
 # TODO
 
+- Related Work: one sentence on Stack Exchange -- reputation-gated
+  posting works socially at scale, just centralized; closest
+  centralized analogue to reps
+    - also Lemmy/Kbin (federated Reddit, ActivityPub) next to
+      Mastodon in Federated Protocols
+
 - Related Work: position vs BEC / Kleppmann line -> see
   `260826-bec.md`
 
