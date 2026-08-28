@@ -252,8 +252,8 @@ strong eventual consistency~\cite{fed.matrix,p2p.byz}.
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
 to enforce the protocol rules.
 Therefore, the operation and infrastructure of the protocol are simple:
-    (i)  each post is an individual commit in the history graph, and
-    (ii) peers synchronize their full state---the DAGs---through Git tooling.
+    each post is an individual commit in the history graph, and
+    peers synchronize their full state---the DAGs---through Git tooling.
 Table~\ref{tab.commands} lists the basic operations of \FC (\code{fc}), which
 guide the discussion through concrete examples.
 For the sake of simplicity, this section uses unrestricted chains that tolerate
@@ -352,7 +352,7 @@ obstacle to consensus.
 Naturally, in permissionless forums, we cannot rely on the author's timestamps
 because they are unverifiable.
 
-Another aspect that Merkle DAGs alone cannot provide is Sybil resistance.
+Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
 excessive or abusive posts.
 %
