@@ -57,7 +57,7 @@ forums, reputation system, social media, Wikis
 \label{sec.introduction}
 
 Public online forums and social media are increasingly centralized in the hands
-of a few companies (e.g. Meta and X)~\cite{internet.fixing,p2p.dosn}.
+of a few companies (e.g., Meta and X)~\cite{internet.fixing,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
 These companies offer free storage, friendly user interfaces, and robust
@@ -75,8 +75,8 @@ In an ideal public forum, all posts
 (ii)  are delivered in a consistent order, and
 (iii) are respectful and on topic.
 In centralized systems, items (i) and (ii) are trivially achieved assuming
-availability and delivery order, while item (iii) requires users to trust the
-service policies.
+service availability and delivery order, while item (iii) requires users to
+trust service policies.
 In decentralized systems, however, none of these demands are easily
 accomplished.
 A common approach in gossiping protocols is to proactively disseminate posts
@@ -137,8 +137,8 @@ Another limitation of cryptocurrencies is that it is not possible to revoke
 content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
-In this work, we adapt the idea of scarce resources to eradicate Sybils and
-reach consensus, but now in the context of public forums.
+In this work, we adapt the idea of scarce resources to resist Sybils and reach
+consensus, but now in the context of public forums.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
 \FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
 strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
@@ -193,7 +193,7 @@ reputation, consensus, and moderation.
 \end{description}
 
 As a main limitation, forum DAGs are ever growing data structures that carry
-considerable overhead.
+considerable metadata overhead.
 The costs to store and validate posts increase over time, which is also a
 limitation of blockchains in general.
 %
@@ -351,7 +351,7 @@ synchronizes with the other side, both converging to the same forked DAG:
 
 Note that forks create ambiguity in the order of posts, which is a fundamental
 obstacle to consensus.
-Naturally, in permissionless forums, we cannot rely on the author's timestamps
+Naturally, in permissionless forums, we cannot rely on the authors' timestamps
 to order posts because they are unverifiable.
 
 Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
@@ -401,7 +401,8 @@ systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
 To address bootstrapping, we propose to designate \emph{pioneers} with initial
 \reps when creating chains.
 The pioneers shape the evolution of chains with the first posts and likes, and
-gradually transfer \reps to new members, which dilutes their initial power, and thus making decentralization possible.
+gradually transfer \reps to new members, which dilutes their initial power, and
+thus makes decentralization possible.
 
 In the next example, we generate self-certifying keypair identities, typical of
 peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
