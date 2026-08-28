@@ -168,7 +168,7 @@ are intrinsic to each forum.
 %
 \item [Decentralized moderation:]
 Members can rate and revoke posts without compromising the integrity of the
-underlying Merkle-DAG data model.
+underlying Merkle DAG data model.
 Since the DAG only references payloads by hash, peers can prove revocation and
 refuse to forward abusive content.
 \end{description}
@@ -242,21 +242,21 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \end{table}
 
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
-which each topic or \emph{chain} is a replicated
-\emph{Merkle Directed Acyclic Graph} (DAG) over Git~\cite{p2p.ipfs}.
-The DAG encodes the causal relationships between posts, whose cryptographic
-links ensure integrity and self certification.
+which each topic or \emph{chain} is a replicated \emph{Merkle DAG} over
+Git~\cite{p2p.ipfs}.
+The DAG encodes the causal relationships between posts with cryptographic links
+that ensure integrity and self certification.
 Since the full state of a peer is the immutable DAG, which only grows with
-appends (posts) and unions (syncs), replicas converge by construction with
-strong eventual consistency~\cite{fed.matrix,p2p.byz}.
+appends (posts) and unions (syncs), replicas converge with strong eventual
+consistency by construction~\cite{fed.matrix,p2p.byz}.
 
-We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
-to enforce the protocol rules.
-Therefore, the operation and infrastructure of the protocol are simple:
-    each post is an individual commit in the history graph, and
-    peers synchronize their full state---the DAGs---through Git tooling.
-Table~\ref{tab.commands} lists the basic operations of \FC (\code{fc}), which
-guide the discussion through concrete examples.
+We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with extra
+hooks to enforce the protocol rules.
+Therefore, the operation of the protocol is simple:
+    each post is an individual commit in the history DAG, and
+    peers synchronize their full state through Git.
+Table~\ref{tab.commands} lists the basic operations of \FC, which guide the
+discussion through concrete examples.
 For the sake of simplicity, this section uses unrestricted chains that tolerate
 unsigned posts.
 
@@ -266,9 +266,9 @@ The goals of this section are twofold:
         resistance to become practical.
 
 The next sequence of commands simulates a peer \emph{X} that
-    (i)   initializes chain \emph{/chat},
-    (ii)  posts message \emph{``Hello World''}, and
-    (iii) queries its payload and metadata.
+    initializes chain \emph{/chat},
+    posts message \emph{``Hello World''}, and
+    queries its payload and metadata.
 
 {\footnotesize
 \begin{verbatim}
@@ -312,7 +312,8 @@ For instance, the \emph{/chat} chain repository contains two commits with
 }
 
 To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
-that replicates \emph{X} through the \code{clone} operation:
+that replicates \emph{X} through the \code{clone} operation, receiving the
+single \emph{``Hello World''} post:
 
 {\footnotesize
 \begin{verbatim}
@@ -324,8 +325,8 @@ that replicates \emph{X} through the \code{clone} operation:
 \end{verbatim}
 }
 
-In local-first applications, each replica may evolve separately and synchronize
-at some point in the future.
+In local-first systems, each replica may evolve separately and synchronize at
+some point in the future.
 In the example, after the initial clone, each peer posts locally and eventually
 synchronizes with the other side, both converging to the same forked DAG:
 
@@ -351,16 +352,16 @@ synchronizes with the other side, both converging to the same forked DAG:
 Note that forks create ambiguity in the order of posts, which is a fundamental
 obstacle to consensus.
 Naturally, in permissionless forums, we cannot rely on the author's timestamps
-because they are unverifiable.
+to order posts because they are unverifiable.
 
 Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
 excessive or abusive posts.
 %
-For instance, CRDT-based systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest
-replicas or only address integrity, not volume or content quality, while
-federated protocols explicitly leave SPAM filtering to the server
-side~\cite{pubsub.activitypub}.
+For instance, federated protocols explicitly leave SPAM filtering to the server
+side~\cite{pubsub.activitypub}, while CRDT-based
+systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
+integrity, not volume or content quality.
 
 The next section addresses both problems:
     reputation rules make posting scarce, and
