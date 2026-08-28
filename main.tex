@@ -370,10 +370,21 @@ The next section addresses both problems:
 \section{Reputation and Consensus}
 \label{sec.consensus}
 
-As discussed in Section~\ref{sec.freechains}, without moderation,
-permissionless forums are impractical due to Sybils abusing the system.
-For this reason, we propose a reputation system that works together with a
-consensus algorithm to resist Sybils.
+In this section, we propose a reputation system that works together with a
+consensus algorithm to resist Sybils in permissionless forums:
+%
+\begin{itemize}
+\item Section~\ref{sec.consensus.design}
+    describes the overall reputation and consensus mechanisms, which can be
+    applied to other systems using Merkle DAGs.
+\item Section~\ref{sec.consensus.chains}
+    describes the concrete reputation rules we implemented in \FC.
+\item Section~\ref{sec.consensus.algo}
+    details the consensus algorithm.
+\end{itemize}
+
+\subsection{Overall Design}
+\label{sec.consensus.design}
 
 \begin{table}
 \centering
@@ -429,6 +440,8 @@ Note that when peer \emph{J} clones \emph{/chat}, it acknowledges its initial
 pioneers (each holding 25000 \reps), whose public keys are part of the genesis
 commit.
 
+TODO: welcoming like
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In our design, therefore, permissionless dois not that any user can...,
@@ -459,19 +472,6 @@ In summary, the reputation system makes Freechains
 
 We consider Sybils as groups of throw-away identities and machines with no
 previous reputation in the forums.
-
-Section~\ref{sec.consensus.design} describes the overall reputation and
-consensus mechanism, which can be applied to other systems using DAGs to
-structure its messages.
-Section~\ref{sec.consensus.chains} describes the concrete rules we implemented
-in \FC.
-Section~\ref{sec.consensus.algo} details the consensus and synchronization
-algorithm.
-Section~\ref{sec.consensus.eval} simulates the behavior of chains to evaluate
-the performance of the protocol.
-
-\subsection{Overall Design}
-\label{sec.consensus.design}
 
 Bitcoin employs proof-of-work to mitigate Sybil attacks.
 However, CPU or other extrinsic resources are not evenly distributed among
@@ -1063,8 +1063,8 @@ service attacks in the network, they cannot modify the DAG structure, nor
 create arbitrary content, nor impede that two correct nodes synchronize
 directly.
 
-\subsection{Experiments with Forum Archives}
-\label{sec.consensus.eval}
+\section{Experiments with Forum Archives}
+\label{sec.evaluation}
 
 We performed experiments to evaluate the performance of \FC and its consensus
 algorithm.
@@ -1692,7 +1692,7 @@ real-time applications such as large chats rooms.
 The number of hops and header overhead can be much smaller in client-server
 architectures compared to peer-to-peer systems, which typically include message
 signing, hash linking, and extra verification rules (as evaluated in
-Section~\ref{sec.consensus.eval}).
+Section~\ref{sec.evaluation}).
 
 \subsection{Peer-to-Peer Protocols}
 
