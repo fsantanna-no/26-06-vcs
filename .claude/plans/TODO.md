@@ -1,5 +1,20 @@
 # TODO
 
+- Review checkpoint (2026-08-28): abstract, Intro, and "\FC and
+  Git" reviewed paragraph-by-paragraph and in the rendered PDF;
+  NEXT = Section 3 intro + Overall Design (L367)
+- Postponed PDF issues (visible in the draft):
+    - "Section ??": label `sec.evaluation` does not exist yet
+    - "TODO: expose results ..." prints (Intro, ~L204)
+    - "prove its SEC property (TODO)" prints (roadmap, ~L211)
+    - Section 3 internal roadmap ("Section 3.7 simulates ...") will
+      go stale when Experiments moves to `sec.evaluation`
+- Section 3 leftovers spotted while scanning:
+    - L~508-517 `TODO >>> ... <<< TODO` old branch-1/2 narrative,
+      redundant with the sbseg text above it
+    - L~539 `TODO: duplicado abaixo` (consensus-order sentence)
+    - L~1047 `TODO: fazer para periodo inteiro, explicar pack do git`
+
 - Proof of strong eventual consistency for the consensus order
     - no local clocks: all timestamps come from the DAG itself
       (post metadata), so the order is a pure function of the DAG
