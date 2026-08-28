@@ -293,12 +293,12 @@ chain DAG, not its payload.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
 which networked applications work normally while offline.
-All other operations except synchronization only affect the local replica.
+All operations except synchronization only affect the local replica.
 No communication occurs up to this point.
 Since we build upon Git, we can inspect the internal structure of a given
 chain.
 For instance, the \emph{/chat} chain repository contains two commits with
-    (1) a genesis identification, and
+    (1) the genesis with a random id, and
     (2) the post pointing to its payload:
 
 {\footnotesize
@@ -306,12 +306,12 @@ For instance, the \emph{/chat} chain repository contains two commits with
  # PEER X
  $ git -C /chat log --oneline
  b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
- 726e329 genesis 0.20.0 5596915440
+ 726e329 genesis 5596915440
 \end{verbatim}
 }
 
 To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
-that replicates \emph{X} through the \emph{clone} operation:
+that replicates \emph{X} through the \code{clone} operation:
 
 {\footnotesize
 \begin{verbatim}
@@ -323,27 +323,23 @@ that replicates \emph{X} through the \emph{clone} operation:
 \end{verbatim}
 }
 
-In local-first applications, each replica may evolve in separate and
-synchronize at some point in the future.
-In the example, after the initial \code{clone}, each peer posts in separate and
-eventually \code{sync} with the other side, both converging to the same forked
-DAG:
+In local-first applications, each replica may evolve separately and synchronize
+at some point in the future.
+In the example, after the initial clone, each peer posts locally and eventually
+synchronizes with the other side, both converging to the same forked DAG:
 
 {\footnotesize
 \begin{verbatim}
  # PEER X
  $ fc /chat post 'From X'
  eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
- ...
- $ fc /chat sync Y
 
  # PEER Y
  $ fc /chat post 'From Y'
  c7a56bc491d415a8240b7012c0aae846fc632234
- ...
- $ fc /chat sync X
 
  # PEER X or Y
+ $ fc /chat sync Y (or X)
  $ fc /chat dag
        b100ce8
        /     \
@@ -364,8 +360,6 @@ For instance, CRDT-based systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest
 replicas or only address integrity, not volume or content quality, while
 federated protocols explicitly leave SPAM filtering to the server
 side~\cite{pubsub.activitypub}.
-
-=== STOP HERE ===
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
