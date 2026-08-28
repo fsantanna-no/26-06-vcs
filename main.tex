@@ -375,12 +375,16 @@ consensus algorithm to resist Sybils in permissionless forums:
 %
 \begin{itemize}
 \item Section~\ref{sec.consensus.design}
-    describes the overall reputation and consensus mechanisms, which can be
-    applied to other systems using Merkle DAGs.
+    describes the overall reputation and consensus mechanisms, which apply
+    to any system based on Merkle DAGs.
 \item Section~\ref{sec.consensus.chains}
-    describes the concrete reputation rules we implemented in \FC.
+    describes the concrete reputation rules for public forums in \FC.
+\item Section~\ref{sec.consensus.revoke}
+    describes how members revoke abusive content.
 \item Section~\ref{sec.consensus.algo}
-    details the consensus algorithm.
+    details the consensus algorithm that orders posts.
+\item Section~\ref{sec.consensus.byz}
+    discusses peer synchronization under Byzantine faults.
 \end{itemize}
 
 \subsection{Overall Design}
@@ -416,7 +420,7 @@ gradually transfer \reps to new members, which dilutes their initial power, and
 thus makes decentralization possible.
 
 In the next example, we generate self-certifying keypair identities, typical of
-peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
+peer-to-peer systems, and set them as pioneers of a fresh, Sybil-resistant
 \emph{/chat} chain replicated across peers \emph{I} and \emph{J}:
 
 {\footnotesize
@@ -436,7 +440,7 @@ peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
 \end{verbatim}
 }
 
-Note that when peer \emph{J} clones \emph{/chat}, it acknowledges its initial
+Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers (each holding 25000 \reps), whose public keys are part of the genesis
 commit.
 
