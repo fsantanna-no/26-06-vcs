@@ -35,7 +35,7 @@
 \maketitle
 
 \begin{abstract}
-Public online forums suffer from excess and abuse, such as SPAM and fake news.
+Public online forums suffer from excess and abuse such as SPAM and fake news.
 Centralized platforms moderate content, but require full trust from users.
 We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
@@ -91,24 +91,23 @@ Without consensus, each client must rely on local anti-abuse policies, such as
 SPAM filters, which only apply a posteriori, when the abusive messages have
 already been flooded in the network.
 %
-Abuse is particularly acute considering Sybils~\cite{p2p.sybil,p2p.mastodon} in
-\emph{permissionless} networks~\cite{permissionless,blockchain.wild}, where
-anybody can join with unlimited free identities.
+Abuse is particularly acute in \emph{permissionless}
+networks~\cite{permissionless,blockchain.wild}, which decentralize admission
+and therefore must combat Sybils~\cite{p2p.sybil,p2p.mastodon}.
 
-Nevertheless, consensus is notably challenging to the point that decentralized
-protocols partially abdicate it along two axes.
+Permissionless consensus is notably challenging to the point that protocols
+partially abdicate it along two axes.
 %
-On the one hand, \emph{multi-user/single-node consensus}, adopted by
-federated protocols~\cite{p2p.ecosystem}, supports a consistent multi-user
-public forum, but restricted to a single trusted server (ordered by the
-server).
-On the other hand, \emph{single-user/multi-node consensus}, adopted by
-Scuttlebutt~\cite{p2p.scuttlebutt}, supports a consistent message feed
-across multiple machines, but restricted to a single author (ordered by the
-author).
+On the one hand, \emph{multi-user/single-node consensus} supports a consistent
+multi-user public forum, but restricted to a single trusted server ordering
+messages (e.g., federated protocols~\cite{p2p.ecosystem}).
+%
+On the other hand, \emph{single-user/multi-node consensus} supports a
+consistent feed across multiple machines, but restricted to a single author
+ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
 %
 Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
-the context of peer-to-peer public forums, i.e., permissionless counterparts
+the context of peer-to-peer public forums, i.e., a permissionless counterpart
 of IRC/Discord or Usenet/Reddit.
 
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
@@ -119,26 +118,27 @@ unique timeline (either via proof-of-work or transaction fees).
 %
 However, we argue that Bitcoin and cryptocurrencies in general are not suitable
 for social content because
-    (a) they enforce a unique global timeline, since forks would dilute value
-        and weaken the network's security;
+    (a) they enforce a unique global timeline, since forks weaken the network
+        security;
     (b) they lean towards concentration of power due to scaling
         effects~\cite{btc.decentralization};
-    (c) they impose an external economic cost to use the protocol; and
+    (c) they impose external economic costs to use the protocol; and
     (d) they rely exclusively on objective rules to reach consensus.
 %
 These issues threaten our decentralization goals, and more importantly, they
 renounce subjectivity, which is inherent to content moderation.
 %
-For instance, a unique timeline (a) implies that all forums would be packed
-together and subject to the same consensus rules, while objective rules alone
-(d) cannot distinguish abuse amid content.
+For instance,
+    a unique timeline (a) implies that all forums are packed together
+    and subject to the same consensus rules, while
+    objective rules alone (d) cannot distinguish abuse amid content.
 %
 Another limitation of cryptocurrencies is that it is not possible to revoke
 content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
-In this work, we adapt the idea of scarce resources to reach consensus and
-eradicate Sybils in the context of public forums.
+In this work, we adapt the idea of scarce resources to eradicate Sybils and
+reach consensus, but now in the context of public forums.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
 \FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
 strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
@@ -193,7 +193,7 @@ reputation, consensus, and moderation.
 \end{description}
 
 As a main limitation, forum DAGs are ever growing data structures that carry
-considerable metadata overhead.
+considerable overhead.
 The costs to store and validate posts increase over time, which is also a
 limitation of blockchains in general.
 %
