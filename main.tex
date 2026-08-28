@@ -141,7 +141,7 @@ In this work, we adapt the idea of scarce resources to reach consensus and
 eradicate Sybils in the context of public forums.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
 \FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
-strong eventual consistency~\cite{p2p.crdts,p2p.sec}.
+strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
 We highlight four main contributions:
 %
 \begin{description}
@@ -217,7 +217,7 @@ In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
 
-\section{\FC basics \& Git backend}
+\section{\FC Basics \& Git Backend}
 \label{sec.freechains}
 
 \begin{table}[t]
@@ -230,10 +230,10 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \code{init}       & Creates fresh chain     & \code{init}            \\
 \code{clone}      & Replicates remote chain & \code{clone}           \\
 \code{sync}       & Exchanges remote posts  & \code{fetch}, \code{push} \\
-\code{post}       & Appends post the chain  & \code{commit}          \\
+\code{post}       & Appends post to chain   & \code{commit}          \\
 \code{payload}    & Queries post content    & \code{show} (blob)     \\
 \code{metadata}   & Queries post metadata   & \code{show} (commit)   \\
-\code{dag}        & Shows the chain DAG     & \code{log --graph}     \\
+\code{dag}        & Shows chain DAG         & \code{log --graph}     \\
 \hline
 \end{tabular}
 \caption{Basic \code{fc} commands as Git \emph{façade}.}
@@ -242,28 +242,27 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
-\emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
+\emph{Merkle Directed Acyclic Graph} (DAG) over Git~\cite{p2p.ipfs}.
 The DAG encodes the causal relationships between posts, whose cryptographic
 links ensure integrity and self certification.
-Since the DAG is the full state of a peer, replicas converge by construction,
-i.e., the protocol ensures strong eventual consistency
-(SEC)~\cite{fed.matrix,p2p.byz}.
+Since the full state of a peer is the immutable DAG, which only grows with
+appends (posts) and unions (syncs), replicas converge by construction with
+strong eventual consistency~\cite{fed.matrix,p2p.byz}.
 
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
-to enforce reputation rules and consensus.
+to enforce the protocol rules.
 Therefore, the operation and infrastructure of the protocol are simple:
     (i)  each post is an individual commit in the history graph, and
     (ii) peers synchronize their full state---the DAGs---through Git tooling.
+Table~\ref{tab.commands} lists the basic operations of \FC (\code{fc}), which
+guide the discussion through concrete examples.
+For the sake of simplicity, this section uses unrestricted chains that tolerate
+unsigned posts.
 
 The goals of this section are twofold:
     (a) to depict chain DAGs as the result of basic protocol operations; and
     (b) to illustrate how permissionless protocols inevitably require Sybil
         resistance to become practical.
-%
-In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC
-to guide the discussion through concrete examples.
-For the sake of simplicity, this section uses unrestricted chains that tolerate
-unsigned posts.
 
 The next sequence of commands simulates a peer \emph{X} that
     (i)   initializes chain \emph{/chat},
