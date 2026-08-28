@@ -236,7 +236,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \code{dag}        & Shows the chain DAG     & \code{log --graph}     \\
 \hline
 \end{tabular}
-\caption{Basic \FC operations as Git \emph{façade}.}
+\caption{Basic \code{fc} commands as Git \emph{façade}.}
 \label{tab.commands}
 \end{table}
 
@@ -245,7 +245,10 @@ which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
 The DAG encodes the causal relationships between posts, whose cryptographic
 links ensure integrity and self certification.
-%
+Since the DAG is the full state of a peer, replicas converge by construction,
+i.e., the protocol ensures strong eventual consistency
+(SEC)~\cite{fed.matrix,p2p.byz}.
+
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
 to enforce reputation rules and consensus.
 Therefore, the operation and infrastructure of the protocol are simple:
@@ -271,7 +274,7 @@ The next sequence of commands simulates a peer \emph{X} that
 \begin{verbatim}
  # PEER X
  $ fc /chat init
- #726e32918b7ac760de4088a5959168bde5e5a608
+ 726e32918b7ac760de4088a5959168bde5e5a608
  $ fc /chat post 'Hello World'
  b100ce8ca42c1b1c366c41b764cad1bbc116cff8
  $ fc /chat payload b100ce8
@@ -285,13 +288,13 @@ The next sequence of commands simulates a peer \emph{X} that
 
 The post metadata includes the action type, a local creation timestamp, and a
 reference to the payload blob.
-Since revocation is a key moderation requirement, only the metadata lives in
-the immutable chain DAG, but not its payload.
+Since revocation is a key moderation requirement
+(Section~\ref{sec.consensus.revoke}), only the metadata lives in the immutable
+chain DAG, not its payload.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
 which networked applications work normally while offline.
-Except for synchronization, all other operations in the system only affect the
-local replica.
+All other operations except synchronization only affect the local replica.
 No communication occurs up to this point.
 Since we build upon Git, we can inspect the internal structure of a given
 chain.
@@ -315,7 +318,7 @@ that replicates \emph{X} through the \emph{clone} operation:
 \begin{verbatim}
  # PEER Y
  $ fc /chat clone X
- #726e32918b7ac760de4088a5959168bde5e5a608
+ 726e32918b7ac760de4088a5959168bde5e5a608
  $ fc /chat dag
  b100ce8
 \end{verbatim}
@@ -364,9 +367,6 @@ federated protocols explicitly leave SPAM filtering to the server
 side~\cite{pubsub.activitypub}.
 
 === STOP HERE ===
-
-Considering that the DAG itself represents the full state of the peers, the
-protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
@@ -850,7 +850,8 @@ dislikes, and more dislikes than likes (rule~\code{3}).
 However, considering that \reps are scarce, dislikes are encouraged to combat
 abusive behavior, but not to eliminate divergences of opinion.
 
-\subsection{Content Removal}
+\subsection{Content Revocation}
+\label{sec.consensus.revoke}
 
 \begin{figure}
 \centering
