@@ -347,12 +347,12 @@ synchronizes with the other side, both converging to the same forked DAG:
 \end{verbatim}
 }
 
-Note that forks create ambiguity in the order of messages, which is a
-fundamental obstacle to reach consensus.
-Naturally, in permissionless forums, we cannot rely on local timestamps because
-malicious users could manipulate them.
+Note that forks create ambiguity in the order of posts, which is a fundamental
+obstacle to consensus.
+Naturally, in permissionless forums, we cannot rely on the author's timestamps
+because they are unverifiable.
 
-Another aspect that Merkle DAGs alone cannot solve is Sybil resistance.
+Another aspect that Merkle DAGs alone cannot provide is Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
 excessive or abusive posts.
 %
@@ -360,6 +360,10 @@ For instance, CRDT-based systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest
 replicas or only address integrity, not volume or content quality, while
 federated protocols explicitly leave SPAM filtering to the server
 side~\cite{pubsub.activitypub}.
+
+The next section addresses both problems:
+    reputation rules make posting scarce, and
+    a consensus order resolves forks.
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
