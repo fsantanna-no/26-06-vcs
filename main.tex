@@ -377,16 +377,75 @@ and SPAM millions of messages.
 For this reason, we propose a reputation system that works together with a
 consensus algorithm to resist Sybils.
 
+\begin{table}
+\centering
+\includegraphics[width=0.49\textwidth]{general.png}
+\caption{General reputation rules in \FC.}
+\label{fig.general}
+\end{table}
+
 In \FC, members spend tokens named \reps to post and rate content in forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
-a \code{like/dislike} helps subscribers to distinguish content amid excess;
-a \code{revoke/unrevoke} erases content when crossing a threshold.
+a \code{(dis)like} helps subscribers to distinguish content amid excess;
+a \code{(un)revoke} erases content when crossing a threshold.
 Table~\ref{fig.general} summarizes the general reputation rules and their
 goals.
-%
+
 To prevent Sybils, members with no \reps cannot operate under these rules,
 requiring a welcoming like from any other member already in the system.
+%
+Here, we face a \emph{bootstrapping} problem, typical of permissionless
+systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
+    how to admit the first members, and
+    how to decentralize power over the time?
+%
+To address bootstrapping, we propose to designate explicit \emph{pioneers} with
+initial \reps when creating chains.
+The pioneers shape the evolution of chains with the first posts and likes,
+while they gradually transfer \reps to new members, making decentralization
+possible.
+
+In the next example, we generate self-certifying keypair identities, typical of
+peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
+\emph{/chat} chain replicated across peers \emph{I} and \emph{J}:
+
+{\footnotesize
+\begin{verbatim}
+ # PEER I
+ $ ssh-keygen alice     # self-gen keypair
+ $ ssh-keygen bob       # self-gen keypair
+ $ fc /chat init --pionneer=alice --pioneer=bob
+ 09ab434cde2924de9ac83fb5be261700629f5e07
+
+ # PEER J
+ $ fc /chat clone I
+ 09ab434cde2924de9ac83fb5be261700629f5e07
+ $ fc /chat reps authors
+ alice 25000
+ bob   25000
+\end{verbatim}
+}
+
+Note that identities are cheap self-generated keypairs,
+%
+Therefore
+
+
+For us, permissionlees is not that any user can...,
+but that any existing insider, on its own, can welcome any outsider without
+aksing permissions
+
+any insider can transfer `reps` to welcome any outsider.
+
+
+How the first member 
+To welcome 
+On the one hand
+
+
+Note that the pioneers rule~\code{1.a} solves the
+
 The fact that likes are zero-sum operations, which only transfer reputation,
 eliminates the incentives from malicious members to invite Sybils into the
 system.
@@ -403,13 +462,6 @@ affect the capacity to write into the forums.
 In summary, the reputation system makes Freechains
     **(a)** Sybil-resistant: write operations require and spend `reps`; and
     **(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
-
-\begin{table}
-\centering
-\includegraphics[width=0.49\textwidth]{general.png}
-\caption{General reputation rules in public forums.}
-\label{fig.general}
-\end{table}
 
 
 
