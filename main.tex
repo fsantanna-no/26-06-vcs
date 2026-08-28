@@ -367,44 +367,24 @@ The next section addresses both problems:
     reputation rules make posting scarce, and
     a consensus order resolves forks.
 
-\section{The Reputation and Consensus Mechanism}
+\section{Reputation and Consensus}
 \label{sec.consensus}
 
-Without moderation, permissionless peer-to-peer public forums are
-impractical due to Sybils abusing the system.
-For instance, it should take seconds to generate thousands of fake
-identities and SPAM millions of messages.
-%Hence, without moderation, there are no limits on the number and size of posts
-%and no reasonable policy to distinguish quality.
+Without moderation, permissionless forums are impractical due to Sybils abusing
+the system.
+For instance, it should take seconds to generate thousands of fake identities
+and SPAM millions of messages.
 For this reason, we propose a reputation system that works together with a
 consensus algorithm to resist Sybils.
-% and make peer-to-peer public forums practical.
-We consider Sybils as groups of throw-away identities and machines with no
-previous reputation in the forums.
 
-Section~\ref{sec.consensus.design} describes the overall reputation and
-consensus mechanism, which can be applied to other systems using DAGs to
-structure its messages.
-Section~\ref{sec.consensus.chains} describes the concrete rules we implemented
-in \FC.
-Section~\ref{sec.consensus.algo} details the consensus and synchronization
-algorithm.
-Section~\ref{sec.consensus.eval} simulates the behavior of chains to evaluate
-the performance of the protocol.
-
-\subsection{Overall Design}
-\label{sec.consensus.design}
-
-In our system, members can spend tokens named \reps to post and rate content in
-forums:
+In \FC, members spend tokens named \reps to post and rate content in forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
-a \code{like} is a positive feedback that helps subscribers to distinguish
-content amid excess;
-a \code{dislike} is a negative feedback that revokes content when crossing a
-threshold.
+a \code{like/dislike} helps subscribers to distinguish content amid excess;
+a \code{revoke/unrevoke} erases content when crossing a threshold.
 Table~\ref{fig.general} summarizes the general reputation rules and their
 goals.
+%
 To prevent Sybils, members with no \reps cannot operate under these rules,
 requiring a welcoming like from any other member already in the system.
 The fact that likes are zero-sum operations, which only transfer reputation,
@@ -420,12 +400,34 @@ tolerate, which demands non-trivial work resistant to automation.%
 In this sense, having one or hundreds of machines in the network does not
 affect the capacity to write into the forums.
 
+In summary, the reputation system makes Freechains
+    **(a)** Sybil-resistant: write operations require and spend `reps`; and
+    **(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
+
 \begin{table}
 \centering
 \includegraphics[width=0.49\textwidth]{general.png}
 \caption{General reputation rules in public forums.}
 \label{fig.general}
 \end{table}
+
+
+
+We consider Sybils as groups of throw-away identities and machines with no
+previous reputation in the forums.
+
+Section~\ref{sec.consensus.design} describes the overall reputation and
+consensus mechanism, which can be applied to other systems using DAGs to
+structure its messages.
+Section~\ref{sec.consensus.chains} describes the concrete rules we implemented
+in \FC.
+Section~\ref{sec.consensus.algo} details the consensus and synchronization
+algorithm.
+Section~\ref{sec.consensus.eval} simulates the behavior of chains to evaluate
+the performance of the protocol.
+
+\subsection{Overall Design}
+\label{sec.consensus.design}
 
 Bitcoin employs proof-of-work to mitigate Sybil attacks.
 However, CPU or other extrinsic resources are not evenly distributed among
