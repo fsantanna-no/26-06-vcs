@@ -370,10 +370,8 @@ The next section addresses both problems:
 \section{Reputation and Consensus}
 \label{sec.consensus}
 
-Without moderation, permissionless forums are impractical due to Sybils abusing
-the system.
-For instance, it should take seconds to generate thousands of fake identities
-and SPAM millions of messages.
+As discussed in Section~\ref{sec.freechains}, without moderation,
+permissionless forums are impractical due to Sybils abusing the system.
 For this reason, we propose a reputation system that works together with a
 consensus algorithm to resist Sybils.
 
@@ -387,8 +385,8 @@ consensus algorithm to resist Sybils.
 In \FC, members spend tokens named \reps to post and rate content in forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
-a \code{(dis)like} helps subscribers to distinguish content amid excess;
-a \code{(un)revoke} erases content when crossing a threshold.
+a \code{(dis)like} helps to distinguish content amid excess;
+a \code{(un)revoke} toggles content removal.
 Table~\ref{fig.general} summarizes the general reputation rules and their
 goals.
 
@@ -398,13 +396,13 @@ requiring a welcoming like from any other member already in the system.
 Here, we face a \emph{bootstrapping} problem, typical of permissionless
 systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
     how to admit the first members, and
-    how to decentralize power over the time?
+    how to decentralize power over time?
 %
-To address bootstrapping, we propose to designate explicit \emph{pioneers} with
-initial \reps when creating chains.
-The pioneers shape the evolution of chains with the first posts and likes,
-while they gradually transfer \reps to new members, making decentralization
-possible.
+To address bootstrapping, we propose to designate \emph{pioneers} with initial
+\reps when creating chains.
+The pioneers shape the evolution of chains with the first posts and likes, and
+gradually transfer \reps to new members, diluting their initial power, and
+making decentralization possible.
 
 In the next example, we generate self-certifying keypair identities, typical of
 peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
@@ -427,24 +425,12 @@ peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
 \end{verbatim}
 }
 
-Note that identities are cheap self-generated keypairs,
-%
-Therefore
-
-
 For us, permissionlees is not that any user can...,
 but that any existing insider, on its own, can welcome any outsider without
 aksing permissions
-
 any insider can transfer `reps` to welcome any outsider.
 
-
-How the first member 
-To welcome 
-On the one hand
-
-
-Note that the pioneers rule~\code{1.a} solves the
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The fact that likes are zero-sum operations, which only transfer reputation,
 eliminates the incentives from malicious members to invite Sybils into the
