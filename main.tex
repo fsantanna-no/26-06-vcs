@@ -243,11 +243,8 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
-%
-The DAG represents the causal relationships between posts, whose cryptographic
+The DAG encodes the causal relationships between posts, whose cryptographic
 links ensure integrity and self certification.
-Considering that the DAG itself represents the full state of the peers, the
-protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 %
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with hooks
 to enforce reputation rules and consensus.
@@ -262,6 +259,8 @@ The goals of this section are twofold:
 %
 In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC
 to guide the discussion through concrete examples.
+For the sake of simplicity, this section uses unrestricted chains that tolerate
+unsigned posts.
 
 The next sequence of commands simulates a peer \emph{X} that
     (i)   initializes chain \emph{/chat},
@@ -363,6 +362,11 @@ For instance, CRDT-based systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest
 replicas or only address integrity, not volume or content quality, while
 federated protocols explicitly leave SPAM filtering to the server
 side~\cite{pubsub.activitypub}.
+
+=== STOP HERE ===
+
+Considering that the DAG itself represents the full state of the peers, the
+protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 
 \section{The Reputation and Consensus Mechanism}
 \label{sec.consensus}
