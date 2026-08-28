@@ -204,8 +204,8 @@ available Internet archives.
 TODO: expose results (local post time, sync time, DAG/repo disk size).
 
 The rest of the paper is organized as follows:
-In Section~\ref{sec.freechains}, we introduce the basic functionalities of \FC
-to create, rate, and synchronize posts.
+In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
+how they map to the Git backend.
 In Section~\ref{sec.consensus}, we describe the reputation and consensus
 mechanism, discuss relevant security threats, and prove its SEC property
 (TODO).
@@ -217,26 +217,26 @@ In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
 
-\section{\FC Basics}
+\section{\FC basics \& Git backend}
 \label{sec.freechains}
 
 \begin{table}[t]
 \centering
 \footnotesize
-\begin{tabular}{ll}
+\begin{tabular}{lll}
 \hline
-\textbf{Command} & \textbf{Description}                     \\
+\textbf{Command} & \textbf{Description}     & \textbf{Git}           \\
 \hline
-\code{init}       & Creates a fresh chain                   \\
-\code{clone}      & Replicates a chain from a remote peer   \\
-\code{sync}       & Exchanges posts with a remote peer      \\
-\code{post}       & Appends a post to the chain             \\
-\code{payload}    & Queries the post content (revocable)    \\
-\code{metadata}   & Queries the post metadata (immutable)   \\
-\code{dag}        & Shows the chain DAG                     \\
+\code{init}       & Creates fresh chain     & \code{init}            \\
+\code{clone}      & Replicates remote chain & \code{clone}           \\
+\code{sync}       & Exchanges remote posts  & \code{fetch}, \code{push} \\
+\code{post}       & Appends post the chain  & \code{commit}          \\
+\code{payload}    & Queries post content    & \code{show} (blob)     \\
+\code{metadata}   & Queries post metadata   & \code{show} (commit)   \\
+\code{dag}        & Shows the chain DAG     & \code{log --graph}     \\
 \hline
 \end{tabular}
-\caption{Basic \FC operations.}
+\caption{Basic \FC operations as Git \emph{façade}.}
 \label{tab.commands}
 \end{table}
 
@@ -245,7 +245,7 @@ which each topic or \emph{chain} is a replicated
 \emph{Merkle Directed Acyclic Graph} (DAG)~\cite{p2p.ipfs}.
 %
 The DAG represents the causal relationships between posts, whose cryptographic
-links ensure persistence and self certification.
+links ensure integrity and self certification.
 Considering that the DAG itself represents the full state of the peers, the
 protocol ensures strong eventual consistency (SEC)~\cite{fed.matrix,p2p.byz}.
 %
@@ -260,8 +260,8 @@ The goals of this section are twofold:
     (b) to illustrate how permissionless protocols inevitably require Sybil
         resistance to become practical.
 %
-In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC to guide
-the discussion through concrete examples.
+In Table~\ref{tab.commands}, we describe the actual protocol operations of \FC
+to guide the discussion through concrete examples.
 
 The next sequence of commands simulates a peer \emph{X} that
     (i)   initializes chain \emph{/chat},
