@@ -266,7 +266,7 @@ The goals of this section are twofold:
 
 The next sequence of commands simulates a peer \emph{X} that
     (i)   initializes chain \emph{/chat},
-    (ii)  posts message \emph{``Hello World''} there, and
+    (ii)  posts message \emph{``Hello World''}, and
     (iii) queries its payload and metadata.
 
 {\footnotesize
@@ -285,8 +285,8 @@ The next sequence of commands simulates a peer \emph{X} that
 \end{verbatim}
 }
 
-The post metadata includes the action type, a local creation timestamp, and a
-reference to the payload blob.
+The post metadata includes the action type, the author's creation timestamp,
+and a reference to the payload blob.
 Since revocation is a key moderation requirement
 (Section~\ref{sec.consensus.revoke}), only the metadata lives in the immutable
 chain DAG, not its payload.
