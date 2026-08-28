@@ -385,7 +385,7 @@ consensus algorithm to resist Sybils.
 In \FC, members spend tokens named \reps to post and rate content in forums:
 a \code{post} initially penalizes authors until it consolidates and counts
 positively;
-a \code{(dis)like} helps to distinguish content amid excess;
+a \code{(dis)like} helps members to distinguish content amid excess;
 a \code{(un)revoke} toggles content removal.
 Table~\ref{fig.general} summarizes the general reputation rules and their
 goals.
@@ -401,8 +401,7 @@ systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
 To address bootstrapping, we propose to designate \emph{pioneers} with initial
 \reps when creating chains.
 The pioneers shape the evolution of chains with the first posts and likes, and
-gradually transfer \reps to new members, diluting their initial power, and
-making decentralization possible.
+gradually transfer \reps to new members, which dilutes their initial power, and thus making decentralization possible.
 
 In the next example, we generate self-certifying keypair identities, typical of
 peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
@@ -411,9 +410,9 @@ peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
 {\footnotesize
 \begin{verbatim}
  # PEER I
- $ ssh-keygen alice     # self-gen keypair
- $ ssh-keygen bob       # self-gen keypair
- $ fc /chat init --pionneer=alice --pioneer=bob
+ $ ssh-keygen -f alice
+ $ ssh-keygen -f bob
+ $ fc /chat init --pioneer=alice --pioneer=bob
  09ab434cde2924de9ac83fb5be261700629f5e07
 
  # PEER J
@@ -424,6 +423,13 @@ peer-to-peer systems, and set them as pioneers of a new, Sybil-resistant
  bob   25000
 \end{verbatim}
 }
+
+Note that when peer \emph{J} clones \emph{/chat}, it acknowledges its initial
+pioneers (each holding 25000 \reps), whose public keys are part of the genesis
+commit.
+
+
+TODO: table with new commands
 
 For us, permissionlees is not that any user can...,
 but that any existing insider, on its own, can welcome any outsider without
