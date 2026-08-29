@@ -1,5 +1,45 @@
 # TODO
 
+- Cite `p2p.mst` (Auvolat & Taiani, "Merkle Search Trees: Efficient
+  State-Based CRDTs in Open Networks", SRDS 2019, doi
+  10.1109/SRDS.2019.00032; bib added, pdfs/mst-auvolat2019-srds.pdf)
+    - summary: op-based CRDTs need causal broadcast / vector clocks,
+      impractical in open networks with churn; pure state-based
+      CRDTs work if state merge is cheap; MST = balanced,
+      key-ordered Merkle tree for hash-based anti-entropy; 66% less
+      bandwidth than vector clocks; basis of Bluesky AT repos
+    - places to cite
+        - Sec.2 P1 SEC sentence, with `fed.matrix,p2p.byz`
+        - CRDT section: state-based (DAG sync) vs op-based (patches)
+          split; Git DAG as CvRDT
+        - SEC proof: why no causal broadcast is needed (Git fetch
+          is Merkle state merge)
+        - Related Work / P2P: Bluesky repos are MSTs
+        - protos plan: Merkle reconciliation is what buys delivery
+    - caveat: honest-but-churning model only; no Byzantine, Sybil,
+      or abuse discussion -> backs the mechanism, not Sybil claims
+    - verbatim in `260826-refs.md` (Candidates)
+    - comparison with the Git backend (both state-based CRDT sync
+      over hashed state)
+        - state: Git = Merkle DAG of commits (history, causal
+          links); MST = Merkle search tree over a keyed set (no
+          history)
+        - root: Git has no single root (state = set of heads);
+          MST has one root hash independent of insertion order
+        - diff: Git `fetch` negotiates heads, walks ancestry to the
+          common prefix, sends a packfile (cost ~ divergence, needs
+          have/want dialogue); MST compares hashes top-down
+          (cost ~ log n + diff, works between strangers)
+        - causality: Git encodes parents, which the consensus order
+          needs; MST has none (items carry their own keys)
+        - deletion: both grow-only (Git gc prunes unreachable only;
+          MST needs tombstones)
+        - verdict: MST is not a competitor but an INDEX; Freechains
+          needs Git's causal DAG; Bluesky layers an MST under a
+          signed commit chain (closest cousin of DAG + hooks);
+          MST is the upgrade path if fetch negotiation ever
+          becomes the bottleneck (not at 10k posts)
+
 - Review checkpoint (2026-08-28): abstract, Intro, and "\FC and
   Git" reviewed paragraph-by-paragraph and in the rendered PDF;
   NEXT = Section 3 intro + Overall Design (L367)
