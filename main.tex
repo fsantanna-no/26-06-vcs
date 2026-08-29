@@ -206,7 +206,7 @@ TODO: expose results (local post time, sync time, DAG/repo disk size).
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
 how they map to the Git backend.
-In Section~\ref{sec.consensus}, we describe the reputation and consensus
+In Section~\ref{sec.design}, we describe the reputation and consensus
 mechanism, discuss relevant security threats, and prove its SEC property
 (TODO).
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
@@ -289,7 +289,7 @@ The next sequence of commands simulates a peer \emph{X} that
 The post metadata includes the action type, the author's creation timestamp,
 and a reference to the payload blob.
 Since revocation is a key moderation requirement
-(Section~\ref{sec.consensus.revoke}), only the metadata lives in the immutable
+(Section~\ref{sec.design.revoke}), only the metadata lives in the immutable
 chain DAG, not its payload.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
@@ -368,44 +368,48 @@ The next section addresses both problems:
     a consensus order resolves forks.
 
 \section{Reputation and Consensus}
-\label{sec.consensus}
+\label{sec.design}
 
 In this section, we propose a reputation system that works together with a
 consensus algorithm to resist Sybils in permissionless forums:
 %
 \begin{itemize}
-\item Section~\ref{sec.consensus.design}
-    describes the overall reputation and consensus mechanisms, which apply
-    to any system based on Merkle DAGs.
-\item Section~\ref{sec.consensus.chains}
+\item Section~\ref{sec.design.overall}
+    describes the overall reputation and consensus mechanisms.
+\item Section~\ref{sec.design.forks}
+    discusses malicious behaviors and hard forks.
+\item Section~\ref{sec.design.chains}
     describes the concrete reputation rules for public forums in \FC.
-\item Section~\ref{sec.consensus.revoke}
+\item Section~\ref{sec.design.revoke}
     describes how members revoke abusive content.
-\item Section~\ref{sec.consensus.algo}
+\item Section~\ref{sec.design.algo}
     details the consensus algorithm that orders posts.
-\item Section~\ref{sec.consensus.byz}
+\item Section~\ref{sec.design.byz}
     discusses peer synchronization under Byzantine faults.
 \end{itemize}
 
+Since we build upon unmodified Git, we argue that the design we discuss in this
+section can be adapted to any system that structures posts as a Merkle DAG.
+
 \subsection{Overall Design}
-\label{sec.consensus.design}
+\label{sec.design.overall}
 
 \begin{table}
 \centering
 \includegraphics[width=0.49\textwidth]{general.png}
-\caption{General reputation rules in \FC.}
+\caption{General reputation principles in \FC.}
 \label{fig.general}
 \end{table}
 
 In \FC, members spend tokens named \reps to post and rate content in forums:
-a \code{post} initially penalizes authors until it consolidates and counts
-positively;
-a \code{(dis)like} helps members to distinguish content amid excess;
-a \code{(un)revoke} toggles content removal.
-Table~\ref{fig.general} summarizes the general reputation rules and their
-goals.
+    a \code{post} initially penalizes authors until it consolidates and counts
+    positively;
+    a \code{like} or \code{dislike} rates content amid excess;
+    a \code{revoke} or \code{unrevoke} toggles content removal.
+%
+Table~\ref{fig.general} summarizes the general reputation principles.
 
-To prevent Sybils, members with no \reps cannot operate under these rules,
+To prevent Sybils, members with no \reps cannot operate under these principles,
 requiring a welcoming like from any other member already in the system.
 %
 Here, we face a \emph{bootstrapping} problem, typical of permissionless
@@ -418,6 +422,10 @@ To address bootstrapping, we propose to designate \emph{pioneers} with initial
 The pioneers shape the evolution of chains with the first posts and likes, and
 gradually transfer \reps to new members, which dilutes their initial power, and
 thus makes decentralization possible.
+%
+We can now be more precise about admission in permissionless forums:
+it does not mean that anyone can post at will, but that any insider can welcome
+any outsider by directly transferring \reps, without intermediate authorities.
 
 In the next example, we generate self-certifying keypair identities, typical of
 peer-to-peer systems, and set them as pioneers of a fresh, Sybil-resistant
@@ -447,11 +455,6 @@ commit.
 TODO: welcoming like
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-In our design, therefore, permissionless dois not that any user can...,
-but that any existing insider, on its own, can welcome any outsider without
-asking  permissions
-any insider can transfer `reps` to welcome any outsider.
 
 TODO: table with new commands
 
@@ -654,7 +657,7 @@ Note that the consensus order exists only to account reputation and verify
 operations, and is only a view of the primary DAG structure of forums.
 
 \subsection{Malicious Behaviors and Hard Forks}
-\label{sec.design.hard}
+\label{sec.design.forks}
 
 Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}
 intentionally disconnects from the network for weeks to cultivate fake
@@ -721,7 +724,7 @@ branch \code{i} from a local machine are as follows:
     \item \code{i} is first if it crosses the activity threshold of
           \emph{7 days} or \emph{100 posts}, regardless of \code{j}.
     \item \code{i} or \code{j} is first, whichever has more reputation in the
-          common prefix (Section~\ref{sec.consensus.design}).
+          common prefix (Section~\ref{sec.design.overall}).
     \item otherwise, branches use the arbitrary criteria of lexicographical
           order of the post hashes immediately after the common prefix.
 \end{itemize}
@@ -737,7 +740,7 @@ members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
 
 \subsection{Public Forum Chains}
-\label{sec.consensus.chains}
+\label{sec.design.chains}
 
 We integrated the proposed reputation and consensus mechanism in the public
 forums of \FC to support content moderation and mitigate abuse in the chains.
@@ -900,7 +903,7 @@ However, considering that \reps are scarce, dislikes are encouraged to combat
 abusive behavior, but not to eliminate divergences of opinion.
 
 \subsection{Content Revocation}
-\label{sec.consensus.revoke}
+\label{sec.design.revoke}
 
 \begin{figure}
 \centering
@@ -956,7 +959,7 @@ with the consensus rules of Figures~\ref{fig.reps}~and~\ref{fig.hard} empower
 \FC with permissionless public forums.
 
 \subsection{The Consensus and Synchronization Algorithm}
-\label{sec.consensus.algo}
+\label{sec.design.algo}
 
 In order to validate publications consistently across the network, the
 consensus algorithm needs to execute at the core of the protocol, and at the
@@ -1041,7 +1044,7 @@ We save the cache and current consensus order in an index file.
 We build the DAG by traversing the chain directory.
 
 \subsection{Peer Synchronization and Byzantine Faults}
-\label{sec.consensus.byz}
+\label{sec.design.byz}
 
 Similarly to Bitcoin, the underlying network protocol replicates on each peer
 the full state of the Merkle~DAG representing the causal relationships between
@@ -1167,7 +1170,7 @@ and incremental sorts, while for the newsgroup chain, it takes
 %Currently, we synchronize the DAGs takes hours because we the synchronization time
 %
 The incremental sort is limited to 7 days or 100 posts by design (as discussed
-in Section~\ref{sec.consensus.design}), regardless of the size of the chain,
+in Section~\ref{sec.design.overall}), regardless of the size of the chain,
 which conveniently settles an upper bound on the input size of the consensus
 algorithm.
 %
