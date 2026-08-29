@@ -139,6 +139,12 @@ for l in io.lines('wikimedia.chat') do
             N, tpost/npost, npost))
         tpost, npost = 0, 0
         report(N)
+        -- sweep: pack states, reap unanchored; disk before/after
+        local t0 = now()
+        local out = exec("freechains --root=" .. ROOT .. " chain '#chat' sweep")
+        local g, pack, loose = disk()
+        print(string.format("== N=%d  sweep=%.1fs  git=%.1f MB  (pack %.1f, loose %.1f)  [%s]",
+            N, now()-t0, g/1e6, pack/1e6, loose/1e6, out))
     end
 end
 
