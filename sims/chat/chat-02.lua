@@ -52,7 +52,8 @@ end
 
 -- the pioneer creates the chain and thus holds the initial reps
 keys('Ashlee')
-print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init --pioneer=" .. KEYS .. "/Ashlee"))
+--print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init --pioneer=" .. KEYS .. "/Ashlee"))
+print(exec("freechains --root=" .. ROOT .. " --now=0 chains add '#chat' init"))
 
 -- wall clock in seconds (os.clock ignores child processes)
 function now ()
@@ -101,7 +102,8 @@ for l in io.lines('wikimedia.chat') do
         -- raw units: a signed post needs `cost` (500); below that,
         -- `--beg` is the only path (and is refused at >= 500)
         local reps = tonumber(exec("freechains --root=" .. ROOT .. " --now=" .. ts .. " chain '#chat' reps author \"" .. t.pub .. "\""))
-        local beg  = (reps < 500) and ' --beg' or ''
+        --local beg  = (reps < 500) and ' --beg' or ''
+        local beg  = ''
 
         -- '--' ends option parsing so a message starting with '-' is text
         local t0 = now()
