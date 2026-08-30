@@ -515,7 +515,8 @@ tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
 When the target is a post, the amount splits in half between the post and its
 author: \emph{Bob} spends 4000, and \emph{Dave} and his post receive 1800
 each.
-Note that the tax discourages cycling \reps among colluding identities.
+Since likes are zero-sum at best (transfer and tax), malicious members have no
+incentives to invite Sybils into the system, or even cycle \reps among them.
 
 Begging posts (\R{4.a}) have restricted reach, since they are not part of the
 Merkle DAG.
@@ -528,18 +529,25 @@ will.
 Once liked, a beg is merged and becomes part of the immutable chain DAG
 (Table~\ref{tab.commands}).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-The fact that likes are zero-sum operations, which only transfer reputation,
-eliminates the incentives from malicious members to invite Sybils into the
-system.
-The only way to generate new \reps is to post content that other members
-tolerate, which demands non-trivial work resistant to automation.%
-\footnote{
+Pioneers solve bootstrapping, but their fixed initial \reps cannot sustain a
+growing forum.
+%
+Bitcoin faces this issue and mints new coins as a reward for mining
+(\emph{proof-of-work}).
+However, CPU or other extrinsic resources are not evenly distributed among
+humans, especially in battery-powered devices.
+In the context of public forums, we propose to take advantage of the human
+authoring ability as an intrinsic resource that is harder to create than it is
+to verify and rate.
+%
+Therefore, in \FC the only way to generate new \reps is to post content that
+other members tolerate, which demands non-trivial work resistant to automation
+(\emph{proof-of-authoring}).%
+\footnote {
     Note that although human and AI content may become indistinguishable, their
-    frequency and relevance in forums is still subject to human evaluation in
-    our proposal.
+    frequency and relevance in forums are still subject to human evaluation.
 }
+
 In this sense, having one or hundreds of machines in the network does not
 affect the capacity to write into the forums.
 
