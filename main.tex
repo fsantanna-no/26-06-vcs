@@ -227,18 +227,24 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \footnotesize
 \begin{tabular}{lll}
 \hline
-\textbf{Command} & \textbf{Description}     & \textbf{Git}           \\
+\textbf{Command}   & \textbf{Description}        & \textbf{Git}                \\
 \hline
-\code{init}       & Creates fresh chain     & \code{init}            \\
-\code{clone}      & Replicates remote chain & \code{clone}           \\
-\code{sync}       & Exchanges remote posts  & \code{fetch}, \code{push} \\
-\code{post}       & Appends post to chain   & \code{commit}          \\
-\code{payload}    & Queries post content    & \code{show} (blob)     \\
-\code{metadata}   & Queries post metadata   & \code{show} (commit)   \\
-\code{dag}        & Shows chain DAG         & \code{log --graph}     \\
+\code{init}        & Creates fresh chain         & \code{init}                 \\
+\code{clone}       & Replicates remote chain     & \code{clone}                \\
+\code{sync}        & Exchanges remote posts      & \code{fetch}, \code{push}   \\
+\code{post}        & Appends post to chain       & \code{commit}               \\
+\code{payload}     & Queries post content        & \code{show} (blob)          \\
+\code{metadata}    & Queries post metadata       & \code{show} (commit)        \\
+\code{list}        & Lists DAG, order, begs      & \code{log --graph}          \\[2pt]
+\hline
+\noalign{\vskip 2pt}
+\code{(dis)like}   & Rates author or post        & \code{commit}, \code{merge} \\
+\code{(un)revoke}  & Erases or restores payload  & \code{commit}               \\
+\code{reps}        & Queries reputation          & hooks                       \\
+\code{sweep}       & Erases revoked payloads     & \code{gc}                   \\
 \hline
 \end{tabular}
-\caption{Basic \code{fc} commands as Git \emph{façade}.}
+\caption{Basic (top) and extended (bottom) \code{fc} commands as Git \emph{façade}.}
 \label{tab.commands}
 \end{table}
 
@@ -256,8 +262,8 @@ hooks to enforce the protocol rules.
 Therefore, the operation of the protocol is simple:
     each post is an individual commit in the history DAG, and
     peers synchronize their full state through Git.
-Table~\ref{tab.commands} lists the basic operations of \FC, which guide the
-discussion through concrete examples.
+Table~\ref{tab.commands} lists the operations of \FC (\code{fc}), which guide
+the discussion through concrete examples.
 For the sake of simplicity, this section uses unrestricted chains that tolerate
 unsigned posts.
 
@@ -321,7 +327,7 @@ single \emph{``Hello World''} post:
  # PEER Y
  $ fc /chat clone X
  726e32918b7ac760de4088a5959168bde5e5a608
- $ fc /chat dag
+ $ fc /chat list dag
  b100ce8
 \end{verbatim}
 }
@@ -343,7 +349,7 @@ synchronizes with the other side, both converging to the same forked DAG:
 
  # PEER X or Y
  $ fc /chat sync Y (or X)
- $ fc /chat dag
+ $ fc /chat list dag
        b100ce8
        /     \
  c7a56bc     eb18b45
@@ -519,7 +525,8 @@ policy is to keep them in a temporary bag for some visibility.
 Regarding the Git-based implementation, begs are held as parentless commits
 referenced under \code{refs/begs/beg-*}, and can be synchronized or dropped at
 will.
-Once liked, a beg is merged and becomes part of the immutable chain DAG.
+Once liked, a beg is merged and becomes part of the immutable chain DAG
+(Table~\ref{tab.commands}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
