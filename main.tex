@@ -466,21 +466,22 @@ pioneers, whose public keys are part of the genesis commit.
 \end{table*}
 
 Table~\ref{fig.rules} lists all concrete reputation rules of \FC, which we
-refer throughout the examples.
+refer to throughout the examples.
 For instance, \R{1.a} determines that pioneers split \nreps{50k} at creation
-time, resulting in \nreps{25k} for each of \emph{Alice} and \emph{Bob}.
-
-TODO: welcoming like
+time, resulting in \nreps{25k} for each pioneer.
 
 After pioneer initialization, the only way to welcome new members is through
 \emph{likes}, which transfer \reps between identities.
-We propose two complementary mechanisms:
-A reputed member can target the new member directly with a like, which requires
-previous contact between them.
-The more interesting case is to use a \emph{begging post}, which parks outside
-the DAG waiting for approval of any reputed member.
 %
-The next example illustrates the two mechanisms:
+We propose two complementary mechanisms:
+    (i) \emph{friend-to-friend} likes from members, which target known
+    newcomers directly; and
+    (ii) \emph{begging posts} from newcomers, which park outside the chains
+    waiting for a member's like.
+Note that the second is more interesting, since it admits total strangers based
+purely on content quality.
+%
+The next example illustrates both:
 
 {\footnotesize
 \begin{verbatim}
