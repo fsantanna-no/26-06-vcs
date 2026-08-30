@@ -485,27 +485,41 @@ The next example illustrates both:
 
 {\footnotesize
 \begin{verbatim}
- $ fc /chat like author charlie --sign=alice
- TODO
-
- $ fc /chat post 'like me' --sign=dave --beg
- TODO
- $ fc /chat like post TODO --sign=bob
- TODO
-
+ $ fc /chat like 5000 author charlie --sign=alice       <- (i)
  $ fc /chat reps authors
- alice      TODO
- bob        TODO
- charlie    TODO
- dave       TODO
+ bob        25000
+ alice      20000
+ charlie     4500
+
+ $ fc /chat post 'A great post!' --sign=dave --beg     <- (ii)
+ 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
+ $ fc /chat list begs
+ 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
+ $ fc /chat like 4000 post 5d98790 --sign=bob
+ $ fc /chat reps authors
+ bob        21000
+ alice      20000
+ charlie     4500
+ dave        1800
 \end{verbatim}
 }
 
-TODO: restricted reach
+A like (\R{3.a}) transfer \reps from the caster to the target, burning a 10\%
+tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
+When the target is a post, the amount splits in half between the post and its
+author: \emph{Bob} spends 4000, and \emph{Dave} and his post receive 1800
+each.
+Note that the tax discourages cycling \reps among colluding identities.
 
-
-propose two complementary xxx to welcome user
-F2F
+Begging posts (\R{4.a}) have restricted reach, since they is not part of the
+Merkle DAG.
+Therefore, peers are not required to hold or forward them, and a reasonable
+policy is to keep them in a temporary bag for some visibility.
+%
+Regarding the Git-based implementation, begs are held as parentless commits
+referenced under \code{refs/begs/beg-*}, and can be synchronized or dropped at
+will.
+Once liked, a beg is merged and becomes part of the immutable chain DAG.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
