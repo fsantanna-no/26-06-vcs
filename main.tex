@@ -20,6 +20,16 @@
 
 \renewcommand{\theenumi}{\alph{enumi}}
 
+% tighter lists (no extra packages)
+\makeatletter
+\def\@listI{%
+    \leftmargin\leftmargini
+    \topsep    2\p@ \@plus1\p@ \@minus1\p@
+    \parsep    0\p@
+    \itemsep   0\p@
+}
+\makeatother
+
 \hyphenation{off-line}
 
 \begin{document}
@@ -295,9 +305,8 @@ The next sequence of commands simulates a peer \emph{X} that
 
 The post metadata includes the action type, the author's creation timestamp,
 and a reference to the payload blob.
-Since revocation is a key moderation requirement
-(Section~\ref{sec.design.revoke}), only the metadata lives in the immutable
-chain DAG, not its payload.
+Since revocation is a key moderation requirement (\S~\ref{sec.design.revoke}),
+only the metadata lives in the immutable chain DAG, not its payload.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
 which networked applications work normally while offline.
@@ -380,21 +389,21 @@ The next section addresses both problems:
 In this section, we propose a reputation system that works together with a
 consensus algorithm to resist Sybils in permissionless forums:
 %
-\begin{itemize}
-\item Section~\ref{sec.design.overall}
+\begin{description}
+\item [\S\ref{sec.design.overall}]
     describes the overall reputation and consensus mechanism.
-\item Section~\ref{sec.design.forks}
+\item [\S\ref{sec.design.forks}]
     discusses malicious behaviors and hard forks.
-\item Section~\ref{sec.design.time}
+\item [\S\ref{sec.design.time}]
     discusses timestamp convergence, regardless of local temporary time-based
     decisions.
-\item Section~\ref{sec.design.revoke}
+\item [\S\ref{sec.design.revoke}]
     describes how members revoke abusive content.
-\item Section~\ref{sec.design.algo}
+\item [\S\ref{sec.design.algo}]
     details the consensus algorithm that orders posts.
-\item Section~\ref{sec.design.byz}
+\item [\S\ref{sec.design.byz}]
     discusses peer synchronization under Byzantine faults.
-\end{itemize}
+\end{description}
 
 Since we build upon unmodified Git, we argue that the design we discuss in this
 section can be adapted to any system that structures posts as a Merkle DAG.
@@ -839,7 +848,7 @@ branch \code{i} from a local machine are as follows:
     \item \code{i} is first if it crosses the activity threshold of
           \emph{7 days} or \emph{100 posts}, regardless of \code{j}.
     \item \code{i} or \code{j} is first, whichever has more reputation in the
-          common prefix (Section~\ref{sec.design.overall}).
+          common prefix (\S\ref{sec.design.overall}).
     \item otherwise, branches use the arbitrary criteria of lexicographical
           order of the post hashes immediately after the common prefix.
 \end{itemize}
@@ -1205,8 +1214,8 @@ and incremental sorts, while for the newsgroup chain, it takes
 %
 %Currently, we synchronize the DAGs takes hours because we the synchronization time
 %
-The incremental sort is limited to 7 days or 100 posts by design (as discussed
-in Section~\ref{sec.design.overall}), regardless of the size of the chain,
+The incremental sort is limited to 7 days or 100 posts by design
+(\S\ref{sec.design.overall}), regardless of the size of the chain,
 which conveniently settles an upper bound on the input size of the consensus
 algorithm.
 %
@@ -1734,8 +1743,7 @@ As a counterpoint, federated protocols seem to be more appropriate for
 real-time applications such as large chats rooms.
 The number of hops and header overhead can be much smaller in client-server
 architectures compared to peer-to-peer systems, which typically include message
-signing, hash linking, and extra verification rules (as evaluated in
-Section~\ref{sec.evaluation}).
+signing, hash linking, and extra verification rules (\S\ref{sec.evaluation}).
 
 \subsection{Peer-to-Peer Protocols}
 
