@@ -437,14 +437,17 @@ it does not mean that anyone can post at will, but that any insider can welcome
 any outsider by directly transferring \reps, without intermediate authorities.
 
 In the next example, we generate self-certifying keypair identities, typical of
-peer-to-peer systems, and set them as pioneers of a fresh, Sybil-resistant
-\emph{/chat} chain replicated across peers \emph{I} and \emph{J}:
+peer-to-peer systems, and set two of them as pioneers of a fresh, now
+Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
+\emph{J}:
 
 {\footnotesize
 \begin{verbatim}
- # PEER I
  $ ssh-keygen -f alice
  $ ssh-keygen -f bob
+ $ ssh-keygen -f silas
+
+ # PEER I
  $ fc /chat init --pioneer=alice --pioneer=bob
  09ab434cde2924de9ac83fb5be261700629f5e07
 
@@ -454,11 +457,15 @@ peer-to-peer systems, and set them as pioneers of a fresh, Sybil-resistant
  $ fc /chat reps authors
  alice      25000
  bob        25000
+
+ $ fc /chat post 'Hello forum' --sign=silas
+ ERROR : chain post : insufficient reputation
 \end{verbatim}
 }
 
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
+Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
 
 \begin{table*}
 \centering
