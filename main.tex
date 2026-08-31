@@ -382,11 +382,12 @@ consensus algorithm to resist Sybils in permissionless forums:
 %
 \begin{itemize}
 \item Section~\ref{sec.design.overall}
-    describes the overall reputation and consensus mechanisms.
+    describes the overall reputation and consensus mechanism.
 \item Section~\ref{sec.design.forks}
     discusses malicious behaviors and hard forks.
-\item Section~\ref{sec.design.chains}
-    describes the concrete reputation rules for public forums in \FC.
+\item Section~\ref{sec.design.time}
+    discusses timestamp convergence, regardless of local temporary time-based
+    decisions.
 \item Section~\ref{sec.design.revoke}
     describes how members revoke abusive content.
 \item Section~\ref{sec.design.algo}
@@ -417,6 +418,8 @@ In \FC, members spend tokens named \reps to post and rate content in forums:
     a \code{revoke} or \code{unrevoke} toggles content removal.
 %
 Table~\ref{fig.general} summarizes the general reputation principles.
+
+\subsubsection{Bootstrapping}
 
 To prevent Sybils, members with no \reps cannot operate under these principles,
 requiring a welcoming like from any other member already in the system.
@@ -479,7 +482,8 @@ Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
 \end{table*}
 
 Table~\ref{fig.rules} lists all concrete reputation rules of \FC, which we
-refer to throughout the examples.
+refer to throughout the examples, and which are compatible with the general
+rules of Table~\ref{fig.general}.
 For instance, \R{1.a} determines that pioneers split \nreps{50k} at creation
 time, resulting in \nreps{25k} for each pioneer.
 
@@ -498,13 +502,13 @@ The next example illustrates both:
 
 {\footnotesize
 \begin{verbatim}
- $ fc /chat like 5000 author charlie --sign=alice       <- (i)
+ $ fc /chat like 5000 author charlie --sign=alice
  $ fc /chat reps authors
  bob        25000
  alice      20000
  charlie     4500
 
- $ fc /chat post 'A great post!' --sign=dave --beg     <- (ii)
+ $ fc /chat post 'Great Post' --sign=dave --beg
  5d98790763bb3ca93bb84985bd49c9fa0887fe6e
  $ fc /chat list begs
  5d98790763bb3ca93bb84985bd49c9fa0887fe6e
@@ -536,24 +540,70 @@ will.
 Once liked, a beg is merged and becomes part of the immutable chain DAG
 (Table~\ref{tab.commands}).
 
-Pioneers solve bootstrapping, but their fixed initial \reps cannot sustain a
-growing forum.
+\subsubsection{Proof-of-Authoring}
+
+Pioneers solve bootstrapping, but their fixed initial \nreps{50000} cannot
+sustain a growing forum, since they would constitute the whole ``chain
+economy'' forever.
 %
 Bitcoin faces this issue and mints new coins as a reward for mining
 (\emph{proof-of-work}).
-However, CPU or other extrinsic resources are not evenly distributed among
-humans, especially in battery-powered devices.
+However, CPU or other \emph{asymmetric extrinsic resources} are not evenly
+distributed among humans, especially in battery-powered devices.
 In the context of public forums, we propose to take advantage of the human
-authoring ability as an intrinsic resource that is harder to create than it is
-to verify and rate.
-%
-Therefore, in \FC the only way to generate new \reps is to post content that
-other members tolerate, which demands non-trivial work resistant to automation
-(\emph{proof-of-authoring}).%
+authoring ability as a \emph{symmetric intrinsic resource}.
+\emph{Proof-of-authoring} is still analogous to mining:
+    (i)   it is harder than rating;
+    (ii)  it adds value to growing chain; and
+    (iii) its aggregate determines consensus order.
+
+Therefore, \FC rewards authors that post new content that other members
+tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
 \footnote {
     Note that although human and AI content may become indistinguishable, their
     frequency and relevance in forums are still subject to human evaluation.
 }
+%
+To illustrate proof-of-authoring, let us trace how \emph{Charlie}'s reputation
+evolves with a post:
+
+{\footnotesize
+\begin{verbatim}
+ $ fc /chat reps author charlie     # T0: before post
+ 4500
+ $ fc /chat post 'Nice Post' --sign=charlie
+ 1a5c8e21d934e6a44e47f72f188250faeaf0a6de
+ $ fc /chat reps author charlie     # T1: after post
+ 4000
+ $ fc /chat reps author charlie     # T2: after 12h
+ 4500
+ $ fc /chat reps author charlie     # T3: after 24h
+ 5500
+\end{verbatim}
+}
+
+\begin{description}
+\item[T0:] \emph{Charlie} holds the \nreps{4500} received from \emph{Alice}'s
+    welcoming like.
+\item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
+    member can post in sequence.
+\item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
+    the activity that succeeds the post.
+\item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
+    most once a day.
+\end{description}
+
+Since his post survived, \emph{Charlie} ends with \nreps{1000} more than he
+started, which represents the value he added to chain in the form of
+human-authored content.
+%
+The 24-hour period gives sufficient time for other members to judge the post
+before the reward.
+It also regulates the growth speed of the chain, since extra posts do not
+reward authors with more \reps (\R{1.b}).
+%
+In summary, proof-of-authoring stimulates content creation, which ultimately is
+the \emph{raison d'être} of public forums.
 
 In this sense, having one or hundreds of machines in the network does not
 affect the capacity to write into the forums.
@@ -805,37 +855,6 @@ leads to hard forks.
 \subsection{Public Forum Chains}
 \label{sec.design.chains}
 
-We integrated the proposed reputation and consensus mechanism in the public
-forums of \FC to support content moderation and mitigate abuse in the chains.
-Table~\ref{fig.rules} details the concrete rules we conceived, which is
-compatible with the general rules of Table~\ref{fig.general}.
-Authors have to sign posts in order to be accounted by the reputation system
-and operate in the chains.
-We start by creating an identity whose public key is assigned as the pioneer in
-a chain named \emph{forum}:
-
-{\footnotesize
-\begin{verbatim}
- > freechains keys pubpvt 'pioneer-password'
- 4B56AD.. DA3B5F..  <-- public and private keys
- > freechains 'forum' join '4B56AD..'
- 10AE3E..           <-- hash representing the chain
- > freechains 'forum' post --sign='DA3B5F..' \
-    'The purpose of this chain is...'
- 1_CC2184..         <-- hash representing the post
-\end{verbatim}
-}
-
-The \code{join} command in rule~\code{1.a} bootstraps a public chain,
-assigning \nreps{30} equally distributed between an arbitrary number of
-pioneers indicated through their public keys (one in this example).
-The pioneers shape the initial culture of the chain with the first posts and
-likes, while they gradually transfer \reps to other authors, which also
-transfer to other authors, expanding the community.
-%
-The \code{post} command in sequence is signed by the single pioneer (in this
-example) and indicates the purpose of the chain for future members.
-
 The most basic concern in forums is to resist Sybils abusing the
 chains.
 Fully peer-to-peer systems cannot rely on logins or {\footnotesize CAPTCHAs}
@@ -860,32 +879,6 @@ imposed by rule~\code{4.a}: if new authors start with no \reps, but require
 \reps to operate, it is necessary that some authors have initial \reps to boot
 the chains.
 
-In the next sequence of commands, a new remote member joins the same public chain
-and posts a message, which is welcomed with a like signed by the pioneer:
-
-{\footnotesize
-\begin{verbatim}
- > freechains keys pubpvt 'newbie-password'
- 503AB5.. 41DDF1..  <-- public and private keys
- > freechains 'forum' join '4B56AD..'
- 10AE3E..           <-- same pioneer as before
- > freechains 'forum' post 'Im a newbie...' \
-    --sign='41DDF1..'
- 2_C3A40F..         <-- blocked post
- > freechains 'forum' like '2_C3A40F..' \
-    --sign='DA3B5F..'
- 3_59F3E1..         <-- hash representing the like
-\end{verbatim}
-}
-
-Note that chains with the same name but different pioneers would be
-incompatible because the hash of genesis posts depends on the pioneers'
-public keys.
-
-Figure~\ref{fig.forum} illustrates the chain DAG up to the like operation.
-The pioneer starts with \nreps{30} (rule~\code{1.a}) and posts the initial
-message.
-%
 New posts penalize authors with \nreps{-1} during at most 12 hours
 (rule~\code{2}), which depends on the activity succeeding (and including) the
 new post.
@@ -898,28 +891,6 @@ messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.49\textwidth]{forum.png}
-\caption{
-    The \code{like} approves the newbie message into the \code{\#forum} DAG.
-}
-\label{fig.forum}
-\end{figure}
-
-Back to Figure~\ref{fig.forum}, a new member with \nreps{0} tries to post a
-message (hash~\code{C3A40F..}) and is blocked (rule~\code{4.a}), as the red
-background highlights.
-But the pioneer likes the blocked message, decreasing herself to \nreps{29}
-and increasing new member to \onerep (rule~\code{3.a}).
-Note that the newbie post is not penalized (rule~\code{2}) because it is
-followed by the pioneer like, which still controls all \reps in the chain.
-
-With no additional rules to generate \reps, the initial \nreps{30} would
-constitute the whole ``chain economy'' forever.
-For this reason, rule~\code{1.b} rewards authors of new posts with \onerep,
-but only after 24 hours.
-This rule stimulates content creation and grows the economy of chains.
 The 24-hour period gives sufficient time for other members to judge the post
 before rewarding the author.
 It also regulates the growth speed of the chain.
