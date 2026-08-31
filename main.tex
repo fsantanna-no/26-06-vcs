@@ -526,8 +526,9 @@ tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
 When the target is a post, the amount splits in half between the post and its
 author: \emph{Bob} spends 4000, and \emph{Dave} and his post receive 1800
 each.
-Since likes are zero-sum at best (transfer and tax), malicious members have no
-incentives to invite Sybils into the system, or even cycle \reps among them.
+Since likes are zero-sum at best (transfers and taxes do not add value),
+malicious members have no incentives to invite Sybils into the system, or even
+cycle \reps among them.
 
 Begging posts (\R{4.a}) have restricted reach, since they are not part of the
 Merkle DAG.
@@ -549,12 +550,12 @@ economy'' forever.
 Bitcoin faces this issue and mints new coins as a reward for mining
 (\emph{proof-of-work}).
 However, CPU or other \emph{asymmetric extrinsic resources} are not evenly
-distributed among humans, especially in battery-powered devices.
+distributed among humans, especially on battery-powered devices.
 In the context of public forums, we propose to take advantage of the human
 authoring ability as a \emph{symmetric intrinsic resource}.
 \emph{Proof-of-authoring} is still analogous to mining:
     (i)   it is harder than rating;
-    (ii)  it adds value to growing chain; and
+    (ii)  it adds value to chain; and
     (iii) its aggregate determines consensus order.
 
 Therefore, \FC rewards authors that post new content that other members
@@ -584,17 +585,17 @@ evolves with a post:
 
 \begin{description}
 \item[T0:] \emph{Charlie} holds the \nreps{4500} received from \emph{Alice}'s
-    welcoming like.
+    welcoming like (\R{3.a}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
 \item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
     the activity that succeeds the post.
 \item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
-    most once a day.
+    most once a day (\R{1.b}).
 \end{description}
 
 Since his post survived, \emph{Charlie} ends with \nreps{1000} more than he
-started, which represents the value he added to chain in the form of
+started, representing the value he added to the chain in the form of
 human-authored content.
 %
 The 24-hour period gives sufficient time for other members to judge the post
@@ -605,6 +606,7 @@ reward authors with more \reps (\R{1.b}).
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
+\subsubsection{Double-spend and Consensus}
 In this sense, having one or hundreds of machines in the network does not
 affect the capacity to write into the forums.
 
