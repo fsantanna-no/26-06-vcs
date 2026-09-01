@@ -305,7 +305,7 @@ The next sequence of commands simulates a peer \emph{X} that
 
 The post metadata includes the action type, the author's creation timestamp,
 and a reference to the payload blob.
-Since revocation is a key moderation requirement (\S~\ref{sec.design.revoke}),
+Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
 \FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
@@ -365,8 +365,8 @@ synchronizes with the other side, both converging to the same forked DAG:
 \end{verbatim}
 }
 
-Note that forks create ambiguity in the order of posts, which is a fundamental
-obstacle to consensus.
+Note that forks represent concurrency and imply ambiguity in the order of
+posts, which is a fundamental obstacle to consensus.
 Naturally, in permissionless forums, we cannot rely on the authors' timestamps
 to order posts because they are unverifiable.
 
@@ -564,7 +564,7 @@ In the context of public forums, we propose to take advantage of the human
 authoring ability as a \emph{symmetric intrinsic resource}.
 \emph{Proof-of-authoring} is still analogous to mining:
     (i)   it is harder than rating;
-    (ii)  it adds value to chain; and
+    (ii)  it adds value to chains; and
     (iii) its aggregate determines consensus order.
 
 Therefore, \FC rewards authors that post new content that other members
@@ -616,35 +616,69 @@ In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
 \subsubsection{Double-spend and Consensus}
-In this sense, having one or hundreds of machines in the network does not
-affect the capacity to write into the forums.
 
-In summary, the reputation system makes Freechains
-    **(a)** Sybil-resistant: write operations require and spend `reps`; and
-    **(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
-
-We consider Sybils as groups of throw-away identities and machines with no
-previous reputation in the forums.
-
-%
-%
-In our analogy with Bitcoin, Sybil attacks would require to add human resources,
-instead of CPU power.
-
-Nevertheless, posts scarcity is not yet sufficient to combat Sybils because
-consensual order is still required to prevent inconsistent operations.
+Scarcity of \reps is not yet sufficient to prevent inconsistent operations,
+which correspond to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious author with a single unit of \reps posting
 SPAM messages from multiple peers at the same time.
-According to the \emph{Expense} rule of Table~\ref{fig.general}, only one of
-these messages should be accepted by the network.
-However, without consensus, it is not possible to globally determine which
-message to accept, since each peer would supposedly accept the first message it
-receives.
-On the one hand, in order to validate operations consistently, we need the same
-message ordering across all peers in the network.
-On the other hand, due to network partitions, we can only represent public
-forums as DAGs (directed acyclic graphs) with causal relationships between
-messages, which provides at most partial order.
+As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
+DAG, which implies ambiguity in the order of posts.
+
+In the next example, \emph{Charlie} double-spend most of his \reps with
+concurrent likes to \emph{Xion} and \emph{York} on peers \emph{I} and \emph{J},
+just before they synchronize.
+%
+Nevertheless, due to the consensus mechanism we are about to discuss, the peers
+refuse the double spend and converge to the same state:
+
+{\footnotesize
+\begin{verbatim}
+ $ fc /chat reps author charlie
+ 4500
+
+ # PEER I
+ $ fc /chat like 4500 author xion --sign=charlie
+ 7468f50551b223133f48365984d1a192e7a36a67
+ $ fc /chat reps authors
+ ...
+ xion        4050       # like to xion
+ york           0
+ charlie        0
+
+ # PEER J
+ $ fc /chat like 4500 author york --sign=charlie
+ 3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
+ $ fc /chat reps authors
+ ...
+ york        4050       # like to york
+ xion           0
+ charlie        0
+
+ # PEER I or J
+ $ fc /chat sync J (or I)
+ ERROR : invalid like : insufficient reputation
+ voided : 7468f50551b223133f48365984d1a192e7a36a67
+ $ fc /chat reps authors
+ ...
+ york        4050       # accepted
+ xion           0       # rejected
+ charlie        0
+\end{verbatim}
+}
+
+We assume \emph{Charlie} is honest and online...
+Also, local time
+
+In summary, the reputation system makes Freechains
+**(a)** Sybil-resistant: write operations require and spend `reps`; and
+**(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
+
+In this sense, having one or hundreds of machines in the network does not
+affect the capacity to write into the forums.
+We consider Sybils as groups of throw-away identities and machines with no
+previous reputation in the forums.
+In our analogy with Bitcoin, Sybil attacks would require to add human resources,
+instead of CPU power.
 
 \begin{figure*}
 \centering
@@ -668,6 +702,15 @@ Going back to the malicious member example, the simultaneous messages would
 appear as forks in the forum DAG.
 Only the message in the fork with more combined work would be accepted, while
 all other Sybil messages would be rejected.
+
+According to \R{2}, only one of them should be accepted by the network.
+However, without consensus, it is not possible to globally determine which one
+to accept, since each peer would supposedly accept the first message it receives.
+On the one hand, in order to validate operations consistently, we need the same
+message ordering across all peers in the network.
+On the other hand, due to network partitions, we can only represent public
+forums as DAGs (directed acyclic graphs) with causal relationships between
+messages, which provides at most partial order.
 
 Figure~\ref{fig.reps}.A illustrates the evolution of a forum DAG in the
 presence of a network partition:
@@ -902,15 +945,6 @@ messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
 
-The 24-hour period gives sufficient time for other members to judge the post
-before rewarding the author.
-It also regulates the growth speed of the chain.
-In Figure~\ref{fig.forum}, after 1 day, the pioneer would now accumulate
-\nreps{30} and the new member \nreps{2}, growing the economy in \nreps{2} as
-result of the two new consolidated posts.
-Note that rule~\code{1.b} rewards at most one post of each author at a time.
-Hence, extra posts during the 24-hour period do not reward authors with extra
-\reps.
 Note also that rule~\code{4.b} limits authors to at most \nreps{30}, which
 provides incentives to spend likes and thus decentralize the network, while
 rule~\code{4.c} limits the size of posts to at most \emph{128kB} to prevent
