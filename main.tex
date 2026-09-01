@@ -549,12 +549,9 @@ now Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 %
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
+According to \R{1.a}, the total of \nreps{50k} is equally split and each
+pioneer starts with \nreps{25k}.
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
-
-TODO
-\error
-For instance, \R{1.a} determines that pioneers split \nreps{50k} at creation
-time, resulting in \nreps{25k} for each pioneer.
 
 \begin{lstlisting}[
     float=tbp,
