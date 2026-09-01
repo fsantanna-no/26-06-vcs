@@ -301,6 +301,7 @@ The next sequence of commands simulates a peer \emph{X} that
     queries its payload and metadata.
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.basics},
     caption={Basic \emph{/chat} simulation in peer \emph{X}.}
 ]
@@ -333,6 +334,7 @@ For instance, the \emph{/chat} chain repository contains two commits with
     (2) the post pointing to its payload:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.git},
     caption={Internal Git structure of \emph{/chat}.}
 ]
@@ -347,6 +349,7 @@ that replicates \emph{X} through the \code{clone} operation, receiving the
 single \emph{``Hello World''} post:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.clone},
     caption={Peer replication between \emph{X} and \emph{Y}.}
 ]
@@ -363,6 +366,7 @@ In the example, after the initial clone, each peer posts locally and eventually
 synchronizes with the other side, both converging to the same forked DAG:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.fork},
     caption={Forked DAG after concurrent posts.}
 ]
@@ -485,6 +489,7 @@ Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 \emph{J}:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.pioneers},
     caption={Sybil-resistant chain with pioneers.}
 ]
@@ -561,6 +566,7 @@ purely on content quality.
 The next example illustrates both:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.welcome},
     caption={Member admissions through likes and begging posts.}
 ]
@@ -686,6 +692,7 @@ Nevertheless, due to the consensus mechanism we are about to discuss, the peers
 refuse the double spend and converge to the same state:
 
 \begin{lstlisting}[
+    float=tbp,
     label={lst.double},
     caption={Rejected double-spend on peers \emph{I} and \emph{J}.}
 ]
@@ -720,6 +727,10 @@ york        4050       # accepted
 xion           0       # rejected
 charlie        0
 \end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iffalse
 
 We assume \emph{Charlie} is honest and online...
 Also, local time
@@ -2003,6 +2014,8 @@ understand the evolution of forums and act accordingly.
 Human creativity contrasts with plain economic resources (e.g.,
 proof-of-work), which do not appraise social interactions and also tend
 to concentrate power over the time.
+
+\fi
 
 \bibliographystyle{plain}
 \bibliography{main}
