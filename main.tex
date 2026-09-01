@@ -458,15 +458,47 @@ Transfer & Likes and revokes transfer \reps between authors and to posts
 \label{fig.general}
 \end{table}
 
+\begin{table*}[t]
+\centering
+\footnotesize
+\begin{tabular}{|l|l|l|p{11.4cm}|}
+\hline
+\textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
+\hline
+Emission    & 1.a & pioneers & Chain creation counts $+$\nreps{50000} equally distributed between the pioneers \\
+            & 1.b & old post & Consolidated post counts $+$\nreps{1000} to its author, at most once a day \\
+\hline
+Expense     & 2   & new post & New post counts $-$\nreps{500} to its author temporarily, refunded within 12 hours \\
+\hline
+Transfer    & 3.a & like     & Like counts $-$\nreps{n} to origin and $+$\nreps{n} to target, burning a 10\% tax \\
+            &     & dislike  & Dislike counts $-$\nreps{n} to origin and $-$\nreps{n} to target \\
+            & 3.b & revoke   & Revoke counts $-$\nreps{n} to origin and target, and erases the payload \\
+            &     & unrevoke & Unrevoke counts $-$\nreps{n} to origin, and restores the payload \\
+\hline
+Constraints & 4.a & min      & Author must afford action costs: \nreps{500} to post, \nreps{n} to vote \\
+            & 4.b & max      & Author is limited to at most \nreps{50000} \\
+            & 4.c & size     & Payloads are limited to at most \emph{128\,KB} (not currently implemented) \\
+\hline
+\end{tabular}
+\caption {
+    Concrete reputation rules of \FC.
+    The chosen constants (e.g., \nreps{50000}, \emph{24h}) are arbitrary and
+    can be modified at chain creation.
+}
+\label{fig.rules}
+\end{table*}
+
 In \FC, members spend tokens named \reps to post and rate content in forums:
     a \code{post} initially penalizes authors until it consolidates and counts
     positively;
     a \code{like} or \code{dislike} rates authors and content amid excess;
     a \code{revoke} or \code{unrevoke} toggles content removal.
 %
-Table~\ref{fig.general} summarizes the general reputation principles.
+Table~\ref{fig.general} summarizes the general reputation principles, whereas
+Table~\ref{fig.rules} lists all concrete rules, which we refer to throughout
+the examples.
 
-\subsubsection{Bootstrapping}
+\subsubsection{Chain Bootstrapping}
 
 To prevent Sybils, members with no \reps cannot operate under these principles,
 requiring a welcoming like from any other member already in the system.
@@ -519,39 +551,6 @@ Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
 
-\begin{table*}[t]
-\centering
-\footnotesize
-\begin{tabular}{|l|l|l|p{11.4cm}|}
-\hline
-\textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
-\hline
-Emission    & 1.a & pioneers & Chain creation counts $+$\nreps{50000} equally distributed between the pioneers \\
-            & 1.b & old post & Consolidated post counts $+$\nreps{1000} to its author, at most once a day \\
-\hline
-Expense     & 2   & new post & New post counts $-$\nreps{500} to its author temporarily, refunded within 12 hours \\
-\hline
-Transfer    & 3.a & like     & Like counts $-$\nreps{n} to origin and $+$\nreps{n} to target, burning a 10\% tax \\
-            &     & dislike  & Dislike counts $-$\nreps{n} to origin and $-$\nreps{n} to target \\
-            & 3.b & revoke   & Revoke counts $-$\nreps{n} to origin and target, and erases the payload \\
-            &     & unrevoke & Unrevoke counts $-$\nreps{n} to origin, and restores the payload \\
-\hline
-Constraints & 4.a & min      & Author must afford action costs: \nreps{500} to post, \nreps{n} to vote \\
-            & 4.b & max      & Author is limited to at most \nreps{50000} \\
-            & 4.c & size     & Payloads are limited to at most \emph{128\,KB} (not currently implemented) \\
-\hline
-\end{tabular}
-\caption {
-    Concrete reputation rules of \FC.
-    The chosen constants (e.g., \nreps{50000}, \emph{24h}) are arbitrary and
-    can be modified at chain creation.
-}
-\label{fig.rules}
-\end{table*}
-
-Table~\ref{fig.rules} lists all concrete reputation rules of \FC, which we
-refer to throughout the examples, and which are compatible with the general
-rules of Table~\ref{fig.general}.
 For instance, \R{1.a} determines that pioneers split \nreps{50k} at creation
 time, resulting in \nreps{25k} for each pioneer.
 
@@ -577,6 +576,8 @@ alice      20000
 charlie     4500
 dave        1800
 \end{lstlisting}
+
+\subsubsection{Member Admission}
 
 After pioneer initialization, the only way to welcome new members is through
 \emph{likes}, which transfer \reps between identities.
