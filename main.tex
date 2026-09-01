@@ -295,11 +295,6 @@ The goals of this section are twofold:
     (b) to illustrate how permissionless protocols inevitably require Sybil
         resistance to become practical.
 
-The next sequence of commands simulates a peer \emph{X} that
-    initializes chain \emph{/chat},
-    posts message \emph{``Hello World''}, and
-    queries its payload and metadata.
-
 \begin{lstlisting}[
     float=tbp,
     label={lst.basics},
@@ -318,20 +313,14 @@ time 1787850618
 blob 9d882f4f8568a8f79a5d007a576919fae317ad65
 \end{lstlisting}
 
+Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
+\emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
+metadata.
+%
 The post metadata includes the action type, the author's creation timestamp,
 and a reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
-
-\FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
-which networked applications work normally while offline.
-All operations except synchronization only affect the local replica.
-No communication occurs up to this point.
-Since we build upon Git, we can inspect the internal structure of a given
-chain.
-For instance, the \emph{/chat} chain repository contains two commits with
-    (1) the genesis with a random id, and
-    (2) the post pointing to its payload:
 
 \begin{lstlisting}[
     float=tbp,
@@ -344,9 +333,16 @@ b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
 726e329 genesis 5596915440
 \end{lstlisting}
 
-To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
-that replicates \emph{X} through the \code{clone} operation, receiving the
-single \emph{``Hello World''} post:
+\FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
+which networked applications work normally while offline.
+All operations except synchronization only affect the local replica.
+No communication occurs up to this point.
+Since we build upon Git, we can inspect the internal structure of a given
+chain.
+For instance, Listing~\ref{lst.git} shows that the \emph{/chat} repository
+contains two commits with
+    (1) the genesis with a random id, and
+    (2) the post pointing to its payload:
 
 \begin{lstlisting}[
     float=tbp,
@@ -359,11 +355,6 @@ $ fc /chat clone X
 $ fc /chat list dag
 b100ce8
 \end{lstlisting}
-
-In local-first systems, each replica may evolve separately and synchronize at
-some point in the future.
-In the example, after the initial clone, each peer posts locally and eventually
-synchronizes with the other side, both converging to the same forked DAG:
 
 \begin{lstlisting}[
     float=tbp,
@@ -385,6 +376,16 @@ $ fc /chat list dag
       /     \
 c7a56bc     eb18b45
 \end{lstlisting}
+
+To illustrate peer-to-peer synchronization, Listing~\ref{lst.clone} introduces
+a second peer \emph{Y} that replicates \emph{X} through the \code{clone}
+operation, receiving the single \emph{``Hello World''} post.
+%
+In local-first systems, each replica may evolve separately and synchronize at
+some point in the future.
+In Listing~\ref{lst.fork}, after the initial clone, each peer posts locally and
+eventually synchronizes with the other side, both converging to the same forked
+DAG.
 
 Note that forks represent concurrency and imply ambiguity in the order of
 posts, which is a fundamental obstacle to consensus.
@@ -483,11 +484,6 @@ We can now be more precise about admission in permissionless forums:
 it does not mean that anyone can post at will, but that any insider can welcome
 any outsider by directly transferring \reps, without intermediate authorities.
 
-In the next example, we generate self-certifying keypair identities, typical of
-peer-to-peer systems, and set two of them as pioneers of a fresh, now
-Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
-\emph{J}:
-
 \begin{lstlisting}[
     float=tbp,
     label={lst.pioneers},
@@ -512,6 +508,11 @@ $ fc /chat post 'Hello forum' --sign=silas
 ERROR : chain post : insufficient reputation
 \end{lstlisting}
 
+Listing~\ref{lst.pioneers} generates self-certifying keypair identities,
+typical of peer-to-peer systems, and sets two of them as pioneers of a fresh,
+now Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
+\emph{J}.
+%
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
@@ -552,23 +553,10 @@ rules of Table~\ref{fig.general}.
 For instance, \R{1.a} determines that pioneers split \nreps{50k} at creation
 time, resulting in \nreps{25k} for each pioneer.
 
-After pioneer initialization, the only way to welcome new members is through
-\emph{likes}, which transfer \reps between identities.
-%
-We propose two complementary mechanisms:
-    (i) \emph{friend-to-friend} likes from members, which target known
-    newcomers directly; and
-    (ii) \emph{begging posts} from newcomers, which park outside the chains
-    waiting for a member's like.
-Note that the second is more interesting, since it admits total strangers based
-purely on content quality.
-%
-The next example illustrates both:
-
 \begin{lstlisting}[
     float=tbp,
     label={lst.welcome},
-    caption={Member admissions through likes and begging posts.}
+    caption={Member admission through likes and begging posts.}
 ]
 $ fc /chat like 5000 author charlie --sign=alice
 $ fc /chat reps authors
@@ -588,6 +576,18 @@ charlie     4500
 dave        1800
 \end{lstlisting}
 
+After pioneer initialization, the only way to welcome new members is through
+\emph{likes}, which transfer \reps between identities.
+%
+We propose two complementary mechanisms:
+    (i) \emph{friend-to-friend} likes from members, which target known
+    newcomers directly; and
+    (ii) \emph{begging posts} from newcomers, which park outside the chains
+    waiting for a member's like.
+Note that the second is more interesting, since it admits total strangers based
+purely on content quality.
+%
+Listing~\ref{lst.welcome} illustrates both.
 A like (\R{3.a}) transfers \reps from the caster to the target, burning a 10\%
 tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
 When the target is a post, the amount splits in half between the post and its
@@ -625,16 +625,6 @@ authoring ability as a \emph{symmetric intrinsic resource}.
     (ii)  it adds value to chains; and
     (iii) its aggregate determines consensus order.
 
-Therefore, \FC rewards authors that post new content that other members
-tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
-\footnote {
-    Note that although human and AI content may become indistinguishable, their
-    frequency and relevance in forums are still subject to human evaluation.
-}
-%
-To illustrate proof-of-authoring, let us trace how \emph{Charlie}'s reputation
-evolves with a post:
-
 \begin{lstlisting}[
     float=tbp,
     label={lst.poa},
@@ -652,6 +642,16 @@ $ fc /chat reps author charlie     # T3: after 24h
 5500
 \end{lstlisting}
 
+Therefore, \FC rewards authors that post new content that other members
+tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
+\footnote {
+    Note that although human and AI content may become indistinguishable, their
+    frequency and relevance in forums are still subject to human evaluation.
+}
+%
+To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
+\emph{Charlie}'s reputation evolves with a post:
+%
 \begin{description}
 \item[T0:] \emph{Charlie} holds the \nreps{4500} received from \emph{Alice}'s
     welcoming like (\R{3.a}).
@@ -662,7 +662,7 @@ $ fc /chat reps author charlie     # T3: after 24h
 \item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
     most once a day (\R{1.b}).
 \end{description}
-
+%
 Since his post survived, \emph{Charlie} ends with \nreps{1000} more than he
 started, representing the value he added to the chain in the form of
 human-authored content.
@@ -683,13 +683,6 @@ For instance, consider a malicious author with a single unit of \reps posting
 SPAM messages from multiple peers at the same time.
 As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
 DAG, which implies ambiguity in the order of posts.
-
-In the next example, \emph{Charlie} double-spend most of his \reps with
-concurrent likes to \emph{Xion} and \emph{York} on peers \emph{I} and \emph{J},
-just before they synchronize.
-%
-Nevertheless, due to the consensus mechanism we are about to discuss, the peers
-refuse the double spend and converge to the same state:
 
 \begin{lstlisting}[
     float=tbp,
@@ -727,6 +720,13 @@ york        4050       # accepted
 xion           0       # rejected
 charlie        0
 \end{lstlisting}
+
+In Listing~\ref{lst.double}, \emph{Charlie} double-spends most of his \reps
+with concurrent likes to \emph{Xion} and \emph{York} on peers \emph{I} and
+\emph{J}, just before they synchronize.
+%
+Nevertheless, due to the consensus mechanism we are about to discuss, the peers
+refuse the double spend and converge to the same state:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
