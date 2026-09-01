@@ -1,5 +1,11 @@
 # TODO
 
+- Restructure Section 3 into two subsections
+    - 3.1 Design: overall design, bootstrapping, admission,
+      proof-of-authoring, consensus
+    - 3.2 Threats: attacks, nits, malicious behaviors, hard forks,
+      double-spend, Byzantine faults
+
 - Cite `p2p.mst` (Auvolat & Taiani, "Merkle Search Trees: Efficient
   State-Based CRDTs in Open Networks", SRDS 2019, doi
   10.1109/SRDS.2019.00032; bib added, pdfs/mst-auvolat2019-srds.pdf)
