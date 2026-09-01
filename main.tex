@@ -300,7 +300,10 @@ The next sequence of commands simulates a peer \emph{X} that
     posts message \emph{``Hello World''}, and
     queries its payload and metadata.
 
-\begin{lstlisting}[float=tbp,caption={Basic operations of a chain in peer \emph{X}.},label={lst.basics}]
+\begin{lstlisting}[
+    label={lst.basics},
+    caption={Basic \emph{/chat} simulation in peer \emph{X}.}
+]
 # PEER X
 $ fc /chat init
 726e32918b7ac760de4088a5959168bde5e5a608
@@ -329,7 +332,10 @@ For instance, the \emph{/chat} chain repository contains two commits with
     (1) the genesis with a random id, and
     (2) the post pointing to its payload:
 
-\begin{lstlisting}[float=tbp,caption={Internal Git structure of the \emph{/chat} chain.},label={lst.git}]
+\begin{lstlisting}[
+    label={lst.git},
+    caption={Internal Git structure of \emph{/chat}.}
+]
 # PEER X
 $ git -C /chat log --oneline
 b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
@@ -340,7 +346,10 @@ To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
 that replicates \emph{X} through the \code{clone} operation, receiving the
 single \emph{``Hello World''} post:
 
-\begin{lstlisting}[float=tbp,caption={Peer \emph{Y} replicates the chain of peer \emph{X}.},label={lst.clone}]
+\begin{lstlisting}[
+    label={lst.clone},
+    caption={Peer replication between \emph{X} and \emph{Y}.}
+]
 # PEER Y
 $ fc /chat clone X
 726e32918b7ac760de4088a5959168bde5e5a608
@@ -353,7 +362,10 @@ some point in the future.
 In the example, after the initial clone, each peer posts locally and eventually
 synchronizes with the other side, both converging to the same forked DAG:
 
-\begin{lstlisting}[float=tbp,caption={Concurrent posts and synchronization result in a forked DAG.},label={lst.fork}]
+\begin{lstlisting}[
+    label={lst.fork},
+    caption={Forked DAG after concurrent posts.}
+]
 # PEER X
 $ fc /chat post 'From X'
 eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
@@ -472,7 +484,10 @@ peer-to-peer systems, and set two of them as pioneers of a fresh, now
 Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 \emph{J}:
 
-\begin{lstlisting}[float=tbp,caption={Pioneers bootstrap a Sybil-resistant chain.},label={lst.pioneers}]
+\begin{lstlisting}[
+    label={lst.pioneers},
+    caption={Sybil-resistant chain with pioneers.}
+]
 $ ssh-keygen -f alice
 $ ssh-keygen -f bob
 $ ssh-keygen -f silas
@@ -545,7 +560,10 @@ purely on content quality.
 %
 The next example illustrates both:
 
-\begin{lstlisting}[float=tbp,caption={Welcoming new members with a like and a begging post.},label={lst.welcome}]
+\begin{lstlisting}[
+    label={lst.welcome},
+    caption={Member admissions through likes and begging posts.}
+]
 $ fc /chat like 5000 author charlie --sign=alice
 $ fc /chat reps authors
 bob        25000
@@ -611,7 +629,11 @@ tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
 To illustrate proof-of-authoring, let us trace how \emph{Charlie}'s reputation
 evolves with a post:
 
-\begin{lstlisting}[float=tbp,caption={Proof-of-authoring: reputation of \emph{Charlie} over time.},label={lst.poa}]
+\begin{lstlisting}[
+    float=tbp,
+    label={lst.poa},
+    caption={Proof-of-authoring: author reputation over time.}
+]
 $ fc /chat reps author charlie     # T0: before post
 4500
 $ fc /chat post 'Nice Post' --sign=charlie
@@ -663,7 +685,10 @@ just before they synchronize.
 Nevertheless, due to the consensus mechanism we are about to discuss, the peers
 refuse the double spend and converge to the same state:
 
-\begin{lstlisting}[float=tbp,caption={\emph{Charlie} double-spends his \reps on peers \emph{I} and \emph{J}.},label={lst.double}]
+\begin{lstlisting}[
+    label={lst.double},
+    caption={Rejected double-spend on peers \emph{I} and \emph{J}.}
+]
 $ fc /chat reps author charlie
 4500
 
