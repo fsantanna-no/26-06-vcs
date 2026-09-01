@@ -1,6 +1,19 @@
 \documentclass[10pt,twocolumn]{article}
 
 \usepackage{verbatim}
+\usepackage{listings}
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    columns=fullflexible,
+    keepspaces=true,
+    captionpos=b,
+    aboveskip=6pt,
+    belowskip=6pt,
+    xleftmargin=1em,
+    frame=single,
+    framesep=4pt,
+}
+\renewcommand{\lstlistingname}{Listing}
 \usepackage{url}
 \usepackage{graphicx}
 \graphicspath{{imgs/}}
@@ -287,21 +300,19 @@ The next sequence of commands simulates a peer \emph{X} that
     posts message \emph{``Hello World''}, and
     queries its payload and metadata.
 
-{\footnotesize
-\begin{verbatim}
- # PEER X
- $ fc /chat init
- 726e32918b7ac760de4088a5959168bde5e5a608
- $ fc /chat post 'Hello World'
- b100ce8ca42c1b1c366c41b764cad1bbc116cff8
- $ fc /chat payload b100ce8
- Hello World
- $ fc /chat metadata b100ce8
- action post
- time 1787850618
- blob 9d882f4f8568a8f79a5d007a576919fae317ad65
-\end{verbatim}
-}
+\begin{lstlisting}[float=tbp,caption={Basic operations of a chain in peer \emph{X}.},label={lst.basics}]
+# PEER X
+$ fc /chat init
+726e32918b7ac760de4088a5959168bde5e5a608
+$ fc /chat post 'Hello World'
+b100ce8ca42c1b1c366c41b764cad1bbc116cff8
+$ fc /chat payload b100ce8
+Hello World
+$ fc /chat metadata b100ce8
+action post
+time 1787850618
+blob 9d882f4f8568a8f79a5d007a576919fae317ad65
+\end{lstlisting}
 
 The post metadata includes the action type, the author's creation timestamp,
 and a reference to the payload blob.
@@ -318,52 +329,46 @@ For instance, the \emph{/chat} chain repository contains two commits with
     (1) the genesis with a random id, and
     (2) the post pointing to its payload:
 
-{\footnotesize
-\begin{verbatim}
- # PEER X
- $ git -C /chat log --oneline
- b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
- 726e329 genesis 5596915440
-\end{verbatim}
-}
+\begin{lstlisting}[float=tbp,caption={Internal Git structure of the \emph{/chat} chain.},label={lst.git}]
+# PEER X
+$ git -C /chat log --oneline
+b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
+726e329 genesis 5596915440
+\end{lstlisting}
 
 To illustrate peer-to-peer synchronization, we introduce a second peer \emph{Y}
 that replicates \emph{X} through the \code{clone} operation, receiving the
 single \emph{``Hello World''} post:
 
-{\footnotesize
-\begin{verbatim}
- # PEER Y
- $ fc /chat clone X
- 726e32918b7ac760de4088a5959168bde5e5a608
- $ fc /chat list dag
- b100ce8
-\end{verbatim}
-}
+\begin{lstlisting}[float=tbp,caption={Peer \emph{Y} replicates the chain of peer \emph{X}.},label={lst.clone}]
+# PEER Y
+$ fc /chat clone X
+726e32918b7ac760de4088a5959168bde5e5a608
+$ fc /chat list dag
+b100ce8
+\end{lstlisting}
 
 In local-first systems, each replica may evolve separately and synchronize at
 some point in the future.
 In the example, after the initial clone, each peer posts locally and eventually
 synchronizes with the other side, both converging to the same forked DAG:
 
-{\footnotesize
-\begin{verbatim}
- # PEER X
- $ fc /chat post 'From X'
- eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
+\begin{lstlisting}[float=tbp,caption={Concurrent posts and synchronization result in a forked DAG.},label={lst.fork}]
+# PEER X
+$ fc /chat post 'From X'
+eb18b4527ee5ecc6106a086c35fbfe8c25fa6aba
 
- # PEER Y
- $ fc /chat post 'From Y'
- c7a56bc491d415a8240b7012c0aae846fc632234
+# PEER Y
+$ fc /chat post 'From Y'
+c7a56bc491d415a8240b7012c0aae846fc632234
 
- # PEER X or Y
- $ fc /chat sync Y (or X)
- $ fc /chat list dag
-       b100ce8
-       /     \
- c7a56bc     eb18b45
-\end{verbatim}
-}
+# PEER X or Y
+$ fc /chat sync Y (or X)
+$ fc /chat list dag
+      b100ce8
+      /     \
+c7a56bc     eb18b45
+\end{lstlisting}
 
 Note that forks represent concurrency and imply ambiguity in the order of
 posts, which is a fundamental obstacle to consensus.
@@ -467,27 +472,25 @@ peer-to-peer systems, and set two of them as pioneers of a fresh, now
 Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 \emph{J}:
 
-{\footnotesize
-\begin{verbatim}
- $ ssh-keygen -f alice
- $ ssh-keygen -f bob
- $ ssh-keygen -f silas
+\begin{lstlisting}[float=tbp,caption={Pioneers bootstrap a Sybil-resistant chain.},label={lst.pioneers}]
+$ ssh-keygen -f alice
+$ ssh-keygen -f bob
+$ ssh-keygen -f silas
 
- # PEER I
- $ fc /chat init --pioneer=alice --pioneer=bob
- 09ab434cde2924de9ac83fb5be261700629f5e07
+# PEER I
+$ fc /chat init --pioneer=alice --pioneer=bob
+09ab434cde2924de9ac83fb5be261700629f5e07
 
- # PEER J
- $ fc /chat clone I
- 09ab434cde2924de9ac83fb5be261700629f5e07
- $ fc /chat reps authors
- alice      25000
- bob        25000
+# PEER J
+$ fc /chat clone I
+09ab434cde2924de9ac83fb5be261700629f5e07
+$ fc /chat reps authors
+alice      25000
+bob        25000
 
- $ fc /chat post 'Hello forum' --sign=silas
- ERROR : chain post : insufficient reputation
-\end{verbatim}
-}
+$ fc /chat post 'Hello forum' --sign=silas
+ERROR : chain post : insufficient reputation
+\end{lstlisting}
 
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
@@ -542,26 +545,24 @@ purely on content quality.
 %
 The next example illustrates both:
 
-{\footnotesize
-\begin{verbatim}
- $ fc /chat like 5000 author charlie --sign=alice
- $ fc /chat reps authors
- bob        25000
- alice      20000
- charlie     4500
+\begin{lstlisting}[float=tbp,caption={Welcoming new members with a like and a begging post.},label={lst.welcome}]
+$ fc /chat like 5000 author charlie --sign=alice
+$ fc /chat reps authors
+bob        25000
+alice      20000
+charlie     4500
 
- $ fc /chat post 'Great Post' --sign=dave --beg
- 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
- $ fc /chat list begs
- 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
- $ fc /chat like 4000 post 5d98790 --sign=bob
- $ fc /chat reps authors
- bob        21000
- alice      20000
- charlie     4500
- dave        1800
-\end{verbatim}
-}
+$ fc /chat post 'Great Post' --sign=dave --beg
+5d98790763bb3ca93bb84985bd49c9fa0887fe6e
+$ fc /chat list begs
+5d98790763bb3ca93bb84985bd49c9fa0887fe6e
+$ fc /chat like 4000 post 5d98790 --sign=bob
+$ fc /chat reps authors
+bob        21000
+alice      20000
+charlie     4500
+dave        1800
+\end{lstlisting}
 
 A like (\R{3.a}) transfers \reps from the caster to the target, burning a 10\%
 tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
@@ -610,20 +611,18 @@ tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
 To illustrate proof-of-authoring, let us trace how \emph{Charlie}'s reputation
 evolves with a post:
 
-{\footnotesize
-\begin{verbatim}
- $ fc /chat reps author charlie     # T0: before post
- 4500
- $ fc /chat post 'Nice Post' --sign=charlie
- 1a5c8e21d934e6a44e47f72f188250faeaf0a6de
- $ fc /chat reps author charlie     # T1: after post
- 4000
- $ fc /chat reps author charlie     # T2: after 12h
- 4500
- $ fc /chat reps author charlie     # T3: after 24h
- 5500
-\end{verbatim}
-}
+\begin{lstlisting}[float=tbp,caption={Proof-of-authoring: reputation of \emph{Charlie} over time.},label={lst.poa}]
+$ fc /chat reps author charlie     # T0: before post
+4500
+$ fc /chat post 'Nice Post' --sign=charlie
+1a5c8e21d934e6a44e47f72f188250faeaf0a6de
+$ fc /chat reps author charlie     # T1: after post
+4000
+$ fc /chat reps author charlie     # T2: after 12h
+4500
+$ fc /chat reps author charlie     # T3: after 24h
+5500
+\end{lstlisting}
 
 \begin{description}
 \item[T0:] \emph{Charlie} holds the \nreps{4500} received from \emph{Alice}'s
@@ -664,40 +663,38 @@ just before they synchronize.
 Nevertheless, due to the consensus mechanism we are about to discuss, the peers
 refuse the double spend and converge to the same state:
 
-{\footnotesize
-\begin{verbatim}
- $ fc /chat reps author charlie
- 4500
+\begin{lstlisting}[float=tbp,caption={\emph{Charlie} double-spends his \reps on peers \emph{I} and \emph{J}.},label={lst.double}]
+$ fc /chat reps author charlie
+4500
 
- # PEER I
- $ fc /chat like 4500 author xion --sign=charlie
- 7468f50551b223133f48365984d1a192e7a36a67
- $ fc /chat reps authors
- ...
- xion        4050       # like to xion
- york           0
- charlie        0
+# PEER I
+$ fc /chat like 4500 author xion --sign=charlie
+7468f50551b223133f48365984d1a192e7a36a67
+$ fc /chat reps authors
+...
+xion        4050       # like to xion
+york           0
+charlie        0
 
- # PEER J
- $ fc /chat like 4500 author york --sign=charlie
- 3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
- $ fc /chat reps authors
- ...
- york        4050       # like to york
- xion           0
- charlie        0
+# PEER J
+$ fc /chat like 4500 author york --sign=charlie
+3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
+$ fc /chat reps authors
+...
+york        4050       # like to york
+xion           0
+charlie        0
 
- # PEER I or J
- $ fc /chat sync J (or I)
- ERROR : invalid like : insufficient reputation
- voided : 7468f50551b223133f48365984d1a192e7a36a67
- $ fc /chat reps authors
- ...
- york        4050       # accepted
- xion           0       # rejected
- charlie        0
-\end{verbatim}
-}
+# PEER I or J
+$ fc /chat sync J (or I)
+ERROR : invalid like : insufficient reputation
+voided : 7468f50551b223133f48365984d1a192e7a36a67
+$ fc /chat reps authors
+...
+york        4050       # accepted
+xion           0       # rejected
+charlie        0
+\end{lstlisting}
 
 We assume \emph{Charlie} is honest and online...
 Also, local time
