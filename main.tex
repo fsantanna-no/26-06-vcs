@@ -465,19 +465,43 @@ Transfer & Likes and revokes transfer \reps between authors and to posts
 \hline
 \textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
 \hline
-Emission    & 1.a & pioneers & Chain creation counts $+$\nreps{50K} equally distributed between the pioneers \\
-            & 1.b & old post & Consolidated post counts $+$\nreps{1K} to its author, at most once a day \\
+Emission & 1.a & pioneers &
+Chain creation counts \nreps{+50K} equally distributed between the pioneers.
+\\
+         & 1.b & old post &
+Consolidated post counts \nreps{+1K} to its author, after 24h, and at most
+once a day.
+\\
 \hline
-Expense     & 2   & new post & New post counts $-$\nreps{500} to its author temporarily, refunded within 12 hours \\
+Expense  & 2   & new post &
+New post counts \nreps{-500} to its author temporarily, refunded within 12h.
+\\
 \hline
-Transfer    & 3.a & like     & Like counts $-$\nreps{n} to origin and $+$\nreps{n} to target, burning a 10\% tax \\
-            &     & dislike  & Dislike counts $-$\nreps{n} to origin and $-$\nreps{n} to target \\
-            & 3.b & revoke   & Revoke counts $-$\nreps{n} to origin and target, and erases the payload \\
-            &     & unrevoke & Unrevoke counts $-$\nreps{n} to origin, and restores the payload \\
+Transfer &     & tax      &
+All operations burn a 10\% tax before target.
+\\
+         & 3.a & like     &
+Like counts \nreps{-n} to origin and \nreps{+n} to target.
+\\
+         &     & dislike  &
+Dislike counts \nreps{-n} to origin and \nreps{-n} to target.
+\\
+         & 3.b & revoke   &
+Revoke counts \nreps{-n} to origin and target, and erases the payload.
+\\
+         &     & unrevoke &
+Unrevoke counts \nreps{-n} to origin, and restores the payload.
+\\
 \hline
-Constraints & 4.a & min      & Author must afford action costs: \nreps{500} to post, \nreps{n} to vote \\
-            & 4.b & max      & Author is limited to at most \nreps{50K} \\
-            & 4.c & size     & Payloads are limited to at most \emph{128\,KB} (not currently implemented) \\
+Constraints & 4.a & min  &
+Actions cost at least \nreps{500}.
+\\
+            & 4.b & max  &
+Authors are limited to at most \nreps{50K}.
+\\
+            & 4.c & size &
+Payloads are limited to at most \emph{128Kb}.
+\\
 \hline
 \end{tabular}
 \caption {
