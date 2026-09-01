@@ -22,7 +22,6 @@
 \newcommand{\FC}       {Freechains\xspace}
 \newcommand{\R}[1]     {rule~\code{#1}\xspace}
 \newcommand{\reps}     {\emph{reps}\xspace}
-\newcommand{\onerep}   {\emph{1~rep}\xspace}
 \newcommand{\nreps}[1] {\emph{#1~reps\xspace}}
 \newcommand{\code}[1]  {\texttt{\footnotesize{#1}}}
 \newcommand{\Xon} {$1{\rightarrow}N$\xspace}
@@ -268,7 +267,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \hline
 \end{tabular}
 \caption{
-    Basic (top) and extended (bottom) \code{fc} commands as Git \emph{façade}.
+    Basic \& Extended \code{fc} commands as Git.
 }
 \label{tab.commands}
 \end{table}
@@ -504,9 +503,8 @@ Payloads are limited to at most \emph{128KB}.
 \hline
 \end{tabular}
 \caption {
-    Concrete reputation rules of \FC.
-    The chosen constants (e.g., \nreps{50K}, \emph{24h}) are arbitrary and
-    can be modified at chain creation.
+    Concrete reputation rules.
+    The constants are arbitrary and can be set at chain creation.
 }
 \label{fig.rules}
 \end{table*}
@@ -752,7 +750,7 @@ with concurrent likes to \emph{Xion} and \emph{York} on peers \emph{I} and
 \emph{J}, just before they synchronize.
 %
 Nevertheless, due to the consensus mechanism we are about to discuss, the peers
-refuse the double spend and converge to the same state:
+refuse the double spend and converge to the same state.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1011,13 +1009,13 @@ for new posts, such as proof of work.
 %
 We propose a mix between social trust graphs and explicit costs for new posts.
 %
-Rule~\code{4.a} requires that authors have at least \onerep to post,
+Rule~\code{4.a} requires that authors have at least \nreps{500} to post,
 effectively blocking Sybil actions.
 To vouch for new members, rule~\code{3.a} allows an existing member to like a
-newbie's post to unblock it, but at the cost of \onerep.
+newbie's post to unblock it, but at the cost of \nreps{500}.
 This cost prevents malicious members to unblock new members indiscriminately,
 which would be a breach for Sybils.
-For the same reason, rule~\code{2} imposes a temporary cost of \onerep for
+For the same reason, rule~\code{2} imposes a temporary cost of \nreps{500} for
 each new post.
 %
 Note that the pioneers rule~\code{1.a} solves the chicken-and-egg problem
@@ -1039,7 +1037,7 @@ quickly.
 
 Note also that rule~\code{4.b} limits authors to at most \nreps{30}, which
 provides incentives to spend likes and thus decentralize the network, while
-rule~\code{4.c} limits the size of posts to at most \emph{128kB} to prevent
+rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
 DDoS attacks using gigantic blocked posts.
 
 Likes and dislikes (rules \code{3.a} and \code{3.b}) serve three purposes
