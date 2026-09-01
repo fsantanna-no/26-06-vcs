@@ -465,8 +465,8 @@ Transfer & Likes and revokes transfer \reps between authors and to posts
 \hline
 \textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
 \hline
-Emission    & 1.a & pioneers & Chain creation counts $+$\nreps{50000} equally distributed between the pioneers \\
-            & 1.b & old post & Consolidated post counts $+$\nreps{1000} to its author, at most once a day \\
+Emission    & 1.a & pioneers & Chain creation counts $+$\nreps{50K} equally distributed between the pioneers \\
+            & 1.b & old post & Consolidated post counts $+$\nreps{1K} to its author, at most once a day \\
 \hline
 Expense     & 2   & new post & New post counts $-$\nreps{500} to its author temporarily, refunded within 12 hours \\
 \hline
@@ -476,13 +476,13 @@ Transfer    & 3.a & like     & Like counts $-$\nreps{n} to origin and $+$\nreps{
             &     & unrevoke & Unrevoke counts $-$\nreps{n} to origin, and restores the payload \\
 \hline
 Constraints & 4.a & min      & Author must afford action costs: \nreps{500} to post, \nreps{n} to vote \\
-            & 4.b & max      & Author is limited to at most \nreps{50000} \\
+            & 4.b & max      & Author is limited to at most \nreps{50K} \\
             & 4.c & size     & Payloads are limited to at most \emph{128\,KB} (not currently implemented) \\
 \hline
 \end{tabular}
 \caption {
     Concrete reputation rules of \FC.
-    The chosen constants (e.g., \nreps{50000}, \emph{24h}) are arbitrary and
+    The chosen constants (e.g., \nreps{50K}, \emph{24h}) are arbitrary and
     can be modified at chain creation.
 }
 \label{fig.rules}
@@ -549,9 +549,10 @@ now Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 %
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
-According to \R{1.a}, the total of \nreps{50k} is equally split and each
-pioneer starts with \nreps{25k}.
-Note also that \emph{Silas}, a potential Sybil, cannot write to the chain.
+According to \R{1.a}, the total of \nreps{50K} is equally split and each
+pioneer starts with \nreps{25K}.
+Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
+(\R{4.a}).
 
 \begin{lstlisting}[
     float=tbp,
@@ -591,10 +592,10 @@ purely on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both.
 A like (\R{3.a}) transfers \reps from the caster to the target, burning a 10\%
-tax: \emph{Alice} spends 5000 and \emph{Charlie} receives 4500.
+tax: \emph{Alice} spends \nreps{5000} and \emph{Charlie} receives \nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
-author: \emph{Bob} spends 4000, and \emph{Dave} and his post receive 1800
-each.
+author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and his post receive
+\nreps{1800} each.
 Since likes are zero-sum at best (transfers and taxes do not add value),
 malicious members have no incentives to invite Sybils into the system, or even
 cycle \reps among them.
@@ -612,7 +613,7 @@ Once liked, a beg is merged and becomes part of the immutable chain DAG
 
 \subsubsection{Proof-of-Authoring}
 
-Pioneers solve bootstrapping, but their fixed initial \nreps{50000} cannot
+Pioneers solve bootstrapping, but their fixed initial \nreps{50K} cannot
 sustain a growing forum, since they would constitute the whole ``chain
 economy'' forever.
 %
