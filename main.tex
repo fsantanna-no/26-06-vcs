@@ -699,7 +699,7 @@ reward authors with more \reps (\R{1.b}).
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
-\subsubsection{Double-spend Rejection}
+\subsubsection{Forks and Double-spends}
 
 Scarcity of \reps is not yet sufficient to prevent inconsistent operations,
 which correspond to \emph{double-spending} in Bitcoin.
@@ -710,8 +710,8 @@ DAG, which implies ambiguity in the order of posts.
 
 \begin{lstlisting}[
     float=tbp,
-    label={lst.double},
-    caption={Rejected double-spend on peers \emph{I} and \emph{J}.}
+    label={lst.double.attempt},
+    caption={Double-spend attempt from multiple peers.}
 ]
 $ fc /chat reps author charlie
 4500
@@ -733,9 +733,15 @@ $ fc /chat reps authors
 york        4050       # like to york
 xion           0
 charlie        0
+\end{lstlisting}
 
-# PEER I or J
-$ fc /chat sync J (or I)
+\begin{lstlisting}[
+    float=tbp,
+    label={lst.double.reject},
+    caption={Double-spend rejection on synchronization.}
+]
+# PEER I
+$ fc /chat sync J
 ERROR : invalid like : insufficient reputation
 voided : 7468f50551b223133f48365984d1a192e7a36a67
 $ fc /chat reps authors
@@ -745,18 +751,28 @@ xion           0       # rejected
 charlie        0
 \end{lstlisting}
 
-In Listing~\ref{lst.double}, \emph{Charlie} double-spends most of his \reps
-with concurrent likes to \emph{Xion} and \emph{York} on peers \emph{I} and
-\emph{J}, just before they synchronize.
+In Listing~\ref{lst.double.attempt}, \emph{Charlie} tries to double-spend his
+\nreps{4500} with concurrent likes to \emph{Xion} and \emph{York} on peers
+\emph{I} and \emph{J}, just before they synchronize.
 %
-Nevertheless, due to the consensus mechanism we are about to discuss, the peers
-refuse the double spend and converge to the same state.
+Note that each like is legitimate in isolation, but inconsistent in the merged
+DAG.
+Therefore, in Listing~\ref{lst.double.reject}, when the peer \emph{I}
+synchronizes with \emph{J}, it replays the DAG in topological order, accounts
+the transactions in sequence, detects the double-spend, and rejects it.
 
-\subsubsection{Consensus}
+However, note that all peers must replay the DAG in the exact same order,
+otherwise the accounting of \reps diverges and they become incompatible.
+
+\subsubsection{Consensus and Total Order}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
+
+Nevertheless, due to the consensus mechanism we are about to discuss, the peers
+refuse the double spend and converge to the same state.
+
 
 We assume \emph{Charlie} is honest and online...
 Also, local time
