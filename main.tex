@@ -415,32 +415,42 @@ The next section addresses both problems:
 \section{Reputation and Consensus}
 \label{sec.design}
 
-In this section, we propose a reputation system that works together with a
-consensus algorithm to resist Sybils in permissionless forums:
+In \FC, members spend tokens named \reps to post and rate content in forums:
+    a \code{post} initially penalizes authors until it consolidates and counts
+    positively;
+    a \code{like} or \code{dislike} rates authors and content amid excess;
+    a \code{revoke} or \code{unrevoke} toggles content removal.
 %
+Table~\ref{fig.general} summarizes the general reputation principles, whereas
+Table~\ref{fig.rules} lists all concrete rules, which we refer to throughout
+the examples.
+
+In the rest of this section, we detail the reputation system and how it works
+in conjunction with the consensus mechanism to resist Sybils in permissionless
+forums:
+
 \begin{description}
-\item [\S\ref{sec.design.overall}]
-    describes the overall reputation and consensus mechanism.
-\item [\S\ref{sec.design.forks}]
-    discusses malicious behaviors and hard forks.
-\item [\S\ref{sec.design.time}]
-    discusses timestamp convergence, regardless of local temporary time-based
-    decisions.
-\item [\S\ref{sec.design.revoke}]
-    describes how members revoke abusive content.
-\item [\S\ref{sec.design.algo}]
-    details the consensus algorithm that orders posts.
-\item [\S\ref{sec.design.byz}]
-    discusses peer synchronization under Byzantine faults.
+\item [\S\ref{sec.design.boot}]
+    Chain Bootstrapping:
+    how to admit the first members and dilute their initial power over time.
+\item [\S\ref{sec.design.members}]
+    Member Admission:
+    how insiders welcome outsiders without intermediate authorities.
+\item [\S\ref{sec.design.poa}]
+    Proof-of-Authoring:
+    how new content mints \reps and sustains a growing forum.
+\item [\S\ref{sec.design.double}]
+    Forks and Double-spends:
+    how concurrency leads to inconsistent operations.
+\item [\S\ref{sec.design.consensus}]
+    Consensus and Total Order:
+    how peers converge to the same accounting of \reps.
 \end{description}
 
 Since we build upon unmodified Git, we argue that the design we discuss in this
 section can be adapted to any system that structures posts as a Merkle DAG.
 For instance, the consensus order is just a view of the underlying DAG, which
 remains untouched.
-
-\subsection{Overall Design}
-\label{sec.design.overall}
 
 \begin{table}[t]
 \centering
@@ -515,17 +525,8 @@ Payloads are limited to at most \emph{128KB}.
 \label{fig.rules}
 \end{table*}
 
-In \FC, members spend tokens named \reps to post and rate content in forums:
-    a \code{post} initially penalizes authors until it consolidates and counts
-    positively;
-    a \code{like} or \code{dislike} rates authors and content amid excess;
-    a \code{revoke} or \code{unrevoke} toggles content removal.
-%
-Table~\ref{fig.general} summarizes the general reputation principles, whereas
-Table~\ref{fig.rules} lists all concrete rules, which we refer to throughout
-the examples.
-
-\subsubsection{Chain Bootstrapping}
+\subsection{Chain Bootstrapping}
+\label{sec.design.boot}
 
 To prevent Sybils, members with no \reps cannot operate under these principles,
 requiring a welcoming like from any other member already in the system.
@@ -604,7 +605,8 @@ charlie     4500
 dave        1800
 \end{lstlisting}
 
-\subsubsection{Member Admission}
+\subsection{Member Admission}
+\label{sec.design.members}
 
 After pioneer initialization, the only way to welcome new members is through
 \emph{likes}, which transfer \reps between identities.
@@ -638,7 +640,8 @@ will.
 Once liked, a beg is merged and becomes part of the immutable chain DAG
 (Table~\ref{tab.commands}).
 
-\subsubsection{Proof-of-Authoring}
+\subsection{Proof-of-Authoring}
+\label{sec.design.poa}
 
 Pioneers solve bootstrapping, but their fixed initial \nreps{50K} cannot
 sustain a growing forum, since they would constitute the whole ``chain
@@ -705,7 +708,8 @@ reward authors with more \reps (\R{1.b}).
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
-\subsubsection{Forks and Double-spends}
+\subsection{Forks and Double-spends}
+\label{sec.design.double}
 
 Scarcity of \reps is not yet sufficient to prevent inconsistent operations,
 which correspond to \emph{double-spending} in Bitcoin.
@@ -772,14 +776,28 @@ otherwise the accounting of \reps diverges and they become incompatible.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
 only refuse the double spend but also converge to the same state.
 
-\subsubsection{Consensus and Total Order}
+\subsection{Consensus and Total Order}
+\label{sec.design.consensus}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
+\item [\S\ref{sec.design.overall}]
+    describes the overall reputation and consensus mechanism.
+\item [\S\ref{sec.design.forks}]
+    discusses malicious behaviors and hard forks.
+\item [\S\ref{sec.design.time}]
+    discusses timestamp convergence, regardless of local temporary time-based
+    decisions.
+\item [\S\ref{sec.design.revoke}]
+    describes how members revoke abusive content.
+\item [\S\ref{sec.design.algo}]
+    details the consensus algorithm that orders posts.
+\item [\S\ref{sec.design.byz}]
+    discusses peer synchronization under Byzantine faults.
+\fi
 
-
-
+\iffalse
 We assume \emph{Charlie} is honest and online...
 Also, local time
 
