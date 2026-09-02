@@ -215,11 +215,11 @@ Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
 
-As a main limitation, because forums are DAGs, members that hold 50\% of the
-reputation at any old forking point can impose forks that would affect the
-consensus.
+As a main limitation, because forums are DAGs, members holding the majority of
+the reputation at any point in history can forge malicious forks that would
+affect the consensus.
 As a countermeasure, forks older than 100 posts or 7 days are rejected by the
-network, whereas newer forks that are malicious require manual intervention.
+network, whereas newer malicious majority forks require manual intervention.
 %
 Regarding performance, forum DAGs are ever growing data structures that carry
 considerable metadata overhead.
@@ -769,6 +769,8 @@ the transactions in sequence, detects the double-spend, and rejects it.
 
 However, note that all peers must replay the DAG in the exact same order,
 otherwise the accounting of \reps diverges and they become incompatible.
+In fact, due to the consensus mechanism we are about to discuss, the peers not
+only refuse the double spend but also converge to the same state.
 
 \subsubsection{Consensus and Total Order}
 
@@ -776,8 +778,6 @@ otherwise the accounting of \reps diverges and they become incompatible.
 
 \iffalse
 
-Nevertheless, due to the consensus mechanism we are about to discuss, the peers
-refuse the double spend and converge to the same state.
 
 
 We assume \emph{Charlie} is honest and online...
