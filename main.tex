@@ -587,11 +587,11 @@ Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
     label={lst.welcome},
     caption={Member admission through likes and begging posts.}
 ]
-$ fc /chat like 5000 author charlie --sign=alice
+$ fc /chat like 5000 author carol --sign=alice
 $ fc /chat reps authors
 bob        25000
 alice      20000
-charlie     4500
+carol       4500
 
 $ fc /chat post 'Great Post' --sign=dave --beg
 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
@@ -601,7 +601,7 @@ $ fc /chat like 4000 post 5d98790 --sign=bob
 $ fc /chat reps authors
 bob        21000
 alice      20000
-charlie     4500
+carol       4500
 dave        1800
 \end{lstlisting}
 
@@ -621,7 +621,7 @@ purely on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both.
 A like (\R{3.a}) transfers \reps from the caster to the target, burning a 10\%
-tax: \emph{Alice} spends \nreps{5000} and \emph{Charlie} receives \nreps{4500}.
+tax: \emph{Alice} spends \nreps{5000} and \emph{Carol} receives \nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
 author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and his post receive
 \nreps{1800} each.
@@ -663,15 +663,15 @@ authoring ability as a \emph{symmetric intrinsic resource}.
     label={lst.poa},
     caption={Proof-of-authoring: author reputation over time.}
 ]
-$ fc /chat reps author charlie     # T0: before post
+$ fc /chat reps author carol     # T0: before post
 4500
-$ fc /chat post 'Nice Post' --sign=charlie
+$ fc /chat post 'Nice Post' --sign=carol
 1a5c8e21d934e6a44e47f72f188250faeaf0a6de
-$ fc /chat reps author charlie     # T1: after post
+$ fc /chat reps author carol     # T1: after post
 4000
-$ fc /chat reps author charlie     # T2: after 12h
+$ fc /chat reps author carol     # T2: after 12h
 4500
-$ fc /chat reps author charlie     # T3: after 24h
+$ fc /chat reps author carol     # T3: after 24h
 5500
 \end{lstlisting}
 
@@ -683,10 +683,10 @@ tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
 }
 %
 To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
-\emph{Charlie}'s reputation evolves with a post:
+\emph{Carol}'s reputation evolves with a post:
 %
 \begin{description}
-\item[T0:] \emph{Charlie} holds the \nreps{4500} received from \emph{Alice}'s
+\item[T0:] \emph{Carol} holds the \nreps{4500} received from \emph{Alice}'s
     welcoming like (\R{3.a}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
@@ -696,7 +696,7 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     most once a day (\R{1.b}).
 \end{description}
 %
-Since his post survived, \emph{Charlie} ends with \nreps{1000} more than he
+Since his post survived, \emph{Carol} ends with \nreps{1000} more than he
 started, representing the value he added to the chain in the form of
 human-authored content.
 %
@@ -723,26 +723,26 @@ DAG, which implies ambiguity in the order of posts.
     label={lst.double.attempt},
     caption={Double-spend attempt from multiple peers.}
 ]
-$ fc /chat reps author charlie
+$ fc /chat reps author carol
 4500
 
 # PEER I
-$ fc /chat like 4500 author xion --sign=charlie
+$ fc /chat like 4500 author xion --sign=carol
 7468f50551b223133f48365984d1a192e7a36a67
 $ fc /chat reps authors
 ...
 xion        4050       # like to xion
 york           0
-charlie        0
+carol          0
 
 # PEER J
-$ fc /chat like 4500 author york --sign=charlie
+$ fc /chat like 4500 author york --sign=carol
 3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
 $ fc /chat reps authors
 ...
 york        4050       # like to york
 xion           0
-charlie        0
+carol          0
 \end{lstlisting}
 
 \begin{lstlisting}[
@@ -758,10 +758,10 @@ $ fc /chat reps authors
 ...
 york        4050       # accepted
 xion           0       # rejected
-charlie        0
+carol          0
 \end{lstlisting}
 
-In Listing~\ref{lst.double.attempt}, \emph{Charlie} tries to double-spend his
+In Listing~\ref{lst.double.attempt}, \emph{Carol} tries to double-spend his
 \nreps{4500} with concurrent likes to \emph{Xion} and \emph{York} on peers
 \emph{I} and \emph{J}, just before they synchronize.
 %
@@ -798,7 +798,7 @@ only refuse the double spend but also converge to the same state.
 \fi
 
 \iffalse
-We assume \emph{Charlie} is honest and online...
+We assume \emph{Carol} is honest and online...
 Also, local time
 
 In summary, the reputation system makes Freechains
