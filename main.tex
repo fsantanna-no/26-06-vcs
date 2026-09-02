@@ -215,14 +215,20 @@ Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
 
-As a main limitation, forum DAGs are ever growing data structures that carry
+As a main limitation, because forums are DAGs, members that hold 50\% of the
+reputation at any old forking point can impose forks that would affect the
+consensus.
+As a countermeasure, forks older than 100 posts or 7 days are rejected by the
+network, whereas newer forks that are malicious require manual intervention.
+%
+Regarding performance, forum DAGs are ever growing data structures that carry
 considerable metadata overhead.
 The costs to store and validate posts increase over time, which is also a
 limitation of blockchains in general.
 %
-Nevertheless, to show the feasibility of the protocol, we simulated months of
-a chat channel and years of a newsgroup forum, both extracted from publicly
-available Internet archives.
+Nevertheless, we simulated months of a chat channel and years of a newsgroup
+forum, both extracted from publicly available Internet archives.
+%to show its practicality
 %
 TODO: expose results (local post time, sync time, DAG/repo disk size).
 
