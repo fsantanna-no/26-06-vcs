@@ -445,6 +445,9 @@ forums:
 \item [\S\ref{sec.design.consensus}]
     Consensus and Total Order:
     how peers converge to the same accounting of \reps.
+\item [\S\ref{sec.design.hardforks}]
+    Malicious Behavior and Hard Forks:
+    how long partitions split into independent forums.
 \end{description}
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
@@ -876,73 +879,56 @@ In summary,
     (iii) the order is based on the reputation in the common history; and
     (iv) replay leads to a global and deterministic state.
 
-\subsection{Hard Forks}
+\subsection{Malicious Behavior and Hard Forks}
 \label{sec.design.hardforks}
 
+The main limitation of our common-history consensus is that it may trigger at
+any fork point in time, no matter how old.
+For instance, any arbitrary ancient long partition can reorder an active forum
+based on reputation accumulated by former members far in the past.
 
-Going back to the malicious member example, the simultaneous messages would
-appear as forks in the forum DAG.
-Only the message in the fork with more combined work would be accepted, while
-all other Sybil messages would be rejected.
+● Proposed structure for the subsection, same heading.
 
-Note that even non-malicious partitions may experience conflicts when
-merging.
-For instance, dislike operations in one branch to past posts in the common
-prefix could possibly block posts from members in the other branch.
-%, depending on how the posts are ordered.
-Therefore, we need to order branches with a global consensus, such that we can
-validate operations consistently across the network.
-%
-Note also that, to reach consensus, we should preferably rely on the maximum
-information that all branches agree on, which is exactly the posts in the
-common prefix.
+  Opening paragraph, introducing both cases in general terms:
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  Consensus based on the common prefix is robust against members that
+  accumulate \reps in isolation, but it does not distinguish a malicious
+  partition from a legitimate one.
+  We first show how the majority can neutralize an isolated takeover, and then
+  why long partitions must be treated as irreconcilable.
 
-\iffalse
-\item [\S\ref{sec.design.overall}]
-    describes the overall reputation and consensus mechanism.
-\item [\S\ref{sec.design.forks}]
-    discusses malicious behaviors and hard forks.
-\item [\S\ref{sec.design.time}]
-    discusses timestamp convergence, regardless of local temporary time-based
-    decisions.
-\item [\S\ref{sec.design.revoke}]
-    describes how members revoke abusive content.
-\item [\S\ref{sec.design.algo}]
-    details the consensus algorithm that orders posts.
-\item [\S\ref{sec.design.byz}]
-    discusses peer synchronization under Byzantine faults.
-\fi
+  Then the concrete attack by $c$ and its refutation, as in the paragraph proposed
+  earlier.
 
-\iffalse
-We assume \emph{Carol} is honest and online...
-Also, local time
+  Transition before "The main limitation...":
 
-In summary, the reputation system makes Freechains
-**(a)** Sybil-resistant: write operations require and spend `reps`; and
-**(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
+  The countermeasure above assumes that the majority is still active and
+  willing to react.
+  The main limitation of our common-history consensus is that it may trigger at
+  any fork point in time, no matter how old.
+  For instance, an arbitrarily old partition can reorder an active forum based
+  on reputation accumulated by former members far in the past.
 
-In this sense, having one or hundreds of machines in the network does not
-affect the capacity to write into the forums.
-We consider Sybils as groups of throw-away identities and machines with no
-previous reputation in the forums.
-In our analogy with Bitcoin, Sybil attacks would require to add human resources,
-instead of CPU power.
+  Then the existing "As a counterpoint" paragraph follows naturally, since it is
+  exactly the case where the majority is no longer active.
 
-), since it is the maximum information that all branches
+  Nothing edited.
 
-According to \R{2}, only one of them should be accepted by the network.
-However, without consensus, it is not possible to globally determine which one
-to accept, since each peer would supposedly accept the first message it receives.
-On the one hand, in order to validate operations consistently, we need the same
-message ordering across all peers in the network.
-On the other hand, due to network partitions, we can only represent public
-forums as DAGs (directed acyclic graphs) with causal relationships between
-messages, which provides at most partial order.
+Another concern
 
-\subsection{Malicious Behaviors and Hard Forks}
-\label{sec.design.forks}
+
+First, let's
+
+The main limitation of common history consensus is that it can trigger at any
+fork point in time
+
+
+Consensus based on the common history has a main limitation
+
+
+ raises a natural concern: a malicious
+member could disconnect on purpose to cultivate fake identities in isolation
+and take over the forum after merging.
 
 Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}
 intentionally disconnects from the network for weeks to cultivate fake
@@ -1023,6 +1009,67 @@ For instance, members can explicitly apply hard forks at any point in time to
 Ultimately, the consensus algorithm provides a transparent mechanism to help
 members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iffalse
+\item [\S\ref{sec.design.overall}]
+    describes the overall reputation and consensus mechanism.
+\item [\S\ref{sec.design.forks}]
+    discusses malicious behaviors and hard forks.
+\item [\S\ref{sec.design.time}]
+    discusses timestamp convergence, regardless of local temporary time-based
+    decisions.
+\item [\S\ref{sec.design.revoke}]
+    describes how members revoke abusive content.
+\item [\S\ref{sec.design.algo}]
+    details the consensus algorithm that orders posts.
+\item [\S\ref{sec.design.byz}]
+    discusses peer synchronization under Byzantine faults.
+\fi
+
+\iffalse
+We assume \emph{Carol} is honest and online...
+Also, local time
+
+In summary, the reputation system makes Freechains
+**(a)** Sybil-resistant: write operations require and spend `reps`; and
+**(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
+
+In this sense, having one or hundreds of machines in the network does not
+affect the capacity to write into the forums.
+We consider Sybils as groups of throw-away identities and machines with no
+previous reputation in the forums.
+In our analogy with Bitcoin, Sybil attacks would require to add human resources,
+instead of CPU power.
+
+), since it is the maximum information that all branches
+
+According to \R{2}, only one of them should be accepted by the network.
+However, without consensus, it is not possible to globally determine which one
+to accept, since each peer would supposedly accept the first message it receives.
+On the one hand, in order to validate operations consistently, we need the same
+message ordering across all peers in the network.
+On the other hand, due to network partitions, we can only represent public
+forums as DAGs (directed acyclic graphs) with causal relationships between
+messages, which provides at most partial order.
+
+Going back to the malicious member example, the simultaneous messages would
+appear as forks in the forum DAG.
+Only the message in the fork with more combined work would be accepted, while
+all other Sybil messages would be rejected.
+
+Note that even non-malicious partitions may experience conflicts when
+merging.
+For instance, dislike operations in one branch to past posts in the common
+prefix could possibly block posts from members in the other branch.
+%, depending on how the posts are ordered.
+Therefore, we need to order branches with a global consensus, such that we can
+validate operations consistently across the network.
+%
+Note also that, to reach consensus, we should preferably rely on the maximum
+information that all branches agree on, which is exactly the posts in the
+common prefix.
 
 \subsection{Public Forum Chains}
 \label{sec.design.chains}
