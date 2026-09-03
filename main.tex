@@ -803,7 +803,7 @@ going in sequence, after the last action of the winning side.
 \label{fig.reps}
 \end{figure*}
 
-Figure~\ref{fig.reps}(A) illustrates a forum DAG forked by a temporary network
+Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
 partition.
 The common ancestors have signed posts from members $a$, $b$, and $c$.
 Up to the fork point, we assume that members $a$ and $b$ have more
@@ -817,7 +817,7 @@ Meanwhile, $a$ and $b$ also participate with new posts in \code{branch-2}.
 When the network reconnects and the DAG finally merges, we need to replay the
 actions to check for inconsistencies.
 Based on the reputation of the disjoint members up to the fork point,
-Figure~\ref{fig.reps}(B) indicates the resulting consensus order:
+Figure~\ref{fig.reps}.B indicates the resulting consensus order:
     first the common ancestors,
     then all posts in \code{branch-2},
     then all posts in \code{branch-1}.
@@ -826,7 +826,7 @@ During replay in consensus order, if any action fails (e.g., a double spend),
 then all remaining actions are rejected and erased from the DAG, as if they
 never existed.
 %
-As an example, in Figure~\ref{fig.reps}(B), suppose that the last post by $a$ in
+As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
 \code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
 to post.
 Then, it is possible that the last post by $c$ in \code{branch-1} (in red) is
