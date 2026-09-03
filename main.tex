@@ -171,7 +171,7 @@ We highlight four main contributions:
 \item [Reputation-based consensus:]
 Due to decentralization and network partitions, posts in a timeline form a
 causal graph with only partial order, which we promote to a total order based
-on the reputation of authors.
+on the reputation of members.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double spending).
 %
@@ -266,7 +266,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \code{list}        & Lists DAG, order, begs      & \code{log --graph}          \\[2pt]
 \hline
 \noalign{\vskip 2pt}
-\code{(dis)like}   & Rates author or post        & \code{commit}, \code{merge} \\
+\code{(dis)like}   & Rates member or post        & \code{commit}, \code{merge} \\
 \code{(un)revoke}  & Erases or restores payload  & \code{commit}               \\
 \code{reps}        & Queries reputation          & hooks                       \\
 \code{sweep}       & Erases revoked payloads     & \code{gc}                   \\
@@ -324,7 +324,7 @@ Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
 \emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
 metadata.
 %
-The post metadata includes the action type, the author's creation timestamp,
+The post metadata includes the action type, the member's creation timestamp,
 and a reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
@@ -396,7 +396,7 @@ DAG.
 
 Note that forks represent concurrency and imply ambiguity in the order of
 posts, which is a fundamental obstacle to consensus.
-Naturally, in permissionless forums, we cannot rely on the authors' timestamps
+Naturally, in permissionless forums, we cannot rely on the member's timestamps
 to order posts because they are unverifiable.
 
 Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
@@ -416,9 +416,9 @@ The next section addresses both problems:
 \label{sec.design}
 
 In \FC, members spend tokens named \reps to post and rate content in forums:
-    a \code{post} initially penalizes authors until it consolidates and counts
+    a \code{post} initially penalizes members until it consolidates and counts
     positively;
-    a \code{like} or \code{dislike} rates authors and content amid excess;
+    a \code{like} or \code{dislike} rates members and content amid excess;
     a \code{revoke} or \code{unrevoke} toggles content removal.
 %
 Table~\ref{fig.general} summarizes the general reputation principles, whereas
@@ -459,13 +459,13 @@ remains untouched.
 \hline
 \textbf{Rule} & \textbf{Effect} & \textbf{Goal} \\
 \hline
-Emission & Old posts award \reps to authors
+Emission & Old posts award \reps to members
          & Encourage content authoring \\
 \hline
-Expense  & New posts deduct \reps from authors temporarily
+Expense  & New posts deduct \reps from members temporarily
          & Discourage excess of content \\
 \hline
-Transfer & Likes and revokes transfer \reps between authors and to posts
+Transfer & Likes and revokes transfer \reps between members and to posts
          & Highlight quality and combat abuse \\
 \hline
 \end{tabular}
@@ -484,11 +484,11 @@ Emission & 1.a & pioneers &
 Chain creation counts \nreps{+50K} equally distributed among pioneers.
 \\
          & 1.b & old post &
-Consolidated post counts \nreps{+1K} to author, after 24h, at most once a day.
+Consolidated post counts \nreps{+1K} to member, after 24h, at most once a day.
 \\
 \hline
 Expense  & 2   & new post &
-New post counts \nreps{-500} to author temporarily, refunded within 12h.
+New post counts \nreps{-500} to member temporarily, refunded within 12h.
 \\
 \hline
 Transfer &     & tax      &
@@ -511,7 +511,7 @@ Constraints & 4.a & min  &
 Actions cost at least \nreps{500}.
 \\
             & 4.b & max  &
-Authors are limited to at most \nreps{50K}.
+Members are limited to at most \nreps{50K}.
 \\
             & 4.c & size &
 Payloads are limited to at most \emph{128KB}.
@@ -562,7 +562,7 @@ $ fc /chat init --pioneer=alice --pioneer=bob
 # PEER J
 $ fc /chat clone I
 09ab434cde2924de9ac83fb5be261700629f5e07
-$ fc /chat reps authors
+$ fc /chat reps members
 alice      25000
 bob        25000
 
@@ -587,8 +587,8 @@ Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
     label={lst.welcome},
     caption={Member admission through likes and begging posts.}
 ]
-$ fc /chat like 5000 author carol --sign=alice
-$ fc /chat reps authors
+$ fc /chat like 5000 member carol --sign=alice
+$ fc /chat reps members
 bob        25000
 alice      20000
 carol       4500
@@ -598,7 +598,7 @@ $ fc /chat post 'Great Post' --sign=dave --beg
 $ fc /chat list begs
 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
 $ fc /chat like 4000 post 5d98790 --sign=bob
-$ fc /chat reps authors
+$ fc /chat reps members
 bob        21000
 alice      20000
 carol       4500
@@ -661,21 +661,21 @@ authoring ability as a \emph{symmetric intrinsic resource}.
 \begin{lstlisting}[
     float=tbp,
     label={lst.poa},
-    caption={Proof-of-authoring: author reputation over time.}
+    caption={Proof-of-authoring: member reputation over time.}
 ]
-$ fc /chat reps author carol     # T0: before post
+$ fc /chat reps member carol     # T0: before post
 4500
 $ fc /chat post 'Nice Post' --sign=carol
 1a5c8e21d934e6a44e47f72f188250faeaf0a6de
-$ fc /chat reps author carol     # T1: after post
+$ fc /chat reps member carol     # T1: after post
 4000
-$ fc /chat reps author carol     # T2: after 12h
+$ fc /chat reps member carol     # T2: after 12h
 4500
-$ fc /chat reps author carol     # T3: after 24h
+$ fc /chat reps member carol     # T3: after 24h
 5500
 \end{lstlisting}
 
-Therefore, \FC rewards authors that post new content that other members
+Therefore, \FC rewards members that post new content that other members
 tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
 \footnote {
     Note that although human and AI content may become indistinguishable, their
@@ -692,7 +692,7 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     member can post in sequence.
 \item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
     the activity that succeeds the post.
-\item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
+\item[T3:] The post consolidates and rewards its member with \nreps{1000}, at
     most once a day (\R{1.b}).
 \end{description}
 %
@@ -703,7 +703,7 @@ human-authored content.
 The 24-hour period gives sufficient time for other members to judge the post
 before the reward.
 It also regulates the growth speed of the chain, since extra posts do not
-reward authors with more \reps (\R{1.b}).
+reward members with more \reps (\R{1.b}).
 %
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
@@ -713,7 +713,7 @@ the \emph{raison d'être} of public forums.
 
 Scarcity of \reps is not yet sufficient to prevent inconsistent operations,
 which correspond to \emph{double-spending} in Bitcoin.
-For instance, consider a malicious author with a single unit of \reps posting
+For instance, consider a malicious member with a single unit of \reps posting
 SPAM messages from multiple peers at the same time.
 As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
 DAG, which implies ambiguity in the order of posts.
@@ -723,22 +723,22 @@ DAG, which implies ambiguity in the order of posts.
     label={lst.double.attempt},
     caption={Double-spend attempt from multiple peers.}
 ]
-$ fc /chat reps author carol
+$ fc /chat reps member carol
 4500
 
 # PEER I
-$ fc /chat like 4500 author xion --sign=carol
+$ fc /chat like 4500 member xion --sign=carol
 7468f50551b223133f48365984d1a192e7a36a67
-$ fc /chat reps authors
+$ fc /chat reps members
 ...
 xion        4050       # like to xion
 york           0
 carol          0
 
 # PEER J
-$ fc /chat like 4500 author york --sign=carol
+$ fc /chat like 4500 member york --sign=carol
 3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
-$ fc /chat reps authors
+$ fc /chat reps members
 ...
 york        4050       # like to york
 xion           0
@@ -754,7 +754,7 @@ carol          0
 $ fc /chat sync J
 ERROR : invalid like : insufficient reputation
 voided : 7468f50551b223133f48365984d1a192e7a36a67
-$ fc /chat reps authors
+$ fc /chat reps members
 ...
 york        4050       # accepted
 xion           0       # rejected
@@ -1061,7 +1061,7 @@ for new posts, such as proof of work.
 %
 We propose a mix between social trust graphs and explicit costs for new posts.
 %
-Rule~\code{4.a} requires that authors have at least \nreps{500} to post,
+Rule~\code{4.a} requires that members have at least \nreps{500} to post,
 effectively blocking Sybil actions.
 To vouch for new members, rule~\code{3.a} allows an existing member to like a
 newbie's post to unblock it, but at the cost of \nreps{500}.
@@ -1071,14 +1071,14 @@ For the same reason, rule~\code{2} imposes a temporary cost of \nreps{500} for
 each new post.
 %
 Note that the pioneers rule~\code{1.a} solves the chicken-and-egg problem
-imposed by rule~\code{4.a}: if new authors start with no \reps, but require
-\reps to operate, it is necessary that some authors have initial \reps to boot
+imposed by rule~\code{4.a}: if new members start with no \reps, but require
+\reps to operate, it is necessary that some members have initial \reps to boot
 the chains.
 
-New posts penalize authors with \nreps{-1} during at most 12 hours
+New posts penalize members with \nreps{-1} during at most 12 hours
 (rule~\code{2}), which depends on the activity succeeding (and including) the
 new post.
-The more activity from reputed authors, the less time the discount persists.
+The more activity from reputed members, the less time the discount persists.
 In the example, since the post is from the pioneer controlling all \reps in the
 chain, the penalty falls immediately and she remains with \nreps{30}.
 This mechanism limits the excess of posts in chains dynamically.
@@ -1087,7 +1087,7 @@ messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
 
-Note also that rule~\code{4.b} limits authors to at most \nreps{30}, which
+Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
 provides incentives to spend likes and thus decentralize the network, while
 rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
 DDoS attacks using gigantic blocked posts.
@@ -1111,7 +1111,7 @@ purposes.
 %
 On the one hand, since \reps are finite, members need to ponder to avoid
 indiscriminate expenditure.
-On the other hand, since \reps are limited to at most \nreps{30} per author
+On the other hand, since \reps are limited to at most \nreps{30} per member
 (rule~\code{4.b}), members also have incentives to rate content.
 Hence, these upper and lower limits work together towards the quality of the
 chains.
@@ -1145,7 +1145,7 @@ A post has three possible states: \code{BLOCKED}, \code{ACCEPTED}, or
 \code{REVOKED}.
 Figure~\ref{fig.state} specifies the transitions between states.
 %
-If the author has reputation, a new post is immediately \code{ACCEPTED} in the
+If the member has reputation, a new post is immediately \code{ACCEPTED} in the
 forum.
 %
 Otherwise, it is \code{BLOCKED} and requires a like from another member.
@@ -1223,7 +1223,7 @@ the local DAG considering the consensus order found in Step (a).
 It verifies the following properties:
     (i)   Merkle DAG structure is consistent (e.g., post hash and back pointers);
     (ii)  Back pointers are not in \emph{BLOCKED} state;
-    (iii) Author signing the post has enough reputation.
+    (iii) Member signing the post has enough reputation.
 In case of success, the post is added to the DAG and the next iteration of the
 consensus algorithm already considers it.
 Otherwise, the post is marked as \emph{BLOCKED}, and the remaining branch is
@@ -1246,7 +1246,7 @@ algorithm~\cite{kahn}:
 %
 Step (b) requires to find the maximum value in set $S$ according to the
 reputation criteria.
-The comparison function needs to find the non-common authors in the suffix of
+The comparison function needs to find the non-common members in the suffix of
 the two branches in order to compare the sum of their reputations.
 %
 For this reason, the algorithm also needs to track negative, neutral, and
@@ -1328,9 +1328,9 @@ The simulation spawns $N$ peers, each joining the same chain with the same
 arguments.
 For each message in the original forum, we
     (i)   set the timestamp of peers to match the original date,
-    (ii)  create a pair of keys if the author is new,
+    (ii)  create a pair of keys if the member is new,
     (iii) post the message from a random peer in $N$,
-    (iv)  like the post if the author has no reputation, and
+    (iv)  like the post if the member has no reputation, and
     (v)   synchronize the chain with $M$ random peers.
 %
 Since all messages are part of the original archive, we always perform step
@@ -1353,12 +1353,12 @@ Since the variations were negligible, we always discuss the median measures.
 \begin{comment}
 We assume chats are less distributed given their real-time requirements, i.e.,
 users would connect to a few but more interconnected peers.
-Note that \FC focus on the decentralization of authority, which is not directly
+Note that \FC focus on the decentralization of memberity, which is not directly
 related to network distribution, which may vary from applications.
 \end{comment}
 
 Evaluation item (a) measures the protocol overhead due to blockchain metadata,
-which consists of a timestamp, author signature, and hashes (post id, payload,
+which consists of a timestamp, member signature, and hashes (post id, payload,
 backlinks, and likes).
 %
 The original chat archive is \texttt{800kB} in size, or \texttt{80B} for each
@@ -1743,7 +1743,7 @@ with the revoked post, effectively removing the wrong line from the file.
 This mechanism illustrates how the reputation system enables collaborative
 permissionless edition and curation.
 
-Next, we create a conflicting situation in which two authors edit and commit
+Next, we create a conflicting situation in which two members edit and commit
 the same line of the file concurrently:
 
 {\footnotesize
@@ -1791,7 +1791,7 @@ checkout saves the conflict file and indicates the post causing it.
 We believe this optimistic choice that does not reject both patches is the most
 advantageous, since it keeps the file in an usable state and warns about the
 conflict to resolve.
-For instance, the authors can later decide to dislike one of the two commits to
+For instance, the members can later decide to dislike one of the two commits to
 revoke it and remove the warning.
 
 \begin{figure}
@@ -1980,9 +1980,9 @@ followers (\Xon).
 %
 For open groups communication (\Xnn), Scuttlebutt uses the concept of channels,
 which are in fact nothing more than hash tags (e.g. \emph{\#sports}).
-Authors can tag posts, which appear not only in their feeds but also in local
+Members can tag posts, which appear not only in their feeds but also in local
 virtual feeds representing these channels.
-However, users only see channel posts from authors they already follow.
+However, users only see channel posts from members they already follow.
 In practice, channels simply merge friends posts and filter them by tags.
 In theory, to read all posts of a channel, a user would need to follow all
 users in the network (which also implies storing their feeds).
