@@ -793,7 +793,7 @@ aggregate reputation of these disjoint sets, as of the fork point.
 Finally, the winning branch is entirely sorted first, with the losing side
 going in sequence, after the last action of the winning side.
 
-\begin{figure*}
+\begin{figure*}[t]
 \centering
 \includegraphics[width=0.85\textwidth]{dag.png}
 \caption{
@@ -803,21 +803,21 @@ going in sequence, after the last action of the winning side.
 \label{fig.reps}
 \end{figure*}
 
-Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
+Figure~\ref{fig.reps}(A) illustrates a forum DAG forked by a temporary network
 partition.
 The common ancestors have signed posts from members $a$, $b$, and $c$.
 Up to the fork point, we assume that members $a$ and $b$ have more
 contributions in the prefix (omitted as \code{...}) and therefore hold more
 \reps combined than $c$ has alone ($5+3>6$).
 %
-Then, member $c$ disconnects, and keeps posting with new members $x$ and $y$ in
+Then, member $c$ disconnects and keeps posting with new members $x$ and $y$ in
 \code{branch-1}.
 Meanwhile, $a$ and $b$ also participate with new posts in \code{branch-2}.
 %
 When the network reconnects and the DAG finally merges, we need to replay the
 actions to check for inconsistencies.
 Based on the reputation of the disjoint members up to the fork point,
-Figure~\ref{fig.reps}.B indicates the resulting consensus order:
+Figure~\ref{fig.reps}(B) indicates the resulting consensus order:
     first the common ancestors,
     then all posts in \code{branch-2},
     then all posts in \code{branch-1}.
@@ -826,7 +826,7 @@ During replay in consensus order, if any action fails (e.g., a double spend),
 then all remaining actions are rejected and erased from the DAG, as if they
 never existed.
 %
-As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
+As an example, in Figure~\ref{fig.reps}(B), suppose that the last post by $a$ in
 \code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
 to post.
 Then, it is possible that the last post by $c$ in \code{branch-1} (in red) is
@@ -837,16 +837,16 @@ We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
 %
 \begin{itemize}
-\item Split disjoint member sets on fork point:     \\
+\item Split members into disjoint sets at the fork point:   \\
     $M_1=\{c,x,y\}$ and $M_2=\{a,b\}$
-\item Sum sets \reps in common history:             \\
+\item Sum the \reps of each set in the common history:      \\
     $R_1=6$ and $R_2=8$
 \item Order branches by highest sum first:%
 \footnote{
     We compare the action hashes after the fork point as the tie breaker.
-}                                                   \\
+}                                                           \\
     \code{common <- branch-2 <- branch-1}
-\item Discard actions after first failure:          \\
+\item Discard actions from the first failure on:            \\
     \code{c <- y <- x}
 \end{itemize}
 
@@ -981,7 +981,7 @@ This kind of attack is thus innocuous because it requires at least half of the
 %The same countermeasure can be used against a minority of malicious users
 %colluding to boost or protect their own posts.
 
-As a counterpoint to the consensus order in Figure~\ref{fig.reps}.B, maybe
+As a counterpoint to the consensus order in Figure~\ref{fig.reps}(B), maybe
 members $a$ and $b$ have abandoned the forum for months, and thus
 \code{branch-1} is actually legitimate.
 In this case, members $a$ and $b$ would succeed to take over the forum, since
