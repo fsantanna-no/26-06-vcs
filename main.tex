@@ -850,31 +850,31 @@ Figure~\ref{fig.reps}:
     \code{c <- y <- x}
 \end{itemize}
 
-There are some other relevant considerations about forks and merges:
+There are some other relevant considerations about forks and merges.
 %
-Peers that receive branches with more reputation first just append the other
-branch, with no reorderings and no extra efforts.
-This behavior is expected to happen in the majority of the connected network.
+Peers that first receive the branch with more reputation just append the other
+branch, with no reordering and no extra effort.
+This behavior is expected to happen on most peers of the network.
 %
-However, the other side needs to reorder all posts after the forking point,
+However, the other side needs to reorder all posts after the fork point,
 which might involve erasing content in the end-user software.
 This behavior is similar to Bitcoin's blockchain reorganization, when peers
-detect new longest chains.
+detect a new longest chain.
 %
-Regarding content erasure, legitimate posts require members to repost them.
-Nevertheless, we expect that legitimate members gossip among themselves more
-often, thus preventing this situation.
+Legitimate posts that are erased must be reposted by their authors.
+Still, we expect legitimate members to gossip among themselves more often,
+which makes this situation rare.
 %
 Note that unlike Bitcoin, forks are not only permitted but encouraged due to
 the local-first software principle~\cite{p2p.local}.
-However, the longer a peer remains disconnected, the higher are the chances of
+However, the longer a peer remains disconnected, the higher the chances of
 conflicting actions.
 %
-In summary, forks and merges
-    (i) may introduce conflicts, which
-    (ii) require consensus to replay actions,
-    (iii) is based on common history reputation,
-    (iv) leading to a global and deterministic state.
+In summary,
+    (i) forks and merges may introduce conflicts;
+    (ii) conflicts require a consensus order to replay actions;
+    (iii) the order is based on the reputation in the common history; and
+    (iv) replay leads to a global and deterministic state.
 
 \subsection{Hard Forks}
 \label{sec.design.hardforks}
