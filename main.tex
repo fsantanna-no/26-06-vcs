@@ -850,17 +850,34 @@ Figure~\ref{fig.reps}:
     \code{c <- y <- x}
 \end{itemize}
 
+There are some other relevant considerations about forks and merges:
+%
+Peers that receive branches with more reputation first just append the other
+branch, with no reorderings and no extra efforts.
+This behavior is expected to happen in the majority of the connected network.
+%
+However, the other side needs to reorder all posts after the forking point,
+which might involve erasing content in the end-user software.
+This behavior is similar to Bitcoin's blockchain reorganization, when peers
+detect new longest chains.
+%
+Regarding content erasure, legitimate posts require members to repost them.
+Nevertheless, we expect that legitimate members gossip among themselves more
+often, thus preventing this situation.
+%
+Note that unlike Bitcoin, forks are not only permitted but encouraged due to
+the local-first software principle~\cite{p2p.local}.
+However, the longer a peer remains disconnected, the higher are the chances of
+conflicting actions.
+%
+In summary, forks and merges
+    (i) may introduce conflicts, which
+    (ii) require consensus to replay actions,
+    (iii) is based on common history reputation,
+    (iv) leading to a global and deterministic state.
+
 \subsection{Hard Forks}
 \label{sec.design.hardforks}
-
-
-This transform a partial into a total order, making it possible to 
-%
-Then, we employ a deterministic topological sorting that favors reputation
-when deciding between branches in a forum DAG, transforming a partial order
-into a total order.
-
-
 
 
 Going back to the malicious member example, the simultaneous messages would
@@ -879,40 +896,6 @@ validate operations consistently across the network.
 Note also that, to reach consensus, we should preferably rely on the maximum
 information that all branches agree on, which is exactly the posts in the
 common prefix.
-
-There are some other relevant considerations about forks and merges:
-%
-Peers that first receive branches with less reputation need to reorder all
-posts after the forking point.
-This might involve removing content in the end-user software.
-This behavior is similar to Bitcoin's blockchain reorganization, when peers
-detect new longest chains. % and disconsiders old posts.
-%
-Likewise, peers that first saw branches with more reputation just need to
-append the other branch, with no reordering at all.
-%and do not need to recompute anything.
-This behavior is expected to happen in the majority of the connected network.
-%
-Legitimate posts in secondary branches might be removed due to merges, which
-requires that members repost the messages.
-Nevertheless, we expect that legitimate members gossip among themselves more
-often, thus preventing this situation.
-%
-Note that unlike Bitcoin, forks are not only permitted but encouraged due to
-the local-first software principle~\cite{p2p.local}, in which networked
-applications can work locally while offline.
-However, the longer a peer remains disconnected, the more conflicting
-operations it may see, and the higher are the chances of posts reordering when
-rejoining.
-
-In summary, it is important to remark that
-    (i) branches always introduce conflicts, which
-    (ii) require consensus to order operations, which
-    (iii) is based on a common prefix reputation,
-    (iv) leading to a global and deterministic result.
-%
-Note that the consensus order exists only to account reputation and verify
-operations, and is only a view of the primary DAG structure of forums.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
