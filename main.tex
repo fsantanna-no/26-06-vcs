@@ -781,17 +781,17 @@ only refuse the double spend but also converge to the same state.
 
 Our idea to establish consensus in forum DAGs is to favor branches with posts
 from members that constitute the majority of the reputation.
-These branches have more associated work and are analogous to longest chains in
-Bitcoin.
+These branches have more associated work and are analogous to the longest chain
+in Bitcoin.
 %
 When faced with a fork, the key detail is to account only the reputation in
-common ancestors of the DAG, which constitute the forum history which members
-from both sides agree.
-Then, we determine the exclusive members of each side, and account the
-aggregate reputation of these disjoint sets, but at the time of the fork point.
+common ancestors of the DAG, which constitute the forum history that both sides
+agree.
+Then, we determine the exclusive members of each side, and compare the
+aggregate reputation of these disjoint sets, as of the fork point.
 %
-Then, the winning branch is entirely sorted first, with the losing side going
-in sequence, after the last action of the winning side.
+Finally, the winning branch is entirely sorted first, with the losing side
+going in sequence, after the last action of the winning side.
 
 \begin{figure*}
 \centering
@@ -803,8 +803,8 @@ in sequence, after the last action of the winning side.
 \label{fig.reps}
 \end{figure*}
 
-Figure~\ref{fig.reps}.A illustrates a forum during a temporary network
-partition that creates a fork in its DAG.
+Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
+partition.
 The common ancestors have signed posts from members $a$, $b$, and $c$.
 Up to the fork point, we assume that members $a$ and $b$ have more
 contributions in the prefix (omitted as \code{...}) and therefore hold more
@@ -833,20 +833,22 @@ Then, it is possible that the last post by $c$ in \code{branch-1} (in red) is
 rejected together with all posts in sequence (since they cannot persist in the
 Merkle~DAG).
 
-The following recaps the consensus mechanism, and how it applies to
+We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
 %
 \begin{itemize}
-\item Disjoint sets on fork points:         \\
-    $SET1=\{c,x,y\}$ and $SET2=\{a,b\}$
-\item Sum \reps in common history:          \\
-    $SUM1=6$ and $SUM2=8$
-\item Order actions with highest first:     \\
+\item Split members into disjoint sets at fork point:   \\
+    $SET_1=\{c,x,y\}$ and $SET_2=\{a,b\}$
+\item Sum \reps in common history:                      \\
+    $SUM_1=6$ and $SUM_2=8$
+\item Order branches by highest sum first%
+\footnote{
+    We compare the commit hashes after the fork point as the tie breaker.
+}:                                                      \\
     \code{common <- branch-2 <- branch-1}
-\item Discard actions after first failure:  \\
-    \code{a <- b <- ... <- c <- x} (discards \code{c <- y <- x})
+\item Discard actions after first failure:              \\
+    \code{<- c <- y <- x}
 \end{itemize}
-
 
 \subsection{Hard Forks}
 \label{sec.design.hardforks}
