@@ -779,17 +779,6 @@ only refuse the double spend but also converge to the same state.
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
 
-\begin{figure*}
-\centering
-\includegraphics[width=0.85\textwidth]{reps.png}
-\caption{
-    (A) A public forum DAG with a common prefix, two branches, and a common
-        sufix.
-    (B) Total order between posts of the DAG after consensus.
-}
-\label{fig.reps}
-\end{figure*}
-
 Our idea to stablish consensus in forum DAGs is to favor branches with posts
 from members that constitute the majority of the reputation.
 These branches have more associated work and are analogous to longest chains in
@@ -804,19 +793,34 @@ aggregate reputation of these disjoint sets, but at the time of the fork point.
 Then, the winning branch is entirely sorted first, with the loosing side going
 in sequence, after the last action of the winning side.
 
+\begin{figure*}
+\centering
+\includegraphics[width=0.85\textwidth]{reps.png}
+\caption{
+    (A) A forum DAG with common ancestors, a fork point, and two branches.
+    (B) The resulting total order after consensus.
+}
+\label{fig.reps}
+\end{figure*}
+
 Figure~\ref{fig.reps}.A illustrates the evolution of a forum DAG in the
-presence of a network partition:
-A common prefix has signed posts from members $a$, $b$, and $c$, when they were
-still all connected.
+presence of a temporary network partition.
+The common ancestors have signed posts from members $a$, $b$, and $c$.
+Up to the fork point, we assume that members $a$ and $b$ have more
+contributions and therefore hold mode \reps combined than $c$ has alone (i.e.,
+$3+5>6$).
 %
-We assume that within the prefix, members $a$ and $b$ have contributed with
-better content and therefore have more reputation combined than $c$ has alone
-(i.e., $8+5>3$).
-We will use this fact to order branches in the consensus algorithm.
-%
-Then, member $c$ disconnects from $a$ and $b$, and evolves with new members $x$ and
-$y$ in \code{branch-1}.
-In the meantime, $a$ and $b$ participate with new posts in \code{branch-2}.
+Then, member $c$ disconnects, and evolves with new members $x$ and $y$ in
+\code{branch-1}.
+In the meantime, $a$ and $b$ also participate with new posts in
+\code{branch-2}.
+
+TODO: esticar dia de c ja que sufix vai sair
+
+\subsection{Hard Forks}
+\label{sec.design.hardforks}
+
+
 After some time, the partitions reconnect and new posts from $x$, $b$ and $c$
 merge the branches now with a common suffix.
 
