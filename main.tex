@@ -711,8 +711,8 @@ the \emph{raison d'être} of public forums.
 \subsection{Forks and Double-spends}
 \label{sec.design.double}
 
-Scarcity of \reps is not yet sufficient to prevent inconsistent operations,
-which correspond to \emph{double-spending} in Bitcoin.
+Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
+correspond to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with a single unit of \reps posting
 SPAM messages from multiple peers at the same time.
 As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
@@ -779,23 +779,23 @@ only refuse the double spend but also converge to the same state.
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
 
-Our idea to stablish consensus in forum DAGs is to favor branches with posts
+Our idea to establish consensus in forum DAGs is to favor branches with posts
 from members that constitute the majority of the reputation.
 These branches have more associated work and are analogous to longest chains in
 Bitcoin.
 %
 When faced with a fork, the key detail is to account only the reputation in
-common ancestors of the DAG, which constitute the forum history wich members
+common ancestors of the DAG, which constitute the forum history which members
 from both sides agree.
 Then, we determine the exclusive members of each side, and account the
 aggregate reputation of these disjoint sets, but at the time of the fork point.
 %
-Then, the winning branch is entirely sorted first, with the loosing side going
+Then, the winning branch is entirely sorted first, with the losing side going
 in sequence, after the last action of the winning side.
 
 \begin{figure*}
 \centering
-\includegraphics[width=0.85\textwidth]{reps.png}
+\includegraphics[width=0.85\textwidth]{dag.png}
 \caption{
     (A) A forum DAG with common ancestors, a fork point, and two branches.
     (B) The resulting total order after consensus.
@@ -803,56 +803,68 @@ in sequence, after the last action of the winning side.
 \label{fig.reps}
 \end{figure*}
 
-Figure~\ref{fig.reps}.A illustrates the evolution of a forum DAG in the
-presence of a temporary network partition.
+Figure~\ref{fig.reps}.A illustrates a forum during a temporary network
+partition that creates a fork in its DAG.
 The common ancestors have signed posts from members $a$, $b$, and $c$.
 Up to the fork point, we assume that members $a$ and $b$ have more
-contributions and therefore hold mode \reps combined than $c$ has alone (i.e.,
-$3+5>6$).
+contributions in the prefix (omitted as \code{...}) and therefore hold more
+\reps combined than $c$ has alone ($5+3>6$).
 %
-Then, member $c$ disconnects, and evolves with new members $x$ and $y$ in
+Then, member $c$ disconnects, and keeps posting with new members $x$ and $y$ in
 \code{branch-1}.
-In the meantime, $a$ and $b$ also participate with new posts in
-\code{branch-2}.
+Meanwhile, $a$ and $b$ also participate with new posts in \code{branch-2}.
+%
+When the network reconnects and the DAG finally merges, we need to replay the
+actions to check for inconsistencies.
+Based on the reputation of the disjoint members up to the fork point,
+Figure~\ref{fig.reps}.B indicates the resulting consensus order:
+    first the common ancestors,
+    then all posts in \code{branch-2},
+    then all posts in \code{branch-1}.
 
-TODO: esticar dia de c ja que sufix vai sair
+During replay in consensus order, if any action fails (e.g., a double spend),
+then all remaining actions are rejected and erased from the primary DAG, as if
+they never existed.
+%
+As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
+\code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
+to post.
+Then, it is possible that the last post by $c$ in \code{branch-1} (in red) is
+rejected together with all posts in sequence (since they cannot persist in the
+Merkle~DAG).
+
+The following recaps the consensus mechanism, and how it applies to
+Figure~\ref{fig.reps}:
+%
+\begin{itemize}
+\item Disjoint sets on fork points:         \\
+    $SET1=\{c,x,y\}$ and $SET2=\{a,b\}$
+\item Sum \reps in common history:          \\
+    $SUM1=6$ and $SUM2=8$
+\item Order actions with highest first:     \\
+    \code{common <- branch-2 <- branch-1}
+\item Discard actions after first failure:  \\
+    \code{a <- b <- ... <- c <- x} (discards \code{c <- y <- x})
+\end{itemize}
+
 
 \subsection{Hard Forks}
 \label{sec.design.hardforks}
 
 
-After some time, the partitions reconnect and new posts from $x$, $b$ and $c$
-merge the branches now with a common suffix.
-
-
-
-
 This transform a partial into a total order, making it possible to 
-
-
-in its entirely sorted
-
-
-
-
+%
 Then, we employ a deterministic topological sorting that favors reputation
 when deciding between branches in a forum DAG, transforming a partial order
 into a total order.
 
-%
+
+
+
 Going back to the malicious member example, the simultaneous messages would
 appear as forks in the forum DAG.
 Only the message in the fork with more combined work would be accepted, while
 all other Sybil messages would be rejected.
-
-According to \R{2}, only one of them should be accepted by the network.
-However, without consensus, it is not possible to globally determine which one
-to accept, since each peer would supposedly accept the first message it receives.
-On the one hand, in order to validate operations consistently, we need the same
-message ordering across all peers in the network.
-On the other hand, due to network partitions, we can only represent public
-forums as DAGs (directed acyclic graphs) with causal relationships between
-messages, which provides at most partial order.
 
 Note that even non-malicious partitions may experience conflicts when
 merging.
@@ -865,55 +877,6 @@ validate operations consistently across the network.
 Note also that, to reach consensus, we should preferably rely on the maximum
 information that all branches agree on, which is exactly the posts in the
 common prefix.
-
-TODO >>>
-After the prefix, the forum forks in two branches:
-in \code{branch-1}, only member $c$ remains active and we see that new members $x$
-and $y$ (with no previous reputation in the common prefix) generate a lot of
-new content;
-in \code{branch-2}, only members $a$ and $b$ participate but with less activity.
-Nevertheless, \code{branch-2} would be ordered first because, before the
-forking point, $a$ and $b$ have more reputation than $c$, $x$, and $y$
-combined.
-<<< TODO
-
-Based on the reputation of members in the common prefix, Figure~\ref{fig.reps}.B
-indicates the resulting consensus order between posts in the forum DAG:
-    the common prefix comes first,
-    then all posts in \code{branch-2},
-    then all posts in \code{branch-1},
-    then the common suffix.
-%
-The \code{branch-2} with members $a$ and $b$ takes priority over \code{branch-1}
-with member $c$ because, before the forking point, $a$ and $b$ have more
-reputation than $c$, $x$, and $y$ have combined.
-
-The basic consensus rule is therefore straightforward:
-Whenever a fork is found, we create sets of members with posts in each branch
-($B1=\{c,x,y\}$ and $B2=\{a,b\}$).
-Then, we take each set, and sum its members \reps based on the common prefix
-($S1=3$ and $S2=13$), since it is the maximum information that all branches
-agree.
-Finally, we order the branches based on the highest sum of \reps found
-(Figure~\ref{fig.reps}.B).
-
-TODO: duplicado abaixo
-Note that the consensus order exists only to account reputation and verify
-operations, and is only a view of the primary DAG structure of public forums.
-At any point in the consensus timeline,
-while applying the branches in order,
-if any post operation fails, all remaining
-posts in the offending branch are rejected and removed from the primary DAG,
-as if they never existed.
-As an example, suppose that the last post by $a$ in \code{branch-2} (in gray)
-is a dislike to member $c$.
-Then, it's possible that the last post by $c$ in \code{branch-1} (in red), now
-suppose with \nreps{0}, is rejected together with all posts in sequence,
-including those in the common suffix.
-%
-This rejection rule for remaining posts is a direct consequence of tamper proof
-Merkle~DAGs~\cite{p2p.ipfs,p2p.bitcoin} typically used in permissionless
-protocols, which cannot support graph modifications.
 
 There are some other relevant considerations about forks and merges:
 %
@@ -981,6 +944,17 @@ We consider Sybils as groups of throw-away identities and machines with no
 previous reputation in the forums.
 In our analogy with Bitcoin, Sybil attacks would require to add human resources,
 instead of CPU power.
+
+), since it is the maximum information that all branches
+
+According to \R{2}, only one of them should be accepted by the network.
+However, without consensus, it is not possible to globally determine which one
+to accept, since each peer would supposedly accept the first message it receives.
+On the one hand, in order to validate operations consistently, we need the same
+message ordering across all peers in the network.
+On the other hand, due to network partitions, we can only represent public
+forums as DAGs (directed acyclic graphs) with causal relationships between
+messages, which provides at most partial order.
 
 \subsection{Malicious Behaviors and Hard Forks}
 \label{sec.design.forks}
