@@ -786,7 +786,7 @@ in Bitcoin.
 %
 When faced with a fork, the key detail is to account only the reputation in
 common ancestors of the DAG, which constitute the forum history that both sides
-agree.
+agree on.
 Then, we determine the exclusive members of each side, and compare the
 aggregate reputation of these disjoint sets, as of the fork point.
 %
@@ -797,8 +797,8 @@ going in sequence, after the last action of the winning side.
 \centering
 \includegraphics[width=0.85\textwidth]{dag.png}
 \caption{
-    (A) A forum DAG with common ancestors, a fork point, and two branches.
-    (B) The resulting total order after consensus.
+    (A) Forum DAG with common ancestors and two branches.
+    (B) Total order after consensus.
 }
 \label{fig.reps}
 \end{figure*}
@@ -823,8 +823,8 @@ Figure~\ref{fig.reps}.B indicates the resulting consensus order:
     then all posts in \code{branch-1}.
 
 During replay in consensus order, if any action fails (e.g., a double spend),
-then all remaining actions are rejected and erased from the primary DAG, as if
-they never existed.
+then all remaining actions are rejected and erased from the DAG, as if they
+never existed.
 %
 As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
 \code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
@@ -837,17 +837,17 @@ We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
 %
 \begin{itemize}
-\item Split members into disjoint sets at fork point:   \\
-    $SET_1=\{c,x,y\}$ and $SET_2=\{a,b\}$
-\item Sum \reps in common history:                      \\
-    $SUM_1=6$ and $SUM_2=8$
-\item Order branches by highest sum first%
+\item Split disjoint member sets on fork point:     \\
+    $M_1=\{c,x,y\}$ and $M_2=\{a,b\}$
+\item Sum sets \reps in common history:             \\
+    $R_1=6$ and $R_2=8$
+\item Order branches by highest sum first:%
 \footnote{
-    We compare the commit hashes after the fork point as the tie breaker.
-}:                                                      \\
+    We compare the action hashes after the fork point as the tie breaker.
+}                                                   \\
     \code{common <- branch-2 <- branch-1}
-\item Discard actions after first failure:              \\
-    \code{<- c <- y <- x}
+\item Discard actions after first failure:          \\
+    \code{c <- y <- x}
 \end{itemize}
 
 \subsection{Hard Forks}
