@@ -215,11 +215,13 @@ Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
 
-As a main limitation, because forums are DAGs, members holding the majority of
-the reputation at any point in history can forge malicious forks that would
-affect the consensus.
+As a main limitation, forums are DAGs subject to unbounded partitions whose
+fork points may date back to any point in history.
+This allows for malicious members to forge long branches that would farm
+reputation or affect consensus.
 As a countermeasure, forks older than 100 posts or 7 days are rejected by the
-network, whereas newer malicious majority forks require manual intervention.
+network, whereas newer malicious minority forks require manual intervention of
+at least one honest peer.
 %
 Regarding performance, forum DAGs are ever growing data structures that carry
 considerable metadata overhead.
@@ -907,8 +909,62 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
 \subsubsection{Reputation Farming}
 \label{sec.design.partitions.farming}
 
+Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}.A
+intentionally disconnects from the network for weeks to cultivate fake
+identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
+%
+When merging, these fake members would become legitimate and take over the
+majority of \reps in the forum.
+
+\begin{lstlisting}[
+    float=tbp,
+    label={lst.discard},
+    caption={Members $a$ and $b$ refute the farming attack of $c$.}
+]
+# PEER AB
+$ fc /chat sync C                   # receives branch-1
+$ fc /chat discard 7c1e2a9          # drops branch-1
+7c1e2a9 ... (c, x, y posts)
+$ fc /chat dislike 1000 member c    # from a
+$ fc /chat dislike 1000 member c    # from b
+$ fc /chat sync C                   # merges again
+$ fc /chat list order
+...                                 # branch-2
+...                                 # branch-1: c fails, discarded
+\end{lstlisting}
+
+However, this attack is refutable: since the common history is the basis of
+consensus, members in the branch with more reputation can still react even a
+posteriori.
+%
+For instance, members $a$ and $b$ can pretend that they did not yet see
+\code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
+that a further merge invalidates all posts from \code{branch-1}, as if they
+never existed.
+%
+Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
+\code{branch-1} locally before casting the dislikes that ban $c$, making the
+next merge to now reject \code{branch-1} for good.
+%
+As they synchronize, note that all honest peers will converge to the same state
+that rejects \code{branch-1}, i.e., a single refutal is sufficient to
+propagate.
+
+
+In other words, just
+
+
+without that synchronize
+
+Therefore, a minority attack to farm new \reps is innocuous because it is
+bounded by the \reps accumulated in the common history.
+%
+Note that all peers
+
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
+
+ultimo caso da alice ter feito sem querer e precisar do discard
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -995,26 +1051,6 @@ Consensus based on the common history has a main limitation
  raises a natural concern: a malicious
 member could disconnect on purpose to cultivate fake identities in isolation
 and take over the forum after merging.
-
-Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}
-intentionally disconnects from the network for weeks to cultivate fake
-identities $x$ and $y$ with the intention to accumulate \reps.
-When merging, these fake members would become legitimate and take over the
-majority of \reps in the forum.
-%
-However, this kind of attack is refutable because, since the common prefix is
-the basis of consensus, members in the branch with more reputation can still
-react even a posteriori.
-For instance, members $a$ and $b$ can pretend that they did not yet see
-\code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
-that a further merge invalidates all posts from \code{branch-1}, removing them
-from the DAG.
-%
-This kind of attack is thus innocuous because it requires at least half of the
-\reps accumulated in the common prefix.
-%
-%The same countermeasure can be used against a minority of malicious users
-%colluding to boost or protect their own posts.
 
 As a counterpoint to the consensus order in Figure~\ref{fig.reps}(B), maybe
 members $a$ and $b$ have abandoned the forum for months, and thus
