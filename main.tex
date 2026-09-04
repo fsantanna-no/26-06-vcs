@@ -947,19 +947,13 @@ Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
 next merge to now reject \code{branch-1} for good.
 %
 As they synchronize, note that all honest peers will converge to the same state
-that rejects \code{branch-1}, i.e., a single refutal is sufficient to
-propagate.
+that rejects \code{branch-1}, i.e., a single refutal is sufficient to propagate
+to the rest of the network.
 
-
-In other words, just
-
-
-without that synchronize
-
-Therefore, a minority attack to farm new \reps is innocuous because it is
+Therefore, a minority attack to farm new \reps is refutable because it is
 bounded by the \reps accumulated in the common history.
 %
-Note that all peers
+However, it requires human intervention of at least one honest member.
 
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
