@@ -216,12 +216,12 @@ reputation, consensus, and moderation.
 \end{description}
 
 As a main limitation, forums are DAGs subject to unbounded partitions whose
-fork points may date back to any point in history.
-This allows for malicious members to forge long branches that would farm
+fork points may lie arbitrarily far in the past.
+This allows malicious members to forge long branches that would farm
 reputation or affect consensus.
 As a countermeasure, forks older than 100 posts or 7 days are rejected by the
 network, whereas newer malicious minority forks require manual intervention of
-at least one honest peer.
+at least one honest member.
 %
 Regarding performance, forum DAGs are ever growing data structures that carry
 considerable metadata overhead.
@@ -943,17 +943,15 @@ that a further merge invalidates all posts from \code{branch-1}, as if they
 never existed.
 %
 Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
-\code{branch-1} locally before casting the dislikes that ban $c$, making the
-next merge to now reject \code{branch-1} for good.
+\code{branch-1} locally before casting the dislikes that ban $c$, so that the
+next merge rejects \code{branch-1} for good.
 %
-As they synchronize, note that all honest peers will converge to the same state
-that rejects \code{branch-1}, i.e., a single refutal is sufficient to propagate
-to the rest of the network.
+Note that, as peers synchronize, all honest peers converge to the same state,
+i.e., a single refutation propagates to the rest of the network.
 
-Therefore, a minority attack to farm new \reps is refutable because it is
-bounded by the \reps accumulated in the common history.
-%
-However, it requires human intervention of at least one honest member.
+Therefore, a minority attack that farms new \reps is refutable, since it is
+bounded by the \reps in the common history, but it requires the intervention
+of at least one honest member.
 
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
@@ -963,88 +961,6 @@ ultimo caso da alice ter feito sem querer e precisar do discard
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
-
-  In CAP terms~\cite{cap}, \FC favors availability and partition
-  tolerance:
-  peers always accept local operations and reconcile later, whereas
-  the consensus
-  order provides a deterministic total order instead of
-  linearizability.
-
-  CAP: two sentences is the right dose — enough to position, not a
-  lecture. It needs a bib entry (Gilbert & Lynch, "Brewer's
-  conjecture and the feasibility of consistent, available,
-  partition-tolerant web services", SIGACT News 33(2), 2002); I can
-  add it.
-
-  Section list: add the sixth entry to §3's roadmap. One clash to
-  resolve — §3.4 is "Forks and Double-spends" and this new one also
-  owns forks; renaming §3.4 to "Concurrency and Double-spends" keeps
-  a single home for the fork discussion.
-
-  Want me to apply the subsection, the roadmap entry, the rename, and
-  the CAP bib?
-
-
-
-
-in p2p with intermittent but unbounded partitions with members authoring at the
-same time, dags are inevitable
-
-CAP theorem
-
-
-If we assume that members can
-forks are inevitable
-inherent to domain of content authoring
-
-The main limitation of our common-history consensus is that it may trigger at
-any fork point in time, no matter how old.
-For instance, any arbitrary ancient long partition can reorder an active forum
-based on reputation accumulated by former members far in the past.
-
-● Proposed structure for the subsection, same heading.
-
-  Opening paragraph, introducing both cases in general terms:
-
-  Consensus based on the common prefix is robust against members that
-  accumulate \reps in isolation, but it does not distinguish a malicious
-  partition from a legitimate one.
-  We first show how the majority can neutralize an isolated takeover, and then
-  why long partitions must be treated as irreconcilable.
-
-  Then the concrete attack by $c$ and its refutation, as in the paragraph proposed
-  earlier.
-
-  Transition before "The main limitation...":
-
-  The countermeasure above assumes that the majority is still active and
-  willing to react.
-  The main limitation of our common-history consensus is that it may trigger at
-  any fork point in time, no matter how old.
-  For instance, an arbitrarily old partition can reorder an active forum based
-  on reputation accumulated by former members far in the past.
-
-  Then the existing "As a counterpoint" paragraph follows naturally, since it is
-  exactly the case where the majority is no longer active.
-
-  Nothing edited.
-
-Another concern
-
-
-First, let's
-
-The main limitation of common history consensus is that it can trigger at any
-fork point in time
-
-
-Consensus based on the common history has a main limitation
-
-
- raises a natural concern: a malicious
-member could disconnect on purpose to cultivate fake identities in isolation
-and take over the forum after merging.
 
 As a counterpoint to the consensus order in Figure~\ref{fig.reps}(B), maybe
 members $a$ and $b$ have abandoned the forum for months, and thus
