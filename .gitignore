@@ -8,5 +8,10 @@ main.pdf
 *.blg
 *.out
 *.toc
+sims/se/ips/
+sims/se/politics/
+sims/se/retro/
+sims/se/veg/
+sims/se/.*
 #sims/chat/*.chat
 #sims/usenet/*.mbox
