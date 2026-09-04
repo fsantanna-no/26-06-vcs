@@ -879,8 +879,101 @@ In summary,
     (iii) the order is based on the reputation in the common history; and
     (iv) replay leads to a global and deterministic state.
 
-\subsection{Malicious Behavior and Hard Forks}
-\label{sec.design.hardforks}
+\subsection{Network Partitions}
+\label{sec.design.partitions}
+
+Peer-to-peer networks have no dedicated infrastructure to keep connections
+stable, especially under a permissionless regime, so partitions are not
+exceptional events, but the norm:
+    peers join, leave, and reconnect at will.
+%
+Partitions are also \emph{unbounded} and \emph{undetectable}, since a peer may
+stay offline for as long as it wants, and one cannot tell whether the network
+is unreachable or merely idle.
+
+
+
+Partitions are also \emph{unbounded} and \emph{undetectable}, since
+  a peer may
+  stay offline for as long as it wants, and cannot tell whether the
+  network is
+  unreachable or merely idle.
+  Moreover, since peers keep posting while apart, the divergence to
+  reconcile is
+  unbounded as well.
+
+
+, as a peer may stay offline
+  for as long as
+  it wants.
+
+
+
+
+Since \FC is local-first, partitions are also \emph{unbounded}, as a peer may
+work offline for as long as it wants.
+
+  Unbounded partitions are, in turn, \emph{undetectable}: a
+  partitioned peer
+  cannot tell whether the network is unreachable or simply idle.
+
+  Finally, undetectable partitions may be \emph{deliberate}, and no
+  peer can tell
+  a deliberate partition apart from a legitimate one.
+  The protocol, therefore, cannot treat partitions as attacks, but
+  only bound the
+  damage they may cause.
+  %
+  In CAP terms~\cite{cap}, \FC favors availability and partition
+  tolerance:
+  peers always accept local operations and reconcile later, whereas
+  the consensus
+  order provides a deterministic total order instead of
+  linearizability.
+
+  We discuss the two consequences of unbounded partitions:
+  \begin{description}
+  \item [\S\ref{sec.design.partitions.farming}]
+      Farming Reputation: how an isolated branch mints \reps
+  unchecked.
+  \item [\S\ref{sec.design.partitions.hardforks}]
+      Hard Forks: how a settling window bounds the damage.
+  \end{description}
+
+  CAP: two sentences is the right dose — enough to position, not a
+  lecture. It needs a bib entry (Gilbert & Lynch, "Brewer's
+  conjecture and the feasibility of consistent, available,
+  partition-tolerant web services", SIGACT News 33(2), 2002); I can
+  add it.
+
+  Section list: add the sixth entry to §3's roadmap. One clash to
+  resolve — §3.4 is "Forks and Double-spends" and this new one also
+  owns forks; renaming §3.4 to "Concurrency and Double-spends" keeps
+  a single home for the fork discussion.
+
+  Want me to apply the subsection, the roadmap entry, the rename, and
+  the CAP bib?
+
+
+
+\subsubsection{Farming Reputation}
+\label{sec.design.partitions.farming}
+
+\subsubsection{Hard Forks}
+\label{sec.design.partitions.hardforks}
+
+
+
+
+in p2p with intermittent but unbounded partitions with members authoring at the
+same time, dags are inevitable
+
+CAP theorem
+
+
+If we assume that members can
+forks are inevitable
+inherent to domain of content authoring
 
 The main limitation of our common-history consensus is that it may trigger at
 any fork point in time, no matter how old.
