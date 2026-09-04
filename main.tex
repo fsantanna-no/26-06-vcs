@@ -271,6 +271,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \code{(dis)like}   & Rates member or post        & \code{commit}, \code{merge} \\
 \code{(un)revoke}  & Erases or restores payload  & \code{commit}               \\
 \code{reps}        & Queries reputation          & hooks                       \\
+\code{discard}     & Drops local actions         & \code{reset}                \\
 \code{sweep}       & Erases revoked payloads     & \code{gc}                   \\
 \hline
 \end{tabular}
@@ -966,7 +967,7 @@ In this case, members $a$ and $b$ would succeed in taking over the forum,
 since they control the majority of \reps in the common history.
 %
 Yet another possibility is that both branches are legitimate but were
-disconnected for a long period.
+genuinely disconnected for a long period.
 In any case, it is unacceptable that an old remote branch affects an active
 local forum.
 
@@ -992,9 +993,7 @@ in the unstable consensus to older posts until they are permanently frozen.
 \centering
 \includegraphics[width=0.49\textwidth]{n100-d7.png}
 \caption{
-    Stable consensus freezes the order of posts once they cross the activity
-    threshold.
-    The remaining unstable order may still be affected by incoming branches.
+    Stable vs unstable consensus.
 }
 \label{fig.hard}
 \end{figure}
@@ -1002,12 +1001,12 @@ in the unstable consensus to older posts until they are permanently frozen.
 In summary, the rules to merge a branch \code{j} from a remote machine into a
 branch \code{i} from a local machine are as follows:
 \begin{itemize}
-    \item \code{i} is first if it crosses the activity threshold of
-          \emph{7 days} or \emph{100 posts}, regardless of \code{j}.
+    \item \code{i} is first if it crosses the activity window threshold,
+        regardless of \code{j}.
     \item \code{i} or \code{j} is first, whichever has more reputation in the
-          common prefix (\S\ref{sec.design.overall}).
+        common history (\S\ref{sec.design.consensus}).
     \item otherwise, branches use the arbitrary criteria of lexicographical
-          order of the post hashes immediately after the common prefix.
+        order of the post hashes immediately after the common prefix.
 \end{itemize}
 
 To conclude this section, we should keep in mind that our consensus algorithm
@@ -1022,8 +1021,6 @@ leads to hard forks.
 
 More than simple numeric disputes, a hard fork represents a social conflict in
 which reconciling branches is no longer possible.
-
-ultimo caso da alice ter feito sem querer e precisar do discard
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
