@@ -954,27 +954,33 @@ of at least one honest member.
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
 
-As a counterpoint to the consensus order in Figure~\ref{fig.reps}.B, maybe
-members $a$ and $b$ have abandoned the forum for months, and thus
-\code{branch-1} is actually legitimate.
+When we consider that forging long branches from ancient fork points is
+undetectable, reputation alone becomes a fragile criterion for consensus.
+For instance, past members holding the majority of \reps at any point in time
+could still override the present.
+
+In Figure~\ref{fig.reps}.A, as a counterpoint to member $c$ farming \reps,
+maybe members $a$ and $b$ are the ones who have abandoned the forum for months,
+and thus \code{branch-1} is actually legitimate.
 In this case, members $a$ and $b$ would succeed to take over the forum, since
-they control the majority of \reps in the common prefix.
-Yet another possibility is that both branches are legitimate but became
+they control the majority of \reps in the common history.
+%
+Yet another possibility is that both branches are legitimate but were really
 disconnected for a long period.
-%It is simply not possible to judge with confidence which is the case.
 In any case, it is unacceptable that an old remote branch affects a local
 active forum.
 
-For this reason, the consensus algorithm includes an extra constraint that
-prevents long-lasting local branches to merge, leading to \emph{hard forks}.
-A hard fork occurs when a local branch crosses a predetermined
-threshold of \emph{7 days} or \emph{100 posts} of activity.
-In this case, regardless of the remote branch reputation, the local branch
-takes priority and is ordered first.
-This situation is analogous to a hard fork in Bitcoin and the branches become
-incompatible and will never synchronize again.
-More than simple numeric disputes, a hard fork represents a social conflict in
-which reconciling branches is no longer possible.
+Therefore, as a measure against malicious members with strong past reputation,
+\FC protects settled local branches from unexpected consensus reorderings.
+A branch settles once it holds at least 100 actions or spans 7 days between its
+oldest and newest actions.
+Only posts behind that window are frozen: the most recent ones can still
+reorder freely.
+So, if consensus would reorder local frozen posts, then the merge is simply
+refused and the peers are no longer compatible, which is equivalent to a hard
+fork of Bitcoin.
+In contrast, peers that remain active and synchronize over time evolve together
+with a stable order.
 
 Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
 consensus}, which cannot be reordered, from \emph{unstable consensus}, which
@@ -1013,6 +1019,9 @@ For instance, members can explicitly apply hard forks at any point in time to
 Ultimately, the consensus algorithm provides a transparent mechanism to help
 members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
+
+More than simple numeric disputes, a hard fork represents a social conflict in
+which reconciling branches is no longer possible.
 
 ultimo caso da alice ter feito sem querer e precisar do discard
 
