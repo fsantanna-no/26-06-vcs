@@ -919,18 +919,16 @@ majority of \reps in the forum.
 \begin{lstlisting}[
     float=tbp,
     label={lst.discard},
-    caption={Members $a$ and $b$ refute the farming attack of $c$.}
+    caption={Refuting a minority farming attack.}
 ]
-# PEER AB
-$ fc /chat sync C                   # receives branch-1
-$ fc /chat discard 7c1e2a9          # drops branch-1
-7c1e2a9 ... (c, x, y posts)
-$ fc /chat dislike 1000 member c    # from a
-$ fc /chat dislike 1000 member c    # from b
-$ fc /chat sync C                   # merges again
+# PEER A
+$ fc /chat sync C                # receives branch-1
+$ fc /chat discard 7c1e2a9       # drops branch-1
+$ fc /chat dislike 5000 member c # tip of branch-2
+$ fc /chat sync C                # merges again
 $ fc /chat list order
-...                                 # branch-2
-...                                 # branch-1: c fails, discarded
+...                              # branch-2
+...                              # branch-1 missing
 \end{lstlisting}
 
 However, this attack is refutable: since the common history is the basis of
@@ -956,13 +954,7 @@ of at least one honest member.
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
 
-ultimo caso da alice ter feito sem querer e precisar do discard
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\iffalse
-
-As a counterpoint to the consensus order in Figure~\ref{fig.reps}(B), maybe
+As a counterpoint to the consensus order in Figure~\ref{fig.reps}.B, maybe
 members $a$ and $b$ have abandoned the forum for months, and thus
 \code{branch-1} is actually legitimate.
 In this case, members $a$ and $b$ would succeed to take over the forum, since
@@ -1021,6 +1013,12 @@ For instance, members can explicitly apply hard forks at any point in time to
 Ultimately, the consensus algorithm provides a transparent mechanism to help
 members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
+
+ultimo caso da alice ter feito sem querer e precisar do discard
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\iffalse
 
 \item [\S\ref{sec.design.overall}]
     describes the overall reputation and consensus mechanism.
