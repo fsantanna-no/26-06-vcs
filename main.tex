@@ -440,14 +440,14 @@ forums:
     Proof-of-Authoring:
     how new content mints \reps and sustains a growing forum.
 \item [\S\ref{sec.design.double}]
-    Forks and Double-spends:
-    how concurrency leads to inconsistent operations.
+    Concurrency and Double-spends:
+    how forks lead to inconsistent operations.
 \item [\S\ref{sec.design.consensus}]
     Consensus and Total Order:
-    how peers converge to the same accounting of \reps.
-\item [\S\ref{sec.design.hardforks}]
-    Malicious Behavior and Hard Forks:
-    how long partitions split into independent forums.
+    how peers converge on \reps accounting.
+\item [\S\ref{sec.design.partitions}]
+    Network Partitions:
+    how to defend from deliberate branches.
 \end{description}
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
@@ -887,58 +887,39 @@ stable, especially under a permissionless regime, so partitions are not
 exceptional events, but the norm:
     peers join, leave, and reconnect at will.
 %
-Partitions are also \emph{unbounded} and \emph{undetectable}, since a peer may
-stay offline for as long as it wants, and one cannot tell whether the network
-is unreachable or merely idle.
+Partitions are also \emph{unbounded} and possibly \emph{malicious}, since a
+peer may stay offline for as long as it wants, and no one can distinguish
+whether the causes are deliberate or accidental.
 
+The protocol, therefore, cannot treat partitions as attacks, but only react to
+the damage they may cause.
+Next, we discuss the threats and countermeasures under unbounded partitions:
+%
+\begin{description}
+\item [\S\ref{sec.design.partitions.farming}]
+    Reputation Farming:
+    how an isolated branch mints \reps unchecked.
+\item [\S\ref{sec.design.partitions.hardforks}]
+    Hard Forks:
+    how a settling window bounds the damage.
+\end{description}
 
+\subsubsection{Farming Reputation}
+\label{sec.design.partitions.farming}
 
-Partitions are also \emph{unbounded} and \emph{undetectable}, since
-  a peer may
-  stay offline for as long as it wants, and cannot tell whether the
-  network is
-  unreachable or merely idle.
-  Moreover, since peers keep posting while apart, the divergence to
-  reconcile is
-  unbounded as well.
+\subsubsection{Hard Forks}
+\label{sec.design.partitions.hardforks}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-, as a peer may stay offline
-  for as long as
-  it wants.
+\iffalse
 
-
-
-
-Since \FC is local-first, partitions are also \emph{unbounded}, as a peer may
-work offline for as long as it wants.
-
-  Unbounded partitions are, in turn, \emph{undetectable}: a
-  partitioned peer
-  cannot tell whether the network is unreachable or simply idle.
-
-  Finally, undetectable partitions may be \emph{deliberate}, and no
-  peer can tell
-  a deliberate partition apart from a legitimate one.
-  The protocol, therefore, cannot treat partitions as attacks, but
-  only bound the
-  damage they may cause.
-  %
   In CAP terms~\cite{cap}, \FC favors availability and partition
   tolerance:
   peers always accept local operations and reconcile later, whereas
   the consensus
   order provides a deterministic total order instead of
   linearizability.
-
-  We discuss the two consequences of unbounded partitions:
-  \begin{description}
-  \item [\S\ref{sec.design.partitions.farming}]
-      Farming Reputation: how an isolated branch mints \reps
-  unchecked.
-  \item [\S\ref{sec.design.partitions.hardforks}]
-      Hard Forks: how a settling window bounds the damage.
-  \end{description}
 
   CAP: two sentences is the right dose — enough to position, not a
   lecture. It needs a bib entry (Gilbert & Lynch, "Brewer's
@@ -953,14 +934,6 @@ work offline for as long as it wants.
 
   Want me to apply the subsection, the roadmap entry, the rename, and
   the CAP bib?
-
-
-
-\subsubsection{Farming Reputation}
-\label{sec.design.partitions.farming}
-
-\subsubsection{Hard Forks}
-\label{sec.design.partitions.hardforks}
 
 
 
@@ -1103,9 +1076,6 @@ Ultimately, the consensus algorithm provides a transparent mechanism to help
 members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\iffalse
 \item [\S\ref{sec.design.overall}]
     describes the overall reputation and consensus mechanism.
 \item [\S\ref{sec.design.forks}]
