@@ -100,7 +100,7 @@ In an ideal public forum, all posts
 In centralized systems, items (i) and (ii) are trivially achieved assuming
 service availability and delivery order, while item (iii) requires users to
 trust service policies.
-In decentralized systems, however, none of these demands are easily
+In decentralized systems, however, none of these demands is easily
 accomplished.
 A common approach in gossiping protocols is to proactively disseminate posts
 among peers until they reach all users~\cite{p2p.survey,p2p.byz}.
@@ -108,11 +108,12 @@ However, gossiping does not guarantee consensus since posts can be received in
 conflicting orders~\cite{p2p.intention,p2p.crdts}, nor even delivery at
 all~\cite{p2p.nostr}.
 %
-We argue that consensus is key to distinguish malicious behavior \emph{at the
-protocol level}~\cite{p2p.dag.sync}, and a requirement to satisfy item (iii).
+We argue that consensus is key to distinguishing malicious behavior \emph{at
+the protocol level}~\cite{p2p.dag.sync}, and a requirement to satisfy item
+(iii).
 Without consensus, each client must rely on local anti-abuse policies, such as
-SPAM filters, which only apply a posteriori, when the abusive messages have
-already been flooded in the network.
+SPAM filters, which only apply \emph{a posteriori}, when the abusive messages
+have already been flooded into the network.
 %
 Abuse is particularly acute in \emph{permissionless}
 networks~\cite{permissionless,blockchain.wild}, which decentralize admission
@@ -136,7 +137,7 @@ of IRC/Discord or Usenet/Reddit.
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
 consensus.
-The protocol is Sybil resistant because it is expensive to write to its
+The protocol is Sybil-resistant because it is expensive to write to its
 unique timeline (either via proof-of-work or transaction fees).
 %
 However, we argue that Bitcoin and cryptocurrencies in general are not suitable
@@ -145,7 +146,7 @@ for social content because
         security;
     (b) they lean towards concentration of power due to scaling
         effects~\cite{btc.decentralization};
-    (c) they impose external economic costs to use the protocol; and
+    (c) they impose external economic costs on using the protocol; and
     (d) they rely exclusively on objective rules to reach consensus.
 %
 These issues threaten our decentralization goals, and more importantly, they
@@ -157,7 +158,7 @@ For instance,
     objective rules alone (d) cannot distinguish abuse amid content.
 %
 Another limitation of cryptocurrencies is that it is not possible to revoke
-content in the middle of a blockchain~\cite{btc.content}, which is inadmissible
+content from a blockchain~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to resist Sybils and reach
@@ -170,10 +171,10 @@ We highlight four main contributions:
 \begin{description}
 \item [Reputation-based consensus:]
 Due to decentralization and network partitions, posts in a timeline form a
-causal graph with only partial order, which we promote to a total order based
-on the reputation of members.
+causal graph with only a partial order, which we promote to a total order
+based on the reputation of members.
 The consensus order is fundamental to detect conflicting operations, such as
-likes with insufficient reputation (akin to Bitcoin's double spending).
+likes with insufficient reputation (akin to Bitcoin's double-spending).
 %
 \item [Proof-of-authoring:]
 We recognize content as a scarce resource, since it requires human authoring
@@ -184,8 +185,9 @@ In short, token generation is expensive, while assessment is cheap and shared
 by multiple members.
 %
 \item [Independent Sybil-resistant forums:]
-Users can create diversified forums of interest (not a singleton forum), each
-as an independent timeline with its own subjective authoring etiquette.
+Users can create diversified forums of interest (rather than a single global
+one), each as an independent timeline with its own subjective authoring
+etiquette.
 Unlike proof-of-work, which is extrinsic to the application, reputation tokens
 are intrinsic to each forum.
 %
@@ -220,10 +222,10 @@ fork points may lie arbitrarily far in the past.
 This allows malicious members to forge long branches that would farm
 reputation or affect consensus.
 As a countermeasure, forks older than 100 posts or 7 days are rejected by the
-network, whereas newer malicious minority forks require manual intervention of
+network, whereas newer malicious minority forks require manual intervention by
 at least one honest member.
 %
-Regarding performance, forum DAGs are ever growing data structures that carry
+Regarding performance, forum DAGs are ever-growing data structures that carry
 considerable metadata overhead.
 The costs to store and validate posts increase over time, which is also a
 limitation of blockchains in general.
@@ -285,7 +287,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 which each topic or \emph{chain} is a replicated \emph{Merkle DAG} over
 Git~\cite{p2p.ipfs}.
 The DAG encodes the causal relationships between posts with cryptographic links
-that ensure integrity and self certification.
+that ensure integrity and self-certification.
 Since the full state of a peer is the immutable DAG, which only grows with
 appends (posts) and unions (syncs), replicas converge with strong eventual
 consistency by construction~\cite{fed.matrix,p2p.byz}.
@@ -327,8 +329,8 @@ Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
 \emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
 metadata.
 %
-The post metadata includes the action type, the member's creation timestamp,
-and a reference to the payload blob.
+The post metadata includes the action type, the member's timestamp at
+creation, and a reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
@@ -352,7 +354,7 @@ chain.
 For instance, Listing~\ref{lst.git} shows that the \emph{/chat} repository
 contains two commits with
     (1) the genesis with a random id, and
-    (2) the post pointing to its payload:
+    (2) the post pointing to its payload.
 
 \begin{lstlisting}[
     float=tbp,
@@ -399,8 +401,8 @@ DAG.
 
 Note that forks represent concurrency and imply ambiguity in the order of
 posts, which is a fundamental obstacle to consensus.
-Naturally, in permissionless forums, we cannot rely on the member's timestamps
-to order posts because they are unverifiable.
+Naturally, in permissionless forums, we cannot rely on members' timestamps to
+order posts because they are unverifiable.
 
 Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
@@ -421,11 +423,11 @@ The next section addresses both problems:
 In \FC, members spend tokens named \reps to post and rate content in forums:
     a \code{post} initially penalizes members until it consolidates and counts
     positively;
-    a \code{like} or \code{dislike} rates members and content amid excess;
+    a \code{like} or \code{dislike} rates members and content;
     a \code{revoke} or \code{unrevoke} toggles content removal.
 %
-Table~\ref{fig.general} summarizes the general reputation principles, whereas
-Table~\ref{fig.rules} lists all concrete rules, which we refer to in
+Table~\ref{tab.general} summarizes the general reputation principles, whereas
+Table~\ref{tab.rules} lists all concrete rules, which we refer to in
 illustrative examples.
 
 In the rest of this section, we detail the reputation system and how it works
@@ -476,7 +478,7 @@ Transfer & Likes and revokes transfer \reps between members and to posts
 \hline
 \end{tabular}
 \caption{General reputation principles.}
-\label{fig.general}
+\label{tab.general}
 \end{table}
 
 \begin{table*}[t]
@@ -487,14 +489,14 @@ Transfer & Likes and revokes transfer \reps between members and to posts
 \textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
 \hline
 Emission & 1.a & pioneers &
-Chain creation counts \nreps{+50K} equally distributed among pioneers.
+Chain creation grants \nreps{+50K}, equally distributed among pioneers.
 \\
          & 1.b & old post &
-Consolidated post counts \nreps{+1K} to member, after 24h, at most once a day.
+Consolidated post grants \nreps{+1K} to member, after 24h, at most once a day.
 \\
 \hline
 Expense  & 2   & new post &
-New post counts \nreps{-500} to member temporarily, refunded within 12h.
+New post charges \nreps{-500} to member temporarily, refunded within 12h.
 \\
 \hline
 Transfer &     & tax      &
@@ -520,7 +522,7 @@ Actions cost at least \nreps{500}.
 Members are limited to at most \nreps{50K}.
 \\
             & 4.c & size &
-Payloads are limited to at most \emph{128KB}.
+Payloads are limited to at most \emph{128~KB}.
 \\
 \hline
 \end{tabular}
@@ -528,25 +530,25 @@ Payloads are limited to at most \emph{128KB}.
     Concrete reputation rules.
     The constants are arbitrary and can be set at chain creation.
 }
-\label{fig.rules}
+\label{tab.rules}
 \end{table*}
 
 \subsection{Chain Bootstrapping}
 \label{sec.design.boot}
 
 To prevent Sybils, members with no \reps cannot operate under these principles,
-requiring a welcoming like from any other member already in the system.
+and require a welcoming like from any other member already in the system.
 %
 Here, we face a \emph{bootstrapping} problem, typical of permissionless
 systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
-    how to admit the first members, and
-    how to decentralize power over time?
+    how to admit the first members?
+    and how to decentralize power over time?
 %
 To address bootstrapping, we propose to designate \emph{pioneers} with initial
 \reps when creating chains.
 The pioneers shape the evolution of chains with the first posts and likes, and
-gradually transfer \reps to new members, which dilutes their initial power, and
-thus makes decentralization possible.
+gradually transfer \reps to new members, which dilutes their initial power
+and thus makes decentralization possible.
 %
 We can now be more precise about admission in permissionless forums:
 it does not mean that anyone can post at will, but that any insider can welcome
@@ -620,23 +622,22 @@ After pioneer initialization, the only way to welcome new members is through
 We propose two complementary mechanisms:
     (i) \emph{friend-to-friend} likes from members, which target known
     newcomers directly; and
-    (ii) \emph{begging posts} from newcomers, which park outside the chains
-    waiting for a member's like.
+    (ii) \emph{begging posts} from newcomers, which wait outside the chains
+    for a member's like.
 Note that the second is more interesting, since it admits total strangers based
 purely on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both.
-A like (\R{3.a}) transfers \reps from the caster to the target, burning a 10\%
+A like (\R{3.a}) transfers \reps from the origin to the target, burning a 10\%
 tax: \emph{Alice} spends \nreps{5000} and \emph{Carol} receives \nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
-author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and his post receive
+author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their post receive
 \nreps{1800} each.
-Since likes are zero-sum at best (transfers and taxes do not add value),
-malicious members have no incentives to invite Sybils into the system, or even
-cycle \reps among them.
+Since likes are at best zero-sum (transfers and taxes do not add value),
+malicious members have no incentives to invite Sybils into the system, or to
+cycle \reps among themselves.
 
-Begging posts (\R{4.a}) have restricted reach, since they are not part of the
-Merkle DAG.
+Begging posts have restricted reach, since they are not part of the Merkle DAG.
 Therefore, peers are not required to hold or forward them, and a reasonable
 policy is to keep them in a temporary bag for some visibility.
 %
@@ -650,13 +651,13 @@ Once liked, a beg is merged and becomes part of the immutable chain DAG
 \label{sec.design.poa}
 
 Pioneers solve bootstrapping, but their fixed initial \nreps{50K} cannot
-sustain a growing forum, since they would constitute the whole ``chain
-economy'' forever.
+sustain a growing forum, since it would constitute the whole ``chain economy''
+forever.
 %
 Bitcoin faces this issue and mints new coins as a reward for mining
 (\emph{proof-of-work}).
-However, CPU or other \emph{asymmetric extrinsic resources} are not evenly
-distributed among humans, especially on battery-powered devices.
+However, CPU power or other \emph{asymmetric extrinsic resources} are not
+evenly distributed among humans, especially on battery-powered devices.
 In the context of public forums, we propose to take advantage of the human
 authoring ability as a \emph{symmetric intrinsic resource}.
 \emph{Proof-of-authoring} is still analogous to mining:
@@ -681,9 +682,9 @@ $ fc /chat reps member carol     # T3: after 24h
 5500
 \end{lstlisting}
 
-Therefore, \FC rewards members that post new content that other members
-tolerate (\R{1.b}), which demands non-trivial work resistant to automation.%
-\footnote {
+Therefore, \FC rewards members whose new content other members tolerate
+(\R{1.b}), which demands non-trivial work that resists automation.%
+\footnote{
     Note that although human and AI content may become indistinguishable, their
     frequency and relevance in forums are still subject to human evaluation.
 }
@@ -697,13 +698,13 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
 \item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
-    the activity that succeeds the post.
+    the activity following the post.
 \item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
     most once a day (\R{1.b}).
 \end{description}
 %
-Since his post survived, \emph{Carol} ends with \nreps{1000} more than he
-started, representing the value he added to the chain in the form of
+Since the post survived, \emph{Carol} ends with \nreps{1000} more than she
+started with, representing the value she added to the chain in the form of
 human-authored content.
 %
 The 24-hour period gives sufficient time for other members to judge the post
@@ -719,8 +720,8 @@ the \emph{raison d'être} of public forums.
 
 Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
 correspond to \emph{double-spending} in Bitcoin.
-For instance, consider a malicious member with a single unit of \reps posting
-SPAM messages from multiple peers at the same time.
+For instance, consider a malicious member with just enough \reps for a single
+post, posting SPAM messages from multiple peers at the same time.
 As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
 DAG, which implies ambiguity in the order of posts.
 
@@ -767,37 +768,37 @@ xion           0       # rejected
 carol          0
 \end{lstlisting}
 
-In Listing~\ref{lst.double.attempt}, \emph{Carol} tries to double-spend his
+In Listing~\ref{lst.double.attempt}, \emph{Carol} tries to double-spend her
 \nreps{4500} with concurrent likes to \emph{Xion} and \emph{York} on peers
 \emph{I} and \emph{J}, just before they synchronize.
 %
 Note that each like is legitimate in isolation, but inconsistent in the merged
 DAG.
-Therefore, in Listing~\ref{lst.double.reject}, when the peer \emph{I}
-synchronizes with \emph{J}, it replays the DAG in topological order, accounts
-the transactions in sequence, detects the double-spend, and rejects it.
+Therefore, in Listing~\ref{lst.double.reject}, when peer \emph{I} synchronizes
+with \emph{J}, it replays the DAG in topological order, accounts for the
+transactions in sequence, detects the double-spend, and rejects it.
 
 However, note that all peers must replay the DAG in the exact same order,
 otherwise the accounting of \reps diverges and they become incompatible.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
-only refuse the double spend but also converge to the same state.
+only refuse the double-spend but also converge to the same state.
 
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
 
 Our idea to establish consensus in forum DAGs is to favor branches with posts
-from members that constitute the majority of the reputation.
+from members holding the majority of the reputation.
 These branches have more associated work and are analogous to the longest chain
 in Bitcoin.
 %
-When faced with a fork, the key detail is to account only the reputation in
+When faced with a fork, the key detail is to account for only the reputation in
 common ancestors of the DAG, which constitute the forum history that both sides
 agree on.
 Then, we determine the exclusive members of each side, and compare the
 aggregate reputation of these disjoint sets, as of the fork point.
 %
-Finally, the winning branch is entirely sorted first, with the losing side
-going in sequence, after the last action of the winning side.
+Finally, the winning branch is sorted entirely first, followed by the losing
+side after the last action of the winning side.
 
 \begin{figure*}[t]
 \centering
@@ -828,7 +829,7 @@ Figure~\ref{fig.reps}.B indicates the resulting consensus order:
     then all posts in \code{branch-2},
     then all posts in \code{branch-1}.
 
-During replay in consensus order, if any action fails (e.g., a double spend),
+During replay in consensus order, if any action fails (e.g., a double-spend),
 then all remaining actions are rejected and erased from the DAG, as if they
 never existed.
 %
@@ -863,7 +864,7 @@ branch, with no reordering and no extra effort.
 This behavior is expected to happen on most peers.
 %
 However, the other side needs to reorder all posts after the fork point,
-which might involve erasing content in the end-user software.
+which might involve erasing content from the end-user software.
 This behavior is similar to Bitcoin's blockchain reorganization, when peers
 detect a new longest chain.
 %
@@ -871,7 +872,7 @@ Legitimate posts that are erased must be reposted by their authors.
 Still, we expect legitimate members to gossip among themselves more often,
 which makes this situation rare.
 %
-Note that unlike Bitcoin, forks are not only permitted but encouraged due to
+Note that, unlike Bitcoin, forks are not only permitted but encouraged due to
 the local-first software principle~\cite{p2p.local}.
 However, the longer a peer remains disconnected, the higher the chances of
 conflicting actions.
@@ -894,8 +895,8 @@ Partitions are also \emph{unbounded} and possibly \emph{malicious}, since a
 peer may stay offline for as long as it wants, and no one can distinguish
 whether the causes are deliberate or accidental.
 
-The protocol, therefore, cannot treat partitions as attacks, but only react to
-the damage they may cause.
+The protocol, therefore, cannot treat partitions as attacks, but can only
+react to the damage they may cause.
 Next, we discuss the threats and countermeasures under unbounded partitions:
 %
 \begin{description}
@@ -933,8 +934,8 @@ $ fc /chat list order
 \end{lstlisting}
 
 However, this attack is refutable: since the common history is the basis of
-consensus, members in the branch with more reputation can still react even a
-posteriori.
+consensus, members in the branch with more reputation can still react, even
+\emph{a posteriori}.
 %
 For instance, members $a$ and $b$ can pretend that they did not yet see
 \code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
@@ -942,20 +943,20 @@ that a further merge invalidates all posts from \code{branch-1}, as if they
 never existed.
 %
 Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
-\code{branch-1} locally before casting the dislike that ban $c$, so that the
+\code{branch-1} locally before casting the dislike that bans $c$, so that the
 next merge rejects \code{branch-1} for good.
 %
 Note that, as peers synchronize, all honest peers converge to the same state,
 i.e., a single refutation propagates to the rest of the network.
 
-Therefore, a minority attack that farms new \reps is refutable, since it is
-bounded by the \reps in the common history, but it requires the intervention
-of at least one honest member.
+Therefore, a minority attack that farms new \reps is refutable, since its
+power is bounded by the \reps in the common history, but it requires the
+intervention of at least one honest member.
 
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
 
-When we consider that forging long branches from ancient fork points is
+Considering that forging long branches from ancient fork points is
 undetectable, reputation alone becomes a fragile criterion for consensus.
 For instance, past members holding the majority of \reps at any point in time
 could still override the present.
@@ -978,7 +979,7 @@ oldest and newest actions.
 Only the posts older than that window are frozen; the most recent ones can
 still be reordered.
 So, if consensus replay would reorder local frozen posts, then the merge is
-simply refused and the peers are no longer compatible, which is analogous to a
+simply refused and the two peers become incompatible, which is analogous to a
 hard fork in Bitcoin.
 In contrast, peers that remain active and synchronize over time evolve together
 with a stable order.
@@ -986,8 +987,8 @@ with a stable order.
 Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
 consensus}, which cannot be reordered, from \emph{unstable consensus}, which
 may still be affected by incoming branches.
-The activity threshold counts backwards, starting from the newest local post
-in the unstable consensus to older posts until they are permanently frozen.
+The activity threshold counts backwards from the newest local post in the
+unstable consensus until older posts are permanently frozen.
 
 \begin{figure}
 \centering
@@ -1005,21 +1006,21 @@ branch \code{i} from a local machine are as follows:
         regardless of \code{j}.
     \item \code{i} or \code{j} is first, whichever has more reputation in the
         common history (\S\ref{sec.design.consensus}).
-    \item otherwise, branches use the arbitrary criteria of lexicographical
+    \item Otherwise, branches use the arbitrary criterion of lexicographic
         order of the post hashes immediately after the common prefix.
 \end{itemize}
 
 To conclude this section, we should keep in mind that our consensus algorithm
 is based on subjective evaluations of members and posts.
 For this reason, unlike Bitcoin, in which forks are discouraged and a single
-blockchain must prevail, forums can split and diverge indiscriminately.
+blockchain must prevail, forums can split and diverge freely.
 For instance, members can explicitly apply hard forks at any point in time to
 ``reboot'' a community from a previous state.
 Ultimately, the consensus algorithm provides a transparent mechanism to help
 members understand the evolution of forums and act accordingly, even if it
 leads to hard forks.
 
-More than simple numeric disputes, a hard fork represents a social conflict in
+More than a simple numeric dispute, a hard fork represents a social conflict in
 which reconciling branches is no longer possible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1211,7 +1212,7 @@ Later, if the post receives new likes, it means that the payload is still known
 somewhere and peers can request it when synchronizing again, since the post
 becomes \code{ACCEPTED} again.
 
-In summary, the operations and constraints in Table~\ref{fig.rules} together
+In summary, the operations and constraints in Table~\ref{tab.rules} together
 with the consensus rules of Figures~\ref{fig.reps}~and~\ref{fig.hard} empower
 \FC with permissionless public forums.
 
@@ -1286,7 +1287,7 @@ The comparison function needs to find the non-common members in the suffix of
 the two branches in order to compare the sum of their reputations.
 %
 For this reason, the algorithm also needs to track negative, neutral, and
-positive posts according to Table~\ref{fig.rules}.
+positive posts according to Table~\ref{tab.rules}.
 %
 We take advantage of the hard fork rule that freezes the consensus list $L$
 when crossing the activity threshold (stable consensus in Figure~\ref{fig.hard}).
@@ -1445,7 +1446,7 @@ confirms that the simulation achieves a reasonable level of asynchrony.
 
 Evaluation item (d) measures how much bookkeeping is required to sustain active
 members in the forums.
-Even though the newbie rule~\code{4.a} in Table~\ref{fig.rules} is key to
+Even though the newbie rule~\code{4.a} in Table~\ref{tab.rules} is key to
 combat Sybils, ideally it should not recurrently deny access to active members
 with low reputation.
 %
@@ -1914,7 +1915,7 @@ In contrast, as stated in Section~\ref{sec.freechains}, the gossip layer of
 semantics of chains, which already verifies posts at publishing time.
 For instance, to flood the network with posts, malicious peers need to spend
 reputation, which takes hours to recharge (rule~\code{2} in
-Table~\ref{fig.rules}).
+Table~\ref{tab.rules}).
 In addition, blocked posts (Figure~\ref{fig.state}) are not a concern either,
 because they have limited reachability.
 Another advantage of a tighter integration between the application and protocol
@@ -1928,7 +1929,7 @@ layers, which suggests that \FC could benefit of the latter to manage the
 interconnections between peers.
 
 \subsection{Federated Protocols}
-
+s
 Federated protocols, such as e-mail, allow users from one domain to exchange
 messages with users of other domains seamlessly.
 \emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
