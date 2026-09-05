@@ -221,7 +221,7 @@ As a main limitation, forums are DAGs subject to unbounded partitions whose
 fork points may lie arbitrarily far in the past.
 This allows malicious members to forge long branches that would farm
 reputation or affect consensus.
-As a countermeasure, forks older than 100 posts or 7 days are rejected by the
+As a countermeasure, forks older than 100 actions or 7 days are rejected by the
 network, whereas newer malicious minority forks require manual intervention by
 at least one honest member.
 %
@@ -500,7 +500,7 @@ New post charges \nreps{-500} to member temporarily, refunded within 12h.
 \\
 \hline
 Transfer &     & tax      &
-All operations burn a 10\% tax before target.
+All operations burn a 10\% tax before target (member or post).
 \\
          & 3.a & like     &
 Like counts \nreps{-n} to origin and \nreps{+n} to target.
