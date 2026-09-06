@@ -84,8 +84,7 @@ of a few companies (e.g., Meta and X)~\cite{internet.fixing,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
 These companies offer free storage, friendly user interfaces, and robust
-access, but concentrate excessive power, controlling and monetizing private
-user data.
+access, but in exchange control moderation and monetize user data.
 %
 Peer-to-peer alternatives~\cite{p2p.survey} eliminate intermediaries, but
 struggle to achieve consistency when dealing with malicious
@@ -102,6 +101,7 @@ service availability and delivery order, while item (iii) requires users to
 trust service policies.
 In decentralized systems, however, none of these demands is easily
 accomplished.
+
 A common approach in gossiping protocols is to proactively disseminate posts
 among peers until they reach all users~\cite{p2p.survey,p2p.byz}.
 However, gossiping does not guarantee consensus since posts can be received in
@@ -118,6 +118,10 @@ have already been flooded into the network.
 Abuse is particularly acute in \emph{permissionless}
 networks~\cite{permissionless,blockchain.wild}, which decentralize admission
 and therefore must combat Sybils~\cite{p2p.sybil,p2p.mastodon}.
+% TODO: 2.17.b
+Reputation systems are a well-studied means to build trust among
+strangers~\cite{rep.systems}, which we adopt to address item (iii) and Sybils
+without central authorities.
 
 Permissionless consensus is notably challenging to the point that protocols
 partially abdicate it along two axes.
@@ -163,9 +167,6 @@ inadmissible considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
-% TODO: 2.17.b
-Reputation systems are a well-studied means to build trust among
-strangers~\cite{rep.systems}.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
 \FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
 strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
