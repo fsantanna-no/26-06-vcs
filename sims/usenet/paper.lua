@@ -15,7 +15,7 @@ local MON = {
     Jul=7, Aug=8, Sep=9, Oct=10, Nov=11, Dec=12
 }
 
-local f   = io.open('yyy.mbox')
+local f   = io.open('../data/yyy.mbox')
 local out = io.open('comp-10k.mbox', 'w')
 
 function read_until (patt)

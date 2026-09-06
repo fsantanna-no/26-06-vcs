@@ -90,7 +90,7 @@ end
 
 local N = 0
 local tpost, npost = 0, 0     -- accumulated post time in the window
-for l in io.lines('wikimedia.chat') do
+for l in io.lines('../data/wikimedia.chat') do
     l = string.gsub(l, "'", " ")
     local y,m,d,hh,mm,ss,user,msg = string.match(l, "(%d%d%d%d)(%d%d)(%d%d) %[(%d%d):(%d%d):(%d%d)%] %<([%a%d-_]+)%>\t(.*)")
     if y then

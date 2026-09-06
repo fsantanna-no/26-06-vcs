@@ -3,15 +3,8 @@ pdfs/
 main.pdf
 .*.swp
 *.aux
-*.log
+/*.log
 *.bbl
 *.blg
 *.out
 *.toc
-sims/se/ips/
-sims/se/politics/
-sims/se/retro/
-sims/se/veg/
-sims/se/.*
-#sims/chat/*.chat
-#sims/usenet/*.mbox

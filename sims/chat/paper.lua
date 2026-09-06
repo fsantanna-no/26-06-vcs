@@ -16,7 +16,7 @@ local users = {}
 local nusers = 0
 local ts1, ts2
 
-for l in io.lines('wikimedia.chat') do
+for l in io.lines('../data/wikimedia.chat') do
     local y,m,d,hh,mm,ss,user,msg = string.match(l, "(%d%d%d%d)(%d%d)(%d%d) %[(%d%d):(%d%d):(%d%d)%] %<([%a%d-_]+)%>\t(.*)")
     if y then
         n = n + 1

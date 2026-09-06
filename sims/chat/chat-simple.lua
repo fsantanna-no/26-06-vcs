@@ -25,7 +25,7 @@ local function env (name, default)
     end
 end
 
-local CHAT   = env('CHAT',   'wikimedia.chat')   -- input log
+local CHAT   = env('CHAT',   '../data/wikimedia.chat')   -- input log
 local LIMIT  = env('LIMIT',  10000)              -- stop after N msgs (nil = all)
 local WINDOW = env('WINDOW', 5000)               -- report every WINDOW msgs
 local SWEEP  = env('SWEEP',  true)               -- `sweep` at every report

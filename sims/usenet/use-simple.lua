@@ -22,7 +22,7 @@ local function env (name, default)
     end
 end
 
-local MBOX   = env('MBOX',   '../../old/tpd-21/usenet/yyy.mbox')
+local MBOX   = env('MBOX',   '../data/yyy.mbox')
 local LIMIT  = env('LIMIT',  false)              -- stop after N msgs (false = all)
 local WINDOW = env('WINDOW', 5000)               -- report every WINDOW msgs
 local SWEEP  = env('SWEEP',  true)               -- `sweep` at every report

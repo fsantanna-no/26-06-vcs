@@ -22,7 +22,7 @@ local function env (name, default)
     end
 end
 
-local SITE   = env('SITE',   'retro')            -- dir with Posts.xml/Votes.xml
+local SITE   = env('SITE',   'retro')            -- site under ../data/se/
 local LIMIT  = env('LIMIT',  false)              -- stop after N events (false = all)
 local WINDOW = env('WINDOW', 5000)               -- report every WINDOW events
 local SWEEP  = env('SWEEP',  true)
@@ -89,7 +89,7 @@ local BODY  = {}    -- seid -> payload
 local PT0   = {}    -- seid -> creation ts (vote clamping)
 local seq   = 0
 
-for l in io.lines(SITE .. "/Posts.xml") do
+for l in io.lines("../data/se/" .. SITE .. "/Posts.xml") do
     local ty = attr(l, "PostTypeId")
     if ty == "1" or ty == "2" then
         local id = attr(l, "Id")
@@ -103,7 +103,7 @@ for l in io.lines(SITE .. "/Posts.xml") do
 end
 local nposts = #EV
 
-for l in io.lines(SITE .. "/Votes.xml") do
+for l in io.lines("../data/se/" .. SITE .. "/Votes.xml") do
     local ty = attr(l, "VoteTypeId")
     if (ty == "2" or ty == "3") and BODY[attr(l, "PostId")] then
         local id = attr(l, "PostId")
