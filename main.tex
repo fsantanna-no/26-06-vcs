@@ -163,6 +163,9 @@ inadmissible considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
+% TODO: 2.17.b
+Reputation systems are a well-studied means to build trust among
+strangers~\cite{rep.systems}.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
 \FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
 strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
@@ -445,6 +448,9 @@ forums:
 \item [\S\ref{sec.design.poa}]
     Proof-of-Authoring:
     how new content mints \reps and sustains a growing forum.
+\item [\S\ref{sec.design.rating}]
+    Content Rating:
+    how likes and dislikes measure quality and combat abuse.
 \item [\S\ref{sec.design.double}]
     Concurrency and Double-spends:
     how forks lead to inconsistent operations.
@@ -725,6 +731,68 @@ behave as an independent human to pass proof-of-authoring.
 Ultimately, we argue that the actual threat is automated content, which the
 community must detect and dislike in any case.
 
+% TODO: 2.17.a
+\subsection{Content Rating}
+\label{sec.design.rating}
+
+% TODO: 2.17.b
+Rating content is a defining feature of public forums, from Slashdot's
+scarce moderation points~\cite{forum.slashdot} to Reddit's
+votes~\cite{forum.reddit} and Stack Overflow's
+reputation~\cite{forum.stackoverflow}.
+
+Likes and dislikes (\R{3.a}) serve three purposes:
+    (i)   welcoming new members (\S\ref{sec.design.members}),
+    (ii)  rating the quality of posts, and
+    (iii) supporting revocation of abusive posts (\R{3.b}).
+Quality is subjective and up to members to judge with likes, dislikes, or
+abstention.
+The \reps of a post is the balance of its likes and dislikes, which end-user
+software can use to filter and highlight content.
+Since \reps are finite, members must ponder before spending; since \reps are
+capped (\R{4.b}), members also have an incentive to spend them on rating.
+These lower and upper limits work together towards the quality of forums.
+Note that a dislike shrinks the forum economy, since it removes \reps from
+both origin and target.
+Hence, dislikes are meant to combat abuse, not to suppress divergence of
+opinion.
+
+Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
+provides incentives to spend likes and thus decentralize the network, while
+rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
+DDoS attacks using gigantic blocked posts.
+
+Likes and dislikes (rules \code{3.a} and \code{3.b}) serve three purposes
+in the chains:
+    (i) welcoming new members,
+    (ii) measuring the quality of posts, and
+    (iii) revoking abusive posts (SPAM, fake news, illicit content, etc).
+%
+The quality of posts is subjective and is up to members to judge them with likes,
+dislikes, or simply abstaining.
+%
+%This way, access to chains is permissionless in the sense that the actual peers
+%and identities behind posts are not directly assessed by the protocol, but
+%instead by the judgement of other users in the system.
+%
+The reputation of a given post is the difference between its likes and
+dislikes, which can be used in end-user software for filtering and highlighting
+purposes.
+%
+On the one hand, since \reps are finite, members need to ponder to avoid
+indiscriminate expenditure.
+On the other hand, since \reps are limited to at most \nreps{30} per member
+(rule~\code{4.b}), members also have incentives to rate content.
+Hence, these upper and lower limits work together towards the quality of the
+chains.
+%
+Note that a dislike shrinks the chain economy since it removes \reps from both
+the origin and target.
+Finally, the actual contents of a post may be revoked if it has at least 3
+dislikes, and more dislikes than likes (rule~\code{3}).
+However, considering that \reps are scarce, dislikes are encouraged to combat
+abusive behavior, but not to eliminate divergences of opinion.
+
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
 
@@ -798,14 +866,26 @@ only refuse the double-spend but also converge to the same state.
 
 Our idea to establish consensus in forum DAGs is to favor branches with posts
 from members holding the majority of the reputation.
-These branches have more associated work and are analogous to the longest chain
-in Bitcoin.
+% TODO: 2.1.b
+These branches are backed by members with more past contributions, which is
+analogous to \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, with
+reputation as stake, rather than to the longest chain of Bitcoin.
+However, proof-of-stake rewards holding, which compounds wealth, whereas
+proof-of-authoring rewards authoring, and the cap of \R{4.b} prevents
+compounding.
 %
 When faced with a fork, the key detail is to account for only the reputation in
 common ancestors of the DAG, which constitute the forum history that both sides
 agree on.
-Then, we determine the exclusive members of each side, and compare the
-aggregate reputation of these disjoint sets, as of the fork point.
+% TODO: 2.1.c
+Then, we determine the exclusive members of each side, and compare the total
+\reps of these disjoint sets as of the fork point, regardless of how they were
+obtained.
+% TODO: 2.1.d
+Members that act on both sides of the fork are excluded from both sets, since
+they contribute equally to either branch, which also neutralizes the
+\emph{nothing-at-stake} behavior of proof-of-stake~\cite{pos.weak}, in which
+voting on every fork is free.
 %
 Finally, the winning branch is sorted entirely first, followed by the losing
 side after the last action of the winning side.
@@ -839,9 +919,10 @@ Figure~\ref{fig.reps}.B indicates the resulting consensus order:
     then all posts in \code{branch-2},
     then all posts in \code{branch-1}.
 
+% TODO: 2.4.b
 During replay in consensus order, if any action fails (e.g., a double-spend),
-then all remaining actions are rejected and erased from the DAG, as if they
-never existed.
+then all remaining actions in that branch are rejected and never merged into
+the local DAG, as if they never existed.
 %
 As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
 \code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
@@ -861,6 +942,9 @@ Figure~\ref{fig.reps}:
 \item Order branches by highest sum first:%
 \footnote{
     We compare the action hashes after the fork point as the tie breaker.
+% TODO: 2.1.e
+    This is subject to \emph{stake grinding}, in which a member varies content
+    to obtain a favorable hash, but it only affects ties.
 }                                                           \\
     \code{common <- branch-2 <- branch-1}
 \item Discard actions from the first failure on:            \\
@@ -968,8 +1052,10 @@ intervention of at least one honest member.
 
 Considering that forging long branches from ancient fork points is
 undetectable, reputation alone becomes a fragile criterion for consensus.
+% TODO: 2.1.f
 For instance, past members holding the majority of \reps at any point in time
-could still override the present.
+could still override the present, which corresponds to the \emph{long-range
+attack} in proof-of-stake~\cite{pos.weak}.
 
 In Figure~\ref{fig.reps}.A, as a counterpoint to member $c$ farming \reps,
 suppose members $a$ and $b$ are the ones who have abandoned the forum for
@@ -984,6 +1070,10 @@ local forum.
 
 Therefore, as a measure against malicious members with strong past reputation,
 \FC protects settled local branches from unexpected consensus reorderings.
+% TODO: 2.1.g
+This settling window plays the role of checkpoints under \emph{weak
+subjectivity}~\cite{pos.weak}, in which a peer trusts its own recent view
+over any older incoming branch.
 A branch settles once it holds at least 100 actions or spans 7 days between its
 oldest and newest actions.
 Only the posts older than that window are frozen; the most recent ones can
@@ -1012,8 +1102,9 @@ unstable consensus until older posts are permanently frozen.
 In summary, the rules to merge a branch \code{j} from a remote machine into a
 branch \code{i} from a local machine are as follows:
 \begin{itemize}
-    \item \code{i} is first if it crosses the activity window threshold,
-        regardless of \code{j}.
+    % TODO: 2.3.a
+    \item The merge is refused if \code{j} wins and would reorder the settled
+        prefix of \code{i}, regardless of the reputation of \code{j}.
     \item \code{i} or \code{j} is first, whichever has more reputation in the
         common history (\S\ref{sec.design.consensus}).
     \item Otherwise, branches use the arbitrary criterion of lexicographic
@@ -1133,42 +1224,6 @@ For instance, in slow technical mailing lists, it is more expensive to post
 messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
-
-Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
-provides incentives to spend likes and thus decentralize the network, while
-rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
-DDoS attacks using gigantic blocked posts.
-
-Likes and dislikes (rules \code{3.a} and \code{3.b}) serve three purposes
-in the chains:
-    (i) welcoming new members,
-    (ii) measuring the quality of posts, and
-    (iii) revoking abusive posts (SPAM, fake news, illicit content, etc).
-%
-The quality of posts is subjective and is up to members to judge them with likes,
-dislikes, or simply abstaining.
-%
-%This way, access to chains is permissionless in the sense that the actual peers
-%and identities behind posts are not directly assessed by the protocol, but
-%instead by the judgement of other users in the system.
-%
-The reputation of a given post is the difference between its likes and
-dislikes, which can be used in end-user software for filtering and highlighting
-purposes.
-%
-On the one hand, since \reps are finite, members need to ponder to avoid
-indiscriminate expenditure.
-On the other hand, since \reps are limited to at most \nreps{30} per member
-(rule~\code{4.b}), members also have incentives to rate content.
-Hence, these upper and lower limits work together towards the quality of the
-chains.
-%
-Note that a dislike shrinks the chain economy since it removes \reps from both
-the origin and target.
-Finally, the actual contents of a post may be revoked if it has at least 3
-dislikes, and more dislikes than likes (rule~\code{3}).
-However, considering that \reps are scarce, dislikes are encouraged to combat
-abusive behavior, but not to eliminate divergences of opinion.
 
 \subsection{Content Revocation}
 \label{sec.design.revoke}
