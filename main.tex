@@ -507,16 +507,16 @@ Expense  & 2   & new post &
 New post charges \nreps{-500} to member temporarily, refunded within 12h.
 \\
 \hline
-Transfer &     & tax      &
+Transfer & 3.a & tax      &
 All operations burn a 10\% tax before target (member or post).
 \\
-         & 3.a & like     &
+         & 3.b & like     &
 Like counts \nreps{-n} to origin and \nreps{+n} to target.
 \\
          &     & dislike  &
 Dislike counts \nreps{-n} to origin and \nreps{-n} to target.
 \\
-         & 3.b & revoke   &
+         & 3.c & revoke   &
 Revoke counts \nreps{-n} to origin and target, and erases the payload.
 \\
          &     & unrevoke &
@@ -593,8 +593,8 @@ now Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
 %
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers, whose public keys are part of the genesis commit.
-According to \R{1.a}, the total of \nreps{50K} is equally split and each
-pioneer starts with \nreps{25K}.
+The total of \nreps{50K} is equally split and each pioneer starts with
+\nreps{25K} (\R{1.a}).
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
 (\R{4.a}).
 
@@ -636,8 +636,9 @@ Note that the second is more interesting, since it admits total strangers based
 purely on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both.
-A like (\R{3.a}) transfers \reps from the origin to the target, burning a 10\%
-tax: \emph{Alice} spends \nreps{5000} and \emph{Carol} receives \nreps{4500}.
+A like transfers \reps from the origin to the target (\R{3.b}), burning a 10\%
+tax (\R{3.a}): \emph{Alice} spends \nreps{5000} and \emph{Carol} receives
+\nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
 author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their post receive
 \nreps{1800} each.
@@ -702,7 +703,7 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 %
 \begin{description}
 \item[T0:] \emph{Carol} holds the \nreps{4500} received from \emph{Alice}'s
-    welcoming like (\R{3.a}).
+    welcoming like (\R{3.b}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
 \item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
@@ -732,67 +733,29 @@ behave as an independent human to pass proof-of-authoring.
 Ultimately, we argue that the actual threat is automated content, which the
 community must detect and dislike in any case.
 
-% TODO: 2.17.a
 \subsection{Content Rating}
 \label{sec.design.rating}
 
-% TODO: 2.17.b
-Rating content is a defining feature of public forums, from Slashdot's
-scarce moderation points~\cite{forum.slashdot} to Reddit's
-votes~\cite{forum.reddit} and Stack Overflow's
-reputation~\cite{forum.stackoverflow}.
+Rating content is a defining feature of public forums, from Slashdot's scarce
+moderation points~\cite{forum.slashdot} to Reddit's votes~\cite{forum.reddit}
+and Stack Overflow's reputation~\cite{forum.stackoverflow}.
 
-Likes and dislikes (\R{3.a}) serve three purposes:
-    (i)   welcoming new members (\S\ref{sec.design.members}),
-    (ii)  rating the quality of posts, and
-    (iii) supporting revocation of abusive posts (\R{3.b}).
-Quality is subjective and up to members to judge with likes, dislikes, or
-abstention.
-The \reps of a post is the balance of its likes and dislikes, which end-user
-software can use to filter and highlight content.
-Since \reps are finite, members must ponder before spending; since \reps are
-capped (\R{4.b}), members also have an incentive to spend them on rating.
+The quality of posts is subjective and is up to members to judge them with
+likes, dislikes, or simply abstaining.
+In \FC, each forum post holds an individual \reps balance as the difference
+between likes and dislikes targeting it (\R{1.b}), which can be used in
+end-user software can use to filter and highlight content.
+
+TODO: example
+- two users, one likes, the other dislikes the same post
+- show reps of each user and post
+
+On the one hand, since \reps are finite, members must ponder before spending
+them.
+On the other hand, since \reps are capped (\R{4.b}), members also have an
+incentive to spend them on rating, and thus decentralize power.
+%
 These lower and upper limits work together towards the quality of forums.
-Note that a dislike shrinks the forum economy, since it removes \reps from
-both origin and target.
-Hence, dislikes are meant to combat abuse, not to suppress divergence of
-opinion.
-
-Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
-provides incentives to spend likes and thus decentralize the network, while
-rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
-DDoS attacks using gigantic blocked posts.
-
-Likes and dislikes (rules \code{3.a} and \code{3.b}) serve three purposes
-in the chains:
-    (i) welcoming new members,
-    (ii) measuring the quality of posts, and
-    (iii) revoking abusive posts (SPAM, fake news, illicit content, etc).
-%
-The quality of posts is subjective and is up to members to judge them with likes,
-dislikes, or simply abstaining.
-%
-%This way, access to chains is permissionless in the sense that the actual peers
-%and identities behind posts are not directly assessed by the protocol, but
-%instead by the judgement of other users in the system.
-%
-The reputation of a given post is the difference between its likes and
-dislikes, which can be used in end-user software for filtering and highlighting
-purposes.
-%
-On the one hand, since \reps are finite, members need to ponder to avoid
-indiscriminate expenditure.
-On the other hand, since \reps are limited to at most \nreps{30} per member
-(rule~\code{4.b}), members also have incentives to rate content.
-Hence, these upper and lower limits work together towards the quality of the
-chains.
-%
-Note that a dislike shrinks the chain economy since it removes \reps from both
-the origin and target.
-Finally, the actual contents of a post may be revoked if it has at least 3
-dislikes, and more dislikes than likes (rule~\code{3}).
-However, considering that \reps are scarce, dislikes are encouraged to combat
-abusive behavior, but not to eliminate divergences of opinion.
 
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
@@ -920,10 +883,9 @@ Figure~\ref{fig.reps}.B indicates the resulting consensus order:
     then all posts in \code{branch-2},
     then all posts in \code{branch-1}.
 
-% TODO: 2.4.b
 During replay in consensus order, if any action fails (e.g., a double-spend),
-then all remaining actions in that branch are rejected and never merged into
-the local DAG, as if they never existed.
+then all remaining actions in the losing branch are rejected and erased from
+the DAG, as if they never existed.
 %
 As an example, in Figure~\ref{fig.reps}.B, suppose that the last post by $a$ in
 \code{branch-2} (in gray) is a dislike to member $c$ that affects its capacity
@@ -1147,6 +1109,20 @@ which reconciling branches is no longer possible.
 \iffalse
 We assume \emph{Carol} is honest and online...
 Also, local time
+
+Note that a dislike shrinks the forum economy, since it removes \reps from
+both origin and target.
+Hence, dislikes are meant to combat abuse, not to suppress divergence of
+opinion.
+Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
+provides incentives to spend likes and thus decentralize the network, while
+rule~\code{4.c} limits the size of posts to at most \emph{128KB} to prevent
+DDoS attacks using gigantic blocked posts.
+
+Finally, the actual contents of a post may be revoked if it has at least 3
+dislikes, and more dislikes than likes (rule~\code{3}).
+However, considering that \reps are scarce, dislikes are encouraged to combat
+abusive behavior, but not to eliminate divergences of opinion.
 
 In summary, the reputation system makes Freechains
 **(a)** Sybil-resistant: write operations require and spend `reps`; and
