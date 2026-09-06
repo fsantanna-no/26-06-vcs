@@ -157,9 +157,9 @@ For instance,
     and subject to the same consensus rules, while
     objective rules alone (d) cannot distinguish abuse amid content.
 %
-Another limitation of cryptocurrencies is that it is not possible to revoke
-content from a blockchain~\cite{btc.content}, which is inadmissible
-considering illicit content in public forums.
+Another limitation of cryptocurrencies in general is the lack of support for
+revoking payloads at the protocol level~\cite{btc.content}, which is
+inadmissible considering illicit content in public forums.
 
 In this work, we adapt the idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
@@ -217,13 +217,14 @@ Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
 
-As a main limitation, forums are DAGs subject to unbounded partitions whose
-fork points may lie arbitrarily far in the past.
-This allows malicious members to forge long branches that would farm
-reputation or affect consensus.
+As a main limitation, forums are DAGs subject to unbounded network partitions,
+allowing malicious members to forge long branches, similarly to
+\emph{long-range attacks} in proof-of-stake systems~\cite{pos.weak}.
 As a countermeasure, forks older than 100 actions or 7 days are rejected by the
 network, whereas newer malicious minority forks require manual intervention by
 at least one honest member.
+Similarly, Sybil resistance is not absolute, but each fake identity must
+replicate human behavior to pass proof-of-authoring undetected.
 %
 Regarding performance, forum DAGs are ever-growing data structures that carry
 considerable metadata overhead.
@@ -458,7 +459,7 @@ forums:
 Since we build upon unmodified Git, we argue that our design can be adapted to
 any system that structures posts as a Merkle DAG.
 For instance, the consensus order is just a view of the underlying DAG, which
-remains untouched.
+only decides which incoming posts are merged.
 
 \begin{table}[t]
 \centering
@@ -633,9 +634,9 @@ tax: \emph{Alice} spends \nreps{5000} and \emph{Carol} receives \nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
 author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their post receive
 \nreps{1800} each.
+%
 Since likes are at best zero-sum (transfers and taxes do not add value),
-malicious members have no incentives to invite Sybils into the system, or to
-cycle \reps among themselves.
+there is no incentive to cycle reps among colluding Sybils.
 
 Begging posts have restricted reach, since they are not part of the Merkle DAG.
 Therefore, peers are not required to hold or forward them, and a reasonable
@@ -714,6 +715,15 @@ reward members with more \reps (\R{1.b}).
 %
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
+
+As a limitation, since emission (\R{1.b}) and the \reps cap (\R{4.b}) apply
+per identity, a reputed attacker has the incentive to seed several fresh
+identities, which then post daily to multiply emission.
+%
+This is not a Sybil attack in the strict sense, since each identity must still
+behave as an independent human to pass proof-of-authoring.
+Ultimately, we argue that the actual threat is automated content, which the
+community must detect and dislike in any case.
 
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
