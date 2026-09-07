@@ -83,6 +83,7 @@ Public online forums and social media are increasingly centralized in the hands
 of a few companies (e.g., Meta and X)~\cite{internet.fixing,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
+% SZT: "polemica" amenizada
 These companies offer free storage, friendly user interfaces, and robust
 access, but in exchange control moderation and monetize user data.
 %
@@ -123,6 +124,10 @@ To that end, reputation systems are a well-studied means to build trust among
 strangers~\cite{rep.systems}, which we propose as a core mechanism to also
 address item (iii).
 
+% SZT: o paragrafo com "partially abdicate" foi inteiramente removido e vai ser
+% readaptado em Related Work. O argumento é que muitos protocolos sequer tentam
+% ter consenso (partially abdicate permissionless consensus)
+
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
 consensus.
@@ -150,6 +155,8 @@ Another limitation of cryptocurrencies in general is the lack of support for
 revoking payloads at the protocol level~\cite{btc.content}, which is
 inadmissible considering illicit content in public forums.
 
+% SZT: strong eventual consistency, sim termo tecnico, e é visto como bom
+
 In this work, we adapt the idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
 We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
@@ -159,9 +166,13 @@ We highlight four main contributions:
 %
 \begin{description}
 \item [Reputation-based consensus:]
+% SZT: nao ha nenhuma tentativa de sincronizacao de clocks
 Due to decentralization and network partitions, posts in a timeline form a
 causal graph with only a partial order, which we promote to a total order
 based on the reputation of members.
+% SZT: tem uma secao inteira "Concurrency and Double-spends". o problema do
+% double-spend do Bitcoin é bastante conhecido. Mas aqui pode pensar como o
+% problema classico de dois writes concorrentes e conflitantes.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double-spending).
 Unlike blockchain-based consensus, which requires peers to be permanently
@@ -172,13 +183,18 @@ We recognize content as a scarce resource, since it requires human authoring
 work (akin to Bitcoin's mining).
 If admitted by other members, new posts reward authors with reputation tokens,
 which authors further spend to rate other posts with likes and dislikes.
+% SZT: o argumento do mining do Bitcoin é esse: muito mais caro minerar blocos
+% do que valida-los.
 In short, token generation is expensive, while assessment is cheap and shared
 by multiple members.
 %
 \item [Independent Sybil-resistant forums:]
 Users can create diversified forums of interest (rather than a single global
-one), each as an independent timeline with its own subjective authoring
+one), each with an independent timeline with its own subjective authoring
 etiquette.
+% SZT: acho que é cedo pra entender os detalhes. o ponto aqui é que cada forum
+% se defende dos outros, pois nao depende de um recurso externo (que poderia
+% ser usado em qq forum)
 Unlike proof-of-work, which is extrinsic to the application, reputation tokens
 are intrinsic to each forum.
 %
@@ -201,9 +217,10 @@ The goal is to demonstrate how the consensus mechanism can empower mostly
 conflict-free replicated data types (\emph{quasi-CRDTs}) when they do encounter
 conflicting operations.
 \item [Git-based backend:]
-We implement \FC on top of Git as a familiar and solid basis, providing content
-addressing, integrity, versioning, signing, deduplication, compression, and
-replication for free.
+% SZT: "familiar and solid p2p foundation"
+We implement \FC on top of Git as a familiar and solid peer-to-peer foundation,
+providing content addressing, integrity, versioning, signing, deduplication,
+compression, and replication for free.
 Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 \end{description}
@@ -232,7 +249,7 @@ The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
 how they map to the Git backend.
 In Section~\ref{sec.design}, we describe the reputation and consensus
-mechanism, discuss relevant security threats, and prove its SEC property
+mechanisms, discuss relevant security threats, and prove its SEC property
 (TODO).
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
 forum archives.
@@ -280,12 +297,18 @@ which each topic or \emph{chain} is a replicated \emph{Merkle DAG} over
 Git~\cite{p2p.ipfs}.
 The DAG encodes the causal relationships between posts with cryptographic links
 that ensure integrity and self-certification.
+% SZT: SEC nao garante tempo nenhum, em p2p os nos podem nunca retornarem.
+% eventual é nesse sentido de que qd existe a comunicacao, eles convergem
+% sempre de forma monotonica (nao se afastam)
 Since the full state of a peer is the immutable DAG, which only grows with
 appends (posts) and unions (syncs), replicas converge with strong eventual
 consistency by construction~\cite{fed.matrix,p2p.byz}.
 
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with extra
 hooks to enforce the protocol rules.
+% SZT: sync "manual" no sentido de que é par a par, mas pode ter um servico que
+% automtiza o processo. somente os pares interessados precisam estar conectados
+% nao existe nenhum "hub" importante ou necessario para a rede funcionar
 Therefore, the operation of the protocol is simple:
     each action --- post, like or revoke --- is an individual commit in the
     history DAG, and peers synchronize their full state through Git.
