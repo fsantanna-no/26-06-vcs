@@ -508,15 +508,19 @@ New post charges \nreps{-500} to member temporarily, refunded within 12h.
 \\
 \hline
 Transfer & 3.a & tax      &
-All operations burn a 10\% tax before target (member or post).
+All transfers burn a 10\% tax before target (member or action).
 \\
-         & 3.b & like     &
+         & 3.b & split    &
+Transfers targeting actions split the amount in half between the action and its
+author.
+\\
+         & 3.c & like     &
 Like counts \nreps{-n} to origin and \nreps{+n} to target.
 \\
          &     & dislike  &
 Dislike counts \nreps{-n} to origin and \nreps{-n} to target.
 \\
-         & 3.c & revoke   &
+         & 3.d & revoke   &
 Revoke counts \nreps{-n} to origin and target, and erases the payload.
 \\
          &     & unrevoke &
@@ -636,12 +640,12 @@ Note that the second is more interesting, since it admits total strangers based
 purely on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both.
-A like transfers \reps from the origin to the target (\R{3.b}), burning a 10\%
+A like transfers \reps from the origin to the target (\R{3.c}), burning a 10\%
 tax (\R{3.a}): \emph{Alice} spends \nreps{5000} and \emph{Carol} receives
 \nreps{4500}.
 When the target is a post, the amount splits in half between the post and its
-author: \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their post receive
-\nreps{1800} each.
+author (\R{3.b}): \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their
+post receive \nreps{1800} each.
 %
 Since likes are at best zero-sum (transfers and taxes do not add value),
 there is no incentive to cycle reps among colluding Sybils.
@@ -703,7 +707,7 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 %
 \begin{description}
 \item[T0:] \emph{Carol} holds the \nreps{4500} received from \emph{Alice}'s
-    welcoming like (\R{3.b}).
+    welcoming like (\R{3.c}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
 \item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
@@ -743,17 +747,37 @@ and Stack Overflow's reputation~\cite{forum.stackoverflow}.
 The quality of posts is subjective and is up to members to judge with
 likes, dislikes, or simply abstaining.
 In \FC, each forum post holds its own \reps as the balance between likes and
-dislikes targeting it (\R{3.b}), which end-user software can use to filter and
+dislikes targeting it (\R{3.c}), which end-user software can use to filter and
 highlight content.
 
-TODO: example
-- two users, one likes, the other dislikes the same post
-- show reps of each user and post
+\begin{lstlisting}[
+    float=tbp,
+    label={lst.rating},
+    caption={Content rating through likes and dislikes.}
+]
+$ fc /chat reps post 5d98790
+1800
+$ fc /chat like 1000 post 5d98790 --sign=alice
+$ fc /chat dislike 2000 post 5d98790 --sign=carol
+$ fc /chat reps post 5d98790
+1350
+\end{lstlisting}
 
+Listing~\ref{lst.rating} shows the \reps of \emph{Dave}'s post before and after
+\emph{Alice} likes and \emph{Carol} dislikes it.
+After applying the taxes and split (rules~\code{3.a}~and~\code{3.b}), the final
+outcome is $1800+450-900 = 1350$.
+%
+We omit the members \reps in the example, but note that \emph{Alice} and
+\emph{Carol} pay in full, whereas \emph{Dave} also loses \reps due to the
+higher dislike.
+
+The economy of \reps induces members to only rate content they care about.
+%
 On the one hand, since \reps are finite, members must ponder before spending
 them.
-On the other hand, since \reps are capped (\R{4.b}), members also have an
-incentive to spend them on rating, and thus decentralize power.
+On the other hand, since \reps are capped (\R{4.b}), they also have an
+incentive to rate content, and thus dilute their power.
 %
 These lower and upper limits work together towards the quality of forums.
 
