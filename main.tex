@@ -118,25 +118,10 @@ have already been flooded into the network.
 Abuse is particularly acute in \emph{permissionless}
 networks~\cite{permissionless,blockchain.wild}, which decentralize admission
 and therefore must combat Sybils~\cite{p2p.sybil,p2p.mastodon}.
-% TODO: 2.17.b
-Reputation systems are a well-studied means to build trust among
-strangers~\cite{rep.systems}, which we adopt to address item (iii) and Sybils
-without central authorities.
-
-Permissionless consensus is notably challenging to the point that protocols
-partially abdicate it along two axes.
 %
-On the one hand, \emph{multi-user/single-node consensus} supports a consistent
-multi-user public forum, but restricted to a single trusted server ordering
-messages (e.g., federated protocols~\cite{p2p.ecosystem}).
-%
-On the other hand, \emph{single-user/multi-node consensus} supports a
-consistent feed across multiple machines, but restricted to a single author
-ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
-%
-Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
-the context of peer-to-peer public forums, i.e., a permissionless counterpart
-of IRC/Discord or Usenet/Reddit.
+To that end, reputation systems are a well-studied means to build trust among
+strangers~\cite{rep.systems}, which we propose as a core mechanism to also
+address item (iii).
 
 Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
 Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
@@ -1952,6 +1937,23 @@ could still benefit from consensus to resolve corner cases.
 
 \section{Related Work}
 \label{sec.related}
+
+% >>> TODO: moved from intro to related work
+Permissionless consensus is notably challenging to the point that protocols
+partially abdicate it along two axes.
+%
+On the one hand, \emph{multi-user/single-node consensus} supports a consistent
+multi-user public forum, but restricted to a single trusted server ordering
+messages (e.g., federated protocols~\cite{p2p.ecosystem}).
+%
+On the other hand, \emph{single-user/multi-node consensus} supports a
+consistent feed across multiple machines, but restricted to a single author
+ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
+%
+Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
+the context of peer-to-peer public forums, i.e., a permissionless counterpart
+of IRC/Discord or Usenet/Reddit.
+% <<<
 
 Many other systems have been proposed for decentralized content
 sharing~\cite{p2p.survey,p2p.ecosystem}.
