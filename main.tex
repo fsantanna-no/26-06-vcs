@@ -344,8 +344,9 @@ Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
 \emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
 metadata.
 %
-The action metadata includes its type, the member's timestamp at creation, and
-a reference to the payload blob.
+% SZT: "(not trusted...)"
+The action metadata includes its type, the member's timestamp at creation (not
+trusted by the protocol), and a reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
