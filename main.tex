@@ -1037,9 +1037,9 @@ local forum.
 
 \begin{figure}
 \centering
-%\includegraphics[width=0.49\textwidth]{hard.png}
+\includegraphics[width=0.3\textwidth]{hard.png}
 \caption{
-    Stable vs unstable consensus.
+    Settled local branch with frozen actions.
 }
 \label{fig.hard}
 \end{figure}
@@ -1049,11 +1049,10 @@ Therefore, as a measure against malicious members with strong past reputation,
 which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 As Figure~\ref{fig.hard} illustrates, a branch settles once it holds at
 least 100 actions or spans 7 days between its oldest and newest actions.
-Only the actions older than that window are frozen; the most recent ones can
-still be reordered.
-So, if consensus would reorder local frozen actions, then the merge is simply
-refused and the two peers become incompatible, which is analogous to a hard
-fork in Bitcoin.
+Actions older than that window are frozen, and cannot be reorder.
+If consensus would reorder frozen actions, then the merge is simply refused and
+the two peers become incompatible, which is analogous to a hard fork in
+Bitcoin.
 In contrast, peers that remain active and synchronize over time evolve together
 with a stable order.
 
