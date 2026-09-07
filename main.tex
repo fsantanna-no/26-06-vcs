@@ -908,9 +908,6 @@ Figure~\ref{fig.reps}:
 \item Order branches by highest sum first:%
 \footnote{
     We compare the action hashes after the fork point as the tie breaker.
-% TODO: 2.1.e
-    This is subject to \emph{stake grinding}, in which a member varies content
-    to obtain a favorable hash, but it only affects ties.
 }                                                           \\
     \code{common <- branch-2 <- branch-1}
 \item Discard actions from the first failure on:            \\
@@ -1022,7 +1019,6 @@ intervention of at least one honest member.
 
 Considering that forging long branches from ancient fork points is
 undetectable, reputation alone becomes a fragile criterion for consensus.
-% TODO: 2.1.f
 For instance, past members holding the majority of \reps at any point in time
 could still override the present, which corresponds to the \emph{long-range
 attack} in proof-of-stake~\cite{pos.weak}.
@@ -1039,26 +1035,17 @@ In any case, it is unacceptable that an old remote branch affects an active
 local forum.
 
 Therefore, as a measure against malicious members with strong past reputation,
-\FC protects settled local branches from unexpected consensus reorderings.
-% TODO: 2.1.g
-This settling window plays the role of checkpoints under \emph{weak
-subjectivity}~\cite{pos.weak}, in which a peer trusts its own recent view
-over any older incoming branch.
+\FC protects settled local branches from unexpected consensus reorderings,
+which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 A branch settles once it holds at least 100 actions or spans 7 days between its
 oldest and newest actions.
 Only the posts older than that window are frozen; the most recent ones can
 still be reordered.
-So, if consensus replay would reorder local frozen posts, then the merge is
-simply refused and the two peers become incompatible, which is analogous to a
-hard fork in Bitcoin.
+So, if consensus would reorder local frozen posts, then the merge is simply
+refused and the two peers become incompatible, which is analogous to a hard
+fork in Bitcoin.
 In contrast, peers that remain active and synchronize over time evolve together
 with a stable order.
-
-Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
-consensus}, which cannot be reordered, from \emph{unstable consensus}, which
-may still be affected by incoming branches.
-The activity threshold counts backwards from the newest local post in the
-unstable consensus until older posts are permanently frozen.
 
 \begin{figure}
 \centering
@@ -1069,30 +1056,35 @@ unstable consensus until older posts are permanently frozen.
 \label{fig.hard}
 \end{figure}
 
-In summary, the rules to merge a branch \code{j} from a remote machine into a
-branch \code{i} from a local machine are as follows:
+Figure~\ref{fig.hard} illustrates hard forks by distinguishing \emph{stable
+consensus}, which cannot be reordered, from \emph{unstable consensus}, which
+may still be affected by incoming branches.
+The activity threshold counts backwards from the newest local post in the
+unstable consensus until older posts are permanently frozen.
+
+In summary, the consensus rules to merge a local branch \code{i} with a remote
+branch \code{j} are as follows:
 \begin{itemize}
-    % TODO: 2.3.a
-    \item The merge is refused if \code{j} wins and would reorder the settled
-        prefix of \code{i}, regardless of the reputation of \code{j}.
-    \item \code{i} or \code{j} is first, whichever has more reputation in the
-        common history (\S\ref{sec.design.consensus}).
-    \item Otherwise, branches use the arbitrary criterion of lexicographic
-        order of the post hashes immediately after the common prefix.
+    \item \code{i} wins:
+        \code{i} is first, \code{j} is second
+        (same as \S\ref{sec.design.consensus}).
+    \item \code{j} wins and \code{i} is unstable:
+        \code{j} is first, \code{i} is second
+        (same as \S\ref{sec.design.consensus}).
+    \item \code{j} wins and \code{i} is stable:
+        \code{i} is first, \code{j} is rejected
+        (new hard fork rule).
 \end{itemize}
 
-To conclude this section, we should keep in mind that our consensus algorithm
-is based on subjective evaluations of members and posts.
-For this reason, unlike Bitcoin, in which forks are discouraged and a single
-blockchain must prevail, forums can split and diverge freely.
-For instance, members can explicitly apply hard forks at any point in time to
-``reboot'' a community from a previous state.
-Ultimately, the consensus algorithm provides a transparent mechanism to help
-members understand the evolution of forums and act accordingly, even if it
-leads to hard forks.
-
-More than a simple numeric dispute, a hard fork represents a social conflict in
-which reconciling branches is no longer possible.
+To conclude, since consensus rests on subjective ratings, forks are legitimate
+outcomes rather than failures.
+Unlike Bitcoin, forums may split and diverge freely, and members may even fork
+deliberately to ``reboot'' a community from a previous state.
+%
+The consensus algorithm does not prevent such splits, but makes them
+transparent and deterministic, so that members understand the evolution of a
+forum and act accordingly.
+Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
