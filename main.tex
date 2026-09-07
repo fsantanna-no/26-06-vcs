@@ -487,7 +487,8 @@ Emission & 1.a & pioneers &
 Chain creation grants \nreps{+50K}, equally distributed among pioneers.
 \\
          & 1.b & old post &
-Consolidated post grants \nreps{+1K} to member, after 24h, at most once a day.
+Consolidated post (unless revoked) grants \nreps{+1K} to member, after 24h, at
+most once a day.
 \\
 \hline
 Expense  & 2   & new post &
@@ -697,8 +698,8 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     welcoming like (\R{3.c}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
     member can post in sequence.
-\item[T2:] The cost is refunded within at most 12 hours (\R{2}), depending on
-    the activity following the post.
+\item[T2:] The cost is refunded within at most 12 hours (\R{2}), sooner as
+    members holding more \reps act after the post.
 \item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
     most once a day (\R{1.b}).
 \end{description}
@@ -722,7 +723,7 @@ identities, which then post daily to multiply emission.
 This is not a Sybil attack in the strict sense, since each identity must still
 behave as an independent human to pass proof-of-authoring.
 Ultimately, we argue that the actual threat is automated content, which the
-community must detect and dislike in any case.
+community must detect and revoke in any case.
 
 \subsection{Content Rating}
 \label{sec.design.rating}
