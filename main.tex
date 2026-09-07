@@ -68,8 +68,8 @@ The design parallels Bitcoin:
     aggregate reputation determines consensus (vs longest chain).
 Reputation depends exclusively on human authoring (\emph{proof-of-authoring}),
 which is slow and scarce, thus suitable for consensus.
-We implement the protocol on top of Git and prototype a Wiki application that
-resolves conflicts automatically through consensus.
+%We implement the protocol on top of Git and prototype a Wiki application that
+%resolves conflicts automatically through consensus.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
@@ -148,12 +148,12 @@ payloads at the protocol level~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
 
 % SZT: strong eventual consistency, sim termo tecnico, e é visto como bom
+% mas removi daqui pra ser discutido no corpo
 
-In this work, we adapt the idea of scarce resources to resist Sybils and reach
-consensus, but now in the context of public forums.
-We integrate a reputation-based consensus~\cite{fcs.sbseg23} into
-\FC~\cite{fcs.sbseg20}, a peer-to-peer content dissemination protocol with
-strong eventual consistency (SEC)~\cite{p2p.crdts,p2p.sec}.
+In this work, we propose \FC, a permissionless peer-to-peer protocol with
+integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
+We adapt the idea of scarce resources to resist Sybils and reach consensus, but
+now in the context of public forums.
 We highlight four main contributions:
 %
 \begin{description}
