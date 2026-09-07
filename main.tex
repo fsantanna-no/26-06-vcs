@@ -853,14 +853,10 @@ only refuse the double-spend but also converge to the same state.
 \label{sec.design.consensus}
 
 Our idea to establish consensus in forum DAGs is to favor branches with posts
-from members holding the majority of the reputation.
-% TODO: 2.1.b
-These branches are backed by members with more past contributions, which is
-analogous to \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, with
-reputation as stake, rather than to the longest chain of Bitcoin.
-However, proof-of-stake rewards holding, which compounds wealth, whereas
-proof-of-authoring rewards authoring, and the cap of \R{4.b} prevents
-compounding.
+from members holding the majority of the reputation in the common history,
+which resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}.
+However, instead of rewarding holders for staking capital, which compounds
+wealth, we reward authors for adding content, which is valuable in itself.
 %
 When faced with a fork, the key detail is to account for only the reputation in
 common ancestors of the DAG, which constitute the forum history that both sides
