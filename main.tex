@@ -892,7 +892,7 @@ then all remaining actions in the losing branch are rejected and erased from
 the DAG, as if they never existed.
 %
 As an example, in Figure~\ref{fig.reps}.B, suppose that the last action by $a$
-in \code{branch-2} (in gray) is a dislike to member $c$ that affects his
+in \code{branch-2} (in gray) is a dislike to member $c$ that affects its
 capacity to act in the forum.
 Then, it is possible that the last post by $c$ in \code{branch-1} (in red) is
 rejected together with all actions in sequence (since they cannot persist in the
@@ -1047,12 +1047,11 @@ local forum.
 Therefore, as a measure against malicious members with strong past reputation,
 \FC protects settled local branches from unexpected consensus reorderings,
 which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
-As Figure~\ref{fig.hard} illustrates, a branch settles once it holds at
-least 100 actions or spans 7 days between its oldest and newest actions.
-Actions older than that window are frozen, and cannot be reorder.
-If consensus would reorder frozen actions, then the merge is simply refused and
-the two peers become incompatible, which is analogous to a hard fork in
-Bitcoin.
+%
+As Figure~\ref{fig.hard} illustrates, actions older than the most recent 100
+actions or 7 days are frozen and cannot be reordered.
+If consensus would reorder them, the merge is refused and the two peers become
+incompatible, which is analogous to a hard fork in Bitcoin.
 In contrast, peers that remain active and synchronize over time evolve together
 with a stable order.
 
