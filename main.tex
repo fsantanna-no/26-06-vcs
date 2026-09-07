@@ -179,6 +179,8 @@ causal graph with only a partial order, which we promote to a total order
 based on the reputation of members.
 The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double-spending).
+Unlike blockchain-based consensus, which requires peers to be permanently
+online, members may work offline and synchronize occasionally.
 %
 \item [Proof-of-authoring:]
 We recognize content as a scarce resource, since it requires human authoring
@@ -967,6 +969,10 @@ exceptional events, but the norm:
 Partitions are also \emph{unbounded} and possibly \emph{malicious}, since a
 peer may stay offline for as long as it wants, and no one can distinguish
 whether the causes are deliberate or accidental.
+%
+Note that our local-first approach contrasts with standard blockchains, which
+consider partitions as faults, and assume an online majority that discards
+minority branches.
 
 The protocol, therefore, cannot treat partitions as attacks, but can only
 react to the damage they may cause.
@@ -1125,6 +1131,12 @@ which reconciling branches is no longer possible.
 \iffalse
 We assume \emph{Carol} is honest and online...
 Also, local time
+
+In \FC, members may stay offline indefinitely without losing \reps, and both
+sides of a partition remain legitimate forums while they last.
+This is a deliberate choice of availability over consistency~\cite{cap}, at
+the cost of a single global history: a long partition may end as a hard fork
+rather than as a reorganization (\S\ref{sec.design.partitions.hardforks}).
 
 Note that a dislike shrinks the forum economy, since it removes \reps from
 both origin and target.
