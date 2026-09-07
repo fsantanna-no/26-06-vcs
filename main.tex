@@ -857,10 +857,13 @@ from members holding the majority of the reputation in the common history,
 which resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}.
 However, instead of rewarding holders for staking capital, which compounds
 wealth, we reward authors for adding content, which is valuable in itself.
-%
-When faced with a fork, the key detail is to account for only the reputation in
-common ancestors of the DAG, which constitute the forum history that both sides
-agree on.
+Moreover, the outcome is a deterministic function of the common history, so
+any peer holding both branches computes it locally, without further votes or
+coordination.
+
+Therefore, when faced with a fork, the key detail is to account for only the
+reputation in common ancestors of the DAG, which constitute the forum history
+that both sides agree on.
 Then, we determine the exclusive members of each side, and compare the
 aggregate reputation of these disjoint sets, as of the fork point.
 %
