@@ -104,25 +104,25 @@ In decentralized systems, however, none of these demands is easily
 accomplished.
 
 A common approach in gossiping protocols is to proactively disseminate posts
-among peers until they reach all users~\cite{p2p.survey,p2p.byz}.
-However, gossiping does not guarantee consensus since posts can be received in
-conflicting orders~\cite{p2p.intention,p2p.crdts}, nor even delivery at
-all~\cite{p2p.nostr}.
+until they reach all peers~\cite{p2p.survey,p2p.byz}, but this does not
+guarantee consensus since posts can be received in conflicting
+orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
-the protocol level}~\cite{p2p.dag.sync}, and a requirement to satisfy item
+the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
 (iii).
 Without consensus, each client must rely on local anti-abuse policies, such as
 SPAM filters, which only apply \emph{a posteriori}, when the abusive messages
 have already been flooded into the network.
 %
 Abuse is particularly acute in \emph{permissionless}
-networks~\cite{permissionless,blockchain.wild}, which decentralize admission
-and therefore must combat Sybils~\cite{p2p.sybil,p2p.mastodon}.
+networks~\cite{permissionless,blockchain.wild}, which decentralize member
+admission and therefore must combat Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
 To that end, reputation systems are a well-studied means to build trust among
-strangers~\cite{rep.systems}, which we propose as a core mechanism to also
-address item (iii).
+strangers~\cite{rep.systems}, which we adopt as a core mechanism to also rate
+and highlight content, in support of item (iii).
+
 
 % SZT: o paragrafo com "partially abdicate" foi inteiramente removido e vai ser
 % readaptado em Related Work. O argumento é que muitos protocolos sequer tentam
