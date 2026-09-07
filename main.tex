@@ -861,15 +861,8 @@ wealth, we reward authors for adding content, which is valuable in itself.
 When faced with a fork, the key detail is to account for only the reputation in
 common ancestors of the DAG, which constitute the forum history that both sides
 agree on.
-% TODO: 2.1.c
-Then, we determine the exclusive members of each side, and compare the total
-\reps of these disjoint sets as of the fork point, regardless of how they were
-obtained.
-% TODO: 2.1.d
-Members that act on both sides of the fork are excluded from both sets, since
-they contribute equally to either branch, which also neutralizes the
-\emph{nothing-at-stake} behavior of proof-of-stake~\cite{pos.weak}, in which
-voting on every fork is free.
+Then, we determine the exclusive members of each side, and compare the
+aggregate reputation of these disjoint sets, as of the fork point.
 %
 Finally, the winning branch is sorted entirely first, followed by the losing
 side after the last action of the winning side.
