@@ -123,16 +123,14 @@ To that end, reputation systems are a well-studied means to build trust among
 strangers~\cite{rep.systems}, which we adopt as a core mechanism to also rate
 and highlight content, in support of item (iii).
 
-
 % SZT: o paragrafo com "partially abdicate" foi inteiramente removido e vai ser
 % readaptado em Related Work. O argumento é que muitos protocolos sequer tentam
 % ter consenso (partially abdicate permissionless consensus)
 
-Bitcoin~\cite{p2p.bitcoin} is the first permissionless protocol to resist
-Sybils, relying on a scarce resource---the \emph{proof-of-work}---to establish
-consensus.
-The protocol is Sybil-resistant because it is expensive to write to its
-unique timeline (either via proof-of-work or transaction fees).
+Bitcoin~\cite{p2p.bitcoin} achieves permissionless
+consensus~\cite{permissionless} by demanding a scarce resource---the
+\emph{proof-of-work}~\cite{hashcash}---to write to its unique timeline, thereby
+resisting Sybils.
 %
 However, we argue that Bitcoin and cryptocurrencies in general are not suitable
 for social content because

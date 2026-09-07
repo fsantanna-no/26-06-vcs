@@ -110,6 +110,15 @@
 - Related Work: position vs BEC / Kleppmann line -> see
   `260826-bec.md`
 
+- Related Work / P2P: cite `p2p.nostr` (Wei & Tyson, "An empirical
+  analysis of the Nostr social network", PACMNET 2025, doi
+  10.1145/3768994); dropped from the Intro (2026-09-07), now cited
+  nowhere
+    - point: relay-based gossip gives no delivery guarantee at all
+      (posts on relays nobody fetches are effectively lost)
+    - contrast with \FC: delivery is pairwise Merkle state merge
+      (Git fetch), so a post reaches every peer that syncs
+
 - Related Work: add AT Protocol / Bluesky (Kleppmann et al., ACM
   CoNEXT DAI-N 2024, doi 10.1145/3694809.3700740, arXiv 2402.03239)
     - fits "Federated Protocols" next to Mastodon/Matrix
