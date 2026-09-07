@@ -1,5 +1,11 @@
 # TODO
 
+- At the end of the review, generate the reputation rules table
+  (paper Table 3, `tab.rules`) back to `/x/x/freechains/vcs/doc/reps.md`
+    - vcs doc still numbers likes as 3.a and revokes as 3.b
+    - paper now: 3.a tax, 3.b split, 3.c like/dislike, 3.d revoke
+    - 1.b "unless revoked" (plan 260907-revoke.md)
+
 - Restructure Section 3 into two subsections
     - 3.1 Design: overall design, bootstrapping, admission,
       proof-of-authoring, consensus
