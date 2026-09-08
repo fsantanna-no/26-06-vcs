@@ -293,20 +293,18 @@ b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
 726e329 genesis 5596915440
 \end{lstlisting}
 
-\FC adheres to the \emph{local-first} software principle~\cite{p2p.local}, in
-which networked applications work normally while offline.
-All operations except synchronization only affect the local replica.
-No communication occurs up to this point.
+\FC is a \emph{local-first} protocol~\cite{p2p.local}, which operates normally
+while offline, only affecting the local replica: no communication occurs up to
+this point.
 Since we build upon Git, we can inspect the internal structure of a given
-chain.
-For instance, Listing~\ref{lst.git} shows that the \emph{/chat} repository
-contains two commits with
-    (1) the genesis with a random id, and
-    (2) the post pointing to its payload.
+chain:
+Listing~\ref{lst.git} shows that the \emph{/chat} repository contains two
+commits: the genesis with a random id, and the post pointing to its payload.
 
 \begin{lstlisting}[
     float=tbp,
     label={lst.clone},
+    style=numbered,
     caption={Peer replication between \emph{X} and \emph{Y}.}
 ]
 # PEER Y
@@ -319,6 +317,7 @@ b100ce8
 \begin{lstlisting}[
     float=tbp,
     label={lst.fork},
+    style=numbered,
     caption={Forked DAG after concurrent posts.}
 ]
 # PEER X
@@ -337,22 +336,22 @@ $ fc /chat list dag
 c7a56bc     eb18b45
 \end{lstlisting}
 
-To illustrate peer-to-peer synchronization, Listing~\ref{lst.clone} introduces
-a second peer \emph{Y} that replicates \emph{X} through the \code{clone}
-operation, receiving the single \emph{``Hello World''} post.
-
-In local-first systems, each replica may evolve separately and synchronize at
+To illustrate point-to-point synchronization, Listing~\ref{lst.clone}
+introduces a second peer \emph{Y} (ln 1) that replicates \emph{X} through the
+\code{clone} operation (ln 2--3), receiving the single \emph{``Hello World''}
+post (ln 4--5).
+%
+In local-first protocols, each replica may evolve separately and synchronize at
 some point in the future.
-In Listing~\ref{lst.fork}, after the initial clone, each peer posts locally and
-eventually synchronizes with the other side, both converging to the same forked
-DAG.
+In Listing~\ref{lst.fork}, each peer posts locally (ln 1--3 and 5--7) and
+eventually synchronizes with the other side (ln 9-10), both converging to the
+same forked DAG (ln 11-14).
 
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
-% TODO: 2.8.b
-Naturally, in permissionless forums, we cannot rely on members' timestamps to
-order actions because they are unverifiable, although we constrain them for
-time-based rules (\S\ref{sec.design.poa}).
+Naturally, in permissionless forums, we cannot trust on members' timestamps to
+order actions, although we constrain them for time-based rules
+(\S\ref{sec.design.poa}).
 
 Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
@@ -672,7 +671,7 @@ human-authored content.
 
 % TODO: 2.8.a
 Note that the rules depend on time, although members' timestamps are
-unverifiable (Section~\ref{sec.freechains}).
+unverifiable (\S\ref{sec.freechains}).
 \FC relies on a \emph{chain time} instead: each action carries a
 self-declared timestamp, which must lie between the timestamps of its
 parents and the clock of the receiving peer, with a tolerance of one hour;
