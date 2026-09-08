@@ -515,6 +515,7 @@ any outsider by directly transferring \reps, without intermediate authorities.
 \begin{lstlisting}[
     float=tbp,
     label={lst.pioneers},
+    style=numbered,
     caption={Sybil-resistant chain with pioneers.}
 ]
 $ ssh-keygen -f alice
@@ -536,21 +537,22 @@ $ fc /chat post 'Hello forum' --sign=silas
 ERROR : chain post : insufficient reputation
 \end{lstlisting}
 
-Listing~\ref{lst.pioneers} generates self-certifying keypair identities,
-typical of peer-to-peer systems, and sets two of them as pioneers of a fresh,
-now Sybil-resistant \emph{/chat} chain replicated across peers \emph{I} and
-\emph{J}.
+Listing~\ref{lst.pioneers} generates self-certifying keypair identities
+(ln 1--3), typical of peer-to-peer systems, and sets two of them as pioneers of
+a fresh, now Sybil-resistant \emph{/chat} chain (ln 6--7) replicated across
+peers \emph{I} and \emph{J} (ln 10--11).
 %
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
-pioneers, whose public keys are part of the genesis commit.
+pioneers (ln 12--14), whose public keys are part of the genesis commit.
 The total of \nreps{50K} is equally split and each pioneer starts with
 \nreps{25K} (\R{1.a}).
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
-(\R{4.a}).
+(ln 16--17, \R{4.a}).
 
 \begin{lstlisting}[
     float=tbp,
     label={lst.welcome},
+    style=numbered,
     caption={Member admission through likes and begging posts.}
 ]
 $ fc /chat like 5000 member carol --sign=alice
@@ -585,13 +587,15 @@ We propose two complementary mechanisms:
 Note that the second is more interesting, since it admits total strangers based
 purely on content quality.
 %
-Listing~\ref{lst.welcome} illustrates both.
+Listing~\ref{lst.welcome} illustrates both:
+    a direct like to \emph{Carol} (ln 1), and
+    a begging post from \emph{Dave} (ln 7--10) that receives a like (ln 11).
 A like transfers \reps from the origin to the target (\R{3.c}), burning a 10\%
 tax (\R{3.a}): \emph{Alice} spends \nreps{5000} and \emph{Carol} receives
-\nreps{4500}.
+\nreps{4500} (ln 2--5).
 When the target is a post, the amount splits in half between the post and its
 author (\R{3.b}): \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their
-post receive \nreps{1800} each.
+post receive \nreps{1800} each (ln 12--16).
 %
 Since likes are at best zero-sum (transfers and taxes do not add value),
 there is no incentive to cycle reps among colluding Sybils.
