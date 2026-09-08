@@ -83,7 +83,6 @@ Public online forums and social media are increasingly centralized in the hands
 of a few companies (e.g., Meta and X)~\cite{internet.fixing,p2p.dosn}.
 %These companies benefit from closed protocols and network effects to keep
 %users locked in their platforms.
-% SZT: "polemica" amenizada
 These companies offer free storage, friendly user interfaces, and robust
 access, but in exchange control moderation and monetize user data.
 %
@@ -123,10 +122,6 @@ To that end, reputation systems are a well-studied means to build trust among
 strangers~\cite{rep.systems}, which we adopt as a core mechanism to also rate
 and highlight content, in support of item (iii).
 
-% SZT: o paragrafo com "partially abdicate" foi inteiramente removido e vai ser
-% readaptado em Related Work. O argumento é que muitos protocolos sequer tentam
-% ter consenso (partially abdicate permissionless consensus)
-
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
 consensus~\cite{permissionless} by demanding a scarce resource---the
 \emph{proof-of-work}~\cite{hashcash}---to write to its unique timeline, thereby
@@ -146,19 +141,6 @@ inherent to content moderation.
 Another limitation of cryptocurrencies is the lack of support for revoking
 payloads at the protocol level~\cite{btc.content}, which is inadmissible
 considering illicit content in public forums.
-
-% SZT: strong eventual consistency, sim termo tecnico, e é visto como bom
-% mas removi daqui pra ser discutido no corpo
-% SZT.1: nao ha nenhuma tentativa de sincronizacao de clocks
-% SZT.2: tem uma secao inteira "Concurrency and Double-spends". o problema do
-% double-spend do Bitcoin é bastante conhecido. Mas aqui pode pensar como o
-% problema classico de dois writes concorrentes e conflitantes.
-% SZT.3: o argumento do mining do Bitcoin é esse: muito mais caro minerar blocos
-% do que valida-los.
-% SZT.4: acho que é cedo pra entender os detalhes. o ponto aqui é que cada forum
-% se defende dos outros, pois nao depende de um recurso externo (que poderia
-% ser usado em qq forum)
-% SZT.5: "familiar and solid p2p foundation"
 
 In this work, we propose \FC, a permissionless peer-to-peer protocol with
 integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
@@ -247,10 +229,6 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \label{tab.commands}
 \end{table}
 
-% SZT: SEC nao garante tempo nenhum, em p2p os nos podem nunca retornarem.
-% eventual é nesse sentido de que qd existe a comunicacao, eles convergem
-% sempre de forma monotonica (nao se afastam)
-
 \FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
 which each topic or \emph{chain} is a replicated
 \emph{Merkle DAG}~\cite{p2p.ipfs}.
@@ -268,9 +246,6 @@ reputation, consensus, and moderation.
 
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with extra
 hooks to enforce the protocol rules.
-% SZT: sync "manual" no sentido de que é par a par, mas pode ter um servico que
-% automtiza o processo. somente os pares interessados precisam estar conectados
-% nao existe nenhum "hub" importante ou necessario para a rede funcionar
 Therefore, the operation of the protocol is simple:
     each action --- post, like or revoke --- is an individual commit in the
     history DAG, and peers synchronize their full state through Git.
@@ -306,7 +281,6 @@ Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
 \emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
 metadata.
 %
-% SZT: "(not trusted...)"
 The action metadata includes its type, the member's timestamp at creation (not
 trusted by the protocol), and a reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
