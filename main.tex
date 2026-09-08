@@ -149,11 +149,6 @@ considering illicit content in public forums.
 
 % SZT: strong eventual consistency, sim termo tecnico, e é visto como bom
 % mas removi daqui pra ser discutido no corpo
-
-In this work, we propose \FC, a permissionless peer-to-peer protocol with
-integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
-We adapt the idea of scarce resources to resist Sybils and reach consensus, but
-now in the context of public forums.
 % SZT.1: nao ha nenhuma tentativa de sincronizacao de clocks
 % SZT.2: tem uma secao inteira "Concurrency and Double-spends". o problema do
 % double-spend do Bitcoin é bastante conhecido. Mas aqui pode pensar como o
@@ -163,42 +158,47 @@ now in the context of public forums.
 % SZT.4: acho que é cedo pra entender os detalhes. o ponto aqui é que cada forum
 % se defende dos outros, pois nao depende de um recurso externo (que poderia
 % ser usado em qq forum)
-% TODO: 1.b
-We highlight four main contributions.
-Admitted posts reward authors with tokens they spend to rate other posts, a
-\textbf{proof-of-authoring} in which generation is expensive and assessment
-is cheap (akin to Bitcoin's mining).
-Members rate and revoke posts as \textbf{decentralized moderation}, which
-preserves the Merkle DAG since payloads are referenced by hash.
-Since tokens are intrinsic to each forum, unlike proof-of-work, users create
+% SZT.5: "familiar and solid p2p foundation"
+
+In this work, we propose \FC, a permissionless peer-to-peer protocol with
+integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
+We adapt proof-of-work's idea of scarce resources to resist Sybils and reach
+consensus, but now in the context of public forums.
+
+We highlight four main contributions (in bold):
+%
+We recognize human-authored content as a scarce resource, and reward members
+with reputation tokens as a \textbf{proof-of-authoring} (akin to Bitcoin's
+mining).
+%
+Members can spend these tokens to rate posts, and even revoke abusive content,
+as a \textbf{decentralized moderation} process.
+%
+Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 \textbf{independent Sybil-resistant forums}, each with its own timeline and
 etiquette.
-Since peers need not be online, posts form a causal graph with only a
-partial order, which a \textbf{reputation consensus} promotes to a total
-order, detecting conflicting operations (akin to Bitcoin's double-spending).
+%
+Under network partitions, posts form a causal graph, and a \textbf{reputation
+consensus} determines a total order to prevent conflicting operations (akin to
+Bitcoin's double-spending).
 
-% SZT.5: "familiar and solid p2p foundation"
-% TODO: 1.b
-We also highlight two minor contributions.
-A \textbf{permissionless Wiki} shows how consensus empowers mostly
-conflict-free replicated data types (\emph{quasi-CRDTs}) by automating
-merges of user-assessed edits.
-A \textbf{Git backend} provides content addressing, integrity, versioning,
-signing, and replication for free, while non-intrusive hooks add reputation,
-consensus, and moderation.
+As a main limitation, since partitions are unbounded, forums are subject to
+\emph{long-range attacks}, similarly to \emph{proof-of-stake}
+systems~\cite{pos.weak}.
+As a countermeasure, branches older than a threshold are rejected by the
+network (100 actions or 7 days), while newer malicious branches may require
+manual intervention, but of only a few honest members.
 
-% TODO: 1.b
-We also acknowledge three limitations.
-Unbounded partitions allow \textbf{long-range attacks} that forge old
-branches, as in proof-of-stake~\cite{pos.weak}, so forks older than 100
-actions or 7 days are rejected, and newer minority forks require one honest
-member to react.
-\textbf{Sybil resistance} is not absolute, but each fake identity must pass
-proof-of-authoring as a human.
-Forum DAGs grow without bound, so \textbf{performance} of storage and
-validation degrades over time, as in blockchains, although we simulated
-months of a chat and years of a newsgroup from public archives (TODO:
-results).
+Regarding performance, forum graphs are ever-growing data structures that carry
+considerable metadata overhead.
+The costs to store and validate posts increase over time, which is also a
+limitation of blockchains in general.
+%
+Nevertheless, we simulated months of a chat channel and years of a newsgroup
+forum, both extracted from publicly available Internet archives.
+%to show its practicality
+%
+TODO: expose results (local post time, sync time, DAG/repo disk size).
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
@@ -247,17 +247,24 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \label{tab.commands}
 \end{table}
 
-\FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
-which each topic or \emph{chain} is a replicated \emph{Merkle DAG} over
-Git~\cite{p2p.ipfs}.
-The DAG encodes the causal relationships between posts with cryptographic links
-that ensure integrity and self-certification.
 % SZT: SEC nao garante tempo nenhum, em p2p os nos podem nunca retornarem.
 % eventual é nesse sentido de que qd existe a comunicacao, eles convergem
 % sempre de forma monotonica (nao se afastam)
+
+\FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
+which each topic or \emph{chain} is a replicated
+\emph{Merkle DAG}~\cite{p2p.ipfs}.
+The DAG encodes the causal relationships between posts with cryptographic links
+that ensure integrity and self-certification.
 Since the full state of a peer is the immutable DAG, which only grows with
 appends (posts) and unions (syncs), replicas converge with strong eventual
 consistency by construction~\cite{fed.matrix,p2p.byz}.
+
+Given these characteristics, we build \FC on top of Git as a familiar and solid
+peer-to-peer foundation, which already provides content addressing, integrity,
+versioning, signing, deduplication, compression, and replication for free.
+Relying only on non-intrusive hooks, we add what Git alone cannot provide:
+reputation, consensus, and moderation.
 
 We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with extra
 hooks to enforce the protocol rules.
@@ -1093,6 +1100,15 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \fi
 
 \iffalse
+Admitted posts reward authors with tokens they spend to rate other posts, a
+\textbf{proof-of-authoring} in which generation is expensive and assessment
+is cheap (akin to Bitcoin's mining).
+Members rate and revoke posts as, which
+preserves the Merkle DAG since payloads are referenced by hash.
+A \textbf{permissionless Wiki} shows how consensus empowers mostly
+conflict-free replicated data types (\emph{quasi-CRDTs}) by automating
+merges of user-assessed edits.
+
 We assume \emph{Carol} is honest and online...
 Also, local time
 
