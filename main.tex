@@ -118,8 +118,8 @@ networks~\cite{permissionless,blockchain.wild}, which must combat
 Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
 To that end, reputation systems are a well-studied means to build trust among
-strangers~\cite{rep.systems}, and to rate and highlight content, in support of
-item (iii).
+strangers~\cite{rep.systems,rep.eigentrust}, and to rate and highlight
+content, in support of item (iii).
 
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
 consensus~\cite{permissionless} by demanding a scarce resource---the
@@ -277,8 +277,8 @@ Listing~\ref{lst.basics} simulates a peer \emph{X} (ln 1) that initializes
 chain \emph{/chat} (ln 2--3), posts message \emph{``Hello World''} (ln 4--5),
 and queries its payload (ln 6--7) and metadata (ln 8--11).
 %
-The action metadata includes its type, the member's timestamp at creation (not
-trusted by the protocol), and a reference to the payload blob.
+The action metadata includes its type, a self-declared timestamp, and a
+reference to the payload blob.
 Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
