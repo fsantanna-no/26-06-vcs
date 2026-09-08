@@ -154,85 +154,51 @@ In this work, we propose \FC, a permissionless peer-to-peer protocol with
 integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
 We adapt the idea of scarce resources to resist Sybils and reach consensus, but
 now in the context of public forums.
-We highlight four main contributions:
-
-\textbf{Reputation-based consensus:}
-% SZT: nao ha nenhuma tentativa de sincronizacao de clocks
-Due to decentralization and network partitions, posts in a timeline form a
-causal graph with only a partial order, which we promote to a total order
-based on the reputation of members.
-% SZT: tem uma secao inteira "Concurrency and Double-spends". o problema do
+% SZT.1: nao ha nenhuma tentativa de sincronizacao de clocks
+% SZT.2: tem uma secao inteira "Concurrency and Double-spends". o problema do
 % double-spend do Bitcoin é bastante conhecido. Mas aqui pode pensar como o
 % problema classico de dois writes concorrentes e conflitantes.
-The consensus order is fundamental to detect conflicting operations, such as
-likes with insufficient reputation (akin to Bitcoin's double-spending).
-Unlike blockchain-based consensus, which requires peers to be permanently
-online, members may work offline and synchronize occasionally.
-
-\textbf{Proof-of-authoring:}
-We recognize content as a scarce resource, since it requires human authoring
-work (akin to Bitcoin's mining).
-If admitted by other members, new posts reward authors with reputation tokens,
-which authors further spend to rate other posts with likes and dislikes.
-% SZT: o argumento do mining do Bitcoin é esse: muito mais caro minerar blocos
+% SZT.3: o argumento do mining do Bitcoin é esse: muito mais caro minerar blocos
 % do que valida-los.
-In short, token generation is expensive, while assessment is cheap and shared
-by multiple members.
-
-\textbf{Independent Sybil-resistant forums:}
-Users can create diversified forums of interest (rather than a single global
-one), each with an independent timeline with its own subjective authoring
-etiquette.
-% SZT: acho que é cedo pra entender os detalhes. o ponto aqui é que cada forum
+% SZT.4: acho que é cedo pra entender os detalhes. o ponto aqui é que cada forum
 % se defende dos outros, pois nao depende de um recurso externo (que poderia
 % ser usado em qq forum)
-Unlike proof-of-work, which is extrinsic to the application, reputation tokens
-are intrinsic to each forum.
+% TODO: 1.b
+We highlight four main contributions.
+Admitted posts reward authors with tokens they spend to rate other posts, a
+\textbf{proof-of-authoring} in which generation is expensive and assessment
+is cheap (akin to Bitcoin's mining).
+Members rate and revoke posts as \textbf{decentralized moderation}, which
+preserves the Merkle DAG since payloads are referenced by hash.
+Since tokens are intrinsic to each forum, unlike proof-of-work, users create
+\textbf{independent Sybil-resistant forums}, each with its own timeline and
+etiquette.
+Since peers need not be online, posts form a causal graph with only a
+partial order, which a \textbf{reputation consensus} promotes to a total
+order, detecting conflicting operations (akin to Bitcoin's double-spending).
 
-\textbf{Decentralized moderation:}
-Members can rate and revoke posts without compromising the integrity of the
-underlying Merkle DAG data model.
-Since the DAG only references payloads by hash, peers can prove revocation and
-refuse to forward abusive content.
+% SZT.5: "familiar and solid p2p foundation"
+% TODO: 1.b
+We also highlight two minor contributions.
+A \textbf{permissionless Wiki} shows how consensus empowers mostly
+conflict-free replicated data types (\emph{quasi-CRDTs}) by automating
+merges of user-assessed edits.
+A \textbf{Git backend} provides content addressing, integrity, versioning,
+signing, and replication for free, while non-intrusive hooks add reputation,
+consensus, and moderation.
 
-We also highlight two minor contributions:
-
-\textbf{Permissionless Wiki:}
-A Wiki prototype is relevant because
-    (i)   it is a collaborative application,
-    (ii)  with edits that users need to assess, and
-    (iii) with merges that we propose to automate.
-The goal is to demonstrate how the consensus mechanism can empower mostly
-conflict-free replicated data types (\emph{quasi-CRDTs}) when they do encounter
-conflicting operations.
-
-\textbf{Git-based backend:}
-% SZT: "familiar and solid p2p foundation"
-We implement \FC on top of Git as a familiar and solid peer-to-peer foundation,
-providing content addressing, integrity, versioning, signing, deduplication,
-compression, and replication for free.
-Relying only on non-intrusive hooks, we add what Git alone cannot provide:
-reputation, consensus, and moderation.
-
-As a main limitation, forums are DAGs subject to unbounded network partitions,
-allowing malicious members to forge long branches, similarly to
-\emph{long-range attacks} in proof-of-stake systems~\cite{pos.weak}.
-As a countermeasure, forks older than 100 actions or 7 days are rejected by the
-network, whereas newer malicious minority forks require manual intervention by
-at least one honest member.
-Similarly, Sybil resistance is not absolute, but each fake identity must
-replicate human behavior to pass proof-of-authoring undetected.
-%
-Regarding performance, forum DAGs are ever-growing data structures that carry
-considerable metadata overhead.
-The costs to store and validate posts increase over time, which is also a
-limitation of blockchains in general.
-%
-Nevertheless, we simulated months of a chat channel and years of a newsgroup
-forum, both extracted from publicly available Internet archives.
-%to show its practicality
-%
-TODO: expose results (local post time, sync time, DAG/repo disk size).
+% TODO: 1.b
+We also acknowledge three limitations.
+Unbounded partitions allow \textbf{long-range attacks} that forge old
+branches, as in proof-of-stake~\cite{pos.weak}, so forks older than 100
+actions or 7 days are rejected, and newer minority forks require one honest
+member to react.
+\textbf{Sybil resistance} is not absolute, but each fake identity must pass
+proof-of-authoring as a human.
+Forum DAGs grow without bound, so \textbf{performance} of storage and
+validation degrades over time, as in blockchains, although we simulated
+months of a chat and years of a newsgroup from public archives (TODO:
+results).
 
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
