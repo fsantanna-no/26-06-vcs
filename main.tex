@@ -139,8 +139,8 @@ Cryptocurrencies also cannot revoke payloads at the protocol
 level~\cite{btc.content}, which is inadmissible for illicit content in public
 forums.
 
-In this work, we propose \FC, a permissionless peer-to-peer protocol with
-integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
+In this work, we propose \FC~\cite{fcs.sbseg20,fcs.sbseg23}, a permissionless
+peer-to-peer protocol with integrated reputation-based consensus.
 We adapt proof-of-work's idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
 
@@ -223,9 +223,10 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \label{tab.commands}
 \end{table}
 
-\FC~\cite{fcs.sbseg20} is an unstructured peer-to-peer gossip protocol, in
-which each topic or \emph{chain} is a replicated
-\emph{Merkle DAG}~\cite{p2p.ipfs}.
+In \FC, each topic or \emph{chain} is a replicated
+\emph{Merkle DAG}~\cite{p2p.ipfs} that peers exchange point-to-point through
+unstructured gossip~\cite{p2p.survey}.
+%
 The DAG encodes the causal relationships between posts with cryptographic links
 that ensure integrity and self-certification.
 Since the full state of a peer is the immutable DAG, which only grows with
@@ -236,20 +237,20 @@ Given these characteristics, we build \FC on top of Git as a familiar and solid
 peer-to-peer foundation, which already provides content addressing, integrity,
 versioning, signing, deduplication, compression, and replication for free.
 Relying only on non-intrusive hooks, we add what Git alone cannot provide:
-reputation, consensus, and moderation.
+reputation, moderation, and consensus.
 
-The operation of the protocol is simple:
+The operation of a chain is simple:
     each action --- post, like or revoke --- is an individual commit in the
     history DAG, and peers synchronize their full state through Git.
-Table~\ref{tab.commands} lists the commands of \FC (\code{fc}), which guide
-the discussion through concrete examples.
-For the sake of simplicity, this section uses unrestricted chains that tolerate
-unsigned posts.
+Table~\ref{tab.commands} lists the commands (\code{fc}) to operate a chain,
+which guide our discussion through concrete examples.
 
 The goals of this section are twofold:
     (a) to depict chain DAGs as the result of basic protocol operations; and
-    (b) to illustrate how permissionless protocols inevitably require Sybil
+    (b) to illustrate how permissionless forums inevitably require Sybil
         resistance to become practical.
+For the sake of simplicity, this section uses unrestricted chains that tolerate
+unsigned posts.
 
 \begin{lstlisting}[
     float=tbp,
@@ -1098,7 +1099,7 @@ dislikes, and more dislikes than likes (rule~\code{3}).
 However, considering that \reps are scarce, dislikes are encouraged to combat
 abusive behavior, but not to eliminate divergences of opinion.
 
-In summary, the reputation system makes Freechains
+In summary, the reputation system makes \FC
 **(a)** Sybil-resistant: write operations require and spend `reps`; and
 **(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
 
