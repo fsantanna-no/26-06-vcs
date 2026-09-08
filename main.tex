@@ -155,9 +155,8 @@ integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
 We adapt the idea of scarce resources to resist Sybils and reach consensus, but
 now in the context of public forums.
 We highlight four main contributions:
-%
-\begin{description}
-\item [Reputation-based consensus:]
+
+\textbf{Reputation-based consensus:}
 % SZT: nao ha nenhuma tentativa de sincronizacao de clocks
 Due to decentralization and network partitions, posts in a timeline form a
 causal graph with only a partial order, which we promote to a total order
@@ -169,8 +168,8 @@ The consensus order is fundamental to detect conflicting operations, such as
 likes with insufficient reputation (akin to Bitcoin's double-spending).
 Unlike blockchain-based consensus, which requires peers to be permanently
 online, members may work offline and synchronize occasionally.
-%
-\item [Proof-of-authoring:]
+
+\textbf{Proof-of-authoring:}
 We recognize content as a scarce resource, since it requires human authoring
 work (akin to Bitcoin's mining).
 If admitted by other members, new posts reward authors with reputation tokens,
@@ -179,8 +178,8 @@ which authors further spend to rate other posts with likes and dislikes.
 % do que valida-los.
 In short, token generation is expensive, while assessment is cheap and shared
 by multiple members.
-%
-\item [Independent Sybil-resistant forums:]
+
+\textbf{Independent Sybil-resistant forums:}
 Users can create diversified forums of interest (rather than a single global
 one), each with an independent timeline with its own subjective authoring
 etiquette.
@@ -189,18 +188,16 @@ etiquette.
 % ser usado em qq forum)
 Unlike proof-of-work, which is extrinsic to the application, reputation tokens
 are intrinsic to each forum.
-%
-\item [Decentralized moderation:]
+
+\textbf{Decentralized moderation:}
 Members can rate and revoke posts without compromising the integrity of the
 underlying Merkle DAG data model.
 Since the DAG only references payloads by hash, peers can prove revocation and
 refuse to forward abusive content.
-\end{description}
 
 We also highlight two minor contributions:
-%
-\begin{description}
-\item [Permissionless Wiki:]
+
+\textbf{Permissionless Wiki:}
 A Wiki prototype is relevant because
     (i)   it is a collaborative application,
     (ii)  with edits that users need to assess, and
@@ -208,14 +205,14 @@ A Wiki prototype is relevant because
 The goal is to demonstrate how the consensus mechanism can empower mostly
 conflict-free replicated data types (\emph{quasi-CRDTs}) when they do encounter
 conflicting operations.
-\item [Git-based backend:]
+
+\textbf{Git-based backend:}
 % SZT: "familiar and solid p2p foundation"
 We implement \FC on top of Git as a familiar and solid peer-to-peer foundation,
 providing content addressing, integrity, versioning, signing, deduplication,
 compression, and replication for free.
 Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
-\end{description}
 
 As a main limitation, forums are DAGs subject to unbounded network partitions,
 allowing malicious members to forge long branches, similarly to
