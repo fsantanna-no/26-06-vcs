@@ -74,7 +74,7 @@ which is slow and scarce, thus suitable for consensus.
 
 \noindent\textbf{Keywords:}
 Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer, public
-forums, reputation system, social media, Wikis
+forums, reputation system, social media %, Wikis
 
 \section{Introduction}
 \label{sec.introduction}
@@ -190,9 +190,9 @@ mechanisms, discuss relevant security threats, and prove its SEC property
 (TODO).
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
 forum archives.
-In Section~\ref{sec.crdts}, we discuss the correspondences with
-CRDTs~\cite{p2p.crdts}, and prototype a simple Wiki that resolves conflicts
-automatically through consensus.
+%In Section~\ref{sec.crdts}, we discuss the correspondences with
+%CRDTs~\cite{p2p.crdts}, and prototype a simple Wiki that resolves conflicts
+%automatically through consensus.
 In Section~\ref{sec.related}, we compare our system with publish-subscribe
 protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
@@ -213,9 +213,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \code{post}        & Appends post to chain       & \code{commit}               \\
 \code{payload}     & Queries action content      & \code{show} (blob)          \\
 \code{metadata}    & Queries action metadata     & \code{show} (commit)        \\
-\code{list}        & Lists DAG, order, begs      & \code{log --graph}          \\[2pt]
-\hline
-\noalign{\vskip 2pt}
+\code{list}        & Lists DAG, order, begs      & \code{log --graph}          \\
 \code{(dis)like}   & Rates member or action      & \code{commit}, \code{merge} \\
 \code{(un)revoke}  & Erases or restores payload  & \code{commit}               \\
 \code{reps}        & Queries reputation          & hooks                       \\
@@ -224,7 +222,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \hline
 \end{tabular}
 \caption{
-    Basic \& Extended \code{fc} commands as Git.
+    \FC \code{fc} commands as a Git \emph{façade}~\cite{design.patterns}.
 }
 \label{tab.commands}
 \end{table}
@@ -244,12 +242,10 @@ versioning, signing, deduplication, compression, and replication for free.
 Relying only on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, consensus, and moderation.
 
-We build \FC on top of Git as a \emph{façade}~\cite{design.patterns} with extra
-hooks to enforce the protocol rules.
-Therefore, the operation of the protocol is simple:
+The operation of the protocol is simple:
     each action --- post, like or revoke --- is an individual commit in the
     history DAG, and peers synchronize their full state through Git.
-Table~\ref{tab.commands} lists the operations of \FC (\code{fc}), which guide
+Table~\ref{tab.commands} lists the commands of \FC (\code{fc}), which guide
 the discussion through concrete examples.
 For the sake of simplicity, this section uses unrestricted chains that tolerate
 unsigned posts.
