@@ -12,7 +12,9 @@
     xleftmargin=1em,
     frame=single,
     framesep=4pt,
+    numberstyle=\tiny,
 }
+\lstdefinestyle{numbered}{numbers=left, xleftmargin=2em}
 \renewcommand{\lstlistingname}{Listing}
 \usepackage{url}
 \usepackage{graphicx}
@@ -255,6 +257,7 @@ unsigned posts.
 \begin{lstlisting}[
     float=tbp,
     label={lst.basics},
+    style=numbered,
     caption={Basic \emph{/chat} simulation in peer \emph{X}.}
 ]
 # PEER X
@@ -270,9 +273,9 @@ time 1787850618
 blob 9d882f4f8568a8f79a5d007a576919fae317ad65
 \end{lstlisting}
 
-Listing~\ref{lst.basics} simulates a peer \emph{X} that initializes chain
-\emph{/chat}, posts message \emph{``Hello World''}, and queries its payload and
-metadata.
+Listing~\ref{lst.basics} simulates a peer \emph{X} (ln 1) that initializes
+chain \emph{/chat} (ln 2--3), posts message \emph{``Hello World''} (ln 4--5),
+and queries its payload (ln 6--7) and metadata (ln 8--11).
 %
 The action metadata includes its type, the member's timestamp at creation (not
 trusted by the protocol), and a reference to the payload blob.
