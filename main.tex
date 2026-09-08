@@ -58,7 +58,7 @@
 \maketitle
 
 \begin{abstract}
-Public online forums suffer from and abuse such as SPAM and fake news.
+Public online forums suffer from abuse such as SPAM and fake news.
 Centralized platforms support moderation, but require full trust from users.
 We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
@@ -102,17 +102,17 @@ accomplished.
 
 Gossiping protocols proactively disseminate posts until they reach all
 peers~\cite{p2p.survey,p2p.byz}, but this does not guarantee consensus due to
-conflicting receiving orderings~\cite{p2p.intention,p2p.crdts}.
+conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
 (iii).
 Without consensus, each client must rely on local anti-abuse policies (e.g.
-SPAM filters), which only apply \emph{a posteriori}, when the damage have
-already been flooded into the network.
+SPAM filters), which only apply \emph{a posteriori}, when the damage has
+already been done.
 %
 Abuse is particularly acute in \emph{permissionless}
-networks~\cite{permissionless,blockchain.wild} with the presence of
+networks~\cite{permissionless,blockchain.wild}, which must combat
 Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
 To that end, reputation systems are a well-studied means to build trust among
@@ -135,9 +135,9 @@ A unique timeline that packs all forums under the same objective consensus
 threatens our decentralization goals and renounces subjectivity, which is
 inherent to content moderation.
 %
-Another limitation of cryptocurrencies is the lack of support for revoking
-payloads at the protocol level~\cite{btc.content}, which is inadmissible
-considering illicit content in public forums.
+Cryptocurrencies also cannot revoke payloads at the protocol
+level~\cite{btc.content}, which is inadmissible for illicit content in public
+forums.
 
 In this work, we propose \FC, a permissionless peer-to-peer protocol with
 integrated reputation-based consensus~\cite{fcs.sbseg20,fcs.sbseg23}.
@@ -151,7 +151,7 @@ with reputation tokens as a \emph{proof-of-authoring} (akin to Bitcoin's
 mining).
 %
 Members can spend these tokens to rate posts, and even revoke abusive content,
-as a \emph{decentralized moderation} process.
+as a \emph{decentralized moderation mechanism}.
 %
 Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 \emph{independent Sybil-resistant forums}, each with its own timeline and
@@ -182,9 +182,8 @@ TODO: expose results (local post time, sync time, DAG/repo disk size).
 The rest of the paper is organized as follows:
 In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
 how they map to the Git backend.
-In Section~\ref{sec.design}, we describe the reputation and consensus
-mechanisms, discuss relevant security threats, and prove its SEC property
-(TODO).
+In Section~\ref{sec.design}, we describe the reputation-based consensus and
+discuss relevant security threats.
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
 forum archives.
 %In Section~\ref{sec.crdts}, we discuss the correspondences with
