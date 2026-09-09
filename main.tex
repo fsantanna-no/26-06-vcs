@@ -75,8 +75,8 @@ slow and scarce, thus suitable for consensus.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
-Bitcoin, blockchains, CRDTs, distributed consensus, peer-to-peer, public
-forums, reputation system, social media %, Wikis
+Bitcoin, blockchains, distributed consensus, peer-to-peer, public
+forums, reputation system, social media %, CRDTs, Wikis
 
 \section{Introduction}
 \label{sec.introduction}
@@ -141,8 +141,9 @@ Cryptocurrencies also cannot revoke payloads at the protocol
 level~\cite{btc.content}, which is inadmissible for illicit content in public
 forums.
 
-In this work, we propose \FC~\cite{fcs.sbseg20,fcs.sbseg23}, a permissionless
-peer-to-peer protocol with integrated reputation-based consensus.
+%~\cite{fcs.sbseg20,fcs.sbseg23}
+In this work, we propose \FC, a permissionless peer-to-peer protocol with
+integrated reputation-based consensus.
 We adapt proof-of-work's idea of scarce resources to resist Sybils and reach
 consensus, but now in the context of public forums.
 
@@ -160,7 +161,7 @@ Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 etiquette.
 %
 Under network partitions, posts form a causal graph, and a \emph{reputation
-consensus} determines a total order to prevent conflicting operations (akin to
+consensus} determines a total order to resolve conflicting operations (akin to
 Bitcoin's double-spending).
 
 As a main limitation, since partitions are unbounded, forums are subject to
@@ -293,7 +294,7 @@ b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
 726e329 genesis 5596915440
 \end{lstlisting}
 
-\FC is a \emph{local-first} protocol~\cite{p2p.local}, which operates normally
+\FC is a \emph{local-first} software~\cite{p2p.local}, and operates normally
 while offline, only affecting the local replica: no communication occurs up to
 this point.
 Since we build upon Git, we can inspect the internal structure of a given
