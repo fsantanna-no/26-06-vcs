@@ -280,7 +280,7 @@ and queries its payload (ln 6--7) and metadata (ln 8--11).
 %
 The action metadata includes its type, a self-declared timestamp, and a
 reference to the payload blob.
-Since revocation is a key moderation requirement (\S\ref{sec.design.revoke}),
+Since revocation is a key moderation requirement (\S\ref{sec.design.votes}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
 \begin{lstlisting}[
@@ -388,9 +388,9 @@ forums:
 \item [\S\ref{sec.design.poa}]
     Proof-of-Authoring:
     how new content mints \reps and sustains a growing forum.
-\item [\S\ref{sec.design.rating}]
-    Content Rating:
-    how likes and dislikes measure quality and combat abuse.
+\item [\S\ref{sec.design.votes}]
+    Content Rating and Revocation:
+    how votes measure quality and combat abuse.
 \item [\S\ref{sec.design.double}]
     Concurrency and Double-spends:
     how forks lead to inconsistent operations.
@@ -697,8 +697,8 @@ behave as an independent human to pass proof-of-authoring.
 Ultimately, we argue that the actual threat is automated content, which the
 community must detect and revoke in any case.
 
-\subsection{Content Rating}
-\label{sec.design.rating}
+\subsection{Content Rating and Revocation}
+\label{sec.design.votes}
 
 Rating content is a defining feature of public forums, from Slashdot's scarce
 moderation points~\cite{forum.slashdot} to Reddit's votes~\cite{forum.reddit}
@@ -740,6 +740,25 @@ On the other hand, since \reps are capped (\R{4.b}), they also have an
 incentive to rate content, and thus dilute their power.
 %
 These lower and upper limits work together towards the quality of forums.
+
+TODO: revocation
+\iffalse
+  What the revocation paragraph must cover, from Table 3 and the
+  implementation:
+
+  1. Revoke erases the payload, unrevoke restores it; the action
+     stays in the DAG, so peers can prove revocation and refuse to
+     forward the payload.
+  2. Cost: at least 1000, paid by the revoker; the target and its
+     author lose half each (rule 3.b); a like also counts toward
+     unrevoking.
+  3. The author may revoke their own post for free (right to be
+     forgotten), implemented but unstated.
+  4. Revocation cancels the post's emission (rule 1.b, the new rule),
+     which is the defense against farming.
+  5. Revoke is meant for abuse, not disagreement, since it is
+     expensive and dislikes exist for that.
+\fi
 
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
@@ -946,7 +965,7 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
 \label{sec.design.partitions.farming}
 
 Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}.A
-intentionally disconnects from the network for days to cultivate fake
+intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
 %
 When merging, these fake members would become legitimate and take over the
@@ -1059,22 +1078,12 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 \iffalse
 
-\item [\S\ref{sec.design.overall}]
-    describes the overall reputation and consensus mechanism.
-\item [\S\ref{sec.design.forks}]
-    discusses malicious behaviors and hard forks.
 \item [\S\ref{sec.design.time}]
     discusses timestamp convergence, regardless of local temporary time-based
     decisions.
-\item [\S\ref{sec.design.revoke}]
-    describes how members revoke abusive content.
-\item [\S\ref{sec.design.algo}]
-    details the consensus algorithm that orders actions.
 \item [\S\ref{sec.design.byz}]
     discusses peer synchronization under Byzantine faults.
-\fi
 
-\iffalse
 For instance, federated protocols explicitly leave SPAM filtering to the server
 side~\cite{pubsub.activitypub}, while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
