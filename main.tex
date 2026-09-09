@@ -24,8 +24,9 @@
 \newcommand{\FC}       {Freechains\xspace}
 \newcommand{\R}[1]     {rule~\code{#1}\xspace}
 \newcommand{\reps}     {\emph{reps}\xspace}
-\newcommand{\nreps}[1] {\emph{#1~reps\xspace}}
-\newcommand{\code}[1]  {\texttt{\footnotesize{#1}}}
+\newcommand{\nreps}[1] {\code{\$#1\xspace}}
+\newcommand{\sreps}[2] {\code{#1\$#2\xspace}}
+\newcommand{\code}[1]  {\texttt{\small{#1}}}
 \newcommand{\Xon} {$1{\rightarrow}N$\xspace}
 \newcommand{\Xno} {$1{\leftarrow}N$\xspace}
 \newcommand{\Xnn} {$N{\leftrightarrow}N$\xspace}
@@ -439,15 +440,15 @@ Transfer & Likes and revokes transfer \reps between members and to actions
 \textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
 \hline
 Emission & 1.a & pioneers &
-Chain creation grants \nreps{+50K}, equally distributed among pioneers.
+Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
          & 1.b & old post &
-Consolidated post (unless revoked) grants \nreps{+1K} to member, after 24h, at
-most once a day.
+Consolidated post grants \sreps{+}{1K} to member, after 24h, at most once a
+day.
 \\
 \hline
 Expense  & 2   & new post &
-New post charges \nreps{-500} to member temporarily, refunded within 12h.
+New post charges \sreps{-}{500} to member temporarily, refunded within 12h.
 \\
 \hline
 Transfer & 3.a & tax      &
@@ -458,16 +459,16 @@ Transfers targeting actions split the amount in half between the action and its
 author.
 \\
          & 3.c & like     &
-Like counts \nreps{-n} to origin and \nreps{+n} to target.
+Like counts \sreps{-}{n} to origin and \sreps{+}{n} to target.
 \\
          &     & dislike  &
-Dislike counts \nreps{-n} to origin and \nreps{-n} to target.
+Dislike counts \sreps{-}{n} to origin and \sreps{-}{n} to target.
 \\
          & 3.d & revoke   &
-Revoke counts \nreps{-n} to origin and target, and erases the payload.
+Revoke counts \sreps{-}{n} to origin and target, and erases the payload.
 \\
          &     & unrevoke &
-Unrevoke counts \nreps{-n} to origin, and restores the payload.
+Unrevoke counts \sreps{-}{n} to origin, and restores the payload.
 \\
 \hline
 Constraints & 4.a & min  &
@@ -541,8 +542,8 @@ peers \emph{I} and \emph{J} (ln 10--11).
 %
 Note that when peer \emph{J} clones \emph{/chat}, it acknowledges the initial
 pioneers (ln 12--14), whose public keys are part of the genesis commit.
-The total of \nreps{50K} is equally split and each pioneer starts with
-\nreps{25K} (\R{1.a}).
+The total of \nreps{50K} (50 thousand reputation tokens) is equally split and
+each pioneer starts with \nreps{25K} (\R{1.a}).
 Note also that \emph{Silas}, a potential Sybil, cannot write to the chain
 (ln 16--17, \R{4.a}).
 
@@ -667,18 +668,8 @@ Since the post survived, \emph{Carol} ends with \nreps{1000} more than she
 started with, representing the value she added to the chain in the form of
 human-authored content.
 
-% TODO: 2.8.a
-Note that the rules depend on time, although members' timestamps are
-unverifiable (\S\ref{sec.freechains}).
-\FC relies on a \emph{chain time} instead: each action carries a
-self-declared timestamp, which must lie between the timestamps of its
-parents and the clock of the receiving peer, with a tolerance of one hour;
-the chain time is then the newest timestamp accepted so far.
-Hence, members cannot backdate actions below their parents, nor forward-date
-them beyond the present of honest peers, so chain time only advances as real
-time passes.
-All time-based rules count in chain time, which depends on the DAG alone and
-is therefore deterministic across peers.
+Section~\ref{sec.design.time} discusses how to count time consistently without
+a global clock.
 %
 The 24-hour period gives sufficient time for other members to judge the post
 before the reward.
@@ -694,7 +685,7 @@ identities, which then post daily to multiply emission.
 %
 This is not a Sybil attack in the strict sense, since each identity must still
 behave as an independent human to pass proof-of-authoring.
-Ultimately, we argue that the actual threat is automated content, which the
+Hence, we argue that the actual threat is automated content, which the
 community must detect and revoke in any case.
 
 \subsection{Content Rating and Revocation}
@@ -955,10 +946,10 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
 \begin{description}
 \item [\S\ref{sec.design.partitions.farming}]
     Reputation Farming:
-    how an isolated branch mints \reps unchecked.
+    how a remote isolated branch mints \reps unchecked.
 \item [\S\ref{sec.design.partitions.hardforks}]
     Hard Forks:
-    how a fork-age limit bounds the damage.
+    how local settled actions become immune to reordering.
 \end{description}
 
 \subsubsection{Reputation Farming}
@@ -1187,7 +1178,7 @@ imposed by rule~\code{4.a}: if new members start with no \reps, but require
 \reps to operate, it is necessary that some members have initial \reps to boot
 the chains.
 
-New posts penalize members with \nreps{-1} during at most 12 hours
+New posts penalize members with \sreps{-}{1} during at most 12 hours
 (rule~\code{2}), which depends on the activity succeeding (and including) the
 new post.
 The more activity from reputed members, the less time the discount persists.
