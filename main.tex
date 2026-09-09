@@ -167,9 +167,9 @@ Bitcoin's double-spending).
 As a main limitation, since partitions are unbounded, forums are subject to
 \emph{long-range attacks}, similarly to \emph{proof-of-stake}
 systems~\cite{pos.weak}.
-As a countermeasure, branches older than a threshold (7 days) are rejected by
-the network, while newer malicious branches may require manual intervention,
-but of only a few honest members.
+As a countermeasure, branches older than a threshold (7 days) cannot reorder
+the local history, while newer malicious branches may require manual
+intervention, but of only a few honest members.
 
 Regarding performance, forum graphs are ever-growing data structures that carry
 considerable metadata overhead.
@@ -351,8 +351,7 @@ same forked DAG (ln 11--14).
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
 Naturally, in permissionless forums, we cannot trust members' timestamps to
-order actions, although we constrain them for time-based rules
-(\S\ref{sec.design.poa}).
+order actions (\S\ref{sec.design.time}).
 %
 As another limitation, Merkle DAGs alone cannot provide Sybil resistance.
 Without extra restrictions, any user at any peer could flood chains with
@@ -398,6 +397,9 @@ forums:
 \item [\S\ref{sec.design.consensus}]
     Consensus and Total Order:
     how peers converge on \reps accounting.
+\item [\S\ref{sec.design.time}]
+    Chain Time:
+    how to count time consistently without trusted clocks.
 \item [\S\ref{sec.design.partitions}]
     Network Partitions:
     how to defend from deliberate branches.
@@ -1029,13 +1031,17 @@ Bitcoin.
 A member that stays offline for longer must discard its local branch and
 repost its actions.
 
-In summary, the consensus rules to merge a local branch \code{i} with a remote
-branch \code{j} are as follows:
+In summary, the consensus rules to merge a local branch \code{L} with a remote
+branch \code{R} are as follows:
 \begin{itemize}
-    \item fork point within 7 days:
-        consensus applies as in \S\ref{sec.design.consensus}.
-    \item fork point older than 7 days:
-        \code{j} is rejected, regardless of \code{i} or \code{j} winning
+    \item \code{L} wins:
+        \code{L} is first, \code{R} is second
+        (same as \S\ref{sec.design.consensus}).
+    \item \code{R} wins and affects unsettled \code{L}:
+        \code{R} is first, \code{L} is second
+        (same as \S\ref{sec.design.consensus}).
+    \item \code{R} wins and affects settled \code{L}:
+        \code{L} is first, \code{R} is rejected
         (hard fork rule).
 \end{itemize}
 
