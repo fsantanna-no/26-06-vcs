@@ -226,11 +226,11 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \end{table}
 
 In \FC, each topic or \emph{chain} is a replicated
-\emph{Merkle DAG}~\cite{p2p.ipfs} that peers exchange point-to-point through
-unstructured gossip~\cite{p2p.survey}.
+\emph{Merkle DAG}~\cite{p2p.ipfs} that peers synchronize point-to-point through
+gossiping~\cite{p2p.survey}.
 %
-The DAG encodes the causal relationships between posts with cryptographic links
-that ensure integrity and self-certification.
+The DAG encodes causal relationships between posts as cryptographic links that
+ensure integrity and self-certification.
 Since the full state of a peer is the immutable DAG, which only grows with
 appends (posts) and unions (syncs), replicas converge with strong eventual
 consistency by construction~\cite{fed.matrix,p2p.byz}.
@@ -352,15 +352,10 @@ actions, which is a fundamental obstacle to consensus.
 Naturally, in permissionless forums, we cannot trust on members' timestamps to
 order actions, although we constrain them for time-based rules
 (\S\ref{sec.design.poa}).
-
-Besides ordering, Merkle DAGs alone cannot provide Sybil resistance.
-Without extra restrictions, any user at any peer could flood chains with
-excessive or abusive posts.
 %
-For instance, federated protocols explicitly leave SPAM filtering to the server
-side~\cite{pubsub.activitypub}, while CRDT-based
-systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
-integrity, not volume or content quality.
+As another limitation, Merkle DAGs alone cannot provide Sybil resistance.
+Without extra restrictions, any user at any peer could flood chains with
+abusive posts.
 
 The next section addresses both problems:
     reputation rules make posting scarce, and
@@ -1073,6 +1068,11 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \fi
 
 \iffalse
+For instance, federated protocols explicitly leave SPAM filtering to the server
+side~\cite{pubsub.activitypub}, while CRDT-based
+systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
+integrity, not volume or content quality.
+
 Admitted posts reward authors with tokens they spend to rate other posts, a
 \textbf{proof-of-authoring} in which generation is expensive and assessment
 is cheap (akin to Bitcoin's mining).
