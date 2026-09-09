@@ -167,9 +167,9 @@ Bitcoin's double-spending).
 As a main limitation, since partitions are unbounded, forums are subject to
 \emph{long-range attacks}, similarly to \emph{proof-of-stake}
 systems~\cite{pos.weak}.
-As a countermeasure, branches older than a threshold are rejected by the
-network (100 actions or 7 days), while newer malicious branches may require
-manual intervention, but of only a few honest members.
+As a countermeasure, branches older than a threshold (7 days) are rejected by
+the network, while newer malicious branches may require manual intervention,
+but of only a few honest members.
 
 Regarding performance, forum graphs are ever-growing data structures that carry
 considerable metadata overhead.
@@ -937,14 +937,14 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
     how an isolated branch mints \reps unchecked.
 \item [\S\ref{sec.design.partitions.hardforks}]
     Hard Forks:
-    how a settling window bounds the damage.
+    how a fork-age limit bounds the damage.
 \end{description}
 
 \subsubsection{Reputation Farming}
 \label{sec.design.partitions.farming}
 
 Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}.A
-intentionally disconnects from the network for weeks to cultivate fake
+intentionally disconnects from the network for days to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
 %
 When merging, these fake members would become legitimate and take over the
@@ -1009,34 +1009,34 @@ local forum.
 \centering
 \includegraphics[width=0.3\textwidth]{hard.png}
 \caption{
-    Settled local branch with frozen actions.
+    Settled local branch rejecting forks.
 }
 \label{fig.hard}
 \end{figure}
 
-Therefore, as a measure against malicious members with strong past reputation,
-\FC protects settled local branches from unexpected consensus reorderings,
-which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
+Therefore, \FC protects settled local branches from outdated actions, which
+corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 %
-As Figure~\ref{fig.hard} illustrates, actions older than the most recent 100
-actions or 7 days are frozen and cannot be reordered.
-If consensus would reorder them, the merge is refused and the two peers become
-incompatible, which is analogous to a hard fork in Bitcoin.
-In contrast, peers that remain active and synchronize over time evolve together
-with a stable order.
+As Figure~\ref{fig.hard} illustrates, \FC rejects any incoming branch whose
+fork point is older than 7 days in chain time (\S\ref{sec.design.poa}), whether
+it would win or lose consensus.
+Since chain time cannot be forged or accelerated, peers holding the same DAG
+reach the same verdict.
+%
+Peers that remain active and synchronize over time evolve together with a
+stable DAG, otherwise they become incompatible similarly to hard forks in
+Bitcoin.
+A member that stays offline for longer must discard its local branch and
+repost its actions.
 
 In summary, the consensus rules to merge a local branch \code{i} with a remote
 branch \code{j} are as follows:
 \begin{itemize}
-    \item \code{i} wins:
-        \code{i} is first, \code{j} is second
-        (same as \S\ref{sec.design.consensus}).
-    \item \code{j} wins and \code{i} is unstable:
-        \code{j} is first, \code{i} is second
-        (same as \S\ref{sec.design.consensus}).
-    \item \code{j} wins and \code{i} is stable:
-        \code{i} is first, \code{j} is rejected
-        (new hard fork rule).
+    \item fork point within 7 days:
+        consensus applies as in \S\ref{sec.design.consensus}.
+    \item fork point older than 7 days:
+        \code{j} is rejected, regardless of \code{i} or \code{j} winning
+        (hard fork rule).
 \end{itemize}
 
 To conclude, since consensus rests on subjective ratings, forks are legitimate
