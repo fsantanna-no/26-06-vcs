@@ -1,5 +1,16 @@
 # TODO
 
+- Go through each citation added since the review started (2026-09-05)
+  and verify it backs the sentence it supports (verbatim quote or
+  page); list in `main.bib` marked `% TODO: 2.x.y`
+    - pos.ouroboros, pos.weak (2.1.h): PoS fork choice, weak
+      subjectivity, long-range attacks
+    - forum.slashdot, forum.reddit, forum.stackoverflow, rep.systems
+      (2.17.b): quotes already collected in session, re-check pages
+    - rep.eigentrust (2.17.f): pre-trusted peers = pioneers
+    - time.lamport (2.8.c, if added): logical clocks vs durations
+    - cap (2.6): availability over consistency
+
 - At the end of the review, generate the reputation rules table
   (paper Table 3, `tab.rules`) back to `/x/x/freechains/vcs/doc/reps.md`
     - vcs doc still numbers likes as 3.a and revokes as 3.b
