@@ -184,8 +184,8 @@ forum, both extracted from publicly available Internet archives.
 TODO: expose results (local post time, sync time, DAG/repo disk size).
 
 The rest of the paper is organized as follows:
-In Section~\ref{sec.freechains}, we introduce the basic operations of \FC and
-how they map to the Git backend.
+In Section~\ref{sec.git}, we introduce the basic operations of \FC and how they
+map to the Git backend.
 In Section~\ref{sec.design}, we describe the reputation-based consensus and
 discuss relevant security threats.
 In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
@@ -198,7 +198,7 @@ protocols, federated applications, and fully peer-to-peer systems.
 In Section~\ref{sec.conclusion}, we conclude this work.
 
 \section{\FC and Git}
-\label{sec.freechains}
+\label{sec.git}
 
 \begin{table}[t]
 \centering
@@ -758,8 +758,8 @@ Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
 correspond to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with just enough \reps for a single
 post, posting SPAM messages from multiple peers at the same time.
-As discussed in Section~\ref{sec.freechains}, concurrency creates forks in the
-DAG, which implies ambiguity in the order of actions.
+As discussed in Section~\ref{sec.git}, concurrency creates forks in the DAG,
+which implies ambiguity in the order of actions.
 
 \begin{lstlisting}[
     float=tbp,
