@@ -923,33 +923,45 @@ In summary,
     (iii) the order is based on the reputation in the common history; and
     (iv) replay leads to a global and deterministic state.
 
-% TODO: 2.8.c
 \subsection{Chain Time}
 \label{sec.design.time}
 
 Some rules of the protocol depend on physical clock durations:
-    the refund of new posts within 12 hours (\R{2}),
-    the reward of consolidated posts after 24 hours (\R{1.b}), and
-    the settling window of 7 days (\S\ref{sec.design.partitions}).
+    the 12h refund (\R{2}),
+    the 24h reward (\R{1.b}), and
+    the 7-day settling window to be discussed (\S\ref{sec.design.partitions}).
 %
-However, in our permissionless context, we cannot trust on self-declared
-timestamps, since malicious members or peers could manipulate them to collect
-rewards or simply to vandalize chains.
+\FC adopts the principle of a \emph{chain time} relying exclusively on
+self-declared timestamps already in the chain.
+This way, peers in sync sharing the same DAG always compute the same values.
 
-We share with Bitcoin~\cite{TODO} a \emph{chain time principle}, in which
-admission is local, 
+However, in our permissionless context, we cannot trust self-declared
+timestamps, since malicious members could manipulate them to collect rewards or
+to simply vandalize chains.
+Therefore, we constrain timestamps within reasonable lower and upper limits as
+follows:
+>>>
+      (a) the \emph{lower limit} is the chain itself:
+          an action must be newer than all of its parents,
+          so members cannot backdate actions before what they acknowledge;
+      (b) the \emph{upper limit} is the local clock of the receiving peer,
+          with a tolerance of one hour,
+          so members cannot forward-date actions beyond the present of honest
+          peers.
+  Chain time is then the newest timestamp accepted so far, which only advances
+  as real time passes.
+<<<
+
+- exemplo do 24h refund
+
+- pq peers nao divergem (unica possibilidade é b, mas é só esperar um pouquinho)
+
+In summary, initial admission is local, but all further decisions are
+deterministic based on the chain itself.
 
 
-is to constrain timestamps within
-reasonable bounds
-admission is local
+We share with Bitcoin~\cite{TODO}
 
-Our approach with
-Under this principle, admission is local
-verything after admission is chain-determined
-
-Although we cannot trust,
-we cercamos within reasonable limits
 possible to go back in time
 
 
