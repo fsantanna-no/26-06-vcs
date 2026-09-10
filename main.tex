@@ -923,6 +923,53 @@ In summary,
     (iii) the order is based on the reputation in the common history; and
     (iv) replay leads to a global and deterministic state.
 
+% TODO: 2.8.c
+\subsection{Chain Time}
+\label{sec.design.time}
+
+Some rules of the protocol depend on physical clock durations:
+    the refund of new posts within 12 hours (\R{2}),
+    the reward of consolidated posts after 24 hours (\R{1.b}), and
+    the settling window of 7 days (\S\ref{sec.design.partitions}).
+%
+However, in our permissionless context, we cannot trust on self-declared
+timestamps, since malicious members or peers could manipulate them to collect
+rewards or simply to vandalize chains.
+
+We share with Bitcoin~\cite{TODO} a \emph{chain time principle}, in which
+admission is local, 
+
+
+is to constrain timestamps within
+reasonable bounds
+admission is local
+
+Our approach with
+Under this principle, admission is local
+verything after admission is chain-determined
+
+Although we cannot trust,
+we cercamos within reasonable limits
+possible to go back in time
+
+
+\FC relies on a for that: each action carries a
+self-declared timestamp, which must lie between the timestamps of its
+parents and the clock of the receiving peer, with a tolerance of one hour;
+the chain time is then the newest timestamp accepted so far.
+Hence, members cannot backdate actions below their parents, nor forward-date
+them beyond the present of honest peers, so chain time only advances as real
+time passes.
+
+Furthermore, the consensus order (\S\ref{sec.design.consensus}) may place an
+action far from its declared timestamp, since a losing branch is appended
+after the winner regardless of its dates.
+We therefore define the \emph{consensus time} of an action as the chain time
+at its position in the order, i.e., the maximum between its own timestamp and
+the consensus time of the preceding action.
+Consensus time follows from the DAG alone, so peers holding the same DAG
+compute the same values, and it is what the settling window counts.
+
 \subsection{Network Partitions}
 \label{sec.design.partitions}
 
@@ -1021,7 +1068,7 @@ local forum.
 \centering
 \includegraphics[width=0.3\textwidth]{hard.png}
 \caption{
-    Settled local branch rejecting forks.
+    Settled local branch with frozen actions.
 }
 \label{fig.hard}
 \end{figure}
@@ -1029,17 +1076,27 @@ local forum.
 Therefore, \FC protects settled local branches from outdated actions, which
 corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 %
-As Figure~\ref{fig.hard} illustrates, \FC rejects any incoming branch whose
-fork point is older than 7 days in chain time (\S\ref{sec.design.poa}), whether
-it would win or lose consensus.
-Since chain time cannot be forged or accelerated, peers holding the same DAG
-reach the same verdict.
+As Figure~\ref{fig.hard} illustrates, actions are frozen 7 days after they
+enter the local order, counting in chain time (\S\ref{sec.design.poa}).
+
+ as of
+their position in the order, not as of their declared timestamps.
+Hence, a losing branch that arrives with old timestamps is appended and remains
+loose for 7 days, during which it can still be refuted as in
+\S\ref{sec.design.partitions.farming}.
+If a winning branch would reorder frozen actions, the merge is refused and the
+two peers become incompatible, which is analogous to a hard fork in Bitcoin.
+Since consensus time follows from the DAG, peers holding the same DAG reach
+the same verdict, and the 7-day window is a chain constant set at creation:
+chats may settle faster, newsgroups slower.
 %
 Peers that remain active and synchronize over time evolve together with a
-stable DAG, otherwise they become incompatible similarly to hard forks in
-Bitcoin.
-A member that stays offline for longer must discard its local branch and
-repost its actions.
+stable order, whereas a member back after longer must discard its local branch
+and repost its actions.
+% TODO: 2.13.h
+In an idle forum, however, a farmed branch is a fast-forward rather than a
+fork, so it enters unchallenged and can only be undone by revoking its posts
+(\R{3.d}) or by a deliberate hard fork.
 
 In summary, the consensus rules to merge a local branch \code{L} with a remote
 branch \code{R} are as follows:
@@ -1959,9 +2016,9 @@ networks with malicious Sybils~\cite{pubsub.gossipsub2}.
 Being generic protocols, pubsubs are typically unaware of the applications
 built on top of them.
 %
-In contrast, as stated in Section~\ref{sec.freechains}, the gossip layer of
-\FC is conceptually at the application level and is integrated with the
-semantics of chains, which already verifies actions at publishing time.
+In contrast, as stated in Section~\ref{sec.git}, the gossip layer of \FC is
+conceptually at the application level and is integrated with the semantics of
+chains, which already verifies actions at publishing time.
 For instance, to flood the network with posts, malicious peers need to spend
 reputation, which takes hours to recharge (rule~\code{2} in
 Table~\ref{tab.rules}).
