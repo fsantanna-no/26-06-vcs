@@ -926,38 +926,47 @@ In summary,
 \subsection{Chain Time}
 \label{sec.design.time}
 
-Some rules of the protocol depend on physical clock durations:
+Some rules of the protocol depend on durations of physical time:
     the 12h refund (\R{2}),
     the 24h reward (\R{1.b}), and
-    the 7-day settling window to be discussed (\S\ref{sec.design.partitions}).
+    the 7-day settling window (\S\ref{sec.design.partitions}).
 %
 \FC adopts the principle of a \emph{chain time} relying exclusively on
-self-declared timestamps already in the chain.
-This way, peers in sync sharing the same DAG always compute the same values.
+immutable self-declared timestamps already in the chain.
+This way, peers holding the same DAG compute the same durations.
 
 However, in our permissionless context, we cannot trust self-declared
 timestamps, since malicious members could manipulate them to collect rewards or
-to simply vandalize chains.
-Therefore, we constrain timestamps within reasonable lower and upper limits as
-follows:
->>>
-      (a) the \emph{lower limit} is the chain itself:
-          an action must be newer than all of its parents,
-          so members cannot backdate actions before what they acknowledge;
-      (b) the \emph{upper limit} is the local clock of the receiving peer,
-          with a tolerance of one hour,
-          so members cannot forward-date actions beyond the present of honest
-          peers.
+to vandalize chains.
+Therefore, just before the action enters the DAG (posted or received), the peer
+validates the timestamp within reasonable bounds (1-hour tolerance):
+%
+\begin{description}
+    \item[Lower limit:] timestamp must be newer than all of its parents.
+    \item[Upper limit:] timestamp must be older than the local peer clock.
+\end{description}
+%
+Note that the lower limit depends only on self-declared timestamps with
+cryptographic links, meaning that the validation is deterministic. 
+Therefore, the upper limit is the only source of non-determinism, since each
+peer runs its own clock.
+Nevertheless, a peer whose clock lags behind simply refuses the sync as
+\emph{too new} until a later retry, and then converges to the same state.
+%
+In summary, as in Bitcoin \cite{btc.timestamps} initial admission is local, but
+all further decisions are deterministic based on the chain itself.
+
+
+
+---
+
   Chain time is then the newest timestamp accepted so far, which only advances
   as real time passes.
-<<<
 
+, so that members cannot backdate actions before what they acknowledge;
 - exemplo do 24h refund
 
 - pq peers nao divergem (unica possibilidade é b, mas é só esperar um pouquinho)
-
-In summary, initial admission is local, but all further decisions are
-deterministic based on the chain itself.
 
 
 We share with Bitcoin~\cite{TODO}
