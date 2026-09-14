@@ -61,7 +61,7 @@
 \maketitle
 
 \begin{abstract}
-Public online forums suffer from abuse such as SPAM and fake news.
+Public online forums suffer from abuse such as spam and misinformation.
 Centralized platforms support moderation, but require full trust from users.
 We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
@@ -111,20 +111,20 @@ We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
 (iii).
 Without consensus, each client must rely on local anti-abuse policies (e.g.
-SPAM filters), which only apply \emph{a posteriori}, when the damage has
+spam filters), which only apply \emph{a posteriori}, when the damage has
 already been done.
 %
 Abuse is particularly acute in \emph{permissionless}
 networks~\cite{permissionless,blockchain.wild}, which must combat
-Sybils~\cite{p2p.sybil,p2p.mastodon}.
+Sybils~\cite{p2p.sybil,p2p.mastodon}, since membership is decentralized.
 %
 To that end, reputation systems are a well-studied means to build trust among
 strangers~\cite{rep.systems,rep.eigentrust}, and to rate and highlight
 content, in support of item (iii).
 
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
-consensus~\cite{permissionless} by demanding a scarce resource---the
-\emph{proof-of-work}~\cite{hashcash}---to affect its unique timeline, thereby
+consensus~\cite{permissionless} by demanding a scarce resource
+(\emph{proof-of-work}~\cite{hashcash}) to write to its timeline, thereby
 resisting Sybils.
 %
 However, we argue that cryptocurrencies in general are not suitable for social
@@ -138,15 +138,15 @@ A unique timeline that packs all forums under the same objective consensus
 threatens our decentralization goals and renounces subjectivity, which is
 inherent to content moderation.
 %
-Cryptocurrencies also cannot revoke payloads at the protocol
-level~\cite{btc.content}, which is inadmissible for illicit content in public
-forums.
+Cryptocurrencies also do not revoke payloads at the protocol
+level~\cite{btc.content}, which is inadmissible considering illicit content in
+public forums.
 
 %~\cite{fcs.sbseg20,fcs.sbseg23}
 In this work, we propose \FC, a permissionless peer-to-peer protocol with
 integrated reputation-based consensus.
-We adapt proof-of-work's idea of scarce resources to resist Sybils and reach
-consensus, but now in the context of public forums.
+We adapt proof-of-work's idea to resist Sybils and reach consensus, but now in
+the context of public forums.
 
 We highlight four main contributions (in italic):
 %
@@ -757,7 +757,7 @@ TODO: revocation
 Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
 correspond to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with just enough \reps for a single
-post, posting SPAM messages from multiple peers at the same time.
+post, posting spam messages from multiple peers at the same time.
 As discussed in Section~\ref{sec.git}, concurrency creates forks in the DAG,
 which implies ambiguity in the order of actions.
 
@@ -1153,7 +1153,7 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \item [\S\ref{sec.design.byz}]
     discusses peer synchronization under Byzantine faults.
 
-For instance, federated protocols explicitly leave SPAM filtering to the server
+For instance, federated protocols explicitly leave spam filtering to the server
 side~\cite{pubsub.activitypub}, while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
 integrity, not volume or content quality.
@@ -2159,7 +2159,7 @@ with \FC (\Xnn).
 A fundamental difference is that Aether is designed for ephemeral, mutable
 posts with no intention to enforce global consensus across peers.
 Aether employs a very pragmatic approach to mitigate abuse in forums.
-It uses established techniques, such as proof-of-work to combat SPAM, and an
+It uses established techniques, such as proof-of-work to combat spam, and an
 innovative voting system to moderate forums, but which affects local instances
 only.
 In contrast, \FC relies on its permissionless reputation and consensus
@@ -2181,7 +2181,7 @@ representation and merging policies.
 To resolve \emph{competition conflicts}, they propose to use an external
 scoring function, such as users' reputations.
 Our proposed consensus mechanism internalizes such reputation scoring function.
-Integrated reputation also prevents SPAM and abusive behavior from byzantine
+Integrated reputation also prevents spam and abusive behavior from byzantine
 nodes, which could otherwise generate very large graphs that take forever to
 synchronize (as discussed for Byzantine Causal Broadcast~\cite{p2p.dag.sync}).
 
