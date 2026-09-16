@@ -996,37 +996,14 @@ In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
 self-declared timestamps, and (B) shows its consensus order as a monotonic
 clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
-$P_4=12$ (much newer), when preceded by the winning branch.
+$P_4=12$ (much newer) when preceded by the winning branch.
 
-- why important
-- also deterministic
-    - same across peers
-- exemplo do 24h refund?
-
-  which may be much later than its own, since a losing branch is
-  appended
-  after the winner regardless of its dates.
-  For instance, a post declared three days ago in a losing branch is
-  appended
-  today: its 24-hour reward is due, since its timestamp is old, but
-  its
-  consensus time is today, as for the whole appended branch.
-  The settling window counts consensus time, so the branch stays
-  loose for 7
-  days from today, not from its dates.
-  Like any chain time, consensus time follows from the DAG alone, so
-  peers
-  holding the same DAG agree on it.
-
-Hence, members cannot backdate actions below their parents, nor forward-date
-them beyond the present of honest peers, so chain time only advances as real
-time passes.
-
-Furthermore, the consensus order (\S\ref{sec.design.consensus}) may place an
-action far from its declared timestamp, since a losing branch is appended
-after the winner regardless of its dates.
-Consensus time follows from the DAG alone, so peers holding the same DAG
-compute the same values, and it is what the settling window counts.
+The monotonic timeline counts how long an action has been in the local order
+rather than how old it claims to be.
+This is fundamental to prevent losing branches to settle instantly when
+recovering from network partitions (\S\ref{sec.design.partitions}).
+Like any chain time, position timestamps follow from the DAG alone, so peers
+holding the same DAG agree on them.
 
 \subsection{Network Partitions}
 \label{sec.design.partitions}
