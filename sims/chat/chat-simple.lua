@@ -133,14 +133,23 @@ end
 -------------------------------------------------------------------------------
 -- replay
 
-local N     = 0
-local tpost = 0     -- post seconds in the window
+local N       = 0
+local tpost   = 0     -- post seconds in the window
+local clamped = 0     -- out-of-order times raised to the clock
+local last_ts = 0
 for l in io.lines(CHAT) do
     l = string.gsub(l, "'", " ")
     local y,m,d,hh,mm,ss,user,msg = string.match(l,
         "(%d%d%d%d)(%d%d)(%d%d) %[(%d%d):(%d%d):(%d%d)%] %<([%a%d-_]+)%>\t(.*)")
     if y then
         local ts = os.time({ year=y, month=m, day=d, hour=hh, min=mm, sec=ss })
+        -- `too old` refuses < NOW(backs)-1h: raise stragglers to the
+        -- running clock and count them (the log has a misfiled day)
+        if ts < last_ts then
+            ts = last_ts
+            clamped = clamped + 1
+        end
+        last_ts = ts
         local t0 = now()
         local hash = exec(FC .. " --now=" .. ts .. " chain '" .. ALIAS .. "' post --sign=" .. key(user) .. " inline -- '" .. msg .. "'")
         tpost = tpost + (now() - t0)
@@ -149,7 +158,7 @@ for l in io.lines(CHAT) do
         print(N, ts, user, hash)
 
         if N % WINDOW == 0 then
-            print(string.format("== N=%d  post avg=%.3fs", N, tpost/WINDOW))
+            print(string.format("== N=%d  post avg=%.3fs  clamped=%d", N, tpost/WINDOW, clamped))
             tpost = 0
             report('before', N)
             if SWEEP then
