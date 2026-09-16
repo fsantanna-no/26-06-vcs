@@ -925,7 +925,7 @@ In summary,
 \subsection{Chain Time}
 \label{sec.design.time}
 
-Note that some rules of the protocol depend on durations of physical time:
+Some rules of the protocol depend on durations of physical time:
     the 12h refund (\R{2}),
     the 24h reward (\R{1.b}), and
     the 7-day settling window (\S\ref{sec.design.partitions}).
@@ -950,22 +950,22 @@ Therefore, just before the action enters the DAG, the peer validates the
 timestamp within reasonable bounds (1-hour tolerance):
 %
 \begin{description}
-    \item[Lower limit:] timestamp must be newer than all of its parents.
-    \item[Upper limit:] timestamp must be older than the local peer clock.
+    \item[Lower limit:] may not precede parents by more than 1 hour.
+    \item[Upper limit:] may not exceed local clock by more than 1 hour.
 \end{description}
 %
 Figure~\ref{fig.times} illustrates the tolerance window to append new actions
 into the DAG.
-The solid shapes represent previously validated actions (\code{tip},\code{b1},
-\code{b2}), which tolerate a tip older than its parent (\code{tip} vs
+The solid shapes represent previously validated actions (\code{tip}, \code{b1},
+\code{b2}), tolerating a tip slightly older than its parent (\code{tip} vs
 \code{b2}).
 %
-The dashed shapes represent new actions with possibile timings and outcomes in
+The dashed shapes represent new actions with possible timings and outcomes in
 relation to the tolerance window.
 %
-The lower limit (\code{parents-1h}) depends only on the self-declared
-timestamps of the tip (max among parents) and action, meaning that the
-validation is deterministic across peers.
+The lower limit (\code{parents-1h}) depends only on timestamps already in the
+chain (newest among parents and action itself), meaning that the validation is
+deterministic across peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
