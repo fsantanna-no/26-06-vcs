@@ -955,8 +955,9 @@ Figure~\ref{fig.times} illustrates the tolerance window to append new actions
 into the DAG.
 The solid shapes represent previously validated actions (\code{tip}, \code{b1},
 \code{b2}).
-The dashed shapes represent new actions with possible timings and outcomes in
-relation to the tolerance window.
+The dashed shapes represent new actions and their outcomes considering the
+tolerance window: the labels \code{OK} are accepted, whereas \code{old} and
+\code{new} are rejected.
 %
 The lower limit (\code{parents-1h}) depends only on timestamps from immutable
 parents already in the chain, meaning that validation is deterministic across
@@ -964,12 +965,12 @@ peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
-Nevertheless, a peer whose clock lags behind simply refuses the sync as
-\emph{too new} until a later retry, and then converges to the same state.
+Nevertheless, a peer whose clock is behind simply refuses syncs until a later
+retry, when it converges to the same state.
 
-In summary, as in Bitcoin~\cite{btc.timestamps}, initial admission is a local
-decision, but once in the chain, decisions are deterministic based on immutable
-parents, hence \emph{chain time}.
+In summary, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
+local decision, but once in the chain, decisions are deterministic based on
+immutable parents, hence the term \emph{chain time}.
 
 \begin{figure}
 \centering
@@ -980,11 +981,11 @@ parents, hence \emph{chain time}.
 \label{fig.monotonic}
 \end{figure}
 
-We also rely on chain time to make the consensus timeline
-(\S\ref{sec.design.consensus}) a monotonic clock.
+We also rely on deterministic chain time to derive a monotonic consensus
+timeline.
 %
-Each action in the order carries a \emph{position timestamp}~($P_i$) as the
-maximum between the previous position timestamp~($P_{i-1}$) and its own
+Each action in the total order carries a \emph{position timestamp}~($P_i$) as
+the maximum between the previous position timestamp~($P_{i-1}$) and its own
 self-declared timestamp~($S_i$): $P_i=\max(P_{i-1},S_i)$, with $P_0=S_0$.
 %
 In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
@@ -993,12 +994,10 @@ clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
 
-The monotonic timeline counts how long an action has been in the local order
-rather than how old it claims to be.
+The monotonic timeline counts how new an action is in the local order rather
+than how old it claims to be.
 This prevents losing branches from settling instantly when recovering from
 network partitions (\S\ref{sec.design.partitions}).
-Like any chain time, position timestamps follow from the DAG alone, so peers
-holding the same DAG agree on them.
 
 \subsection{Network Partitions}
 \label{sec.design.partitions}
