@@ -982,42 +982,27 @@ parents, hence \emph{chain time}.
 \caption{
     Consensus timeline as monotonic clock.
 }
-\label{fig.times}
+\label{fig.monotonic}
 \end{figure}
 
-We also rely on chain time to make the consensus timeline a monotonic clock.
+We also rely on chain time to make the consensus timeline
+(\S\ref{sec.design.consensus}) a monotonic clock.
 %
 Each action in the order carries a \emph{position timestamp}~($P_i$) as the
 maximum between the previous position timestamp~($P_{i-1}$) and its own
-self-declared timestamp~($S_i$): $P_i~=~\max(P_{i-1},S_i$), with $P_0~=~S_0$.
+self-declared timestamp~($S_i$): $P_i=\max(P_{i-1},S_i)$, with $P_0=S_0$.
 %
 In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
-self-declared timestamps, whereas (B) shows its consensus order as a monotonic
+self-declared timestamps, and (B) shows its consensus order as a monotonic
 clock.
-Note how timestamp \code{4} in the losing branch becomes \code{12} when
-preceded by the winning branch.
-
-
-
-
-Figure~\ref{fig.monoti
-
-
- by a
-temporary network partition. The common ances-
-tors have signed actions from members a, b, and c.
+For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
+$P_4=12$ (much newer), when preceded by the winning branch.
 
 - why important
 - also deterministic
+    - same across peers
+- exemplo do 24h refund?
 
-
- increase
-monotonically, i.e., from the 
-
-
- the \emph{consensus time} of an action is the newest
-  timestamp up to its position in the order
-  (\S\ref{sec.design.consensus}),
   which may be much later than its own, since a losing branch is
   appended
   after the winner regardless of its dates.
@@ -1033,22 +1018,6 @@ monotonically, i.e., from the
   peers
   holding the same DAG agree on it.
 
-
-
-We also rely on chain time to make the consensus timeline increase
-monotonically...
-
-As a final concern, ..
-
-Consensus time
-    - loosing branch
-    - same across peers
-
-Chain time is then the newest timestamp accepted so far, which only advances
-as real time passes.
-
-- exemplo do 24h refund
-
 Hence, members cannot backdate actions below their parents, nor forward-date
 them beyond the present of honest peers, so chain time only advances as real
 time passes.
@@ -1056,9 +1025,6 @@ time passes.
 Furthermore, the consensus order (\S\ref{sec.design.consensus}) may place an
 action far from its declared timestamp, since a losing branch is appended
 after the winner regardless of its dates.
-We therefore define the \emph{consensus time} of an action as the chain time
-at its position in the order, i.e., the maximum between its own timestamp and
-the consensus time of the preceding action.
 Consensus time follows from the DAG alone, so peers holding the same DAG
 compute the same values, and it is what the settling window counts.
 
