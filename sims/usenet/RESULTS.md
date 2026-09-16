@@ -20,3 +20,34 @@
   (vs 2k) outweighs the payload bytes, which ride hash-object
 - tpd-21 checks: "5000 users" at 10k msgs -> measured 5,255;
   "3kB per message" holds (payload = full record)
+
+# Tree store, members sharded (26/09/15): FULL replay
+
+- freechains: plan 260914-tree build (git tree per commit, lazy
+  per-entity files; members under `members/xx/`, `tot` in meta,
+  due-heads index); log `use-simple-all-tree.log` (also
+  `use-simple-5k-tree.log`, `use-simple-15k-tree.log`: identical
+  prefixes, byte-for-byte deterministic)
+- same machine, shared with a browser (load ~1.5)
+- "before"/"after": whole repo around the sweep, payloads included;
+  "snap": the 260902-snapshots build above
+
+| N   | users | snap post | tree post | snap before | tree before | snap sweep | tree sweep | snap after | tree after |
+|-----|-------|-----------|-----------|-------------|-------------|------------|------------|------------|------------|
+| 5k | 2867 | 0.137 s | 0.186 s | 30 MB | 105 MB | 5.3 s | 15.0 s | 15 MB | 28 MB |
+| 10k | 5255 | 0.246 s | 0.194 s | 80 MB | 161 MB | 8.9 s | 22.2 s | 30 MB | 62 MB |
+| 15k | 7530 | 0.361 s | 0.192 s | 125 MB | 204 MB | 12.6 s | 23.4 s | 44 MB | 94 MB |
+| 20k | 9784 | 0.482 s | 0.195 s | 166 MB | 253 MB | 17.5 s | 26.0 s | 59 MB | 126 MB |
+| 25k | 11781 | 0.610 s | 0.200 s | 212 MB | 305 MB | 23.6 s | 28.9 s | 75 MB | 159 MB |
+| 30k | 13182 | 0.748 s | 0.203 s | 257 MB | 369 MB | 31.3 s | 31.8 s | 91 MB | 193 MB |
+
+- total: 1h54m (6,859s) vs 4h34m (16,472s): 2.4x faster
+- post latency FLAT: 0.186 -> 0.203s while the ledger grows 2.9k ->
+  13.9k users; the snapshot build grew linearly to 0.748s
+- floor higher below ~7k posts (0.186 vs 0.137): ~36 processes per
+  post (27 git), Lua CPU ~30ms
+- disk: after-sweep ~2.1x the snapshot build (193 vs 91 MB at 30k),
+  growing ~32 MB per 5k: every post rewrites its member and action
+  shard trees, the tail order chunk, one pending bucket, meta;
+  sweeps converge (31.8 vs 31.3s at 30k); loose 400-500 MB per
+  window before the sweep (13 small objects per post)

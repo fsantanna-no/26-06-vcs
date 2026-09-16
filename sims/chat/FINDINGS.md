@@ -83,3 +83,53 @@
     - `act`/`reps`/`mature` lines; state = fold of prefix
     - write O(1), disk O(N), no gc, checkpoints bound read
 - 4: cheaper serializer (only if 3 is skipped)
+
+# Tree store (freechains.vcs plan 260914-tree, 2026-09-14/15)
+
+- State per commit as a git TREE at `refs/local/<cid>`: one Lua file
+  per action (`actions/xx/<cid>.lua`) and per member, the order in
+  chunks of 200 cids, the maturing entries in per-day `pending/`
+  buckets, `meta.lua`. Unchanged files share blobs across snapshots;
+  every commit keeps its own O(1) floor (no anchors, no replay).
+- Per post: ~5 blobs (one `hash-object`), one `mktree --batch` (tree
+  ids computed in Lua), one create-only `update-ref`; entries load
+  lazily by path; `advance()` walks a 13h window of pending records
+  and settles by per-member heads, never the backlog.
+- Lua CPU per post ~30 ms (os.clock); the rest is process spawn and
+  git I/O: 26 git processes per post, ~8 from the store.
+- Same machine and input as above, shared with a browser (load ~1.5).
+  Logs: `chat-simple-10k-tree-run1.log` (every chunk rewritten),
+  `chat-simple-10k-tree-run2.log` (tail-only order, dirty buckets),
+  `chat-simple-50k-tree.log` (final store; the lazy-order step landed
+  after this run started and is not in it).
+
+| N   | tree post | otim3 post | ref post | tree loose | tree sweep | tree pack | otim3 pack |
+|-----|-----------|------------|----------|------------|------------|-----------|------------|
+| 5k  | 0.187 s   | 0.128 s    | 0.18 s   | 349 MB     | 9.3 s      | 12.8 MB   | 2.4 MB     |
+| 10k | 0.209 s   | 0.229 s    | 0.38 s   | 370 MB     | 13.5 s     | 32.1 MB   | 4.9 MB     |
+| 15k | 0.226 s   | 0.331 s    | 0.65 s   | 374 MB     | 16.3 s     | 51.4 MB   | 7.3 MB     |
+| 20k | 0.227 s   | 0.441 s    | 0.84 s   | 391 MB     | 19.1 s     | 73.3 MB   | 10.8 MB    |
+| 25k | 0.319 s   | 0.563 s    | 3.00 s   | 572 MB     | 26.6 s     | 97.2 MB   | 14.7 MB    |
+| 30k | 0.296 s   | 0.690 s    | 2.84 s   | 518 MB     | 25.8 s     | 121.0 MB  | 19.0 MB    |
+| 35k | 0.255 s   | 0.805 s    | 1.70 s   | 469 MB     | 26.8 s     | 147.7 MB  | 23.7 MB    |
+| 40k | 0.272 s   | 0.939 s    | 2.73 s   | 502 MB     | 29.7 s     | 174.6 MB  | 28.7 MB    |
+| 45k | 0.291 s   | 1.150 s    | 3.70 s   | 518 MB     | 32.7 s     | 201.7 MB  | 34.1 MB    |
+| 50k | 0.319 s   | 1.223 s    | 4.98 s   | 571 MB     | 35.7 s     | 230.1 MB  | 40.0 MB    |
+
+- post latency: flat-ish (0.19 -> 0.32 s over 50k, the 25k burst
+  window included) against otim3's linear climb to 1.22 s and the
+  reference's 4.98 s; totals: 3.6 h posting + 3.9 min sweeping
+  (otim3: 9.0 h + 4.1 min)
+- the floor at 5k is HIGHER than otim3 (0.187 vs 0.128): ~36
+  processes per post; uncontended single posts measure 0.15-0.17 s
+  at 5k and at 10k alike
+- disk: loose grows ~13 small objects per post (350-570 MB of 4 KB
+  blocks per 5k window, vs otim3's ~50 MB); the pack is 5.7x otim3
+  (230 vs 40 MB at 50k): every post rewrites the tail order chunk,
+  one pending bucket, one member file and meta, and each snapshot
+  adds ~6 tree objects; sweeps stay under 36 s
+- 10k runs: run1 0.205/0.252 s (5k/10k), run2 0.184/0.210 s
+- next levers: `git gc --auto` per snapshot to bound the loose pile;
+  smaller pending buckets (hours) and a per-member queue to shrink
+  the rewritten bytes; the pipeline's own ~18 processes (4x
+  ssh-keygen, 4x cat-file commit)
