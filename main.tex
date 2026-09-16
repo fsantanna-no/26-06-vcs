@@ -1003,26 +1003,26 @@ network partitions (\S\ref{sec.design.partitions}).
 \label{sec.design.partitions}
 
 Peer-to-peer networks have no dedicated infrastructure to keep connections
-stable, especially under a permissionless regime, so partitions are not
-exceptional events, but the norm:
+stable, especially under a permissionless regime.
+Hence, partitions are not exceptional events, but the norm:
     peers join, leave, and reconnect at will.
 %
 Partitions are also \emph{unbounded} and possibly \emph{malicious}, since a
 peer may stay offline for as long as it wants, and no one can distinguish
 whether the causes are deliberate or accidental.
-%
+
 Note that our local-first approach contrasts with standard blockchains, which
 consider partitions as faults, and assume an online majority that discards
 minority branches.
-
-The protocol, therefore, cannot treat partitions as attacks, but can only
-react to the damage they may cause.
+%
+Therefore, \FC does not treat partitions as attacks, but only reacts to the
+damage they may cause.
 Next, we discuss the threats and countermeasures under unbounded partitions:
 %
 \begin{description}
 \item [\S\ref{sec.design.partitions.farming}]
     Reputation Farming:
-    how a remote isolated branch mints \reps unchecked.
+    how an isolated remote branch mints \reps unchecked.
 \item [\S\ref{sec.design.partitions.hardforks}]
     Hard Forks:
     how local settled actions become immune to reordering.
@@ -1031,8 +1031,8 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
 \subsubsection{Reputation Farming}
 \label{sec.design.partitions.farming}
 
-Consider a malicious scenario in which member $c$ in Figure~\ref{fig.reps}.A
-intentionally disconnects from the network for weeks to cultivate fake
+Back in Figure~\ref{fig.reps}.A, consider a malicious scenario in which member
+$c$ intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
 %
 When merging, these fake members would become legitimate and take over the
@@ -1061,7 +1061,7 @@ For instance, members $a$ and $b$ can pretend that they did not yet see
 \code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
 that a further merge invalidates all actions from \code{branch-1}, as if they
 never existed.
-%
+
 Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
 \code{branch-1} locally before casting the dislike that bans $c$, so that the
 next merge rejects \code{branch-1} for good.
