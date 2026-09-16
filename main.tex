@@ -925,17 +925,10 @@ In summary,
 \subsection{Chain Time}
 \label{sec.design.time}
 
-Some rules of the protocol depend on durations of physical time:
+Some rules of the protocol depend on wall-clock durations:
     the 12h refund (\R{2}),
     the 24h reward (\R{1.b}), and
     the 7-day settling window (\S\ref{sec.design.partitions}).
-
-To measure durations, \FC adopts the principle of a \emph{chain time} relying
-exclusively on immutable timestamps already in the chain.
-This way, peers holding the same DAG compute the same durations.
-However, in our permissionless context, we cannot trust self-declared
-timestamps, since malicious members could manipulate them to collect rewards or
-to vandalize chains.
 
 \begin{figure}
 \centering
@@ -946,13 +939,17 @@ to vandalize chains.
 \label{fig.times}
 \end{figure}
 
-Therefore, just before the action enters the DAG, the peer validates the
-timestamp within reasonable bounds (1-hour tolerance):
+To measure durations, \FC adopts the principle of a \emph{chain time} that
+relies exclusively on immutable timestamps already in the chain.
+This way, peers holding the same DAG compute the same durations.
+However, in our permissionless context, we cannot trust self-declared
+timestamps, since malicious members could manipulate them to collect rewards or
+to vandalize chains.
 %
-\begin{description}
-    \item[Lower limit:] may not precede parents by more than 1 hour.
-    \item[Upper limit:] may not exceed local clock by more than 1 hour.
-\end{description}
+Therefore, just before an action enters the DAG, the peer validates its
+timestamp within reasonable bounds:
+    no older than its newest parent, and
+    no newer than the local clock (each with 1 hour of tolerance).
 
 Figure~\ref{fig.times} illustrates the tolerance window to append new actions
 into the DAG.
