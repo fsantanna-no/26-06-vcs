@@ -953,7 +953,7 @@ timestamp within reasonable bounds (1-hour tolerance):
     \item[Lower limit:] may not precede parents by more than 1 hour.
     \item[Upper limit:] may not exceed local clock by more than 1 hour.
 \end{description}
-%
+
 Figure~\ref{fig.times} illustrates the tolerance window to append new actions
 into the DAG.
 The solid shapes represent previously validated actions (\code{tip}, \code{b1},
@@ -963,43 +963,92 @@ The solid shapes represent previously validated actions (\code{tip}, \code{b1},
 The dashed shapes represent new actions with possible timings and outcomes in
 relation to the tolerance window.
 %
-The lower limit (\code{parents-1h}) depends only on timestamps already in the
-chain (newest among parents), meaning that the validation is deterministic
-across peers.
+The lower limit (\code{parents-1h}) depends only on timestamps from immutable
+parents already in the chain, meaning that validation is deterministic across
+peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
 Nevertheless, a peer whose clock lags behind simply refuses the sync as
 \emph{too new} until a later retry, and then converges to the same state.
 
+In summary, as in Bitcoin~\cite{btc.timestamps}, initial admission is a local
+decision, but once in the chain, decisions are deterministic based on immutable
+parents, hence \emph{chain time}.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{monotonic.png}
+\caption{
+    Consensus timeline as monotonic clock.
+}
+\label{fig.times}
+\end{figure}
 
+We also rely on chain time to make the consensus timeline a monotonic clock.
 %
-In summary, as in Bitcoin~\cite{btc.timestamps}, initial admission is local,
-but all further decisions are deterministic based on the chain itself.
+Each action in the order carries a \emph{position timestamp}~($P_i$) as the
+maximum between the previous position timestamp~($P_{i-1}$) and its own
+self-declared timestamp~($S_i$): $P_i~=~\max(P_{i-1},S_i$), with $P_0~=~S_0$.
+%
+In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
+self-declared timestamps, whereas (B) shows its consensus order as a monotonic
+clock.
+Note how timestamp \code{4} in the losing branch becomes \code{12} when
+preceded by the winning branch.
 
 
 
----
 
-  Chain time is then the newest timestamp accepted so far, which only advances
-  as real time passes.
+Figure~\ref{fig.monoti
 
-, so that members cannot backdate actions before what they acknowledge;
+
+ by a
+temporary network partition. The common ances-
+tors have signed actions from members a, b, and c.
+
+- why important
+- also deterministic
+
+
+ increase
+monotonically, i.e., from the 
+
+
+ the \emph{consensus time} of an action is the newest
+  timestamp up to its position in the order
+  (\S\ref{sec.design.consensus}),
+  which may be much later than its own, since a losing branch is
+  appended
+  after the winner regardless of its dates.
+  For instance, a post declared three days ago in a losing branch is
+  appended
+  today: its 24-hour reward is due, since its timestamp is old, but
+  its
+  consensus time is today, as for the whole appended branch.
+  The settling window counts consensus time, so the branch stays
+  loose for 7
+  days from today, not from its dates.
+  Like any chain time, consensus time follows from the DAG alone, so
+  peers
+  holding the same DAG agree on it.
+
+
+
+We also rely on chain time to make the consensus timeline increase
+monotonically...
+
+As a final concern, ..
+
+Consensus time
+    - loosing branch
+    - same across peers
+
+Chain time is then the newest timestamp accepted so far, which only advances
+as real time passes.
+
 - exemplo do 24h refund
 
-- pq peers nao divergem (unica possibilidade é b, mas é só esperar um pouquinho)
-
-
-We share with Bitcoin~\cite{TODO}
-
-possible to go back in time
-
-
-\FC relies on a for that: each action carries a
-self-declared timestamp, which must lie between the timestamps of its
-parents and the clock of the receiving peer, with a tolerance of one hour;
-the chain time is then the newest timestamp accepted so far.
 Hence, members cannot backdate actions below their parents, nor forward-date
 them beyond the present of honest peers, so chain time only advances as real
 time passes.
