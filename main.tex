@@ -1089,36 +1089,36 @@ In any case, it is unacceptable that an old remote branch affects an active
 local forum.
 
 Therefore, considering that forging long branches or returning from long
-absences are undistinguishable, reputation alone becomes a fragile criterion
+absences are indistinguishable, reputation alone becomes a fragile criterion
 for consensus.
 As the counterpoint illustrates, past members holding the majority of \reps at
 any point in time could still override the present, which corresponds to the
 \emph{long-range attack} in proof-of-stake~\cite{pos.weak}.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{hard.png}
+\caption{
+    7-day settling window over consensus timeline.
+}
+\label{fig.hard}
+\end{figure}
+
 As a countermeasure, \FC protects settled local branches from outdated actions,
 which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 %
-As Figure~\ref{fig.hard} illustrates, actions are frozen 7 days after they
-enter the local order, counting in chain time (\S\ref{sec.design.poa}).
-
- as of
-their position in the order, not as of their declared timestamps.
-Hence, a losing branch that arrives with old timestamps is appended and remains
-loose for 7 days, during which it can still be refuted as in
-\S\ref{sec.design.partitions.farming}.
-If a winning branch would reorder frozen actions, the merge is refused and the
-two peers become incompatible, which is analogous to a hard fork in Bitcoin.
-Since consensus time follows from the DAG, peers holding the same DAG reach
-the same verdict, and the 7-day window is a chain constant set at creation:
-chats may settle faster, newsgroups slower.
+As Figure~\ref{fig.hard} illustrates, actions settle 7 days after they enter
+the local order, counting in position timestamps in the consensus timeline
+(\S\ref{sec.design.time}).
+A branch whose fork point is unsettled is always merged (\code{ok}).
+However, settled fork points only merge losing branches (\code{lose}), but
+never winning branches (\code{win}).
 %
-Peers that remain active and synchronize over time evolve together with a
-stable order, whereas a member back after longer must discard its local branch
-and repost its actions.
-% TODO: 2.13.h
-In an idle forum, however, a farmed branch is a fast-forward rather than a
-fork, so it enters unchallenged and can only be undone by revoking its posts
-(\R{3.d}) or by a deliberate hard fork.
+The last rule, which is analogous to a hard fork in Bitcoin, makes the syncing
+peers incompatible, protecting \code{branch-1} from $a$ and $b$ in the scenario
+above.
+Since chain time cannot be forged or accelerated, peers holding the same DAG
+reach the same verdict.
 
 In summary, the consensus rules to merge a local branch \code{L} with a remote
 branch \code{R} are as follows:
