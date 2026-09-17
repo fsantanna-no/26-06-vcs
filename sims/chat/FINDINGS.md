@@ -133,3 +133,42 @@
   smaller pending buckets (hours) and a per-member queue to shrink
   the rewritten bytes; the pipeline's own ~18 processes (4x
   ssh-keygen, 4x cat-file commit)
+
+# Tree store: FULL chat replay (2026-09-16)
+
+- 155,528 messages, the whole `wikimedia.chat`; build = plan
+  260914-tree with members sharded (same as the comp.compilers run);
+  log `chat-simple-full-tree.log`
+- `chat-simple.lua` now raises out-of-order timestamps to the running
+  clock and counts them (`clamped=`), as the usenet sim did: the
+  dataset has a misfiled day (~420 lines of 2012-05-31 after
+  2012-06-01), which the `too old` rule refused at post 132,865
+- wall: 10:11 -> 23:24 (13h13m) for 155k; the snapshot build needed
+  39h for 100k and was then OOM-killed
+- "snap 100k" = chat-simple-full-otim3.log (tip file + anchors);
+  "old 50k" = chat-simple-50k.log (blob per commit)
+
+| N | old 50k post | snap 100k post | tree 50k post | tree full post | snap sweep | tree sweep | snap after | tree after |
+|---|---|---|---|---|---|---|---|---|
+| 10k | 0.376 s | 0.174 s | 0.209 s | 0.226 s | 6 s | 14 s | 18 MB | 40 MB |
+| 20k | 0.845 s | 0.395 s | 0.227 s | 0.238 s | 17 s | 20 s | 37 MB | 88 MB |
+| 30k | 2.839 s | 0.626 s | 0.296 s | 0.301 s | 29 s | 25 s | 56 MB | 143 MB |
+| 40k | 2.726 s | 0.914 s | 0.272 s | 0.268 s | 51 s | 30 s | 77 MB | 204 MB |
+| 50k | 4.979 s | 1.201 s | 0.319 s | 0.310 s | 78 s | 38 s | 98 MB | 266 MB |
+| 60k | - | 1.469 s | - | 0.258 s | 99 s | 48 s | 123 MB | 336 MB |
+| 70k | - | 1.764 s | - | 0.272 s | 130 s | 53 s | 147 MB | 407 MB |
+| 80k | - | 2.081 s | - | 0.300 s | 186 s | 55 s | 175 MB | 481 MB |
+| 90k | - | 2.455 s | - | 0.319 s | 264 s | 68 s | 200 MB | 558 MB |
+| 100k | - | 2.865 s | - | 0.307 s | - | 71 s | - | 636 MB |
+| 110k | - | - | - | 0.308 s | - | 80 s | - | 715 MB |
+| 120k | - | - | - | 0.336 s | - | 92 s | - | 794 MB |
+| 130k | - | - | - | 0.299 s | - | 117 s | - | 877 MB |
+| 140k | - | - | - | 0.312 s | - | 140 s | - | 962 MB |
+| 150k | - | - | - | 0.305 s | - | 160 s | - | 1050 MB |
+
+- post latency 0.20-0.37 s across the whole run; the snapshot build
+  reached 2.87 s at 100k
+- sweeps grow with the pack: 14 s at 10k -> 160 s at 150k; the
+  snapshot build was at 264 s by 90k
+- disk after sweep ~3.2x the snapshot build at 100k (636 vs 200 MB),
+  1.05 GB at 150k: the per-post rewritten trees and bulk files
