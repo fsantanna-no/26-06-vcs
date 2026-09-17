@@ -1076,34 +1076,27 @@ intervention of at least one honest member.
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
 
-Considering that forging long branches from ancient fork points is
-undetectable, reputation alone becomes a fragile criterion for consensus.
-For instance, past members holding the majority of \reps at any point in time
-could still override the present, which corresponds to the \emph{long-range
-attack} in proof-of-stake~\cite{pos.weak}.
-
-In Figure~\ref{fig.reps}.A, as a counterpoint to member $c$ farming \reps,
-suppose members $a$ and $b$ are the ones who have abandoned the forum for
-months, and thus \code{branch-1} is actually legitimate.
-In this case, members $a$ and $b$ would succeed in taking over the forum,
-since they control the majority of \reps in the common history.
+Back in Figure~\ref{fig.reps}.A, as a counterpoint, suppose members $a$ and $b$
+are the ones who have abandoned the forum for months.
+This would invert our judgement and make \code{branch-1} with $c$, $x$ and $y$
+legitimate.
+Nevertheless, members $a$ and $b$ would succeed in taking over the forum, since
+they control the majority of \reps in the common history.
 %
 Yet another possibility is that both branches are legitimate but were
 genuinely disconnected for a long period.
 In any case, it is unacceptable that an old remote branch affects an active
 local forum.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.3\textwidth]{hard.png}
-\caption{
-    Settled local branch with frozen actions.
-}
-\label{fig.hard}
-\end{figure}
+Therefore, considering that forging long branches or returning from long
+absences are undistinguishable, reputation alone becomes a fragile criterion
+for consensus.
+As the counterpoint illustrates, past members holding the majority of \reps at
+any point in time could still override the present, which corresponds to the
+\emph{long-range attack} in proof-of-stake~\cite{pos.weak}.
 
-Therefore, \FC protects settled local branches from outdated actions, which
-corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
+As a countermeasure, \FC protects settled local branches from outdated actions,
+which corresponds to checkpoints in proof-of-stake~\cite{pos.weak}.
 %
 As Figure~\ref{fig.hard} illustrates, actions are frozen 7 days after they
 enter the local order, counting in chain time (\S\ref{sec.design.poa}).
