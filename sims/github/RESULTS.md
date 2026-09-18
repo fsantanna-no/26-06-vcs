@@ -39,8 +39,44 @@
     - by reason: pending (gated run logs revoke/un-revoke
       events per cid)
 
-## GATED (dictator = maintainer) -- running
+## GATED (dictator = maintainer), full corpus (26/09/18)
 
-- begs + welcomes; votes only when affordable (smoke: 66% of
-  votes unaffordable at 1000); resurrection split; revoke
-  reasons as labels for precision
+- 94,006 events in 9h06m (1.3x open); flat 0.31-0.37 s/ev;
+  packed 688 MB; all 3,449 revokes issued and effective
+- 18,377 logins: 11,504 posted (all begged at first post =
+  births); 6,873 only reacted
+
+| N     | ev avg | likes | dislikes | votes skipped | res_i | res_v |
+|-------|--------|-------|----------|---------------|-------|-------|
+| 10000 | 0.316s |   544 |       47 |   542 (48%)   |   604 |    54 |
+| 30000 | 0.324s | 1,855 |      101 | 2,357 (55%)   | 1,505 |   293 |
+| 50000 | 0.341s | 3,436 |      145 | 5,142 (59%)   | 2,450 |   458 |
+| 70000 | 0.366s | 4,793 |      202 | 8,588 (63%)   | 3,464 |   574 |
+| 90000 | 0.220s | 6,283 |      327 | 15,147 (70%)  | 4,275 |   725 |
+| END   |        | 6,576 |      348 | 16,205 (70%)  | 4,434 |   751 |
+
+- VOTES MOSTLY UNAFFORDABLE: 16,205 of 23,129 (70%) skipped
+  because the reactor held < 1000 reps; in the 2025 controversy
+  window 83% -- the dislike storm (open: 1,999) shrinks to 348
+  when votes cost 1000: reactors are not posters
+- resurrections 5,185: 751 vandal vs 4,434 innocent ->
+  PRECISION 14% (wiki: 72%): GitHub commenters die by post
+  cost, not by revocation; recidivists 504
+- un-revoked by later likes: 101 of 3,449 (2.9%; open 6.8%,
+  fewer affordable likes)
+    - spam 2/298 (0.7%), abuse 1/130 (0.8%) vs resolved 39/1,092
+      (3.6%), duplicate 16/388 (4.1%), off-topic 30/1,112 (2.7%)
+    - the community overturns HOUSEKEEPING minimizes, almost
+      never abuse/spam: the like-vs-revoke tug-of-war
+      discriminates by reason without being told the reason
+
+## A/B takeaways (open vs gated, same 94,006 events)
+
+- both flat on the tree build (0.26 vs 0.37 s at END)
+- gating removes 70% of the votes and 83% of the dislike
+  storm: at vote = 1000 the vote signal is what dies first --
+  the constants question is vote cost, before revoke cost
+- precision 14% vs wiki 72%: two regimes (drained commenters
+  vs revoked vandals); the innocent-resurrection rate is the
+  friction metric the paper should report per corpus
+- un-revoke by reason: abuse/spam < 1%, housekeeping 3-4%
