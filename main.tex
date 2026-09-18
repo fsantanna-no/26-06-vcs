@@ -610,17 +610,14 @@ Once liked, a beg is merged and becomes part of the immutable chain DAG
 \subsection{Proof-of-Authoring}
 \label{sec.design.poa}
 
-Pioneers solve bootstrapping, but their fixed initial \nreps{50K} cannot
-sustain a growing forum, since it would constitute the whole ``chain economy''
-forever.
+Pioneers address bootstrapping, but their fixed initial \nreps{50K} cannot
+constitute the whole economy of a growing chain forever.
 %
-Bitcoin faces this issue and mints new coins as a reward for mining
-(\emph{proof-of-work}).
-However, CPU power or other \emph{asymmetric extrinsic resources} are not
-evenly distributed among humans, especially on battery-powered devices.
-In the context of public forums, we propose to take advantage of the human
-authoring ability as a \emph{symmetric intrinsic resource}.
-\emph{Proof-of-authoring} is still analogous to mining:
+Facing the same issue, Bitcoin mints new coins as a reward for CPU power
+(\emph{proof-of-work}), which is an \emph{extrinsic resource} not evenly
+distributed.
+For public forums, we propose human authoring (\emph{proof-of-authoring}) as an
+\emph{intrinsic resource}, which is still analogous to mining:
     (i)   it is harder than rating;
     (ii)  it adds value to chains; and
     (iii) its aggregate determines consensus order.
