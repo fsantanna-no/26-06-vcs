@@ -51,3 +51,17 @@
   shard trees, the tail order chunk, one pending bucket, meta;
   sweeps converge (31.8 vs 31.3s at 30k); loose 400-500 MB per
   window before the sweep (13 small objects per post)
+
+## tree build (branch 260914-tree-trash, 26/09/15)
+
+- log: usenet/logs/use-simple-all-tree.log (working-tree build)
+
+| N     | post avg (old -> tree) | sweep (old -> tree) | pack (old -> tree) |
+|-------|------------------------|---------------------|--------------------|
+|  5000 | 0.137 -> 0.186 s       | 5.3 -> 15.0 s       |  15 -> 25 MB       |
+| 20000 | 0.482 -> 0.195 s       | 17.5 -> 26.0 s      |  59 -> 114 MB      |
+| 30000 | 0.748 -> 0.203 s       | 31.3 -> 31.8 s      |  91 -> 175 MB      |
+
+- total 1h54m (was 4h34m); latency flat, no member-ledger drift
+  (13,890 members no longer parsed per post)
+- floor ~1.9x the old blobs (tree overhead), linear
