@@ -172,3 +172,28 @@
   snapshot build was at 264 s by 90k
 - disk after sweep ~3.2x the snapshot build at 100k (636 vs 200 MB),
   1.05 GB at 150k: the per-post rewritten trees and bulk files
+
+# Tree build (branch 260914-tree-trash, runs of 26/09/15-16)
+
+- state as a git TREE per commit (per-entity files, shared
+  blobs): reads independent of N, O(1) floors
+- logs: chat/logs/chat-simple-{10k-tree-run1,10k-tree-run2,
+  50k-tree,full-tree}.log (run from the working tree)
+
+| N       | post avg (old -> tree) | sweep (old -> tree) | pack (old -> tree) |
+|---------|------------------------|---------------------|--------------------|
+| 5k      | 0.18 -> 0.19 s         | 77 s -> 9.6 s       | 5 -> 14 MB         |
+| 20k     | 0.85 -> 0.24 s         | 21 min -> 20 s      | 44 -> 77 MB        |
+| 50k     | 4.98 -> 0.31 s         | 103 min -> 38 s     | 183 -> 238 MB      |
+| 100k    | (killed) -> 0.31 s     | -- -> 71 s          | -- -> 578 MB       |
+| 155.5k  | -- -> 0.31 s           | -- -> 167 s         | -- -> 1005 MB      |
+
+- FULL chat (155,528 msgs, 2.2 years) completes in 13h13m;
+  the old build needed 36 h for 50k and died at 100k (OOM)
+- latency FLAT (0.19 -> 0.31 s over 30x N; slight drift only)
+- sweep LINEAR (~1 ms per action) instead of quadratic
+- packed floor linear, ~6.5 KB/msg (trees cost ~1.5-2x the old
+  blob floor, which was super-linear anyway)
+- 378 ts clamps in the full run = the two known back-jumps in
+  the dataset (lines 142k/144k), not a driver issue
+- two 10k runs byte-for-byte reproducible (run1 == run2 windows)
