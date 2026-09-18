@@ -282,8 +282,15 @@ for rev in revisions() do
     if GATED and reps(who, ts) < 500 then
         beg = ' --beg'
     end
-    local hash = exec(FC .. " --now=" .. ts .. " chain '" .. ALIAS ..
-        "' post --sign=" .. key(who) .. beg .. " file " .. TMP)
+    local cmd = FC .. " --now=" .. ts .. " chain '" .. ALIAS ..
+        "' post --sign=" .. key(who)
+    local hash = exec(cmd .. beg .. " file " .. TMP)
+    -- the unsigned reps query may lag the signed post's own
+    -- refunds: flip the beg decision once on a gate error
+    if not hash:match('^%x+$') and hash:find('sufficient reputation', 1, true) then
+        beg = (beg == '') and ' --beg' or ''
+        hash = exec(cmd .. beg .. " file " .. TMP)
+    end
     assert(hash:match('^%x+$'), rev.id .. ' : ' .. hash)
     nrevs = nrevs + 1
     local entry = { cid = hash, who = who }
