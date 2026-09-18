@@ -359,7 +359,7 @@ abusive posts~\cite{p2p.merkle-crdts,p2p.byz}.
 %
 The next section addresses both problems:
     reputation rules make posting scarce, and
-    a consensus order resolves forks.
+    a consensus order resolves fork conflicts.
 
 \section{Reputation and Consensus}
 \label{sec.design}
@@ -371,7 +371,7 @@ In \FC, members spend tokens named \reps to post and rate content in forums:
     a \code{revoke} or \code{unrevoke} toggles content removal.
 %
 Table~\ref{tab.general} summarizes the general reputation principles, whereas
-Table~\ref{tab.rules} lists all concrete rules, which we refer to in
+Table~\ref{tab.rules} lists all concrete rules, which we explain through
 illustrative examples.
 
 In the rest of this section, we detail the reputation system and how it works
@@ -491,23 +491,23 @@ Payloads are limited to at most \emph{128~KB}.
 \subsection{Chain Bootstrapping}
 \label{sec.design.boot}
 
-To prevent Sybils, members with no \reps cannot operate under these principles,
-and require a welcoming like from any other member already in the system.
+To prevent Sybils, members with no \reps cannot operate on the chains, and
+require a welcoming like from any other member already in the system.
 %
 Here, we face a \emph{bootstrapping} problem, typical of permissionless
 systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
-    how to admit the first members?
+    how to admit the first members,
     and how to decentralize power over time?
 %
-To address bootstrapping, we propose to designate \emph{pioneers} with initial
-\reps when creating chains.
+Our proposal is to designate \emph{pioneers} with initial \reps when creating
+chains.
 The pioneers shape the evolution of chains with the first posts and likes, and
-gradually transfer \reps to new members, which dilutes their initial power
-and thus makes decentralization possible.
+gradually transfer \reps to new members, which dilutes their power, making
+decentralization possible.
 %
-We can now be more precise about admission in permissionless forums:
-it does not mean that anyone can post at will, but that any insider can welcome
-any outsider by directly transferring \reps, without intermediate authorities.
+Therefore, our concept of permissionless forums is not that anyone can post at
+will, but that any insider can welcome any outsider by directly transferring
+\reps, without intermediate authorities.
 
 \begin{lstlisting}[
     float=tbp,
