@@ -559,7 +559,7 @@ bob        25000
 alice      20000
 carol       4500
 
-$ fc /chat post 'Great Post' --sign=dave --beg
+$ fc /chat post 'Great Post' --beg --sign=dave
 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
 $ fc /chat list begs
 5d98790763bb3ca93bb84985bd49c9fa0887fe6e
@@ -574,29 +574,28 @@ dave        1800
 \subsection{Member Admission}
 \label{sec.design.members}
 
-After pioneer initialization, the only way to welcome new members is through
-\emph{likes}, which transfer \reps between identities.
+Once initialized, the only way to welcome new members is through \emph{likes},
+which transfer \reps between identities.
 %
 We propose two complementary mechanisms:
-    (i) \emph{friend-to-friend} likes from members, which target known
-    newcomers directly; and
-    (ii) \emph{begging posts} from newcomers, which wait outside the chains
-    for a member's like.
-Note that the second is more interesting, since it admits total strangers based
-purely on content quality.
+    (i) \emph{friend-to-friend} likes targeting known newcomers directly; and
+    (ii) \emph{begging posts} from newcomers, which wait for members' likes.
+The second is more interesting, since it admits total strangers based purely on
+content quality.
 %
 Listing~\ref{lst.welcome} illustrates both:
-    a direct like to \emph{Carol} (ln~1), and
-    a begging post from \emph{Dave} (ln~7--10) that receives a like (ln~11).
-A like transfers \reps from the origin to the target (\R{3.c}), burning a 10\%
-tax (\R{3.a}): \emph{Alice} spends \nreps{5000} and \emph{Carol} receives
-\nreps{4500} (ln~2--5).
-When the target is a post, the amount splits in half between the post and its
-author (\R{3.b}): \emph{Bob} spends \nreps{4000}, and \emph{Dave} and their
-post receive \nreps{1800} each (ln~12--16).
 %
-Since likes are at best zero-sum (transfers and taxes do not add value),
-there is no incentive to cycle reps among colluding Sybils.
+(i) \emph{Alice} transfers \nreps{5000} to \emph{Carol} with a like (ln~1,
+\R{3.c}), which, after a 10\% tax (\R{3.a}), yields \nreps{4500} (ln~2--5).
+%
+(ii) \emph{Dave} signs a post with \code{--beg} (ln~7--8), which lives
+off-chain (ln~9--10).
+Then, \emph{Bob} spends \nreps{4000} to like the post (ln~11), which is taxed
+and then split with the author (\R{3.b}), yielding \nreps{1800} each
+(ln~12--16).
+%
+Since likes are at best zero-sum (transfers and taxes do not add value), there
+is no incentive to cycle \reps among colluding Sybils.
 
 Begging posts have restricted reach, since they are not part of the Merkle DAG.
 Therefore, peers are not required to hold or forward them, and a reasonable
