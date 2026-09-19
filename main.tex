@@ -209,7 +209,7 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \hline
 \code{init}        & Creates fresh chain         & \code{init}                 \\
 \code{clone}       & Replicates remote chain     & \code{clone}                \\
-\code{sync}        & Exchanges remote actions    & \code{fetch}, \code{push}   \\
+\code{sync}        & Exchanges remote actions    & \code{fetch}, \code{push}, \code{merge} \\
 \code{post}        & Appends post to chain       & \code{commit}               \\
 \code{payload}     & Queries action content      & \code{show} (blob)          \\
 \code{metadata}    & Queries action metadata     & \code{show} (commit)        \\
@@ -347,6 +347,8 @@ some point in the future.
 In Listing~\ref{lst.fork}, each peer posts locally (ln~1--3 and 5--7) and
 eventually synchronizes with the other side (ln~9--10), both converging to the
 same forked DAG (ln~11--14).
+Note that \code{sync} joins the two tips with a merge commit, so any further
+action descends from both sides with the fork closed.
 
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
