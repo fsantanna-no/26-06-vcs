@@ -599,7 +599,7 @@ Begging posts have restricted reach, since they are not part of the Merkle DAG%
 \footnote{
     In Git, a beg is a tip reference, whose like becomes its merge point into
     the immutable chain DAG.
-    While as a tip, a beg can be synchronized or dropped at will.
+    Until then, a beg can be synchronized or dropped at will.
 }.
 Therefore, peers are not required to hold or forward them, and a reasonable
 policy is to keep them in a temporary bag for some visibility.
@@ -644,7 +644,7 @@ demands non-trivial work that resists automation.%
 }
 %
 To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
-\emph{Carol}'s reputation evolves with a post (ln~3--4):
+\emph{Carol}'s reputation evolves with a post:
 %
 \begin{description}
 \item[T0:] \emph{Carol} holds the \nreps{4500} received from \emph{Alice}'s
