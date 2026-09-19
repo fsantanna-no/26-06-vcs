@@ -579,33 +579,30 @@ which transfer \reps between identities.
 %
 We propose two complementary mechanisms:
     (i) \emph{friend-to-friend} likes targeting known newcomers directly; and
-    (ii) \emph{begging posts} from newcomers, which wait for members' likes.
+    (ii) \emph{begging posts} from newcomers waiting for members' likes.
 The second is more interesting, since it admits total strangers based purely on
 content quality.
 %
 Listing~\ref{lst.welcome} illustrates both:
 %
 (i) \emph{Alice} transfers \nreps{5000} to \emph{Carol} with a like (ln~1,
-\R{3.c}), which, after a 10\% tax (\R{3.a}), yields \nreps{4500} (ln~2--5).
+\R{3.c}), which after a 10\% tax (\R{3.a}), yields \nreps{4500} (ln~2--5).
 %
-(ii) \emph{Dave} signs a post with \code{--beg} (ln~7--8), which lives
-off-chain (ln~9--10).
-Then, \emph{Bob} spends \nreps{4000} to like the post (ln~11), which is taxed
-and then split with the author (\R{3.b}), yielding \nreps{1800} each
-(ln~12--16).
+(ii) \emph{Dave} begs a post (ln~7--8), which lives off-chain (ln~9--10),
+waiting \emph{Bob} to like it with \nreps{4000} (ln~11), which after the tax is
+split with the author (\R{3.b}), yielding \nreps{1800} each (ln~12--16).
 %
 Since likes are at best zero-sum (transfers and taxes do not add value), there
 is no incentive to cycle \reps among colluding Sybils.
 
-Begging posts have restricted reach, since they are not part of the Merkle DAG.
+Begging posts have restricted reach, since they are not part of the Merkle DAG%
+\footnote{
+    Each beg is a root reference in Git, which can be synchronized or dropped
+    at will.
+    Once liked, it is merged and becomes part of the immutable chain DAG.
+}.
 Therefore, peers are not required to hold or forward them, and a reasonable
 policy is to keep them in a temporary bag for some visibility.
-%
-Regarding the Git-based implementation, begs are held as parentless commits
-referenced under \code{refs/begs/beg-*}, and can be synchronized or dropped at
-will.
-Once liked, a beg is merged and becomes part of the immutable chain DAG
-(Table~\ref{tab.commands}).
 
 \subsection{Proof-of-Authoring}
 \label{sec.design.poa}
@@ -639,34 +636,34 @@ $ fc /chat reps member carol     # T3: after 24h
 5500
 \end{lstlisting}
 
-Therefore, \FC rewards members whose new content other members tolerate
-(\R{1.b}), which demands non-trivial work that resists automation.%
+\FC rewards members whose new content persists on the chain (\R{1.b}), which
+demands non-trivial work that resists automation.%
 \footnote{
-    Note that although human and AI content may become indistinguishable, their
-    frequency and relevance in forums are still subject to human evaluation.
+    Note that AI-generated content is still subject to human evaluation
+    regarding its frequency and relevance.
 }
 %
 To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
-\emph{Carol}'s reputation evolves with a post:
+\emph{Carol}'s reputation evolves with a post (ln~3--4):
 %
 \begin{description}
 \item[T0:] \emph{Carol} holds the \nreps{4500} received from \emph{Alice}'s
     welcoming like (\R{3.c}).
-\item[T1:] The new post costs \nreps{500} (\R{2}), which limits how fast a
-    member can post in sequence.
-\item[T2:] The cost is refunded within at most 12 hours (\R{2}), sooner as
-    members holding more \reps act after the post.
+\item[T1:] The new post costs \nreps{500} (\R{2}), which limits how often
+    she can post.
+\item[T2:] The cost is refunded within 12 hours (\R{2}), or sooner as other
+    members act after it.
 \item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
     most once a day (\R{1.b}).
 \end{description}
 %
-Since the post survived, \emph{Carol} ends with \nreps{1000} more than she
-started with, representing the value she added to the chain in the form of
-human-authored content.
-
-Section~\ref{sec.design.time} discusses how to count time consistently without
-a global clock.
+Section~\ref{sec.design.time} discusses how to count these periods
+consistently without a global clock.
 %
+Since the post consolidates without being revoked (\S\ref{sec.design.votes}),
+\emph{Carol} earns \nreps{1000}, which reflects the value she added to the
+chain in the form of human-authored content.
+
 The 24-hour period gives sufficient time for other members to judge the post
 before the reward.
 It also regulates the growth speed of the chain, since extra posts do not
@@ -675,14 +672,14 @@ reward members with more \reps (\R{1.b}).
 In summary, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
-As a limitation, since emission (\R{1.b}) and the \reps cap (\R{4.b}) apply
-per identity, a reputed attacker has the incentive to seed several fresh
-identities, which then post daily to multiply emission.
+As a limitation, since \reps emission and cap apply per identity
+(rules~\code{1.b}~and~\code{4.b}), a reputed attacker may seed several fresh
+identities to multiply emission.
 %
-This is not a Sybil attack in the strict sense, since each identity must still
-behave as an independent human to pass proof-of-authoring.
-Hence, we argue that the actual threat is automated content, which the
-community must detect and revoke in any case.
+These are not Sybils in the strict sense, since each identity needs to behave
+as an independent human to pass proof-of-authoring.
+We argue that the actual threat is automated content, which the community must
+detect and revoke in any case.
 
 \subsection{Content Rating and Revocation}
 \label{sec.design.votes}
