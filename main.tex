@@ -721,24 +721,51 @@ rate content, which also dilutes their power.
 %
 These lower and upper limits work together towards the quality of forums.
 
-TODO: revocation
-\iffalse
-  What the revocation paragraph must cover, from Table 3 and the
-  implementation:
+\begin{lstlisting}[
+    float=tbp,
+    label={lst.revoke},
+    style=numbered,
+    caption={Content revocation of an abusive post.}
+]
+$ fc /chat post 'nice product' --sign=dave
+4a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7
+$ fc /chat revoke 1000 4a5b6c7 --sign=alice
+$ fc /chat payload 4a5b6c7
+ERROR : chain payload : revoked
+$ fc /chat unrevoke 1000 4a5b6c7 --sign=bob \
+    --file=product.txt
+$ fc /chat payload 4a5b6c7
+nice product
+\end{lstlisting}
 
-  1. Revoke erases the payload, unrevoke restores it; the action
-     stays in the DAG, so peers can prove revocation and refuse to
-     forward the payload.
-  2. Cost: at least 1000, paid by the revoker; the target and its
-     author lose half each (rule 3.b); a like also counts toward
-     unrevoking.
-  3. The author may revoke their own post for free (right to be
-     forgotten), implemented but unstated.
-  4. Revocation cancels the post's emission (rule 1.b, the new rule),
-     which is the defense against farming.
-  5. Revoke is meant for abuse, not disagreement, since it is
-     expensive and dislikes exist for that.
-\fi
+Even with ratings, chains remain subject to abuse, such as spam,
+misinformation, or even illegal content.
+For such cases, members may \emph{revoke} an action (\R{3.d}) to erase its
+payload in all honest peers.
+%
+In Listing~\ref{lst.revoke}, \emph{Dave} posts spam (ln~1--2), which
+\emph{Alice} revokes (ln~3), making its payload unavailable (ln~4--5).
+%
+Since actions reference payloads by hash (\S\ref{sec.git}), peers can prove
+a revocation and refuse to forward the payload without touching the chain
+history, where only the metadata remains.
+%
+Revocation is reversible through \emph{unrevoke} (ln~6--9), and likes also
+count towards restoring a payload, so its availability follows the balance
+between revokes and unrevokes.
+Note that a copy of the payload must be provided, which is validated against
+its hash persisted in the metadata.
+%
+As a \emph{right to be forgotten}, authors may revoke their own posts for
+free, which no other member can undo.
+
+Revocation is deliberately expensive: it costs the revoker at least
+\nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
+target and its author (\R{3.b}).
+It also cancels the reward of the revoked post (\R{1.b}), which is the
+ultimate defense against farmed reputation (\S\ref{sec.design.poa}).
+Hence, revokes are meant to combat abuse, whereas dislikes exist for
+disagreement.
 
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
