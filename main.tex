@@ -684,15 +684,9 @@ detect and revoke in any case.
 \subsection{Content Rating and Revocation}
 \label{sec.design.votes}
 
-Rating content is a defining feature of public forums, from Slashdot's scarce
+Content rating is a defining feature of public forums, from Slashdot's scarce
 moderation points~\cite{forum.slashdot} to Reddit's votes~\cite{forum.reddit}
 and Stack Overflow's reputation~\cite{forum.stackoverflow}.
-
-The quality of posts is subjective and is up to members to judge with
-likes, dislikes, or simply abstaining.
-In \FC, each forum post holds its own \reps as the balance between likes and
-dislikes targeting it (\R{3.c}), which end-user software can use to filter and
-highlight content.
 
 \begin{lstlisting}[
     float=tbp,
@@ -707,21 +701,23 @@ $ fc /chat reps post 5d98790
 1350
 \end{lstlisting}
 
+The quality of posts is subjective and is up to members to judge with
+likes, dislikes, or simply abstaining.
+In \FC, each forum post holds its own \reps as the balance between likes and
+dislikes targeting it (\R{3.c}), which end-user software can use to filter and
+highlight content.
+%
 Listing~\ref{lst.rating} shows the \reps of \emph{Dave}'s post before and after
 \emph{Alice} likes and \emph{Carol} dislikes it.
 After applying the taxes and split (rules~\code{3.a}~and~\code{3.b}), the final
-outcome is $1800+450-900 = 1350$.
-%
-We omit the members \reps in the example, but note that \emph{Alice} and
-\emph{Carol} pay in full, whereas \emph{Dave} also loses \reps due to the
-higher dislike.
+outcome is $1350$ ($1800+450-900$).
 
 The economy of \reps induces members to only rate content they care about.
 %
 On the one hand, since \reps are finite, members must ponder before spending
 them.
-On the other hand, since \reps are capped (\R{4.b}), they also have an
-incentive to rate content, and thus dilute their power.
+On the other hand, since \reps are capped (\R{4.b}), they have an incentive to
+rate content, which also dilutes their power.
 %
 These lower and upper limits work together towards the quality of forums.
 
