@@ -1052,6 +1052,25 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
     how local settled actions become immune to reordering.
 \end{description}
 
+\subsection{Byzantine Peers}
+\label{sec.design.byz}
+
+A \emph{Byzantine} peer~\cite{lamport.byz} may serve forged actions, withhold
+branches, or answer differently to different peers.
+%
+Nevertheless, since peers are not trusted a priori, and every action is part of
+the tamper-proof DAG, any erratic data is detected on the first inconsistency,
+allowing the receiver to drop the connection and blacklist the remote peer.
+%
+Therefore, a Byzantine peer cannot alter the DAG, forge content, or prevent
+other peers from synchronizing directly: it can only deny service, simulating
+a partition that correct peers route around.
+
+In summary, unlike classic Byzantine agreement with permissioned
+quorums~\cite{p2p.byz}, in \FC nothing is decided by counting peers, only by
+validating each action locally and ordering branches by the reputation of
+their members (\S\ref{sec.design.consensus}).
+
 \subsubsection{Reputation Farming}
 \label{sec.design.partitions.farming}
 
@@ -1167,25 +1186,6 @@ The consensus algorithm does not prevent such splits, but makes them
 transparent and deterministic, so that members understand the evolution of a
 forum and act accordingly.
 Ultimately, a hard fork is a social conflict, not a numeric dispute.
-
-\subsection{Byzantine Peers}
-\label{sec.design.byz}
-
-A \emph{Byzantine} peer~\cite{lamport.byz} may serve forged actions, withhold
-branches, or answer differently to different peers.
-%
-Nevertheles, since peers are not trusted a priori, and every action is part of
-the tamper-proof DAG, any erratic data is detected on the first inconsistency,
-allowing the receiver to drop the connection and blacklist the remote peer.
-%
-Therefore, a Byzantine peer cannot alter the DAG, forge content, or prevent
-two correct peers from synchronizing directly: it can only withhold what it
-holds, or attempt denial of service.
-
-In summary, unlike classic Byzantine agreement with permissioned
-quorums~\cite{p2p.byz}, in \FC nothing is decided by counting peers, only by
-validating each action locally and ordering branches by the reputation of
-their members (\S\ref{sec.design.consensus}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
