@@ -730,13 +730,13 @@ These lower and upper limits work together towards the quality of forums.
     caption={Content revocation of an abusive post.}
 ]
 $ fc /chat post 'nice product' --sign=dave
-4a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7
-$ fc /chat revoke 1000 4a5b6c7 --sign=alice
-$ fc /chat payload 4a5b6c7
-ERROR : chain payload : revoked
-$ fc /chat unrevoke 1000 4a5b6c7 --sign=bob \
+65980b7b536eb850d05c06e1ca517cb7ca074257
+$ fc /chat revoke 1000 65980b7 --sign=alice
+$ fc /chat payload 65980b7
+ERROR : chain payload : revoked payload
+$ fc /chat unrevoke 1000 65980b7 --sign=bob \
     --file=product.txt
-$ fc /chat payload 4a5b6c7
+$ fc /chat payload 65980b7
 nice product
 \end{lstlisting}
 
