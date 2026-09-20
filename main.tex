@@ -855,8 +855,9 @@ that both sides agree on.
 Then, we determine the exclusive members of each side, and compare the
 aggregate reputation of these disjoint sets, as of the fork point.
 %
-Finally, the winning branch is sorted entirely first, followed by the losing
-side after the last action of the winning side.
+Finally, the winning branch is sorted first and the losing one appended
+after it, with nested and multi-way forks reducing to successive pairwise
+merges by the same rule.
 
 \begin{figure*}[t]
 \centering
