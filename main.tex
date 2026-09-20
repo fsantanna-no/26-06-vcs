@@ -405,6 +405,10 @@ forums:
 \item [\S\ref{sec.design.partitions}]
     Network Partitions:
     how to defend from deliberate branches.
+% TODO: 2.16.c
+\item [\S\ref{sec.design.byz}]
+    Byzantine Peers:
+    how self-verification replaces quorums.
 \end{description}
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
@@ -1164,32 +1168,24 @@ transparent and deterministic, so that members understand the evolution of a
 forum and act accordingly.
 Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
-\subsection{Peer Synchronization and Byzantine Faults}
+\subsection{Byzantine Peers}
 \label{sec.design.byz}
 
-Similarly to Bitcoin, the underlying network protocol replicates on each peer
-the full state of the Merkle~DAG representing the causal relationships between
-actions.
-When peers synchronize, they mutually exchange missing branches such that they
-reach the same DAG structure~\cite{p2p.byz}.
-As they synchronize, each peer runs the consensus algorithm locally and
-verifies if all received actions are consistent.
-
-Because the protocol relies on tamper-proof DAGs, and because each peer self
-verifies the actions as they synchronize, the protocol becomes tolerant to
-Byzantine faults~\cite{lamport.byz}.
+A \emph{Byzantine} peer~\cite{lamport.byz} may serve forged actions, withhold
+branches, or answer differently to different peers.
 %
-Note that no information coming from any peer is trusted a priori.
+Nevertheles, since peers are not trusted a priori, and every action is part of
+the tamper-proof DAG, any erratic data is detected on the first inconsistency,
+allowing the receiver to drop the connection and blacklist the remote peer.
 %
-For instance, a malicious peer that tries to synchronize branches with erratic
-data can be detected on the first inconsistent action.
-This allows the correct peer to close the connection immediately and blacklist
-the malicious peer from future connections.
+Therefore, a Byzantine peer cannot alter the DAG, forge content, or prevent
+two correct peers from synchronizing directly: it can only withhold what it
+holds, or attempt denial of service.
 
-Therefore, although Byzantine peers may still perform some sort of denial of
-service attacks in the network, they cannot modify the DAG structure, nor
-create arbitrary content, nor impede that two correct nodes synchronize
-directly.
+In summary, unlike classic Byzantine agreement with permissioned
+quorums~\cite{p2p.byz}, in \FC nothing is decided by counting peers, only by
+validating each action locally and ordering branches by the reputation of
+their members (\S\ref{sec.design.consensus}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
