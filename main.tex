@@ -403,12 +403,8 @@ forums:
     Chain Time:
     how to count time consistently without trusted clocks.
 \item [\S\ref{sec.design.partitions}]
-    Network Partitions:
-    how to defend from deliberate branches.
-% TODO: 2.16.c
-\item [\S\ref{sec.design.byz}]
-    Byzantine Peers:
-    how self-verification replaces quorums.
+    Network Threats:
+    how to defend from malicious peers and deliberate branches.
 \end{description}
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
@@ -1023,7 +1019,7 @@ than how old it claims to be.
 This prevents losing branches from settling instantly when recovering from
 network partitions (\S\ref{sec.design.partitions}).
 
-\subsection{Network Partitions}
+\subsection{Network Threats}
 \label{sec.design.partitions}
 
 Peer-to-peer networks have no dedicated infrastructure to keep connections
@@ -1041,9 +1037,12 @@ minority branches.
 %
 Therefore, \FC does not treat partitions as attacks, but only reacts to the
 damage they may cause.
-Next, we discuss the threats and countermeasures under unbounded partitions:
+Next, we discuss the threats and countermeasures under a hostile network:
 %
 \begin{description}
+\item [\S\ref{sec.design.byz}]
+    Byzantine Peers:
+    how self-verification reduces malicious peers to denial of service.
 \item [\S\ref{sec.design.partitions.farming}]
     Reputation Farming:
     how an isolated remote branch mints \reps unchecked.
@@ -1052,7 +1051,7 @@ Next, we discuss the threats and countermeasures under unbounded partitions:
     how local settled actions become immune to reordering.
 \end{description}
 
-\subsection{Byzantine Peers}
+\subsubsection{Byzantine Peers}
 \label{sec.design.byz}
 
 A \emph{Byzantine} peer~\cite{lamport.byz} may serve forged actions, withhold
