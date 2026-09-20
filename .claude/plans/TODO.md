@@ -1,5 +1,10 @@
 # TODO
 
+- Simulations moved (2026-09-20) to `/x/papers/2606-sims`
+  (github `fsantanna-no/26-06-sims`, fresh history); results in
+  `<sim>/RESULTS.md` there; any `sims/` path below is now relative
+  to that repo
+
 - Go through each citation added since the review started (2026-09-05)
   and verify it backs the sentence it supports (verbatim quote or
   page); list in `main.bib` marked `% TODO: 2.x.y`
