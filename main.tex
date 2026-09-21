@@ -406,7 +406,7 @@ forums:
     Network Threats:
     how to defend from malicious peers and deliberate branches.
 \item [\S\ref{sec.design.sec}]
-    Convergence:
+    Convergence and Divergence:
     how replicas converge, and when they stop.
 \end{description}
 
@@ -864,7 +864,7 @@ merges by the same rule.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=1\textwidth]{dag.png}
+\includegraphics[width=0.8\textwidth]{dag.png}
 \caption{
     (A) Forum DAG with common ancestors and two branches.
     (B) Total order after consensus.
@@ -1179,21 +1179,22 @@ branch \code{R} are as follows:
         (hard fork rule).
 \end{itemize}
 
-\subsection{Convergence}
+\subsection{Convergence and Divergence}
 \label{sec.design.sec}
 
 The consensus mechanism aims at \emph{strong eventual consistency}, which
 requires (i) eventual delivery, (ii) strong convergence, and (iii)
-termination~\cite{p2p.crdts,p2p.sec}.
+termination~\cite{p2p.crdts}.
 %
-The last two hold by construction:
-    (ii) the DAG only grows by unions, which is commutative, associative, and
-    idempotent, leading to monotonic convergence;
-    (iii) chain time duration, \reps accounting, and consensus order are pure
-    evaluations of the DAG.
+The last two hold by construction.
+The replay algorithm (\S\ref{sec.design.consensus}) visits each action only
+once (iii), using pure DAG evaluations for chain time durations, \reps
+accounting, and consensus order (ii).
+In addition, the DAG only grows by unions, which are commutative, associative,
+and idempotent, leading to monotonic convergence (ii).
 %
-\FC deliberately gives up eventual delivery (i) when settling windows result
-in hard forks (\S\ref{sec.design.partitions.hardforks}).
+However, partitions become permanent (i) when settling windows result in hard
+forks (\S\ref{sec.design.partitions.hardforks}).
 
 To conclude, since consensus rests on subjective ratings, forks are legitimate
 outcomes rather than failures.
