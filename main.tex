@@ -691,7 +691,7 @@ before the reward.
 It also regulates the growth speed of the chain, since extra posts do not
 reward members with more \reps (\R{1.b}).
 %
-In summary, proof-of-authoring stimulates content creation, which ultimately is
+Overall, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
 
 As a limitation, since \reps emission and cap apply per identity
@@ -1004,7 +1004,7 @@ non-determinism, since each peer runs its own clock.
 Nevertheless, a peer whose clock is behind simply refuses syncs until a later
 retry, when it converges to the same state.
 
-In summary, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
+Thus, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
 local decision, but once in the chain, decisions are deterministic based on
 immutable parents, hence the term \emph{chain time}.
 
@@ -1081,10 +1081,10 @@ Therefore, a Byzantine peer cannot alter the DAG, forge content, or prevent
 other peers from synchronizing directly: it can only deny service, simulating
 a partition that correct peers route around.
 
-In summary, unlike classic Byzantine agreement with permissioned
-quorums~\cite{p2p.byz}, in \FC nothing is decided by counting peers, only by
-validating each action locally and ordering branches by the reputation of
-their members (\S\ref{sec.design.consensus}).
+Unlike classic Byzantine agreement with permissioned quorums~\cite{p2p.byz},
+in \FC nothing is decided by counting peers, only by validating each action
+locally and ordering branches by the reputation of their members
+(\S\ref{sec.design.consensus}).
 
 \subsubsection{Reputation Farming}
 \label{sec.design.partitions.farming}
