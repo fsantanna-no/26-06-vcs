@@ -1194,6 +1194,32 @@ branch \code{R} are as follows:
         (hard fork rule).
 \end{itemize}
 
+\begin{table}[t]
+\centering
+\footnotesize
+\begin{tabular}{@{}lll@{}}
+\hline
+\textbf{Threat}      & \textbf{Countermeasure}          & Section \\
+\hline
+Sybil admission      & pioneers, likes, begs            & \ref{sec.design.boot}, \ref{sec.design.members} \\
+Identity splitting   & proof-of-authoring, revocation   & \ref{sec.design.poa} \\
+Abusive content      & dislikes, revocation             & \ref{sec.design.votes} \\
+Double-spend         & consensus order                  & \ref{sec.design.double}, \ref{sec.design.consensus} \\
+Forged timestamps    & chain time bounds                & \ref{sec.design.time} \\
+Byzantine peers      & self-certified DAG               & \ref{sec.design.byz} \\
+Reputation farming   & common-history reputation        & \ref{sec.design.partitions.farming} \\
+Long-range attack    & settling window                  & \ref{sec.design.partitions.hardforks} \\
+\hline
+\end{tabular}
+\caption{
+    Threats and countermeasures.
+}
+\label{tab.threats}
+\end{table}
+
+Finally, Table~\ref{tab.threats} maps each threat of Section~\ref{sec.design}
+to its countermeasures.
+
 \subsection{Convergence and Divergence}
 \label{sec.design.sec}
 
