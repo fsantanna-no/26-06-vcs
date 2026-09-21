@@ -492,7 +492,7 @@ Unrevoke counts \sreps{-}{n} to origin, and restores the payload.
 \\
 \hline
 Constraints & 4.a & min  &
-Actions cost at least \nreps{500}.
+Actions cost at least \nreps{500} (\nreps{1000} for revokes).
 \\
             & 4.b & max  &
 Members are limited to at most \nreps{50K}.
@@ -794,7 +794,7 @@ disagreement.
 Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
 correspond to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with just enough \reps for a single
-post, posting spam messages from multiple peers at the same time.
+action, posting spam or rating content from multiple peers at the same time.
 As discussed in Section~\ref{sec.git}, concurrency creates forks in the DAG,
 which implies ambiguity in the order of actions.
 
