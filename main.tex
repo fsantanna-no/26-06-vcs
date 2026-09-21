@@ -1209,12 +1209,6 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 \iffalse
 
-\item [\S\ref{sec.design.time}]
-    discusses timestamp convergence, regardless of local temporary time-based
-    decisions.
-\item [\S\ref{sec.design.byz}]
-    discusses peer synchronization under Byzantine faults.
-
 For instance, federated protocols explicitly leave spam filtering to the server
 side~\cite{pubsub.activitypub}, while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
@@ -1228,9 +1222,6 @@ preserves the Merkle DAG since payloads are referenced by hash.
 A \textbf{permissionless Wiki} shows how consensus empowers mostly
 conflict-free replicated data types (\emph{quasi-CRDTs}) by automating
 merges of user-assessed edits.
-
-We assume \emph{Carol} is honest and online...
-Also, local time
 
 In \FC, members may stay offline indefinitely without losing \reps, and both
 sides of a partition remain legitimate forums while they last.
@@ -1252,19 +1243,6 @@ dislikes, and more dislikes than likes (rule~\code{3}).
 However, considering that \reps are scarce, dislikes are encouraged to combat
 abusive behavior, but not to eliminate divergences of opinion.
 
-In summary, the reputation system makes \FC
-**(a)** Sybil-resistant: write operations require and spend `reps`; and
-**(b)** permissionless: any insider can transfer `reps` to welcome any outsider.
-
-In this sense, having one or hundreds of machines in the network does not
-affect the capacity to write into the forums.
-We consider Sybils as groups of throw-away identities and machines with no
-previous reputation in the forums.
-In our analogy with Bitcoin, Sybil attacks would require to add human resources,
-instead of CPU power.
-
-), since it is the maximum information that all branches
-
 According to \R{2}, only one of them should be accepted by the network.
 However, without consensus, it is not possible to globally determine which one
 to accept, since each peer would supposedly accept the first message it receives.
@@ -1274,30 +1252,9 @@ On the other hand, due to network partitions, we can only represent public
 forums as DAGs (directed acyclic graphs) with causal relationships between
 messages, which provides at most partial order.
 
-Going back to the malicious member example, the simultaneous messages would
-appear as forks in the forum DAG.
-Only the message in the fork with more combined work would be accepted, while
-all other Sybil messages would be rejected.
-
-Note that even non-malicious partitions may experience conflicts when
-merging.
-For instance, dislike operations in one branch to past actions in the common
-prefix could possibly block actions from members in the other branch.
-%, depending on how the actions are ordered.
-Therefore, we need to order branches with a global consensus, such that we can
-validate operations consistently across the network.
-%
-Note also that, to reach consensus, we should preferably rely on the maximum
-information that all branches agree on, which is exactly the actions in the
-common prefix.
-
 \subsection{Public Forum Chains}
 \label{sec.design.chains}
 
-The most basic concern in forums is to resist Sybils abusing the
-chains.
-Fully peer-to-peer systems cannot rely on logins or {\footnotesize CAPTCHAs}
-due to the lack of a central authority.
 Viable alternatives include (i) building social trust graphs, in which members
 already in the community vouch for new members, or (ii) imposing explicit costs
 for new posts, such as proof of work.
