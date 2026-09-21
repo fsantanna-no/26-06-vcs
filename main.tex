@@ -383,12 +383,13 @@ The next section addresses both problems:
 \label{sec.design}
 
 In \FC, members spend tokens named \reps to post and rate content in forums:
-    a \code{post} initially penalizes members until it consolidates and counts
-    positively;
-    a \code{like} or \code{dislike} rates members and content;
-    a \code{revoke} or \code{unrevoke} toggles content removal.
+    a \code{post} initially penalizes members (against excess), until it
+    consolidates and counts positively (towards authoring);
+    a \code{like} or \code{dislike} rates members and content (towards
+    quality);
+    a \code{revoke} or \code{unrevoke} toggles content removal (against
+    abuse).
 %
-Table~\ref{tab.general} summarizes the general reputation principles, whereas
 Table~\ref{tab.rules} lists all concrete rules, which we explain through
 illustrative examples.
 
@@ -430,27 +431,6 @@ Since we build upon unmodified Git, we argue that our design can be adapted to
 any system that structures posts as a Merkle DAG.
 For instance, the consensus order is just a view of the underlying DAG, which
 only decides which incoming posts are merged.
-
-\begin{table}[t]
-\centering
-\footnotesize
-\begin{tabular}{|l|p{2.9cm}|p{2.4cm}|}
-\hline
-\textbf{Rule} & \textbf{Effect} & \textbf{Goal} \\
-\hline
-Emission & Old posts award \reps to members
-         & Encourage content authoring \\
-\hline
-Expense  & New posts deduct \reps from members temporarily
-         & Discourage excess of content \\
-\hline
-Transfer & Likes and revokes transfer \reps between members and to actions
-         & Highlight quality and combat abuse \\
-\hline
-\end{tabular}
-\caption{General reputation principles.}
-\label{tab.general}
-\end{table}
 
 \begin{table*}[t]
 \centering
