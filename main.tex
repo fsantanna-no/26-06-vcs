@@ -772,9 +772,8 @@ Since actions reference payloads by hash (\S\ref{sec.git}), peers can prove
 a revocation and refuse to forward the payload without touching the chain
 history, where only the metadata remains.
 %
-Revocation is reversible through \emph{unrevoke} (ln~6--9), and likes also
-count towards restoring a payload, so its availability follows the balance
-between revokes and unrevokes.
+Revocation is reversible through \emph{unrevoke} (ln~6--9), so its availability
+follows the balance between revokes and unrevokes (and likes).
 Note that a copy of the payload must be provided, which is validated against
 its hash persisted in the metadata.
 %
