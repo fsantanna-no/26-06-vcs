@@ -167,8 +167,7 @@ the context of public forums.
 We highlight four main contributions (in italic):
 %
 We recognize human-authored content as a scarce resource, and reward members
-with reputation tokens as a \emph{proof-of-authoring} (akin to Bitcoin's
-mining).
+with reputation tokens as a \emph{proof-of-authoring} (akin to mining).
 %
 Members can spend these tokens to rate posts, and even revoke abusive content,
 as a \emph{decentralized moderation} mechanism.
@@ -178,12 +177,11 @@ Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 etiquette.
 %
 Under network partitions, posts form a causal graph, and a \emph{reputation
-consensus} determines a total order to resolve conflicting operations (akin to
-Bitcoin's double-spending).
+consensus}, resembling \emph{proof-of-stake}~\cite{pos.ouroboros}, determines a
+total order to resolve conflicting operations (akin to double-spending).
 
 As a main limitation, since partitions are unbounded, forums are subject to
-\emph{long-range attacks}, similarly to \emph{proof-of-stake}
-systems~\cite{pos.weak}.
+\emph{long-range attacks}~\cite{pos.weak}.
 As a countermeasure, branches older than a threshold (7 days) cannot reorder
 the local history, while newer malicious branches may require manual
 intervention, but of only a few honest members.
