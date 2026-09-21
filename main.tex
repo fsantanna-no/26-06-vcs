@@ -800,8 +800,9 @@ which implies ambiguity in the order of actions.
 
 \begin{lstlisting}[
     float=t,
-    label={lst.double.attempt},
-    caption={Double-spend attempt from multiple peers.}
+    label={lst.double},
+    style=numbered,
+    caption={Double-spend attempt and rejection.}
 ]
 $ fc /chat reps member carol
 4500
@@ -809,31 +810,16 @@ $ fc /chat reps member carol
 # PEER I
 $ fc /chat like 4500 member xion --sign=carol
 7468f50551b223133f48365984d1a192e7a36a67
-$ fc /chat reps members
-...
-xion        4050       # like to xion
-york           0
-carol          0
 
 # PEER J
 $ fc /chat like 4500 member york --sign=carol
 3d5fbf9a7e22af44f7b26ac7392ff0e9a63711cd
-$ fc /chat reps members
-...
-york        4050       # like to york
-xion           0
-carol          0
-\end{lstlisting}
 
-\begin{lstlisting}[
-    float=t,
-    label={lst.double.reject},
-    caption={Double-spend rejection on synchronization.}
-]
 # PEER I
 $ fc /chat sync J
 ERROR : invalid like : insufficient reputation
 voided : 7468f50551b223133f48365984d1a192e7a36a67
+
 $ fc /chat reps members
 ...
 york        4050       # accepted
@@ -841,18 +827,19 @@ xion           0       # rejected
 carol          0
 \end{lstlisting}
 
-In Listing~\ref{lst.double.attempt}, \emph{Carol} tries to double-spend her
-\nreps{4500} with concurrent likes to \emph{Xion} and \emph{York} on peers
-\emph{I} and \emph{J}, just before they synchronize.
+In Listing~\ref{lst.double}, \emph{Carol} with only \nreps{4500} (ln~1--2)
+tries to double-spend it with concurrent likes to \emph{Xion} and \emph{York}
+on peers \emph{I} and \emph{J} (ln~4--6 and 8--10), just before they
+synchronize.
 %
 Note that each like is legitimate in isolation, but inconsistent in the merged
 DAG.
-Therefore, in Listing~\ref{lst.double.reject}, when peer \emph{I} synchronizes
-with \emph{J}, it replays the DAG in topological order, accounts for the
-transactions in sequence, detects the double-spend, and rejects it.
+Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
+replays the DAG in topological order, accounts for the transactions in
+sequence, detects the double-spend, and rejects it (ln~17--21).
 
-However, note that all peers must replay the DAG in the exact same order,
-otherwise the accounting of \reps diverges and they become incompatible.
+For consistency, all peers must replay the DAG in the exact same order to
+compute \reps in the same way.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
 only refuse the double-spend but also converge to the same state.
 
