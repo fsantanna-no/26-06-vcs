@@ -1,5 +1,17 @@
 # TODO
 
+- Leftovers of review 260905-review.md (closed 2026-09-21)
+    - evaluation items moved to 260920-eval.md
+    - related work (postponed, 2.16): PoS fork choice (Ouroboros,
+      Casper, pos.weak), SybilGuard/SybilLimit, Slashdot mod points,
+      Matrix, Scuttlebutt, Nostr, ActivityPub
+    - conclusion (postponed, 2.16); future work candidates: drop the
+      1.b daily cap (3.1), unrevoke without payload copy (3.3),
+      reputation-weighted settling window (3.8)
+    - vcs: discard across a sync merge (260921-discard.md); enable
+      rule 4.c (128 KB); guide.sh FORK+7*DAY vs guide.md day 8
+    - restore memory `feedback-review-format` from the other machine
+
 - Simulations moved (2026-09-20) to `/x/papers/2606-sims`
   (github `fsantanna-no/26-06-sims`, fresh history); results in
   `<sim>/RESULTS.md` there; any `sims/` path below is now relative
