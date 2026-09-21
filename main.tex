@@ -927,10 +927,7 @@ Figure~\ref{fig.reps}:
     $M_1=\{c,x,y\}$ and $M_2=\{a,b\}$
 \item Sum the \reps of each set in the common history:      \\
     $R_1=6$ and $R_2=8$
-\item Order branches by highest sum first:%
-\footnote{
-    We compare the action hashes after the fork point as the tie breaker.
-}                                                           \\
+\item Order branches by highest sum first (tip hash as tie breaker):
     \code{common <- branch-2 <- branch-1}
 \item Discard actions from the first failure on:            \\
     \code{c <- y <- x}
