@@ -219,19 +219,20 @@ In Section~\ref{sec.conclusion}, we conclude this work.
 \begin{table}[t]
 \centering
 \footnotesize
-\begin{tabular}{lll}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lll@{}}
 \hline
 \textbf{Command}   & \textbf{Description}        & \textbf{Git}                \\
 \hline
 \code{init}        & Creates fresh chain         & \code{init}                 \\
 \code{clone}       & Replicates remote chain     & \code{clone}                \\
-\code{sync}        & Exchanges remote actions    & \code{fetch}, \code{push}, \code{merge} \\
+\code{sync}        & Exchanges actions           & \code{fetch,push,merge}     \\
 \code{post}        & Appends post to chain       & \code{commit}               \\
 \code{payload}     & Queries action content      & \code{show} (blob)          \\
 \code{metadata}    & Queries action metadata     & \code{show} (commit)        \\
 \code{list}        & Lists DAG, order, begs      & \code{log --graph}          \\
 \code{(dis)like}   & Rates member or action      & \code{commit}, \code{merge} \\
-\code{(un)revoke}  & Erases or restores payload  & \code{commit}               \\
+\code{(un)revoke}  & Erases/restores payload     & \code{commit}               \\
 \code{reps}        & Queries reputation          & hooks                       \\
 \code{discard}     & Drops local actions         & \code{reset}                \\
 \code{sweep}       & Erases revoked payloads     & \code{gc}                   \\
@@ -307,7 +308,7 @@ only the metadata lives in the immutable chain DAG, not its payload.
 ]
 # PEER X
 $ git -C /chat log --oneline
-b100ce8 post 9d882f4f8568a8f79a5d007a576919fae317ad65
+b100ce8 post 9d882f4f8568a8f79a5d007a576919fae3...
 726e329 genesis 5596915440
 \end{lstlisting}
 
