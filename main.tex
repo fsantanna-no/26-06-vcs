@@ -126,7 +126,7 @@ conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
 (iii).
-Without consensus, each client must rely on local anti-abuse policies (e.g.
+Without consensus, each client must rely on local anti-abuse policies (e.g.,
 spam filters), which only apply \emph{a posteriori}, when the damage has
 already been done.
 %
@@ -752,7 +752,7 @@ $ fc /chat post 'nice product' --sign=dave
 65980b7b536eb850d05c06e1ca517cb7ca074257
 $ fc /chat revoke 1000 65980b7 --sign=alice
 $ fc /chat payload 65980b7
-ERROR : chain payload : revoked payload
+ERROR : chain payload : revoked
 $ fc /chat unrevoke 1000 65980b7 --sign=bob \
     --file=product.txt
 $ fc /chat payload 65980b7
@@ -1028,7 +1028,7 @@ the maximum between the previous position timestamp~($P_{i-1}$) and its own
 self-declared timestamp~($S_i$): $P_i=\max(P_{i-1},S_i)$, with $P_0=S_0$.
 %
 In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
-self-declared timestamps, and (B) shows its consensus order as a monotonic
+self-declared timestamps, whereas (B) shows its consensus order as a monotonic
 clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
