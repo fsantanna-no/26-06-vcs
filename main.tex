@@ -382,56 +382,6 @@ The next section addresses both problems:
 \section{Reputation and Consensus}
 \label{sec.design}
 
-In \FC, members spend tokens named \reps to post and rate content in forums:
-    a \code{post} initially penalizes members (against excess), until it
-    consolidates and counts positively (towards authoring);
-    a \code{like} or \code{dislike} rates members and content (towards
-    quality);
-    a \code{revoke} or \code{unrevoke} toggles content removal (against
-    abuse).
-%
-Table~\ref{tab.rules} lists all concrete rules, which we explain through
-illustrative examples.
-
-In the rest of this section, we detail the reputation system and how it works
-in conjunction with the consensus mechanism to resist Sybils in permissionless
-forums:
-
-\begin{description}
-\item [\S\ref{sec.design.boot}]
-    Chain Bootstrapping:
-    how to admit the first members and dilute their initial power over time.
-\item [\S\ref{sec.design.members}]
-    Member Admission:
-    how insiders welcome outsiders without intermediate authorities.
-\item [\S\ref{sec.design.poa}]
-    Proof-of-Authoring:
-    how new content mints \reps and sustains a growing forum.
-\item [\S\ref{sec.design.votes}]
-    Content Rating and Revocation:
-    how votes measure quality and combat abuse.
-\item [\S\ref{sec.design.double}]
-    Concurrency and Double-spends:
-    how forks lead to inconsistent operations.
-\item [\S\ref{sec.design.consensus}]
-    Consensus and Total Order:
-    how peers converge on \reps accounting.
-\item [\S\ref{sec.design.time}]
-    Chain Time:
-    how to count time consistently without trusted clocks.
-\item [\S\ref{sec.design.partitions}]
-    Network Threats:
-    how to defend from malicious peers and deliberate branches.
-\item [\S\ref{sec.design.sec}]
-    Convergence and Divergence:
-    how replicas converge, and when they stop.
-\end{description}
-
-Since we build upon unmodified Git, we argue that our design can be adapted to
-any system that structures posts as a Merkle DAG.
-For instance, the consensus order is just a view of the underlying DAG, which
-only decides which incoming posts are merged.
-
 \begin{table*}[t]
 \centering
 \footnotesize
@@ -489,6 +439,55 @@ Payloads are limited to at most \emph{128~KB}.
 }
 \label{tab.rules}
 \end{table*}
+
+In \FC, members spend tokens named \reps to post and rate content in forums:
+    a \code{post} initially penalizes members (against excess), until it
+    consolidates and counts positively (towards authoring);
+    a \code{like} or \code{dislike} rates members and content (towards
+    quality);
+    a \code{revoke} or \code{unrevoke} toggles content removal (against abuse).
+%
+Table~\ref{tab.rules} lists all concrete rules, which we explain through
+illustrative examples.
+
+In the rest of this section, we detail the reputation system and how it works
+in conjunction with the consensus mechanism to resist Sybils in permissionless
+forums:
+
+\begin{description}
+\item [\S\ref{sec.design.boot}]
+    Chain Bootstrapping:
+    how to admit the first members and dilute their initial power over time.
+\item [\S\ref{sec.design.members}]
+    Member Admission:
+    how insiders welcome outsiders without intermediate authorities.
+\item [\S\ref{sec.design.poa}]
+    Proof-of-Authoring:
+    how new content mints \reps and sustains a growing forum.
+\item [\S\ref{sec.design.votes}]
+    Content Rating and Revocation:
+    how votes measure quality and combat abuse.
+\item [\S\ref{sec.design.double}]
+    Concurrency and Double-spends:
+    how forks lead to inconsistent operations.
+\item [\S\ref{sec.design.consensus}]
+    Consensus and Total Order:
+    how peers converge on \reps accounting.
+\item [\S\ref{sec.design.time}]
+    Chain Time:
+    how to count time consistently without trusted clocks.
+\item [\S\ref{sec.design.partitions}]
+    Network Threats:
+    how to defend from malicious peers and deliberate branches.
+\item [\S\ref{sec.design.sec}]
+    Convergence and Divergence:
+    how replicas converge, and when they stop.
+\end{description}
+
+Since we build upon unmodified Git, we argue that our design can be adapted to
+any system that structures posts as a Merkle DAG.
+For instance, the consensus order is just a view of the underlying DAG, which
+only decides which incoming posts are merged.
 
 \subsection{Chain Bootstrapping}
 \label{sec.design.boot}
