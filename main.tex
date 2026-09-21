@@ -645,23 +645,17 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     welcoming like (\R{3.c}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how often
     she can post.
-\item[T2:] The cost is refunded within 12 hours (\R{2}), or sooner as other
+\item[T2:] The cost is refunded within 12 hours (\R{2}), or sooner if other
     members act after it.
-\item[T3:] The post consolidates and rewards its author with \nreps{1000}, at
-    most once a day (\R{1.b}).
+\item[T3:] The post consolidates and rewards her with \nreps{1000} (\R{1.b}).
 \end{description}
 %
 Section~\ref{sec.design.time} discusses how to count these periods
 consistently without a global clock.
-%
-Since the post consolidates without being revoked (\S\ref{sec.design.votes}),
-\emph{Carol} earns \nreps{1000}, which reflects the value she added to the
-chain in the form of human-authored content.
 
 The 24-hour period gives sufficient time for other members to judge the post
-before the reward.
-It also regulates the growth speed of the chain, since extra posts do not
-reward members with more \reps (\R{1.b}).
+before the reward, while also regulating the growth speed of the chain (since
+extra posts do not reward members with more \reps, \R{1.b}).
 %
 Overall, proof-of-authoring stimulates content creation, which ultimately is
 the \emph{raison d'être} of public forums.
