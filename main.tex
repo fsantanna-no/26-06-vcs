@@ -868,7 +868,7 @@ merges by the same rule.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.5\textwidth]{dag.png}
+\includegraphics[width=\columnwidth]{dag.png}
 \caption{
     (A) Forum DAG with common ancestors and two branches.
     (B) Total order after consensus.
@@ -959,7 +959,7 @@ Some rules of the protocol depend on wall-clock durations:
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{times.png}
+\includegraphics[width=\columnwidth]{times.png}
 \caption{
     Timing tolerance window for new actions.
 }
@@ -1001,7 +1001,7 @@ immutable parents, hence the term \emph{chain time}.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{monotonic.png}
+\includegraphics[width=\columnwidth]{monotonic.png}
 \caption{
     Consensus timeline as monotonic clock.
 }
@@ -1146,7 +1146,7 @@ any point in time could still override the present, which corresponds to the
 
 \begin{figure}
 \centering
-\includegraphics[width=0.35\textwidth]{hard.png}
+\includegraphics[width=0.75\columnwidth]{hard.png}
 \caption{
     Settling window over consensus timeline.
 }
@@ -1297,7 +1297,7 @@ quickly.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{state-revoked.png}
+\includegraphics[width=\columnwidth]{state-revoked.png}
 \caption{
     State machine of actions:
     \code{BLOCKED} actions are not linked in the DAG.
@@ -1940,7 +1940,7 @@ revoke it and remove the warning.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{conflict.png}
+\includegraphics[width=\columnwidth]{conflict.png}
 \caption{
     The branches in the DAG are ordered by reputation.
     Only the first patch is applied successfully (first write wins).
