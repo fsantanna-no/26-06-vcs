@@ -45,6 +45,18 @@
 }
 \makeatother
 
+% floats: top only, tighter gaps, room for more per column
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\setcounter{topnumber}{3}
+\setlength{\textfloatsep}   {8pt plus 2pt minus 2pt}
+\setlength{\floatsep}       {8pt plus 2pt minus 2pt}
+\setlength{\intextsep}      {8pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}    {8pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{0pt}
+
 \hyphenation{off-line}
 
 \begin{document}
@@ -261,7 +273,7 @@ For the sake of simplicity, this section uses unrestricted chains that tolerate
 unsigned posts.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.basics},
     style=numbered,
     caption={Basic \emph{/chat} simulation in peer \emph{X}.}
@@ -289,7 +301,7 @@ Since revocation is a key moderation requirement (\S\ref{sec.design.votes}),
 only the metadata lives in the immutable chain DAG, not its payload.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.git},
     caption={Internal Git structure of \emph{/chat}.}
 ]
@@ -308,7 +320,7 @@ Listing~\ref{lst.git} shows that the \emph{/chat} repository contains two
 commits: the genesis with a random id, and the post pointing to its payload.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.clone},
     style=numbered,
     caption={Peer replication between \emph{X} and \emph{Y}.}
@@ -321,7 +333,7 @@ b100ce8
 \end{lstlisting}
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.fork},
     style=numbered,
     caption={Forked DAG after concurrent posts.}
@@ -519,7 +531,7 @@ will, but that any insider can welcome any outsider by directly transferring
 \reps, without intermediate authorities.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.pioneers},
     style=numbered,
     caption={Sybil-resistant chain with pioneers.}
@@ -560,7 +572,7 @@ to the chain (ln~15--16, \R{4.a}).
 \label{sec.design.members}
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.welcome},
     style=numbered,
     caption={Member admission through likes and begging posts.}
@@ -629,7 +641,7 @@ For public forums, we propose human authoring (\emph{proof-of-authoring}) as an
     (iii) its aggregate determines consensus order.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.poa},
     caption={Proof-of-authoring: member reputation over time.}
 ]
@@ -698,7 +710,7 @@ moderation points~\cite{forum.slashdot} to Reddit's votes~\cite{forum.reddit}
 and Stack Overflow's reputation~\cite{forum.stackoverflow}.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.rating},
     caption={Content rating through likes and dislikes.}
 ]
@@ -731,7 +743,7 @@ rate content, which also dilutes their power.
 These lower and upper limits work together towards the quality of forums.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.revoke},
     style=numbered,
     caption={Content revocation of an abusive post.}
@@ -787,7 +799,7 @@ As discussed in Section~\ref{sec.git}, concurrency creates forks in the DAG,
 which implies ambiguity in the order of actions.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.double.attempt},
     caption={Double-spend attempt from multiple peers.}
 ]
@@ -814,7 +826,7 @@ carol          0
 \end{lstlisting}
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.double.reject},
     caption={Double-spend rejection on synchronization.}
 ]
@@ -957,7 +969,7 @@ Some rules of the protocol depend on wall-clock durations:
     the 24h reward (\R{1.b}), and
     the 7-day settling window (\S\ref{sec.design.partitions}).
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{times.png}
 \caption{
@@ -999,7 +1011,7 @@ In summary, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
 local decision, but once in the chain, decisions are deterministic based on
 immutable parents, hence the term \emph{chain time}.
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{monotonic.png}
 \caption{
@@ -1088,7 +1100,7 @@ When merging, these fake members would become legitimate and take over the
 majority of \reps in the forum.
 
 \begin{lstlisting}[
-    float=tbp,
+    float=t,
     label={lst.discard},
     caption={Refuting a minority farming attack.}
 ]
@@ -1144,7 +1156,7 @@ As the counterpoint illustrates, past members holding the majority of \reps at
 any point in time could still override the present, which corresponds to the
 \emph{long-range attack} in proof-of-stake~\cite{pos.weak}.
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=0.75\columnwidth]{hard.png}
 \caption{
@@ -1295,7 +1307,7 @@ quickly.
 \subsection{Content Revocation}
 \label{sec.design.revoke}
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{state-revoked.png}
 \caption{
@@ -1938,7 +1950,7 @@ conflict to resolve.
 For instance, the members can later decide to dislike one of the two commits to
 revoke it and remove the warning.
 
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{conflict.png}
 \caption{
