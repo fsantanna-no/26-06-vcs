@@ -79,9 +79,9 @@ Centralized platforms support moderation, but require full trust from users.
 We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
 The design parallels Bitcoin:
-    consolidated posts create reputation (cf. proof-of-work),
-    likes transfer reputation (cf. transactions), and
-    aggregate reputation determines consensus (cf. longest chain).
+    consolidated posts create reputation (as proof-of-work),
+    likes transfer reputation (as transactions), and
+    aggregate reputation determines consensus (as the longest chain).
 Reputation depends on human \emph{proof-of-authoring}, which is slow and
 scarce, thus suitable for consensus.
 \end{abstract}
@@ -159,18 +159,18 @@ now in the context of public forums.
 We highlight four main contributions (in italic):
 %
 We recognize human-authored content as a scarce resource, and reward members
-with reputation tokens as a \emph{proof-of-authoring} (akin to mining).
+with reputation tokens as a \emph{proof-of-authoring}.
 %
-Members can spend these tokens to rate posts, and even revoke abusive content,
-as a \emph{decentralized moderation} mechanism.
+Members can spend these tokens to rate and revoke posts as a
+\emph{decentralized moderation} mechanism.
 %
 Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 \emph{independent Sybil-resistant forums}, each with its own timeline and
 etiquette.
 %
-Under network partitions, posts fork the causal graph, and a \emph{reputation
-consensus}, resembling proof-of-stake~\cite{pos.ouroboros}, determines a
-total order to resolve conflicting operations (akin to double-spending).
+Under network partitions, posts create forks in the forum graph, and a
+\emph{reputation consensus}, resembling proof-of-stake~\cite{pos.ouroboros},
+resolves conflicting operations (e.g., double-spending).
 %This order also yields a deterministic chain time, rather than trusted clocks.
 %
 We implement \FC on top of unmodified Git, relying only on hooks to add
@@ -182,9 +182,8 @@ As a countermeasure, local history settles after a threshold (7 days), while
 unsettled malicious branches can be refuted manually by a single honest member
 with sufficient reputation.
 %
-As another limitation shared with blockchains in general, forum graphs are
-ever-growing data structures, with costs to store and validate posts that
-increase over time.
+As another limitation shared with blockchains, forum graphs are ever growing,
+with costs to store and validate posts that increase over time.
 Nevertheless, we simulated years of publicly available forum archives ranging
 from chats to wiki articles, and (TODO: sync time, disk size).
 
