@@ -230,24 +230,23 @@ Section~\ref{sec.conclusion} concludes this work.
 \end{table}
 
 In \FC, each topic or \emph{chain} is a replicated
-\emph{Merkle DAG}~\cite{p2p.ipfs} that peers synchronize point-to-point through
-gossiping~\cite{p2p.survey}.
+\emph{Merkle DAG}~\cite{p2p.ipfs} whose cryptographic links encode causality
+and ensure integrity among posts.
 %
-The DAG encodes causal relationships between posts as cryptographic links that
-ensure integrity and self-certification.
-Since the full state of a peer is a pure function of the immutable DAG, which
-synchronizes by appends and unions, peers converge by construction
-(\S\ref{sec.design.sec}).
-
-Given these characteristics, we build \FC on top of Git as a familiar and solid
-peer-to-peer foundation, which already provides content addressing, integrity,
-versioning, signing, deduplication, compression, and replication for free.
+We build \FC on top of Git as a familiar and solid peer-to-peer foundation,
+which also provides content addressing, signing, deduplication, compression,
+and replication.
+%
 Then, relying only on non-intrusive hooks, we add what Git alone cannot
 provide: reputation, moderation, and consensus.
 
-The operation of a chain is simple:
-    each action --- post, like or revoke --- is an individual commit in the
-    history DAG, and peers synchronize their full state through Git.
+The operation of a chain is simple: each action --- post, like or revoke --- is
+an individual commit in the history DAG, which peers synchronize point-to-point
+through Git, as in gossip protocols~\cite{p2p.survey}.
+%
+Since state is a pure function of the immutable DAG, synchronized by appends
+and unions, peers converge by construction (\S\ref{sec.design.sec}).
+%
 Table~\ref{tab.commands} lists the commands to operate a chain, which guide our
 discussion through concrete examples.
 
