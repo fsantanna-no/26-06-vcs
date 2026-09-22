@@ -340,8 +340,8 @@ In local-first protocols, replicas evolve separately and synchronize at some
 point in the future.
 In Listing~\ref{lst.fork}, each peer posts locally (ln~1--3 and 5--7) and
 eventually synchronizes with the other side (ln~9--10), both converging to the
-same forked DAG (ln~11--14), now closed with a merge commit (hidden since it is
-not an action).
+same forked DAG (ln~11--14), now closed with a merge commit (hidden since not
+an action).
 
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
