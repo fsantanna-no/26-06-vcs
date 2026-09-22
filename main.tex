@@ -249,8 +249,8 @@ gossiping~\cite{p2p.survey}.
 %
 The DAG encodes causal relationships between posts as cryptographic links that
 ensure integrity and self-certification.
-Since the full state of a peer is the immutable DAG, which only grows by
-appends (posts) and unions (syncs), replicas converge by construction
+Since the full state of a peer is a pure function of the immutable DAG, which
+synchronizes by appends and unions, peers converge by construction
 (\S\ref{sec.design.sec}).
 
 Given these characteristics, we build \FC on top of Git as a familiar and solid
@@ -1159,12 +1159,11 @@ The consensus mechanism aims at \emph{strong eventual consistency}, which
 requires (i) eventual delivery, (ii) strong convergence, and (iii)
 termination~\cite{p2p.crdts}.
 %
-The last two hold by construction.
-The replay algorithm (\S\ref{sec.design.consensus}) visits each action only
-once (iii), using pure DAG evaluations for chain time durations, \reps
-accounting, and consensus order (ii).
-In addition, the DAG only grows by unions, which are commutative, associative,
-and idempotent, leading to monotonic convergence (ii).
+The last two hold by construction for the replay algorithm
+(\S\ref{sec.design.consensus}):
+(ii) uses pure evaluations for chain time durations, \reps accounting, and
+consensus order over the DAG, which synchronizes by appends and unions; and
+(iii) visits each action only once.
 %
 However, partitions become permanent (i) when settling windows result in hard
 forks (\S\ref{sec.design.partitions.hardforks}).
