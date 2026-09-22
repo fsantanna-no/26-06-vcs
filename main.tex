@@ -807,7 +807,8 @@ sequence, detects the double-spend, and rejects it (ln~17--21).
 For consistency, all peers must replay the DAG in the exact same order to
 compute \reps in the same way.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
-only refuse the double-spend but also converge to the same state.
+only refuse the double-spend but also converge to the same state (here keeping
+\emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
 
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
