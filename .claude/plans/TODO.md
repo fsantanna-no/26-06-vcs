@@ -2,6 +2,7 @@
 
 - Leftovers of review 260905-review.md (closed 2026-09-21)
     - evaluation items moved to 260920-eval.md
+    - review plan now at done/260905-review.md
     - related work (postponed, 2.16): PoS fork choice (Ouroboros,
       Casper, pos.weak), SybilGuard/SybilLimit, Slashdot mod points,
       Matrix, Scuttlebutt, Nostr, ActivityPub
