@@ -89,8 +89,8 @@ slow and scarce, thus suitable for consensus.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
-Bitcoin, blockchains, distributed consensus, peer-to-peer, public
-forums, reputation system, social media %, CRDTs, Wikis
+blockchains, distributed consensus, peer-to-peer protocols, public forums,
+reputation systems
 
 \section{Introduction}
 \label{sec.introduction}
@@ -102,9 +102,8 @@ protocols~\cite{internet.fixing,p2p.dosn}.
 Open peer-to-peer alternatives eliminate intermediaries, but struggle to
 achieve consistency when dealing with malicious users~\cite{p2p.osn,p2p.byz}.
 
-By \emph{public forums} we mean any collaborative environment with multiple
-readers and writers, such as chats, message boards, wikis, and code
-repositories.
+By public forums we mean any collaborative environment with multiple readers
+and writers, such as chats, message boards, wikis, and code repositories.
 %
 In an ideal forum, all contributions (posts)
 (i)   reach all users,
@@ -114,9 +113,8 @@ In centralized systems, items (i) and (ii) are trivially achieved assuming
 service availability, while item (iii) requires users to trust their policies.
 In peer-to-peer systems, however, none of these demands is easily accomplished.
 
-Gossiping protocols proactively disseminate posts among
-peers, which does not guarantee consensus due to conflicting delivery
-orders~\cite{p2p.intention,p2p.crdts}.
+Gossiping protocols disseminate posts among peers, but does not guarantee
+consensus due to conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
@@ -130,13 +128,12 @@ networks}~\cite{permissionless,blockchain.wild}, in which membership is
 decentralized, thus susceptible to Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
 To combat abuse and Sybils, and in support of item~(iii), reputation systems
-are a well-studied means to rate and highlight content, and to build trust
-among strangers~\cite{rep.systems,rep.eigentrust}.
+are a well-studied means to moderate content and build trust among
+strangers~\cite{rep.systems,rep.eigentrust}.
 
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
-consensus~\cite{permissionless} by demanding a scarce resource
-(\emph{proof-of-work}~\cite{hashcash}) to write to its timeline, thereby
-resisting Sybils.
+consensus~\cite{permissionless} by demanding a scarce resource to write to its
+timeline (proof-of-work~\cite{hashcash}), thereby resisting Sybils.
 %
 However, we argue that cryptocurrencies in general are not suitable for social
 content because they
@@ -172,40 +169,33 @@ Tokens are intrinsic to each forum (unlike proof-of-work), which leads to
 etiquette.
 %
 Under network partitions, posts form a causal graph, and a \emph{reputation
-consensus}, resembling \emph{proof-of-stake}~\cite{pos.ouroboros}, determines a
+consensus}, resembling proof-of-stake~\cite{pos.ouroboros}, determines a
 total order to resolve conflicting operations (akin to double-spending).
 %This order also yields a deterministic chain time, rather than trusted clocks.
 
 As a main limitation, since partitions are unbounded, forums are subject to
-\emph{long-range attacks}~\cite{pos.weak}.
+long-range attacks~\cite{pos.weak}.
 As a countermeasure, branches older than a threshold (7 days) cannot reorder
 the local history, while newer malicious branches may require manual
 intervention, but of only a few honest members.
-
-Regarding performance, forum graphs are ever-growing data structures that carry
-considerable metadata overhead.
-The costs to store and validate posts increase over time, which is also a
-limitation of blockchains in general.
 %
-Nevertheless, we simulated months of a chat channel and years of a newsgroup
-forum, both extracted from publicly available Internet archives.
-%to show its practicality
-%
-TODO: expose results (local post time, sync time, DAG/repo disk size).
+As another limitation shared with blockchains in general, forum graphs are
+ever-growing data structures, with costs to store and validate posts that
+increase over time.
+Nevertheless, we simulated years of publicly available forum archives ranging
+from chats to wiki articles, and (TODO : results : local post time, sync time,
+disk size, etc).
 
-The rest of the paper is organized as follows:
-In Section~\ref{sec.git}, we introduce the basic operations of \FC built on top
-of Git, and motivate why permissionless forums require Sybil resistance.
-In Section~\ref{sec.design}, we describe the reputation-based consensus and
-discuss relevant security threats.
-In Section~\ref{sec.evaluation}, we evaluate the performance of \FC on real
-forum archives.
-%In Section~\ref{sec.crdts}, we discuss the correspondences with
-%CRDTs~\cite{p2p.crdts}, and prototype a simple Wiki that resolves conflicts
-%automatically through consensus.
-In Section~\ref{sec.related}, we compare our system with publish-subscribe
-protocols, federated applications, and fully peer-to-peer systems.
-In Section~\ref{sec.conclusion}, we conclude this work.
+The rest of the paper is organized as follows.
+Section~\ref{sec.git} introduces the basic operations of \FC built on top of
+Git, and motivates why permissionless forums require Sybil resistance.
+Section~\ref{sec.design} describes the reputation-based consensus and discusses
+relevant security threats.
+Section~\ref{sec.evaluation} evaluates the performance of \FC on real forum
+archives.
+Section~\ref{sec.related} compares our design against federated applications
+and fully peer-to-peer systems.
+Section~\ref{sec.conclusion} concludes this work.
 
 \section{\FC and Git}
 \label{sec.git}
@@ -1173,6 +1163,15 @@ The consensus algorithm does not prevent such splits, but makes them
 transparent and deterministic, so that members understand the evolution of a
 forum and act accordingly.
 Ultimately, a hard fork is a social conflict, not a numeric dispute.
+
+\section{Evaluation}
+\label{sec.evaluation}
+
+\section{Related Work}
+\label{sec.related}
+
+\section{Conclusion}
+\label{sec.conclusion}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
