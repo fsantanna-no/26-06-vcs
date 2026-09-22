@@ -79,9 +79,9 @@ Centralized platforms support moderation, but require full trust from users.
 We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
 The design parallels Bitcoin:
-    consolidated posts create reputation (vs proof-of-work),
-    likes and dislikes transfer reputation (vs transactions), and
-    aggregate reputation determines consensus (vs longest chain).
+    consolidated posts create reputation (cf. proof-of-work),
+    likes and dislikes transfer reputation (cf. transactions), and
+    aggregate reputation determines consensus (cf. longest chain).
 Reputation depends exclusively on human \emph{proof-of-authoring}, which is
 slow and scarce, thus suitable for consensus.
 %We implement the protocol on top of Git and prototype a Wiki application that
@@ -114,8 +114,8 @@ In centralized systems, items (i) and (ii) are trivially achieved assuming
 service availability, while item (iii) requires users to trust their policies.
 In peer-to-peer systems, however, none of these demands is easily accomplished.
 
-Gossiping protocols disseminate posts among peers, but do not guarantee
-consensus due to conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
+Gossip protocols disseminate posts among peers, but do not guarantee consensus
+due to conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
@@ -155,8 +155,8 @@ public forums.
 %~\cite{fcs.sbseg20,fcs.sbseg23}
 In this work, we propose \FC, a permissionless peer-to-peer protocol with
 integrated reputation-based consensus.
-We adapt proof-of-work's idea to resist Sybils and reach consensus, but now in
-the context of public forums.
+We adapt the idea of proof-of-work to resist Sybils and reach consensus, but
+now in the context of public forums.
 
 We highlight four main contributions (in italic):
 %
