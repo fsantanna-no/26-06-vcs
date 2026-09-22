@@ -233,9 +233,9 @@ In \FC, each topic or \emph{chain} is a replicated
 \emph{Merkle DAG}~\cite{p2p.ipfs} whose cryptographic links encode causality
 and ensure integrity among posts.
 %
-We build \FC on top of Git as a familiar and solid peer-to-peer foundation,
-which also provides content addressing, signing, deduplication, compression,
-and replication.
+We build on top of Git as a familiar and solid peer-to-peer foundation, which
+also provides content addressing, signing, deduplication, compression, and
+replication.
 %
 Then, relying only on non-intrusive hooks, we add what Git alone cannot
 provide: reputation, moderation, and consensus.
@@ -254,7 +254,7 @@ The goals of this section are twofold:
     (a) to depict chain DAGs as the result of basic protocol operations; and
     (b) to illustrate how permissionless forums inevitably require Sybil
         resistance.
-For the sake of simplicity, this section uses unrestricted chains that tolerate
+For the sake of simplicity, this section uses unrestricted chains that permit
 unsigned posts.
 
 \begin{lstlisting}[
@@ -295,7 +295,7 @@ normally while offline, only affecting the local replica: no communication
 occurs up to this point.
 Since we build upon Git, we can inspect the internal structure of a given
 chain (ln~13--16): the \emph{/chat} repository contains two commits, the
-genesis with a random id, and the post pointing to its payload.
+genesis with a random id, and the first post pointing to its payload.
 
 \begin{lstlisting}[
     float=t,
@@ -327,31 +327,30 @@ c7a56bc491d415a8240b7012c0aae846fc632234
 # PEER X or Y
 $ fc /chat sync Y (or X)
 $ fc /chat list dag
-      b100ce8
-      /     \
-c7a56bc     eb18b45
+      b100ce8           #    "Hello World"
+      /     \           #      /       \
+c7a56bc     eb18b45     # "From Y"   "From X"
 \end{lstlisting}
 
 To illustrate point-to-point synchronization, Listing~\ref{lst.clone}
 introduces a second peer \emph{Y} (ln~1) that clones \emph{X} (ln~2--3),
 receiving the single \emph{``Hello World''} post (ln~4--5).
 %
-In local-first protocols, each replica may evolve separately and synchronize at
-some point in the future.
+In local-first protocols, replicas evolve separately and synchronize at some
+point in the future.
 In Listing~\ref{lst.fork}, each peer posts locally (ln~1--3 and 5--7) and
 eventually synchronizes with the other side (ln~9--10), both converging to the
-same forked DAG (ln~11--14).
-Note that \code{sync} joins the two tips with a merge commit, so any further
-action descends from both sides with the fork closed.
+same forked DAG (ln~11--14), now closed with a merge commit (hidden since it is
+not an action).
 
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
 Naturally, in permissionless forums, we cannot trust members' timestamps to
 order actions (\S\ref{sec.design.time}).
 %
-As another limitation, Merkle DAGs alone cannot provide Sybil resistance in a
-permissionless context, since any user at any peer could flood chain DAGs with
-abusive posts~\cite{p2p.merkle-crdts,p2p.byz}.
+As another limitation, Merkle DAGs alone cannot provide Sybil resistance, since
+any user at any peer could flood chain DAGs with abusive
+posts~\cite{p2p.merkle-crdts,p2p.byz}.
 %
 The next section addresses both problems:
     reputation rules make posting scarce, and
