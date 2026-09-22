@@ -102,10 +102,11 @@ protocols~\cite{internet.fixing,p2p.dosn}.
 Open peer-to-peer alternatives eliminate intermediaries, but struggle to
 achieve consistency when dealing with malicious users~\cite{p2p.osn,p2p.byz}.
 
-By public forums we mean any collaborative environment with multiple readers
-and writers, such as chats, message boards, wikis, and code repositories.
+By \emph{public forums} we mean any collaborative environment with multiple
+readers and writers, such as chats, message boards, wikis, and code
+repositories.
 %
-In an ideal forum, all contributions (posts)
+In an ideal forum, all posts
 (i)   reach all users,
 (ii)  are delivered in a consistent order, and
 (iii) are respectful and on topic.
@@ -113,7 +114,7 @@ In centralized systems, items (i) and (ii) are trivially achieved assuming
 service availability, while item (iii) requires users to trust their policies.
 In peer-to-peer systems, however, none of these demands is easily accomplished.
 
-Gossiping protocols disseminate posts among peers, but does not guarantee
+Gossiping protocols disseminate posts among peers, but do not guarantee
 consensus due to conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
@@ -132,8 +133,9 @@ are a well-studied means to moderate content and build trust among
 strangers~\cite{rep.systems,rep.eigentrust}.
 
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
-consensus~\cite{permissionless} by demanding a scarce resource to write to its
-timeline (proof-of-work~\cite{hashcash}), thereby resisting Sybils.
+consensus~\cite{permissionless} by demanding a scarce resource
+(proof-of-work~\cite{hashcash}) to write to its timeline, thereby resisting
+Sybils.
 %
 However, we argue that cryptocurrencies in general are not suitable for social
 content because they
