@@ -172,6 +172,9 @@ Under network partitions, posts fork the causal graph, and a \emph{reputation
 consensus}, resembling proof-of-stake~\cite{pos.ouroboros}, determines a
 total order to resolve conflicting operations (akin to double-spending).
 %This order also yields a deterministic chain time, rather than trusted clocks.
+%
+We implement \FC on top of unmodified Git, relying only on hooks to add
+reputation, moderation, and consensus.
 
 As a main limitation, since partitions are unbounded, forums are subject to
 long-range attacks~\cite{pos.weak}.
@@ -186,8 +189,8 @@ Nevertheless, we simulated years of publicly available forum archives ranging
 from chats to wiki articles, and (TODO: sync time, disk size).
 
 The rest of the paper is organized as follows.
-Section~\ref{sec.git} introduces the basic operations of \FC built on top of
-Git, and motivates why permissionless forums require Sybil resistance.
+Section~\ref{sec.git} introduces the basic operations of \FC and motivates why
+permissionless forums require Sybil resistance.
 Section~\ref{sec.design} describes the reputation-based consensus and discusses
 relevant security threats.
 Section~\ref{sec.evaluation} evaluates the performance of \FC on real forum
