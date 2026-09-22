@@ -362,50 +362,57 @@ The next section addresses both problems:
 \begin{table*}[t]
 \centering
 \footnotesize
-\begin{tabular}{|l|l|l|p{11.4cm}|}
+\begin{tabular}{|c|c|c|p{10cm}|}
 \hline
-\textbf{Operation} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
+\textbf{Rule} & \textbf{\#} & \textbf{Operation} & \textbf{Description} \\
 \hline
-Emission & 1.a & pioneers &
+Emission
+        & 1.a & pioneers &
 Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
-         & 1.b & old post &
-Consolidated post grants \sreps{+}{1K} to member, after 24h, at most once a
-day.
+(reward authoring)
+        & 1.b & old post &
+Consolidated post grants \sreps{+}{1K} after 24h, at most once a day.
 \\
 \hline
-Expense  & 2   & new post &
-New post charges \sreps{-}{500} to member temporarily (except begs), refunded
-within 12h.
+Expense
+        & 2   & new post &
+New post charges \sreps{-}{500} temporarily (except begs), refunded within 12h.
+\\
+(combat excess)
+        & & &
 \\
 \hline
-Transfer & 3.a & tax      &
+Transfer
+        & 3.a & tax      &
 All transfers burn a 10\% tax before target (member or action).
 \\
-         & 3.b & split    &
-Transfers targeting actions split the amount in half between the action and its
-author.
+(highlight quality)
+        & 3.b & split    &
+Transfers targeting actions split in half between the action and its author.
 \\
-         & 3.c & like     &
+        & 3.c & like     &
 Like counts \sreps{-}{n} to origin and \sreps{+}{n} to target.
 \\
-         &     & dislike  &
+        &     & dislike  &
 Dislike counts \sreps{-}{n} to origin and \sreps{-}{n} to target.
 \\
-         & 3.d & revoke   &
+        & 3.d & revoke   &
 Revoke counts \sreps{-}{n} to origin and target, and erases the payload.
 \\
-         &     & unrevoke &
+        &     & unrevoke &
 Unrevoke counts \sreps{-}{n} to origin, and restores the payload.
 \\
 \hline
-Constraints & 4.a & min  &
+Constraints
+        & 4.a & min  &
 Actions cost at least \nreps{500} (\nreps{1000} for revokes).
 \\
-            & 4.b & max  &
+(combat abuse)
+        & 4.b & max  &
 Members are limited to at most \nreps{50K}.
 \\
-            & 4.c & size &
+        & 4.c & size &
 Payloads are limited to at most \emph{128~KB}.
 \\
 \hline
