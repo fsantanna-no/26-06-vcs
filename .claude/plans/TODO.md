@@ -156,4 +156,12 @@
     - optional companion: Raman et al., IMC 2019 (Mastodon
       re-centralizes: few instances hold most users)
 
+- Intro: cite prior Freechains work (`fcs.sbseg20`, `fcs.sbseg23`)
+    - currently commented out: `%~\cite{fcs.sbseg20,fcs.sbseg23}`
+      before "In this work, we propose \FC"
+    - option: `\FC~\cite{fcs.sbseg20,fcs.sbseg23}`
+    - option: "This work extends our previous design~\cite{fcs.sbseg23}
+      with ..." (sbseg23 overlaps in topic)
+    - if the venue is double-blind: keep out and anonymize the authors
+
 # won't do
