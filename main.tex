@@ -418,15 +418,14 @@ Payloads are limited to at most \emph{128~KB}.
 \end{table*}
 
 In \FC, members spend tokens named \reps to post and rate content in forums:
-    a \code{post} initially penalizes members (against excess), until it
-    consolidates and counts positively (towards authoring);
-    a \code{like} or \code{dislike} rates members and content (towards
-    quality);
-    a \code{revoke} or \code{unrevoke} toggles content removal (against abuse).
+    a \code{post} initially penalizes members, until it consolidates and counts
+    positively;
+    a \code{like} or \code{dislike} rates members and posts;
+    a \code{revoke} or \code{unrevoke} moderates posts.
 %
 Table~\ref{tab.rules} lists all concrete rules, which we explain through
 illustrative examples.
-
+%
 In the rest of this section, we detail the reputation system and how it works
 in conjunction with the consensus mechanism to resist Sybils in permissionless
 forums:
@@ -458,7 +457,7 @@ forums:
     how to defend from malicious peers and deliberate branches.
 \item [\S\ref{sec.design.sec}]
     Convergence and Divergence:
-    how replicas converge, and when they stop.
+    how replicas converge, and when they split.
 \end{description}
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
