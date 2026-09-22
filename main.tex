@@ -96,8 +96,8 @@ forums, reputation system, social media %, CRDTs, Wikis
 \label{sec.introduction}
 
 Public online forums and social media are increasingly centralized in the hands
-of a few companies (e.g., Meta and X), which moderate content and monetize
-user data over closed protocols~\cite{internet.fixing,p2p.dosn}.
+of a few companies, which moderate content and monetize user data over closed
+protocols~\cite{internet.fixing,p2p.dosn}.
 %
 Open peer-to-peer alternatives eliminate intermediaries, but struggle to
 achieve consistency when dealing with malicious users~\cite{p2p.osn,p2p.byz}.
@@ -106,18 +106,17 @@ By \emph{public forums} we mean any collaborative environment with multiple
 readers and writers, such as chats, message boards, wikis, and code
 repositories.
 %
-In an ideal forum, all posts
+In an ideal forum, all contributions (posts)
 (i)   reach all users,
 (ii)  are delivered in a consistent order, and
 (iii) are respectful and on topic.
 In centralized systems, items (i) and (ii) are trivially achieved assuming
 service availability, while item (iii) requires users to trust their policies.
-In decentralized systems, however, none of these demands is easily
-accomplished.
+In peer-to-peer systems, however, none of these demands is easily accomplished.
 
-Gossiping protocols proactively disseminate posts until they reach all
-peers~\cite{p2p.survey,p2p.byz}, but this does not guarantee consensus due to
-conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
+Gossiping protocols proactively disseminate posts among
+peers, which does not guarantee consensus due to conflicting delivery
+orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
 the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
@@ -126,13 +125,13 @@ Without consensus, each client must rely on local anti-abuse policies (e.g.,
 spam filters), which only apply \emph{a posteriori}, when the damage has
 already been done.
 %
-Abuse is particularly acute in \emph{permissionless}
-networks~\cite{permissionless,blockchain.wild}, which must combat
-Sybils~\cite{p2p.sybil,p2p.mastodon}, since membership is decentralized.
+Abuse is particularly acute in \emph{permissionless
+networks}~\cite{permissionless,blockchain.wild}, in which membership is
+decentralized, thus susceptible to Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
-To that end, reputation systems are a well-studied means to build trust among
-strangers~\cite{rep.systems,rep.eigentrust}, and to rate and highlight
-content, in support of item (iii).
+To combat abuse and Sybils, and in support of item~(iii), reputation systems
+are a well-studied means to rate and highlight content, and to build trust
+among strangers~\cite{rep.systems,rep.eigentrust}.
 
 Bitcoin~\cite{p2p.bitcoin} achieves permissionless
 consensus~\cite{permissionless} by demanding a scarce resource
