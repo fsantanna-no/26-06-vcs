@@ -80,12 +80,10 @@ We propose Sybil-resistant peer-to-peer forums through a reputation system that
 moderates content and delivers network consensus.
 The design parallels Bitcoin:
     consolidated posts create reputation (cf. proof-of-work),
-    likes and dislikes transfer reputation (cf. transactions), and
+    likes transfer reputation (cf. transactions), and
     aggregate reputation determines consensus (cf. longest chain).
-Reputation depends exclusively on human \emph{proof-of-authoring}, which is
-slow and scarce, thus suitable for consensus.
-%We implement the protocol on top of Git and prototype a Wiki application that
-%resolves conflicts automatically through consensus.
+Reputation depends on human \emph{proof-of-authoring}, which is slow and
+scarce, thus suitable for consensus.
 \end{abstract}
 
 \noindent\textbf{Keywords:}
@@ -177,9 +175,9 @@ total order to resolve conflicting operations (akin to double-spending).
 
 As a main limitation, since partitions are unbounded, forums are subject to
 long-range attacks~\cite{pos.weak}.
-As a countermeasure, branches older than a threshold (7 days) cannot reorder
-the local history, while newer malicious branches may require manual
-intervention, but of only a few honest members.
+As a countermeasure, local history settles after a threshold (7 days), while
+unsettled malicious branches can be refuted manually by a single honest member
+with sufficient reputation.
 %
 As another limitation shared with blockchains in general, forum graphs are
 ever-growing data structures, with costs to store and validate posts that
