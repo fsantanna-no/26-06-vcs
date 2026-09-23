@@ -719,9 +719,9 @@ all honest peers.
 In Listing~\ref{lst.revoke}, \emph{Dave} posts spam (ln~1--2), which
 \emph{Alice} revokes (ln~3), making its payload unavailable (ln~4--5).
 %
-Since actions reference payloads by hash (\S\ref{sec.git}), peers can prove
-a revocation and refuse to forward the payload without touching the chain
-history, where only the metadata remains.
+Since payloads live outside the immutable DAG, which references them by hash
+only (\S\ref{sec.git}), peers can prove a revocation and refuse to forward
+them.
 %
 Revocation is reversible through \emph{unrevoke} (ln~6--9), so its availability
 follows the balance between revokes and unrevokes (and likes).
