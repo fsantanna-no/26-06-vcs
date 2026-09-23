@@ -799,27 +799,27 @@ keeping \emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
 
-Our idea to establish consensus in forum DAGs is to favor branches with actions
-from members holding the majority of the reputation in the common history.
-%
-This criterion resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak},
-but instead of favoring wealth, we reward authors for adding content, which is
-valuable in itself.
-
-The consensus outcome, which relies on a deterministic function of the common
-history, is a total order of all actions in the DAG.
+In \FC, consensus determines a total order of all actions in the forum,
+computed as a deterministic function of the chain DAG itself.
 Peers holding the same branches compute it locally in the same way, without
-further votes or coordination.
+further votes or network coordination.
 %
-When faced with a fork, the key detail is to account for only the
-reputation in common ancestors of the DAG, which constitute the forum history
-that both sides agree on.
-Then, we determine the exclusive members of each side, and compare the
-aggregate reputation of these disjoint sets, as of the fork point.
+It resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, but instead
+of favoring wealth, we reward authors for adding content, which is valuable in
+itself.
+
+The key idea is to favor branches whose members hold the majority of the
+reputation in the common history, which contains the actions that both sides
+agree on.
 %
-Finally, the winning branch is sorted first and the losing one appended
-after it, with nested and multi-way forks reducing to successive pairwise
-merges by the same rule.
+When faced with a fork, we first determine the exclusive members of each side.
+To pick the winner, we compare the aggregate \reps each set held at the fork
+point.
+%
+Finally, the winning branch is placed first as a whole and the losing one is
+appended after it.
+For nested or multi-way forks, we apply the same rule recursively or in
+sequence, respectively.
 
 \begin{figure}[t]
 \centering
