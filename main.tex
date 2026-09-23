@@ -790,8 +790,8 @@ Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
 replays the DAG in topological order, accounts for the transactions in
 sequence, detects the conflict, and rejects the second like (ln~17--21).
 
-For consistency, all peers must replay the DAG in the exact same order to
-compute \reps in the same way.
+As a consistency requirement, all peers must replay the DAG in the exact same
+order to compute \reps in the same way.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
 only refuse the conflicting like but also converge to the same state (here
 keeping \emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
