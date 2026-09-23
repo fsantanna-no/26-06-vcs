@@ -464,8 +464,8 @@ forums:
 
 Since we build upon unmodified Git, we argue that our design can be adapted to
 any system that structures posts as a Merkle DAG.
-For instance, the consensus order is just a view of the underlying DAG, which
-only decides which incoming posts are merged.
+For instance, the consensus is just a view of the underlying DAG, computed
+locally by each peer to order and validate posts.
 
 \subsection{Chain Bootstrapping}
 \label{sec.design.boot}
