@@ -871,14 +871,14 @@ Figure~\ref{fig.reps}:
 \item Order branches by highest sum first (tip hash as tie breaker):
     \code{common <- branch-2 <- branch-1}
 \item Discard actions from the first failure on:            \\
-    \code{c <- y <- x}
+    \code{c <- y} (last two actions)
 \end{itemize}
 
-Peers that first receive the winning branch just append the losing one,
-otherwise they must reorder actions after the fork point, similarly to a
-blockchain reorganization.
-Legitimate actions that are erased must be reposted by their authors, which
-should be rare, since members are expected to gossip among themselves often.
+Peers that received the losing branch first need to reorder actions after the
+fork point, similarly to a blockchain reorganization.
+Also, legitimate actions that are erased must be reposted by their authors,
+which should be rare, since members are expected to gossip among themselves
+often.
 
 \subsection{Chain Time}
 \label{sec.design.time}
