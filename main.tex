@@ -825,7 +825,7 @@ sequence, respectively.
 \centering
 \includegraphics[width=\columnwidth]{dag}
 \caption{
-    (A) Forum DAG with common ancestors and two branches.
+    (A) Forum DAG with common history and two branches.
     (B) Total order after consensus.
 }
 \label{fig.reps}
@@ -833,10 +833,10 @@ sequence, respectively.
 
 Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
 partition.
-The common ancestors have signed actions from members $a$, $b$, and $c$.
+The common history has signed actions from members $a$, $b$, and $c$.
 Up to the fork point, we assume that members $a$ and $b$ have more
-contributions in the prefix (omitted as \code{...}) and therefore hold more
-\reps combined than $c$ has alone ($5+3>6$).
+contributions and therefore hold more \reps combined than $c$ has alone
+($5+3>6$).
 %
 Then, member $c$ disconnects and keeps posting with new members $x$ and $y$ in
 \code{branch-1}.
@@ -846,7 +846,7 @@ When the network reconnects and the DAG finally merges, we need to replay the
 actions to check for inconsistencies.
 Based on the reputation of the disjoint members up to the fork point,
 Figure~\ref{fig.reps}.B indicates the resulting consensus order:
-    first the common ancestors,
+    first the common history,
     then all actions in \code{branch-2},
     then all actions in \code{branch-1}.
 
