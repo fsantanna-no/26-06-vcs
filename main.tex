@@ -743,12 +743,12 @@ for free, which no other member can undo.
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
 
-Scarcity of \reps is not yet sufficient to prevent inconsistent actions, which
-correspond to \emph{double-spending} in Bitcoin.
+As discussed in Section~\ref{sec.git}, concurrent actions from different
+peers create forks in the DAG, which implies ambiguity in their order.
+Therefore, scarcity of \reps alone is not sufficient to prevent inconsistent
+actions, akin to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with just enough \reps for a single
-action, posting spam or rating content from multiple peers at the same time.
-As discussed in Section~\ref{sec.git}, concurrency creates forks in the DAG,
-which implies ambiguity in the order of actions.
+action, trying to over-spend them simultaneously from multiple peers.
 
 \begin{lstlisting}[
     float=t,
