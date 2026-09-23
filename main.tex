@@ -743,12 +743,12 @@ for free, which no other member can undo.
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
 
-As discussed in Section~\ref{sec.git}, concurrent actions from different
+As discussed in Section~\ref{sec.git}, concurrent actions from multiple
 peers create forks in the DAG, which implies ambiguity in their order.
 Therefore, scarcity of \reps alone is not sufficient to prevent inconsistent
 actions, akin to \emph{double-spending} in Bitcoin.
 For instance, consider a malicious member with just enough \reps for a single
-action, trying to over-spend them simultaneously from multiple peers.
+action, trying to spend them twice from different peers.
 
 \begin{lstlisting}[
     float=t,
@@ -788,13 +788,13 @@ Note that each like is legitimate in isolation, but inconsistent in the merged
 DAG.
 Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
 replays the DAG in topological order, accounts for the transactions in
-sequence, detects the double-spend, and rejects it (ln~17--21).
+sequence, detects the conflict, and rejects the second like (ln~17--21).
 
 For consistency, all peers must replay the DAG in the exact same order to
 compute \reps in the same way.
 In fact, due to the consensus mechanism we are about to discuss, the peers not
-only refuse the double-spend but also converge to the same state (here keeping
-\emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
+only refuse the conflicting like but also converge to the same state (here
+keeping \emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
 
 \subsection{Consensus and Total Order}
 \label{sec.design.consensus}
