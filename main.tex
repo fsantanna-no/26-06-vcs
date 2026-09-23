@@ -589,7 +589,7 @@ policy is to keep them in a temporary pool for some visibility.
 \label{sec.design.poa}
 
 Pioneers address bootstrapping, but the fixed initial supply of \reps (\R{1.a})
-cannot sustain a growing chain with new members and posts.
+cannot sustain a growing chain with incoming members and posts.
 %
 Facing the same issue, Bitcoin mints new coins as a reward for computation
 (\emph{proof-of-work}), but as an \emph{extrinsic resource} that concentrates
@@ -618,12 +618,8 @@ $ fc /chat reps member carol     # T3: after 24h
 5500
 \end{lstlisting}
 
-\FC rewards members whose new content persists on the chain (\R{1.b}), which
-demands non-trivial work that resists automation.%
-\footnote{
-    Note that AI-generated content is still subject to human evaluation
-    regarding its frequency and relevance.
-}
+Since new content is the \emph{raison d'être} of public forums, \FC rewards
+members whose posts persist on the chain (\R{1.b}).
 %
 To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 \emph{Carol}'s reputation evolves with a post:
@@ -633,29 +629,31 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     welcoming like (\R{3.c}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how often
     she can post.
-\item[T2:] The cost is refunded within 12 hours (\R{2}), sooner in
+\item[T2:] The cost is refunded within 12 hours (\R{2}), or sooner in
     proportion to the \reps of members acting after it.
-\item[T3:] The post consolidates and rewards her with \nreps{1000} (\R{1.b}).
+\item[T3:] The post consolidates after 24 hours and rewards her with
+    \nreps{1000} (\R{1.b}).
 \end{description}
 %
 Section~\ref{sec.design.time} discusses how to count these periods
 consistently without a global clock.
 
 The 24-hour period gives sufficient time for other members to judge the post
-before the reward, while also regulating the growth speed of the chain (since
-extra posts do not reward members with more \reps, \R{1.b}).
-%
-Overall, proof-of-authoring stimulates content creation, which ultimately is
-the \emph{raison d'être} of public forums.
+before the reward.
+It also regulates the growth speed of the chain, since extra posts do not
+reward members with more \reps (\R{1.b}).
 
 As a limitation, since \reps emission and cap apply per identity
 (rules~\code{1.b}~and~\code{4.b}), a reputed attacker may seed several fresh
 identities to multiply emission.
 %
-These are not Sybils in the strict sense, since each identity needs to behave
-as an independent human to pass proof-of-authoring.
-We argue that the actual threat is automated content, which the community must
-detect and revoke in any case.
+We argue that these are not Sybils in the strict sense, since each identity
+needs to behave as an independent human to pass proof-of-authoring.
+
+Authoring demands non-trivial work that resists automation.
+Still, the actual threat is automated content, which the community must
+detect and revoke in any case, as even AI-generated posts remain subject to
+human judgement regarding their frequency and relevance.
 
 \subsection{Content Rating and Revocation}
 \label{sec.design.votes}
