@@ -660,10 +660,6 @@ community must judge by its frequency and relevance, and revoke in any case.
 Content rating is a defining feature of public forums, from Slashdot's scarce
 moderation points~\cite{forum.slashdot} to Reddit's votes~\cite{forum.reddit}
 and Stack Overflow's reputation~\cite{forum.stackoverflow}.
-%
-In \FC, each forum post holds its own rating as the balance between likes and
-dislikes targeting it (\R{3.c}), which end-user software can use to filter and
-highlight content.
 
 \begin{lstlisting}[
     float=t,
@@ -679,18 +675,22 @@ $ fc /chat reps post 5d98790
 1350    # 1800 + 450 - 900
 \end{lstlisting}
 
-In Listing~\ref{lst.rating}, we show the current \reps of \emph{Dave}'s post
-(ln 1--2).
-Then, \emph{Alice} likes it (ln 3) and \emph{Carol} dislikes it (ln 4).
+In \FC, each forum post holds its own rating as the balance between likes and
+dislikes targeting it (\R{3.c}), which end-user software can use to filter and
+highlight content.
+%
+Listing~\ref{lst.rating} shows the current \reps of \emph{Dave}'s post
+(ln~1--2).
+Then, \emph{Alice} likes it (ln~3) and \emph{Carol} dislikes it (ln~4).
 After applying the taxes and split (rules~\code{3.a}~and~\code{3.b}), the final
-outcome is $1350$ (ln 5--6).
+outcome is $1350$ (ln~5--6).
 
 The economy of \reps induces members to only rate content they care about.
 %
-On the one hand, since \reps are finite, members must ponder before transfering
+On the one hand, since \reps are finite, members think twice before spending
 them (\R{3.c}).
-On the other hand, since \reps are capped (\R{4.b}), they have an incentive to
-rate content, which also dilutes their power.
+On the other hand, since \reps are capped (\R{4.b}), members have an incentive
+to rate content, which also dilutes their power.
 %
 These lower and upper limits work together towards the quality of forums.
 
@@ -711,10 +711,10 @@ $ fc /chat payload 65980b7
 nice product
 \end{lstlisting}
 
-Even with ratings, chains remain subject to abuse, such as spam,
-misinformation, or even illegal content.
-For such cases, members may \emph{revoke} an action (\R{3.d}) to erase its
-payload in all honest peers.
+Ratings alone cannot stop abuse, such as spam, misinformation, or even
+illegal content.
+For such cases, members may revoke an action (\R{3.d}) to erase its payload in
+all honest peers.
 %
 In Listing~\ref{lst.revoke}, \emph{Dave} posts spam (ln~1--2), which
 \emph{Alice} revokes (ln~3), making its payload unavailable (ln~4--5).
