@@ -365,14 +365,15 @@ The next section addresses both problems:
 \footnotesize
 \begin{tabular}{|c|c|c|m{10cm}|}
 \hline
-\textbf{Rule} & \textbf{\#} & \textbf{Operation} & \textbf{Description} \\
+\textbf{Class} & \textbf{Rule} & \textbf{Name} & \textbf{Description} \\
 \hline
 \multirow{2}{*}{\makecell{Emission\\(reward authoring)}}
         & 1.a & pioneers &
 Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
         & 1.b & old post &
-Consolidated post grants \sreps{+}{1K} after 24h, at most once a day.
+Consolidated post grants \sreps{+}{1K} after 24h (unless revoked), at most once
+a day.
 \\
 \hline
 \makecell{Expense\\(combat excess)}
@@ -414,7 +415,7 @@ Payloads are limited to at most \emph{128~KB}.
 \end{tabular}
 \caption {
     Concrete reputation rules.
-    The constants are arbitrary and can be set at chain creation.
+    The constants are arbitrary and could be set at chain creation.
 }
 \label{tab.rules}
 \end{table*}
@@ -471,7 +472,7 @@ locally by each peer to order and validate posts.
 \label{sec.design.boot}
 
 To prevent Sybils, members with no \reps cannot operate on the chains, and
-require a welcoming like from any other member already in the system.
+require a welcoming like from any other reputed member.
 %
 Here, we face a \emph{bootstrapping} problem, typical of permissionless
 systems~\cite{rep.pseudonyms,p2p.sybil,p2p.bitcoin}:
@@ -570,10 +571,10 @@ Listing~\ref{lst.welcome} illustrates both:
 %
 (ii) \emph{Dave} begs a post (ln~7--8), which lives off-chain (ln~9--10) until
 \emph{Bob} likes it with \nreps{4000} (ln~11), which is split with the author
-(\R{3.b}) after the tax, yielding \nreps{1800} each (ln~12--16).
+(\R{3.b}) after the tax, yielding \nreps{1800} to \emph{Dave} (ln~12--16).
 %
-Since likes are at best zero-sum (transfers and taxes do not add value), there
-is no incentive to cycle \reps among colluding Sybils.
+Since likes are at best zero-sum (transfers and taxes do not add value),
+cycling \reps among colluding Sybils gains nothing.
 
 Begging posts have restricted reach, since they are not part of the Merkle DAG%
 \footnote{
@@ -582,7 +583,7 @@ Begging posts have restricted reach, since they are not part of the Merkle DAG%
     Until then, a beg can be synchronized or dropped at will.
 }.
 Therefore, peers are not required to hold or forward them, and a reasonable
-policy is to keep them in a temporary bag for some visibility.
+policy is to keep them in a temporary pool for some visibility.
 
 \subsection{Proof-of-Authoring}
 \label{sec.design.poa}
