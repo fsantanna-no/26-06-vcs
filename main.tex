@@ -484,7 +484,7 @@ The pioneers shape the evolution of chains with the first posts and likes, and
 gradually transfer \reps to new members, which dilutes their power, making
 decentralization possible.
 %
-Therefore, our concept of permissionless forums is not that anyone can post at
+Therefore, our notion of permissionless forums is not that anyone can post at
 will, but that any insider can welcome any outsider by directly transferring
 \reps, without intermediate authorities.
 
@@ -517,7 +517,7 @@ replicating a fresh Sybil-resistant chain.
 %
 In peer \emph{I} (ln~1), we generate self-certifying keypairs for \emph{Alice}
 and \emph{Bob} (ln~2--3) and set them as pioneers of a new chain \emph{/chat}
-(ln~4).
+(ln~4--5).
 %
 Then, in peer \emph{J} (ln~7), we clone \emph{/chat} from \emph{I} (ln~8--9),
 and inspect its pioneers (ln~10--12).
@@ -553,12 +553,13 @@ carol       4500
 dave        1800
 \end{lstlisting}
 
-Once initialized, the only way to welcome new members is through \emph{likes},
-which transfer \reps between identities.
+Once initialized, the only way to welcome new members is through likes, which
+transfer \reps between identities.
 %
-We propose two complementary mechanisms:
-    (i) \emph{friend-to-friend} likes targeting known newcomers directly; and
-    (ii) \emph{begging posts} from newcomers waiting for members' likes.
+Likes reach newcomers in two complementary ways:
+    (i) \emph{friend-to-friend}, where members target known newcomers directly;
+        and
+    (ii) \emph{begging posts}, where members target posts outside the chain.
 The second is more interesting, since it admits total strangers based purely on
 content quality.
 %
