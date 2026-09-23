@@ -551,7 +551,7 @@ $ fc /chat reps members
 bob        21000
 alice      20000
 carol       4500
-dave        1800
+dave        1300
 \end{lstlisting}
 
 Once initialized, the only way to welcome new members is through likes, which
@@ -571,7 +571,8 @@ Listing~\ref{lst.welcome} illustrates both:
 %
 (ii) \emph{Dave} begs a post (ln~7--8), which lives off-chain (ln~9--10) until
 \emph{Bob} likes it with \nreps{4000} (ln~11), which is split with the author
-(\R{3.b}) after the tax, yielding \nreps{1800} to \emph{Dave} (ln~12--16).
+(\R{3.b}) after the tax, minus the temporary charge (\R{2}), yielding
+\nreps{1300} to \emph{Dave} (ln~12--16).
 %
 Since likes are at best zero-sum (transfers and taxes do not add value),
 cycling \reps among colluding Sybils gains nothing.
@@ -652,7 +653,7 @@ needs to behave as an independent human to pass proof-of-authoring.
 
 Authoring demands non-trivial work that resists automation.
 Still, the actual threat is junk content, human or AI-generated, which the
-community must judge by its frequency and relevance, and revoke in any case.
+community must judge by its frequency and relevance, and revoke.
 
 \subsection{Content Rating and Revocation}
 \label{sec.design.votes}
@@ -683,7 +684,7 @@ Listing~\ref{lst.rating} shows the current \reps of \emph{Dave}'s post
 (ln~1--2).
 Then, \emph{Alice} likes it (ln~3) and \emph{Carol} dislikes it (ln~4).
 After applying the taxes and split (rules~\code{3.a}~and~\code{3.b}), the final
-outcome is $1350$ (ln~5--6).
+outcome is \nreps{1350} (ln~5--6).
 
 The economy of \reps induces members to only rate content they care about.
 %
@@ -731,8 +732,8 @@ its hash persisted in the metadata.
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
 target and its author (\R{3.b}).
-It also cancels the reward of the revoked post (\R{1.b}), being the ultimate
-defense against farmed reputation (\S\ref{sec.design.poa}).
+It also cancels the reward of the revoked post (\R{1.b}), which is the
+ultimate defense against farmed reputation (\S\ref{sec.design.poa}).
 Hence, revokes are meant to combat abuse, whereas dislikes exist for
 disagreement.
 %
