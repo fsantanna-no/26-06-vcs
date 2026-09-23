@@ -18,6 +18,7 @@
 \renewcommand{\lstlistingname}{Listing}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{array,multirow,makecell}
 \graphicspath{{imgs/}}
 
 \usepackage{xspace}
@@ -362,32 +363,27 @@ The next section addresses both problems:
 \begin{table*}[t]
 \centering
 \footnotesize
-\begin{tabular}{|c|c|c|p{10cm}|}
+\begin{tabular}{|c|c|c|m{10cm}|}
 \hline
 \textbf{Rule} & \textbf{\#} & \textbf{Operation} & \textbf{Description} \\
 \hline
-Emission
+\multirow{2}{*}{\makecell{Emission\\(reward authoring)}}
         & 1.a & pioneers &
 Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
-(reward authoring)
         & 1.b & old post &
 Consolidated post grants \sreps{+}{1K} after 24h, at most once a day.
 \\
 \hline
-Expense
+\makecell{Expense\\(combat excess)}
         & 2   & new post &
 New post charges \sreps{-}{500} temporarily (except begs), refunded within 12h.
 \\
-(combat excess)
-        & & &
-\\
 \hline
-Transfer
+\multirow{6}{*}{\makecell{Transfer\\(highlight quality)}}
         & 3.a & tax      &
 All transfers burn a 10\% tax before target (member or action).
 \\
-(highlight quality)
         & 3.b & split    &
 Transfers targeting actions split in half between the action and its author.
 \\
@@ -404,11 +400,10 @@ Revoke counts \sreps{-}{n} to origin and target, and erases the payload.
 Unrevoke counts \sreps{-}{n} to origin, and restores the payload.
 \\
 \hline
-Constraints
+\multirow{3}{*}{\makecell{Constraints\\(combat abuse)}}
         & 4.a & min  &
 Actions cost at least \nreps{500} (\nreps{1000} for revokes).
 \\
-(combat abuse)
         & 4.b & max  &
 Members are limited to at most \nreps{50K}.
 \\
