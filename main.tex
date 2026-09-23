@@ -800,10 +800,11 @@ keeping \emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
 \label{sec.design.consensus}
 
 Our idea to establish consensus in forum DAGs is to favor branches with actions
-from members holding the majority of the reputation in the common history,
-which resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}.
-However, instead of rewarding holders for staking capital, which compounds
-wealth, we reward authors for adding content, which is valuable in itself.
+from members holding the majority of the reputation in the common history.
+%
+This criterion resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak},
+but instead of favoring wealth, we reward authors for adding content, which is
+valuable in itself.
 Moreover, the outcome is a deterministic function of the common history, so
 any peer holding both branches computes it locally, without further votes or
 coordination.
