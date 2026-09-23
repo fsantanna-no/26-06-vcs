@@ -713,8 +713,8 @@ nice product
 
 Ratings alone cannot stop abuse, such as spam, misinformation, or even
 illegal content.
-For such cases, members may revoke an action (\R{3.d}) to erase its payload in
-all honest peers.
+For such cases, members may \emph{revoke} an action to erase its payload in all
+honest peers (\R{3.d}).
 %
 In Listing~\ref{lst.revoke}, \emph{Dave} posts spam (ln~1--2), which
 \emph{Alice} revokes (ln~3), making its payload unavailable (ln~4--5).
@@ -723,21 +723,21 @@ Since payloads live outside the immutable DAG, which references them by hash
 only (\S\ref{sec.git}), peers can prove a revocation and refuse to forward
 them.
 %
-Revocation is reversible through \emph{unrevoke} (ln~6--9), so its availability
-follows the balance between revokes and unrevokes (and likes).
+Revocation is reversible through \emph{unrevoke} (ln~6--9), according to the
+balance between votes.
 Note that a copy of the payload must be provided, which is validated against
 its hash persisted in the metadata.
-%
-As a \emph{right to be forgotten}, authors may revoke their own posts for
-free, which no other member can undo.
 
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
 target and its author (\R{3.b}).
-It also cancels the reward of the revoked post (\R{1.b}), which is the
-ultimate defense against farmed reputation (\S\ref{sec.design.poa}).
+It also cancels the reward of the revoked post (\R{1.b}), being the ultimate
+defense against farmed reputation (\S\ref{sec.design.poa}).
 Hence, revokes are meant to combat abuse, whereas dislikes exist for
 disagreement.
+%
+Finally, as a \emph{right to be forgotten}, authors may revoke their own posts
+for free, which no other member can undo.
 
 \subsection{Concurrency and Double-spends}
 \label{sec.design.double}
