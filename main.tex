@@ -1140,17 +1140,19 @@ to its countermeasures.
 \label{sec.design.sec}
 
 The consensus mechanism aims at \emph{strong eventual consistency}, which
-requires (i) eventual delivery, (ii) strong convergence, and (iii)
+requires eventual delivery, strong convergence, and
 termination~\cite{p2p.crdts}.
 %
-The last two hold by construction for the replay algorithm
-(\S\ref{sec.design.consensus}):
-(ii) uses pure evaluations for chain time durations, \reps accounting, and
-consensus order over the DAG, which synchronizes by appends and unions; and
-(iii) visits each action only once.
+Eventual delivery holds within the settling window or when local wins
+(\S\ref{sec.design.partitions.hardforks}), which is a deliberate decision to
+protect active forums from outdated branches.
 %
-However, partitions become permanent (i) when settling windows result in hard
-forks (\S\ref{sec.design.partitions.hardforks}).
+Strong convergence holds by construction, since the replay algorithm
+(\S\ref{sec.design.consensus}) uses pure evaluations to compute durations,
+\reps, and consensus over the DAG, which only grows by appends and unions.
+%
+Termination also holds by construction, since the replay algorithm
+visits each action only once.
 
 To conclude, since consensus rests on subjective ratings, forks are legitimate
 outcomes rather than failures.
@@ -1158,8 +1160,8 @@ Unlike Bitcoin, forums may split and diverge freely, and members may even fork
 deliberately to ``reboot'' a community from a previous state.
 %
 The consensus algorithm does not prevent such splits, but makes them
-transparent and deterministic, so that members understand the evolution of a
-forum and act accordingly.
+transparent and deterministic, so that members can understand the evolution of
+a forum and act accordingly.
 Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 \section{Evaluation}
