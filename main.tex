@@ -999,7 +999,8 @@ Therefore, a Byzantine peer cannot impose forged content or prevent other peers
 from synchronizing directly: it can only deny service, simulating a partition
 that correct peers can still route around.
 
-Unlike classic Byzantine agreement with permissioned quorums~\cite{p2p.byz},
+Unlike classic Byzantine agreement with permissioned
+quorums~\cite{lamport.byz,p2p.byz},
 in \FC nothing is decided by counting peers, only by validating each action
 locally and ordering branches by the reputation of their members
 (\S\ref{sec.design.consensus}).
