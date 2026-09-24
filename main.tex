@@ -730,6 +730,23 @@ balance between votes.
 Note that a copy of the payload must be provided, which is validated against
 its hash persisted in the metadata.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{state}
+\caption{
+    Lifecycle of an action.
+}
+\label{fig.state}
+\end{figure}
+
+Figure~\ref{fig.state} summarizes the lifecycle of an action.
+A new action from a member with enough \reps is immediately \emph{accepted}
+into the chain (\R{4.a}).
+Otherwise, it is \emph{begging} outside the chain until a like admits it
+(\S\ref{sec.design.members}).
+Once accepted, an action is part of the immutable history, but its payload
+can still be \emph{revoked} and restored according to the balance of votes.
+
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
 target and its author (\R{3.b}).
