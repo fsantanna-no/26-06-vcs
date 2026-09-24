@@ -1183,61 +1183,17 @@ side~\cite{pubsub.activitypub}, while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
 integrity, not volume or content quality.
 
-Admitted posts reward authors with tokens they spend to rate other posts, a
-\textbf{proof-of-authoring} in which generation is expensive and assessment
-is cheap (akin to Bitcoin's mining).
-Members rate and revoke posts as, which
-preserves the Merkle DAG since payloads are referenced by hash.
-A \textbf{permissionless Wiki} shows how consensus empowers mostly
-conflict-free replicated data types (\emph{quasi-CRDTs}) by automating
-merges of user-assessed edits.
-
 In \FC, members may stay offline indefinitely without losing \reps, and both
 sides of a partition remain legitimate forums while they last.
 This is a deliberate choice of availability over consistency~\cite{cap}, at
 the cost of a single global history: a long partition may end as a hard fork
 rather than as a reorganization (\S\ref{sec.design.partitions.hardforks}).
 
-Note that a dislike shrinks the forum economy, since it removes \reps from
-both origin and target.
-Hence, dislikes are meant to combat abuse, not to suppress divergence of
-opinion.
-Note also that rule~\code{4.b} limits members to at most \nreps{30}, which
-provides incentives to spend likes and thus decentralize the network, while
-rule~\code{4.c} limits the size of actions to at most \emph{128KB} to prevent
-DDoS attacks using gigantic blocked actions.
-
-Finally, the actual contents of a post may be revoked if it has at least 3
-dislikes, and more dislikes than likes (rule~\code{3}).
-However, considering that \reps are scarce, dislikes are encouraged to combat
-abusive behavior, but not to eliminate divergences of opinion.
-
-According to \R{2}, only one of them should be accepted by the network.
-However, without consensus, it is not possible to globally determine which one
-to accept, since each peer would supposedly accept the first message it receives.
-On the one hand, in order to validate operations consistently, we need the same
-message ordering across all peers in the network.
-On the other hand, due to network partitions, we can only represent public
-forums as DAGs (directed acyclic graphs) with causal relationships between
-messages, which provides at most partial order.
-
-\subsection{Public Forum Chains}
-\label{sec.design.chains}
-
 Viable alternatives include (i) building social trust graphs, in which members
 already in the community vouch for new members, or (ii) imposing explicit costs
 for new posts, such as proof of work.
 %
 We propose a mix between social trust graphs and explicit costs for new posts.
-%
-Rule~\code{4.a} requires that members have at least \nreps{500} to post,
-effectively blocking Sybil actions.
-To vouch for new members, rule~\code{3.a} allows an existing member to like a
-newbie's post to unblock it, but at the cost of \nreps{500}.
-This cost prevents malicious members to unblock new members indiscriminately,
-which would be a breach for Sybils.
-For the same reason, rule~\code{2} imposes a temporary cost of \nreps{500} for
-each new post.
 %
 Note that the pioneers rule~\code{1.a} solves the chicken-and-egg problem
 imposed by rule~\code{4.a}: if new members start with no \reps, but require
@@ -1255,10 +1211,6 @@ For instance, in slow technical mailing lists, it is more expensive to post
 messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
-
-\subsection{Content Revocation}
-\label{sec.design.revoke}
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{state-revoked.png}
