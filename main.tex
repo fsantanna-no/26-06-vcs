@@ -85,6 +85,7 @@ The design parallels Bitcoin:
     aggregate reputation determines consensus (as the longest chain).
 Reputation depends on human \emph{proof-of-authoring}, which is slow and
 scarce, thus suitable for consensus.
+(TODO: evaluation results)
 \end{abstract}
 
 \noindent\textbf{Keywords:}
@@ -105,20 +106,20 @@ By \emph{public forums} we mean any collaborative environment with multiple
 readers and writers, such as chats, message boards, wikis, and code
 repositories.
 %
-In an ideal forum, all posts
+In an ideal forum, all posts satisfy three goals:
 (i)   reach all users,
 (ii)  are delivered in a consistent order, and
 (iii) are respectful and on topic.
-In centralized systems, items (i) and (ii) are trivially achieved assuming
-service availability, while item (iii) requires users to trust their policies.
-In peer-to-peer systems, however, none of these demands is easily accomplished.
+In centralized systems, (i) and (ii) are trivially achieved assuming service
+availability, while (iii) requires users to trust their policies.
+In peer-to-peer systems, however, none of these goals is easily accomplished.
 
 Gossip protocols disseminate posts among peers, but do not guarantee consensus
 due to conflicting delivery orders~\cite{p2p.intention,p2p.crdts}.
 %
 We argue that consensus is key to distinguishing malicious behavior \emph{at
-the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy item
-(iii).
+the protocol level}~\cite{p2p.dag.sync}, and thus a requirement to satisfy
+goal~(iii).
 Without consensus, each client must rely on local anti-abuse policies (e.g.,
 spam filters), which only apply \emph{a posteriori}, when the damage has
 already been done.
@@ -127,7 +128,7 @@ Abuse is particularly acute in \emph{permissionless
 networks}~\cite{permissionless,blockchain.wild}, in which membership is
 decentralized, thus susceptible to Sybils~\cite{p2p.sybil,p2p.mastodon}.
 %
-To combat abuse and Sybils, and in support of item~(iii), reputation systems
+To combat abuse and Sybils, and in support of goal~(iii), reputation systems
 are a well-studied means to moderate content and build trust among
 strangers~\cite{rep.systems,rep.eigentrust}.
 
