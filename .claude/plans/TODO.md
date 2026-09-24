@@ -1,5 +1,16 @@
 # TODO
 
+- Leftovers of the CRDT section deletion (2026-09-24, disabled block)
+    - wiki replay in Section 4 needs the conflict policy of the old
+      dVCS: patches applied in consensus order, first write wins,
+      stop at the first failing patch (file stays usable, offending
+      hash reported), revoked commit = empty patch removes its lines
+    - dangling disabled text still describes the deleted section:
+      Related Work "A similar dVCS ... p2p.dvcs" (ln ~1698-1702) and
+      Conclusion "three-layered CRDT architecture ... prototyped a
+      dVCS" (ln ~1758-1766); rewrite or drop when 5/6 are resumed
+    - unused images: imgs/conflict.png, imgs/state-revoked.png
+
 - Evaluation: replay cost bounded by state snapshots (2026-09-24)
     - impl snapshots state per commit in `refs/local/<cid>`
       (vcs `state.lua:2-25`), so a sync replays only the new suffix
