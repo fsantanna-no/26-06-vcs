@@ -959,19 +959,16 @@ network partitions (\S\ref{sec.design.partitions}).
 \subsection{Network Threats}
 \label{sec.design.partitions}
 
-Peer-to-peer networks have no dedicated infrastructure to keep connections
-stable, especially under a permissionless regime.
-Hence, partitions are not exceptional events, but the norm:
+In local-first peer-to-peer networks, partitions are not exceptional events,
+but the norm:
     peers join, leave, and reconnect at will.
 %
-Partitions are also \emph{unbounded} and possibly \emph{malicious}, since a
-peer may stay offline for as long as it wants, and no one can distinguish
-whether the causes are deliberate or accidental.
-
-Note that our local-first approach contrasts with standard blockchains, which
-consider partitions as faults, and assume an online majority that discards
-minority branches.
+This contrasts with standard blockchains, which consider partitions as faults,
+and assume an online majority that discards minority branches.
 %
+Partitions are also \emph{unbounded} and possibly \emph{malicious}, since no
+one can distinguish whether the causes are deliberate or accidental.
+
 Therefore, \FC does not treat partitions as attacks, but only reacts to the
 damage they may cause.
 Next, we discuss the threats and countermeasures under a hostile network:
