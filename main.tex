@@ -175,8 +175,8 @@ Under network partitions, posts create forks in the forum graph, and a
 resolves conflicting operations (e.g., double-spending).
 %This order also yields a deterministic chain time, rather than trusted clocks.
 %
-We implement \FC on top of unmodified Git, relying only on hooks to add
-reputation, moderation, and consensus.
+We implement \FC on top of unmodified Git, relying on hooks to add reputation,
+moderation, and consensus.
 
 As a main limitation, since partitions are unbounded, forums are subject to
 long-range attacks~\cite{pos.weak}.
@@ -239,8 +239,8 @@ We build on top of Git as a familiar and solid peer-to-peer foundation, which
 also provides content addressing, signing, deduplication, compression, and
 replication.
 %
-Then, relying only on non-intrusive hooks, we add what Git alone cannot
-provide: reputation, moderation, and consensus.
+Then, relying on non-intrusive hooks, we add what Git alone cannot provide:
+reputation, moderation, and consensus.
 
 The operation of a chain is simple: each action --- post, like or revoke --- is
 an individual commit in the history DAG, which peers synchronize point-to-point
