@@ -788,8 +788,8 @@ synchronize.
 Note that each like is legitimate in isolation, but inconsistent in the merged
 DAG.
 Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
-replays the DAG in topological order, accounts for the transactions in
-sequence, detects the conflict, and rejects the second like (ln~17--21).
+replays the DAG in topological order, accounts for the actions in sequence,
+detects the conflict, and rejects one of them (ln~17--21).
 
 As a consistency requirement, all peers must replay the DAG in the exact same
 order to compute \reps in the same way.
@@ -802,7 +802,7 @@ keeping \emph{York}'s like by a tie break, \S\ref{sec.design.consensus}).
 
 In \FC, consensus determines a total order of all actions in the forum,
 computed as a deterministic function of the chain DAG itself.
-Peers holding the same branches compute it locally in the same way, without
+Peers holding the same DAG compute it locally in the same way, without
 further votes or network coordination.
 %
 It resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, but instead
@@ -854,12 +854,13 @@ After determining the consensus order, we replay all actions in sequence to
 check for inconsistencies.
 Once an action fails (e.g., a double-spend), all subsequent actions in the
 losing branch are rejected and erased (as if they never existed), since they
-cannot persist in the Merkle~DAG.
+descend from it in the Merkle~DAG.
 %
 In Figure~\ref{fig.reps}.B, suppose that the last action by $a$ in
-\code{branch-2} (in gray) is a dislike to member $c$.
-This reduces its \reps and invalidates its last post in \code{branch-1} (in
-red), which is rejected together with all actions in sequence.
+\code{branch-2} (in gray) is a dislike that leaves member $c$ with
+insufficient \reps.
+Then, its last post in \code{branch-1} (in red) is invalidated, together with
+all subsequent actions.
 
 We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
@@ -877,9 +878,9 @@ Figure~\ref{fig.reps}:
 
 Peers that received the losing branch first need to reorder actions after the
 fork point, similarly to a blockchain reorganization.
-Also, legitimate actions that are erased must be reposted by their authors,
-which should be rare, since members are expected to gossip among themselves
-often.
+Moreover, legitimate actions that are erased must be reposted by their
+authors, which should be rare, since members are expected to gossip among
+themselves often.
 
 \subsection{Chain Time}
 \label{sec.design.time}
@@ -918,7 +919,7 @@ tolerance window: the labels \code{OK} are accepted, whereas \code{old} and
 \code{new} are rejected.
 %
 The lower limit (\code{parents-1h}) depends only on timestamps from parents
-already in the chain, meaning that validation is deterministic across peers.
+already in the chain, so its validation is deterministic across peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
@@ -944,9 +945,9 @@ Each action in the total order carries a \emph{position timestamp}~($P_i$) as
 the maximum between the previous position timestamp~($P_{i-1}$) and its own
 self-declared timestamp~($S_i$): $P_i=\max(P_{i-1},S_i)$, with $P_0=S_0$.
 %
-In Figure~\ref{fig.monotonic}, (A) illustrates a forked DAG with non-monotonic
-self-declared timestamps, whereas (B) shows its consensus order as a monotonic
-clock.
+Figure~\ref{fig.monotonic}.A illustrates a forked DAG with non-monotonic
+self-declared timestamps, whereas Figure~\ref{fig.monotonic}.B shows its
+consensus order as a monotonic clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
 
