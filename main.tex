@@ -1022,8 +1022,8 @@ now holding the majority of \reps.
 ]
 # PEER A
 $ fc /chat sync C                # receives branch-1
-$ fc /chat discard 7c1e2a9       # drops branch-1
-$ fc /chat dislike 5000 member c # tip of branch-2
+$ fc /chat discard 7c1e2a9       # drops sync merge
+$ fc /chat dislike 5000 member c --sign=a
 $ fc /chat sync C                # merges again
 $ fc /chat list order
 ...                              # branch-2
