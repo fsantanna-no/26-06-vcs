@@ -995,9 +995,9 @@ Nevertheless, since peers are not trusted a priori, and every action is part of
 the tamper-proof DAG, any erratic data is detected on the first inconsistency,
 allowing the receiver to drop the connection and blacklist the remote peer.
 
-Therefore, a Byzantine peer cannot impose forged content, or prevent other
-peers from synchronizing directly: it can only deny service, simulating a
-partition that correct peers can still route around.
+Therefore, a Byzantine peer cannot impose forged content or prevent other peers
+from synchronizing directly: it can only deny service, simulating a partition
+that correct peers can still route around.
 
 Unlike classic Byzantine agreement with permissioned quorums~\cite{p2p.byz},
 in \FC nothing is decided by counting peers, only by validating each action
@@ -1011,8 +1011,8 @@ Back in Figure~\ref{fig.reps}.A, consider a malicious scenario in which member
 $c$ intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
 %
-When merging, these fake members would become legitimate and take over the
-majority of \reps in the forum.
+When merging, these fake members would become legitimate and hold the majority
+of \reps in the forum.
 
 \begin{lstlisting}[
     float=t,
@@ -1030,13 +1030,13 @@ $ fc /chat list order
 \end{lstlisting}
 
 However, this attack is refutable: since the common history is the basis of
-consensus, members in the branch with more reputation can still react, even
-\emph{a posteriori}.
+consensus, which ignores the new remote \reps, members in the local branch
+(with more reputation) can still react, even \emph{a posteriori}.
 %
-For instance, members $a$ and $b$ can pretend that they did not yet see
-\code{branch-1} and post extra dislikes to member $c$ from \code{branch-2} so
-that a further merge invalidates all actions from \code{branch-1}, as if they
-never existed.
+For instance, members $a$ and $b$ can pretend that they did not yet see remote
+\code{branch-1} and post extra dislikes to member $c$ from local
+\code{branch-2} so that a further merge invalidates all remote actions, as if
+they never existed.
 
 Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
 \code{branch-1} locally before casting the dislike that bans $c$, so that the
