@@ -1228,58 +1228,8 @@ For instance, in slow technical mailing lists, it is more expensive to post
 messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{state-revoked.png}
-\caption{
-    State machine of actions:
-    \code{BLOCKED} actions are not linked in the DAG.
-    \code{ACCEPTED} actions are linked and retransmitted.
-    The payload of \code{REVOKED} actions are not retransmitted.
-}
-\label{fig.state}
-\end{figure}
-
-Finally, we consider that revoking posts is fundamental in the context of
-social content publishing, and thus, an important contribution of this work.
-
-An action has three possible states: \code{BLOCKED}, \code{ACCEPTED}, or
-\code{REVOKED}.
-Figure~\ref{fig.state} specifies the transitions between states.
-%
-If the member has reputation, a new action is immediately \code{ACCEPTED} in
-the forum.
-%
-Otherwise, it is \code{BLOCKED} and requires a like from another member.
-
-Blocked actions are not considered part of the forum DAG in the sense that new
-actions do not link back to it.
-In addition, peers are not required to hold blocked actions nor retransmit them
-to other peers.
 However, if blocked actions are not disseminated, new members will never have
 the chance to be welcomed with a like.
-Therefore, a reasonable policy is to hold blocked actions in a temporary bag
-and retransmit them for some visibility.
-
-Once accepted, the action becomes part of the forum and can never be removed
-again, since Merkle~DAGs are immutable by design.
-%Note that blocked actions that become accepted are always succeeded by a
-%\emph{like} (Figure~\ref{fig.forum}).
-%
-However, if the number of dislikes exceeds an arbitrary threshold (e.g., more
-dislikes than likes), the action becomes \code{REVOKED} and its payload is not
-retransmitted to other peers.
-Note that an action hash does not depend on its associated payload, but only on
-the payload hash.
-Hence, it is safe to remove the payload as long as one can prove its revoked
-state.
-Later, if the action receives new likes, it means that the payload is still
-known somewhere and peers can request it when synchronizing again, since the
-action becomes \code{ACCEPTED} again.
-
-In summary, the operations and constraints in Table~\ref{tab.rules} together
-with the consensus rules of Figures~\ref{fig.reps}~and~\ref{fig.hard} empower
-\FC with permissionless public forums.
 
 \subsection{The Consensus and Synchronization Algorithm}
 \label{sec.design.algo}
