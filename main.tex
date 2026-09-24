@@ -907,7 +907,7 @@ to vandalize chains.
 %
 Therefore, just before an action enters the DAG, the peer validates its
 timestamp within reasonable bounds:
-    no older than its newest parent, and
+    no older than its newest ancestor, and
     no newer than the local clock (each with 1 hour of tolerance).
 
 Figure~\ref{fig.times} illustrates the tolerance window to append new actions
@@ -918,8 +918,8 @@ The dashed shapes represent new actions and their outcomes considering the
 tolerance window: the labels \code{OK} are accepted, whereas \code{old} and
 \code{new} are rejected.
 %
-The lower limit (\code{parents-1h}) depends only on timestamps from parents
-already in the chain, so its validation is deterministic across peers.
+The lower limit (\code{ancestors-1h}) depends only on timestamps from
+actions already in the chain, so its validation is deterministic across peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
