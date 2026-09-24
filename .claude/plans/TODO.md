@@ -1,5 +1,13 @@
 # TODO
 
+- Verify all citations (2026-09-24; generalizes the item below on
+  citations added since 2026-09-05)
+    - download each into `pdfs/` as `<key>-<author><year>.{pdf,txt}`
+    - verify each corresponds to its bibtex entry (authors, year,
+      venue, title)
+    - compare each paper claim with backing verbatim from the citation
+    - done so far: lamport.byz (260924-review.md, item 3)
+
 - Leftovers of review 260905-review.md (closed 2026-09-21)
     - evaluation items moved to 260920-eval.md
     - review plan now at done/260905-review.md
