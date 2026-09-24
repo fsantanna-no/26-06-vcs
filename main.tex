@@ -1143,9 +1143,9 @@ The consensus mechanism aims at \emph{strong eventual consistency}, which
 requires eventual delivery, strong convergence, and
 termination~\cite{p2p.crdts}.
 %
-Eventual delivery holds within the settling window or when local wins
-(\S\ref{sec.design.partitions.hardforks}), which is a deliberate decision to
-protect active forums from outdated branches.
+Eventual delivery holds within the settling window or when the local branch
+wins (\S\ref{sec.design.partitions.hardforks}), a deliberate limit to protect
+active forums from outdated branches.
 %
 Strong convergence holds by construction, since the replay algorithm
 (\S\ref{sec.design.consensus}) uses pure evaluations to compute durations,
