@@ -1011,8 +1011,8 @@ Back in Figure~\ref{fig.reps}.A, consider a malicious scenario in which member
 $c$ intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts (\R{1.b}).
 %
-When merging, these fake members would become legitimate and hold the majority
-of \reps in the forum.
+When merging, these Sybils would become legitimate and contaminate the forum,
+now holding the majority of \reps.
 
 \begin{lstlisting}[
     float=t,
@@ -1029,15 +1029,16 @@ $ fc /chat list order
 ...                              # branch-1 missing
 \end{lstlisting}
 
-However, this attack is refutable: since the common history is the basis of
-consensus, which ignores the new remote \reps, members in the local branch
-(with more reputation) can still react, even \emph{a posteriori}.
-%
+However, this attack is refutable, since the common history is the basis of
+consensus (\S\ref{sec.design.consensus}), which ignores the new remote \reps.
+Hence, members with more past reputation in the local branch can still react,
+even \emph{a posteriori}.
+
 For instance, members $a$ and $b$ can pretend that they did not yet see remote
 \code{branch-1} and post extra dislikes to member $c$ from local
 \code{branch-2} so that a further merge invalidates all remote actions, as if
 they never existed.
-
+%
 Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
 \code{branch-1} locally before casting the dislike that bans $c$, so that the
 next merge rejects \code{branch-1} for good.
@@ -1057,19 +1058,17 @@ are the ones who have abandoned the forum for months.
 This would invert our judgement and make \code{branch-1} with $c$, $x$ and $y$
 legitimate.
 Nevertheless, members $a$ and $b$ would succeed in taking over the forum, since
-they control the majority of \reps in the common history.
-%
-Yet another possibility is that both branches are legitimate but were
-genuinely disconnected for a long period.
-In any case, it is unacceptable that an old remote branch affects an active
-local forum.
+they control the majority of \reps in the common history, which corresponds to
+the \emph{long-range attack} in proof-of-stake~\cite{pos.weak}.
 
+Yet another possibility is that both branches are legitimate but were genuinely
+disconnected for a long period.
+In either case, it is unacceptable that honest members of an active forum are
+affected.
+%
 Therefore, considering that forging long branches or returning from long
 absences are indistinguishable, reputation alone becomes a fragile criterion
 for consensus.
-As the counterpoint illustrates, past members holding the majority of \reps at
-any point in time could still override the present, which corresponds to the
-\emph{long-range attack} in proof-of-stake~\cite{pos.weak}.
 
 \begin{figure}[t]
 \centering
