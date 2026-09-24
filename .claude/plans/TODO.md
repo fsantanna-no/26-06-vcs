@@ -1,5 +1,14 @@
 # TODO
 
+- Evaluation: replay cost bounded by state snapshots (2026-09-24)
+    - impl snapshots state per commit in `refs/local/<cid>`
+      (vcs `state.lua:2-25`), so a sync replays only the new suffix
+    - old disabled text used the settled prefix as a checkpoint cache
+      "independent of chain size"; dropped from the tex (cleanup)
+    - report replay cost vs suffix size in Section 4
+    - intro ln 187-188 limitation ("costs to store and validate posts
+      increase over time"): soften to storage only if confirmed
+
 - Verify all citations (2026-09-24; generalizes the item below on
   citations added since 2026-09-05)
     - download each into `pdfs/` as `<key>-<author><year>.{pdf,txt}`
