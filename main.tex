@@ -1196,11 +1196,6 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 \iffalse
 
-For instance, federated protocols explicitly leave spam filtering to the server
-side~\cite{pubsub.activitypub}, while CRDT-based
-systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
-integrity, not volume or content quality.
-
 In \FC, members may stay offline indefinitely without losing \reps, and both
 sides of a partition remain legitimate forums while they last.
 This is a deliberate choice of availability over consistency~\cite{cap}, at
@@ -1527,6 +1522,11 @@ ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
 Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
 the context of peer-to-peer public forums, i.e., a permissionless counterpart
 of IRC/Discord or Usenet/Reddit.
+
+For instance, federated protocols explicitly leave spam filtering to the server
+side~\cite{pubsub.activitypub}, while CRDT-based
+systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
+integrity, not volume or content quality.
 % <<<
 
 Many other systems have been proposed for decentralized content
