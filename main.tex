@@ -898,9 +898,8 @@ Some rules of the protocol depend on wall-clock durations:
 \label{fig.times}
 \end{figure}
 
-To measure durations, \FC adopts the principle of a \emph{chain time} that
-relies exclusively on immutable timestamps already in the chain.
-This way, peers holding the same DAG compute the same durations.
+\FC adopts the principle of a \emph{chain time} based on immutable timestamps
+in the chain, such that peers holding the same DAG compute the same durations.
 However, in our permissionless context, we cannot trust self-declared
 timestamps, since malicious members could manipulate them to collect rewards or
 to vandalize chains.
@@ -918,16 +917,15 @@ The dashed shapes represent new actions and their outcomes considering the
 tolerance window: the labels \code{OK} are accepted, whereas \code{old} and
 \code{new} are rejected.
 %
-The lower limit (\code{parents-1h}) depends only on timestamps from immutable
-parents already in the chain, meaning that validation is deterministic across
-peers.
+The lower limit (\code{parents-1h}) depends only on timestamps from parents
+already in the chain, meaning that validation is deterministic across peers.
 %
 The upper limit (\code{local+1h}), however, is the only source of
 non-determinism, since each peer runs its own clock.
 Nevertheless, a peer whose clock is behind simply refuses syncs until a later
 retry, when it converges to the same state.
 
-Thus, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
+Therefore, as in Bitcoin~\cite{btc.timestamps}, initial action admission is a
 local decision, but once in the chain, decisions are deterministic based on
 immutable parents, hence the term \emph{chain time}.
 
@@ -940,8 +938,7 @@ immutable parents, hence the term \emph{chain time}.
 \label{fig.monotonic}
 \end{figure}
 
-We also rely on deterministic chain time to derive a monotonic consensus
-timeline.
+We also rely on chain time to derive a monotonic consensus timeline.
 %
 Each action in the total order carries a \emph{position timestamp}~($P_i$) as
 the maximum between the previous position timestamp~($P_{i-1}$) and its own
@@ -953,9 +950,10 @@ clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
 
-The monotonic timeline counts how new a losing branch is in the local order
-rather than how old it claims to be, preventing them from settling instantly
-when recovering from network partitions (\S\ref{sec.design.partitions}).
+The monotonic timeline determines how recent a losing branch is in the local
+order rather than how old it claims to be.
+This prevents losing branches from settling instantly when recovering from
+network partitions (\S\ref{sec.design.partitions}).
 
 \subsection{Network Threats}
 \label{sec.design.partitions}
