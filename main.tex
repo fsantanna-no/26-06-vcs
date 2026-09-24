@@ -584,8 +584,9 @@ Begging posts have restricted reach, since they are not part of the Merkle DAG%
     the immutable chain DAG.
     Until then, a beg can be synchronized or dropped at will.
 }.
-Therefore, peers are not required to hold or forward them, and a reasonable
-policy is to keep them in a temporary pool for some visibility.
+However, if they are never retransmitted, strangers have no way in.
+Although peers are not required to hold or forward begs, a reasonable policy is
+to keep them in a temporary pool for some visibility.
 
 \subsection{Proof-of-Authoring}
 \label{sec.design.poa}
@@ -1228,8 +1229,6 @@ For instance, in slow technical mailing lists, it is more expensive to post
 messages in sequence.
 However, in chats with a lot of active members, the penalty can decrease to zero
 quickly.
-However, if blocked actions are not disseminated, new members will never have
-the chance to be welcomed with a like.
 
 \subsection{The Consensus and Synchronization Algorithm}
 \label{sec.design.algo}
