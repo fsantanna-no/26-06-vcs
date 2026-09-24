@@ -979,7 +979,7 @@ Next, we discuss the threats and countermeasures under a hostile network:
     how self-verification reduces malicious peers to denial of service.
 \item [\S\ref{sec.design.partitions.farming}]
     Reputation Farming:
-    how the common history bounds \reps minted in isolation.
+    how common history bounds \reps minted in isolation.
 \item [\S\ref{sec.design.partitions.hardforks}]
     Hard Forks:
     how local settled actions become immune to reordering.
@@ -988,16 +988,16 @@ Next, we discuss the threats and countermeasures under a hostile network:
 \subsubsection{Byzantine Peers}
 \label{sec.design.byz}
 
-A \emph{Byzantine} peer~\cite{lamport.byz} may serve forged actions, withhold
+A \emph{Byzantine peer}~\cite{lamport.byz} may serve forged actions, suppress
 branches, or answer differently to different peers.
 %
 Nevertheless, since peers are not trusted a priori, and every action is part of
 the tamper-proof DAG, any erratic data is detected on the first inconsistency,
 allowing the receiver to drop the connection and blacklist the remote peer.
-%
-Therefore, a Byzantine peer cannot alter the DAG, forge content, or prevent
-other peers from synchronizing directly: it can only deny service, simulating
-a partition that correct peers route around.
+
+Therefore, a Byzantine peer cannot impose forged content, or prevent other
+peers from synchronizing directly: it can only deny service, simulating a
+partition that correct peers can still route around.
 
 Unlike classic Byzantine agreement with permissioned quorums~\cite{p2p.byz},
 in \FC nothing is decided by counting peers, only by validating each action
