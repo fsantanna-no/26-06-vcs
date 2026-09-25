@@ -1227,6 +1227,49 @@ order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 \subsection{Peer-to-Peer Protocols}
 \label{sec.related.p2ps}
 
+Bitcoin~\cite{p2p.bitcoin} is probably the most successful permissionless
+network, but serves specifically for electronic cash.
+IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
+hosting large files and applications, respectively.
+
+Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
+centralization issue entirely, given the high costs of equipment and energy.
+Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
+that centralization is inevitable, and thus uses a function of time and wealth
+to elect peers to mint new blocks.
+As an advantage, these proof mechanisms are generic and apply to multiple
+domains, since they depend on extrinsic resources.
+% (i.e., the richer gets richer)
+In contrast, we chose an intrinsic resource, which is authored content in the
+chains themselves.
+We believe that human work grows more linearly with effort and is not directly
+portable across chains with different topics.
+These hypotheses support the intended decentralization of our system.
+%
+Another distinction is that generic public ledgers require permanent
+connectivity to avoid forks, which opposes our local-first principle.
+This is because a token transaction only has value as part of the longest
+chain.
+This is not the case for a local message exchange between friends, which has
+value in itself.
+
+IPFS~\cite{p2p.ipfs} is centered around immutable content-addressed data, while
+Dat~\cite{p2p.dat} around mutable pubkey-addressed data.
+IPFS is more suitable to share large and stable content such as movies and
+archives, while Dat is more suitable for dynamic content such as web apps.
+%
+Both IPFS and Dat use DHTs as their underlying architectures, which are optimal
+to serve large and popular content, but not for search and discovery.
+In both cases, users need to know in advance what they want, such as the exact
+link to a movie or a particular identity in the network.
+%
+On the one hand, DHTs are probably not the best architecture to model
+decentralized human communication with continuous feed updates.
+On the other hand, replicating large files across the network in Merkle~DAGs is
+also impractical.
+An alternative is to use DHT links in Merkle payloads to benefit from both
+architectures.
+
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
 
@@ -1247,6 +1290,7 @@ IRC/Discord or Usenet/Reddit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\iffalse
 \subsection{Publish-Subscribe Protocols}
 
 Decentralized topic-based publish-subscribe protocols, such as
@@ -1322,50 +1366,8 @@ signing, hash linking, and extra verification rules (\S\ref{sec.evaluation}).
 
 \subsection{Peer-to-Peer Protocols}
 
-Bitcoin~\cite{p2p.bitcoin} is probably the most successful permissionless
-network, but serves specifically for electronic cash.
-IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
-hosting large files and applications, respectively.
 Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
 to \FC goals and cover human communication.
-
-Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
-centralization issue entirely, given the high costs of equipment and energy.
-Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
-that centralization is inevitable, and thus uses a function of time and wealth
-to elect peers to mint new blocks.
-As an advantage, these proof mechanisms are generic and apply to multiple
-domains, since they depend on extrinsic resources.
-% (i.e., the richer gets richer)
-In contrast, we chose an intrinsic resource, which is authored content in the
-chains themselves.
-We believe that human work grows more linearly with effort and is not directly
-portable across chains with different topics.
-These hypotheses support the intended decentralization of our system.
-%
-Another distinction is that generic public ledgers require permanent
-connectivity to avoid forks, which opposes our local-first principle.
-This is because a token transaction only has value as part of the longest
-chain.
-This is not the case for a local message exchange between friends, which has
-value in itself.
-
-IPFS~\cite{p2p.ipfs} is centered around immutable content-addressed data, while
-Dat~\cite{p2p.dat} around mutable pubkey-addressed data.
-IPFS is more suitable to share large and stable content such as movies and
-archives, while Dat is more suitable for dynamic content such as web apps.
-%
-Both IPFS and Dat use DHTs as their underlying architectures, which are optimal
-to serve large and popular content, but not for search and discovery.
-In both cases, users need to know in advance what they want, such as the exact
-link to a movie or a particular identity in the network.
-%
-On the one hand, DHTs are probably not the best architecture to model
-decentralized human communication with continuous feed updates.
-On the other hand, replicating large files across the network in Merkle~DAGs is
-also impractical.
-An alternative is to use DHT links in Merkle payloads to benefit from both
-architectures.
 
 Scuttlebutt~\cite{p2p.scuttlebutt} is designed around public identities that
 follow each other to form a graph of connections.
@@ -1425,6 +1427,7 @@ In this case, consensus is fundamental, since a subtle off-by-one discrepancy
 in reputation creates an irreconcilable fork in the network.
 Achieving consensus on a permissionless network is the key contribution of this
 work.
+\fi
 
 \section{Conclusion}
 \label{sec.conclusion}
