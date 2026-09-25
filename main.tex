@@ -1186,8 +1186,219 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Evaluation}
 \label{sec.evaluation}
 
-\section{Related Work}
-\label{sec.related}
+% >>> TODO: moved from intro to related work
+Permissionless consensus is notably challenging to the point that protocols
+partially abdicate it along two axes.
+%
+On the one hand, \emph{multi-user/single-node consensus} supports a consistent
+multi-user public forum, but restricted to a single trusted server ordering
+messages (e.g., federated protocols~\cite{p2p.ecosystem}).
+%
+On the other hand, \emph{single-user/multi-node consensus} supports a
+consistent feed across multiple machines, but restricted to a single author
+ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
+%
+Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
+the context of peer-to-peer public forums, i.e., a permissionless counterpart
+of IRC/Discord or Usenet/Reddit.
+
+For instance, federated protocols explicitly leave spam filtering to the server
+side~\cite{pubsub.activitypub}, while CRDT-based
+systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
+integrity, not volume or content quality.
+% <<<
+
+Many other systems have been proposed for decentralized content
+sharing~\cite{p2p.survey,p2p.ecosystem}.
+Here we consider the classes of publish-subscribe, federated, and peer-to-peer
+protocols.
+
+\subsection{Publish-Subscribe Protocols}
+
+Decentralized topic-based publish-subscribe protocols, such as
+    \emph{XMPP}~\cite{pubsub.xmpp},
+    \emph{ActivityPub}~\cite{pubsub.activitypub}, and
+    \emph{gossipsub}~\cite{pubsub.gossipsub},
+decouples publishers from subscribers in the network.
+%
+A key limitation of \emph{pubsubs} is that the brokers that mediate
+communication still have a special role in the network, such as authenticating
+and validating actions.
+%
+Nevertheless, some pubsubs do not rely on server roles, and instead, use
+peer-to-peer gossip dissemination~\cite{pubsub.tera,pubsub.rappel,pubsub.stan,pubsub.vitis,pubsub.gossipsub,pubsub.rappel}.
+Most of these protocols focus on techniques to achieve scalability and
+performance, such as throughput, load balancing, and real-time relaying.
+
+However, these techniques alone are not sufficient to operate permissionless
+networks with malicious Sybils~\cite{pubsub.gossipsub2}.
+Being generic protocols, pubsubs are typically unaware of the applications
+built on top of them.
+%
+In contrast, as stated in Section~\ref{sec.git}, the gossip layer of \FC is
+conceptually at the application level and is integrated with the semantics of
+chains, which already verifies actions at publishing time.
+For instance, to flood the network with posts, malicious peers need to spend
+reputation, which takes hours to recharge (rule~\code{2} in
+Table~\ref{tab.rules}).
+In addition, blocked actions (Figure~\ref{fig.state}) are not a concern either,
+because they have limited reachability.
+Another advantage of a tighter integration between the application and protocol
+is that Merkle~DAGs simplify synchronization, provide persistence, and prevent
+duplication of messages.
+Full persistence resists long churn periods, and de-duplication tolerates
+CmRDTs with operations that are not idempotent.
+
+In summary, \FC and \emph{pubsub} middlewares operate at different network
+layers, which suggests that \FC could benefit of the latter to manage the
+interconnections between peers.
+
+\subsection{Federated Protocols}
+s
+Federated protocols, such as e-mail, allow users from one domain to exchange
+messages with users of other domains seamlessly.
+\emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
+social media, chat, and microblogging~\cite{p2p.ecosystem}, respectively.
+
+As a drawback, identities in federations are not portable across domains, which
+may become a problem when servers shutdown or users become unsatisfied with the
+service~\cite{fed.distributed}.
+In any of these cases, users have to grab their content, move to another
+server, and announce a new identity to followers.
+
+Moderation is also a major concern in federations~\cite{p2p.ecosystem}.
+As an example, messages crossing domain boundaries may be subject to different
+policies that might affect delivery.
+With no coordinated consensus, it is difficult to make pervasive public forums
+practical.
+%
+For this reason, Matrix supports a permissioned moderation system%
+\footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
+but which applies only within clients, after the messages have already been
+flooded in the network.
+
+As a counterpoint, federated protocols seem to be more appropriate for
+real-time applications such as large chats rooms.
+The number of hops and header overhead can be much smaller in client-server
+architectures compared to peer-to-peer systems, which typically include message
+signing, hash linking, and extra verification rules (\S\ref{sec.evaluation}).
+
+\subsection{Peer-to-Peer Protocols}
+
+Bitcoin~\cite{p2p.bitcoin} is probably the most successful permissionless
+network, but serves specifically for electronic cash.
+IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
+hosting large files and applications, respectively.
+Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
+to \FC goals and cover human communication.
+
+Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
+centralization issue entirely, given the high costs of equipment and energy.
+Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
+that centralization is inevitable, and thus uses a function of time and wealth
+to elect peers to mint new blocks.
+As an advantage, these proof mechanisms are generic and apply to multiple
+domains, since they depend on extrinsic resources.
+% (i.e., the richer gets richer)
+In contrast, we chose an intrinsic resource, which is authored content in the
+chains themselves.
+We believe that human work grows more linearly with effort and is not directly
+portable across chains with different topics.
+These hypotheses support the intended decentralization of our system.
+%
+Another distinction is that generic public ledgers require permanent
+connectivity to avoid forks, which opposes our local-first principle.
+This is because a token transaction only has value as part of the longest
+chain.
+This is not the case for a local message exchange between friends, which has
+value in itself.
+
+IPFS~\cite{p2p.ipfs} is centered around immutable content-addressed data, while
+Dat~\cite{p2p.dat} around mutable pubkey-addressed data.
+IPFS is more suitable to share large and stable content such as movies and
+archives, while Dat is more suitable for dynamic content such as web apps.
+%
+Both IPFS and Dat use DHTs as their underlying architectures, which are optimal
+to serve large and popular content, but not for search and discovery.
+In both cases, users need to know in advance what they want, such as the exact
+link to a movie or a particular identity in the network.
+%
+On the one hand, DHTs are probably not the best architecture to model
+decentralized human communication with continuous feed updates.
+On the other hand, replicating large files across the network in Merkle~DAGs is
+also impractical.
+An alternative is to use DHT links in Merkle payloads to benefit from both
+architectures.
+
+Scuttlebutt~\cite{p2p.scuttlebutt} is designed around public identities that
+follow each other to form a graph of connections.
+This graph is replicated in the network topology as well as in data storage.
+For instance, if identity $A$ follows identity $B$, it means that the computer
+of $A$ connects to $B$'s in a few hops and also that it stores all of his posts
+locally.
+Note however that the basic unit of communication in Scuttlebutt is
+unidirectional, with a public identity broadcasting a feed to its
+followers (\Xon).
+%
+For open groups communication (\Xnn), Scuttlebutt uses the concept of channels,
+which are in fact nothing more than hash tags (e.g. \emph{\#sports}).
+Members can tag posts, which appear not only in their feeds but also in local
+virtual feeds representing these channels.
+However, users only see channel posts from members they already follow.
+In practice, channels simply merge friends posts and filter them by tags.
+In theory, to read all posts of a channel, a user would need to follow all
+users in the network (which also implies storing their feeds).
+A limitation of this model is that new users struggle to integrate in channel
+communities because their posts have no visibility at all.
+As a counterpoint, channels are safe places that do not suffer from abuse.
+
+Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
+with \FC (\Xnn).
+A fundamental difference is that Aether is designed for ephemeral, mutable
+posts with no intention to enforce global consensus across peers.
+Aether employs a very pragmatic approach to mitigate abuse in forums.
+It uses established techniques, such as proof-of-work to combat spam, and an
+innovative voting system to moderate forums, but which affects local instances
+only.
+In contrast, \FC relies on its permissionless reputation and consensus
+mechanisms for moderation.
+
+Regarding the structure of messages, append-only Merkle~DAGs have been proposed
+as self-certified archives, and as CRDTs that provide strong eventual
+consistency~\cite{fed.matrix,p2p.byz}.
+However, when these DAGs are open to permissionless writes, they are subject to
+abuse, which may degrade the content and performance of the network.
+Another aspect is that a DAG itself has no attached semantics, which weakens
+its consistency property at the application level, which may interpret the DAG
+in conflicting orders.
+The proposed consensus mechanism addresses permissionless writes and provides
+a total order for applications (at the cost of rollbacks).
+
+A similar dVCS have been recently proposed~\cite{p2p.dvcs}, with a DAG
+representation and merging policies.
+To resolve \emph{competition conflicts}, they propose to use an external
+scoring function, such as users' reputations.
+Our proposed consensus mechanism internalizes such reputation scoring function.
+Integrated reputation also prevents spam and abusive behavior from byzantine
+nodes, which could otherwise generate very large graphs that take forever to
+synchronize (as discussed for Byzantine Causal Broadcast~\cite{p2p.dag.sync}).
+
+Some works for P2P file sharing propose to account the reputation of peers to
+form a web of trust based on their behavior
+history~\cite{p2p.rep.wang,rep.eigentrust}.
+However, there are three key aspects in terms of scope that distinguishes our
+reputation system: its focus on the contents, its subjective nature, and its
+dependency on consensus.
+First, it is the actual contents that are stored and evaluated in the forums,
+with the identities being a secondary attribute.
+Second, content evaluation is subjective, as well as any decision to revoke
+posts or to fork forums.
+Third, at any given point in time, peers must agree on a common forum DAG
+prefix with global and deterministic accuracy to act identically as a whole.
+In this case, consensus is fundamental, since a subtle off-by-one discrepancy
+in reputation creates an irreconcilable fork in the network.
+Achieving consensus on a permissionless network is the key contribution of this
+work.
 
 \section{Conclusion}
 \label{sec.conclusion}
@@ -1503,223 +1714,6 @@ Discussion:
     - e-mail 1h per peer
 - time of consensus
 \end{comment}
-
-\section{Related Work}
-\label{sec.related}
-
-% >>> TODO: moved from intro to related work
-Permissionless consensus is notably challenging to the point that protocols
-partially abdicate it along two axes.
-%
-On the one hand, \emph{multi-user/single-node consensus} supports a consistent
-multi-user public forum, but restricted to a single trusted server ordering
-messages (e.g., federated protocols~\cite{p2p.ecosystem}).
-%
-On the other hand, \emph{single-user/multi-node consensus} supports a
-consistent feed across multiple machines, but restricted to a single author
-ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
-%
-Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
-the context of peer-to-peer public forums, i.e., a permissionless counterpart
-of IRC/Discord or Usenet/Reddit.
-
-For instance, federated protocols explicitly leave spam filtering to the server
-side~\cite{pubsub.activitypub}, while CRDT-based
-systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
-integrity, not volume or content quality.
-% <<<
-
-Many other systems have been proposed for decentralized content
-sharing~\cite{p2p.survey,p2p.ecosystem}.
-Here we consider the classes of publish-subscribe, federated, and peer-to-peer
-protocols.
-
-\subsection{Publish-Subscribe Protocols}
-
-Decentralized topic-based publish-subscribe protocols, such as
-    \emph{XMPP}~\cite{pubsub.xmpp},
-    \emph{ActivityPub}~\cite{pubsub.activitypub}, and
-    \emph{gossipsub}~\cite{pubsub.gossipsub},
-decouples publishers from subscribers in the network.
-%
-A key limitation of \emph{pubsubs} is that the brokers that mediate
-communication still have a special role in the network, such as authenticating
-and validating actions.
-%
-Nevertheless, some pubsubs do not rely on server roles, and instead, use
-peer-to-peer gossip dissemination~\cite{pubsub.tera,pubsub.rappel,pubsub.stan,pubsub.vitis,pubsub.gossipsub,pubsub.rappel}.
-Most of these protocols focus on techniques to achieve scalability and
-performance, such as throughput, load balancing, and real-time relaying.
-
-However, these techniques alone are not sufficient to operate permissionless
-networks with malicious Sybils~\cite{pubsub.gossipsub2}.
-Being generic protocols, pubsubs are typically unaware of the applications
-built on top of them.
-%
-In contrast, as stated in Section~\ref{sec.git}, the gossip layer of \FC is
-conceptually at the application level and is integrated with the semantics of
-chains, which already verifies actions at publishing time.
-For instance, to flood the network with posts, malicious peers need to spend
-reputation, which takes hours to recharge (rule~\code{2} in
-Table~\ref{tab.rules}).
-In addition, blocked actions (Figure~\ref{fig.state}) are not a concern either,
-because they have limited reachability.
-Another advantage of a tighter integration between the application and protocol
-is that Merkle~DAGs simplify synchronization, provide persistence, and prevent
-duplication of messages.
-Full persistence resists long churn periods, and de-duplication tolerates
-CmRDTs with operations that are not idempotent.
-
-In summary, \FC and \emph{pubsub} middlewares operate at different network
-layers, which suggests that \FC could benefit of the latter to manage the
-interconnections between peers.
-
-\subsection{Federated Protocols}
-s
-Federated protocols, such as e-mail, allow users from one domain to exchange
-messages with users of other domains seamlessly.
-\emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
-social media, chat, and microblogging~\cite{p2p.ecosystem}, respectively.
-
-As a drawback, identities in federations are not portable across domains, which
-may become a problem when servers shutdown or users become unsatisfied with the
-service~\cite{fed.distributed}.
-In any of these cases, users have to grab their content, move to another
-server, and announce a new identity to followers.
-
-Moderation is also a major concern in federations~\cite{p2p.ecosystem}.
-As an example, messages crossing domain boundaries may be subject to different
-policies that might affect delivery.
-With no coordinated consensus, it is difficult to make pervasive public forums
-practical.
-%
-For this reason, Matrix supports a permissioned moderation system%
-\footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
-but which applies only within clients, after the messages have already been
-flooded in the network.
-
-As a counterpoint, federated protocols seem to be more appropriate for
-real-time applications such as large chats rooms.
-The number of hops and header overhead can be much smaller in client-server
-architectures compared to peer-to-peer systems, which typically include message
-signing, hash linking, and extra verification rules (\S\ref{sec.evaluation}).
-
-\subsection{Peer-to-Peer Protocols}
-
-Bitcoin~\cite{p2p.bitcoin} is probably the most successful permissionless
-network, but serves specifically for electronic cash.
-IPFS~\cite{p2p.ipfs} and Dat~\cite{p2p.dat} are data-centric protocols for
-hosting large files and applications, respectively.
-Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
-to \FC goals and cover human communication.
-
-Bitcoin adopts proof-of-work to achieve consensus, which does not solve the
-centralization issue entirely, given the high costs of equipment and energy.
-Proof-of-stake is a prominent alternative~\cite{p2p.proofs} that acknowledges
-that centralization is inevitable, and thus uses a function of time and wealth
-to elect peers to mint new blocks.
-As an advantage, these proof mechanisms are generic and apply to multiple
-domains, since they depend on extrinsic resources.
-% (i.e., the richer gets richer)
-In contrast, we chose an intrinsic resource, which is authored content in the
-chains themselves.
-We believe that human work grows more linearly with effort and is not directly
-portable across chains with different topics.
-These hypotheses support the intended decentralization of our system.
-%
-Another distinction is that generic public ledgers require permanent
-connectivity to avoid forks, which opposes our local-first principle.
-This is because a token transaction only has value as part of the longest
-chain.
-This is not the case for a local message exchange between friends, which has
-value in itself.
-
-IPFS~\cite{p2p.ipfs} is centered around immutable content-addressed data, while
-Dat~\cite{p2p.dat} around mutable pubkey-addressed data.
-IPFS is more suitable to share large and stable content such as movies and
-archives, while Dat is more suitable for dynamic content such as web apps.
-%
-Both IPFS and Dat use DHTs as their underlying architectures, which are optimal
-to serve large and popular content, but not for search and discovery.
-In both cases, users need to know in advance what they want, such as the exact
-link to a movie or a particular identity in the network.
-%
-On the one hand, DHTs are probably not the best architecture to model
-decentralized human communication with continuous feed updates.
-On the other hand, replicating large files across the network in Merkle~DAGs is
-also impractical.
-An alternative is to use DHT links in Merkle payloads to benefit from both
-architectures.
-
-Scuttlebutt~\cite{p2p.scuttlebutt} is designed around public identities that
-follow each other to form a graph of connections.
-This graph is replicated in the network topology as well as in data storage.
-For instance, if identity $A$ follows identity $B$, it means that the computer
-of $A$ connects to $B$'s in a few hops and also that it stores all of his posts
-locally.
-Note however that the basic unit of communication in Scuttlebutt is
-unidirectional, with a public identity broadcasting a feed to its
-followers (\Xon).
-%
-For open groups communication (\Xnn), Scuttlebutt uses the concept of channels,
-which are in fact nothing more than hash tags (e.g. \emph{\#sports}).
-Members can tag posts, which appear not only in their feeds but also in local
-virtual feeds representing these channels.
-However, users only see channel posts from members they already follow.
-In practice, channels simply merge friends posts and filter them by tags.
-In theory, to read all posts of a channel, a user would need to follow all
-users in the network (which also implies storing their feeds).
-A limitation of this model is that new users struggle to integrate in channel
-communities because their posts have no visibility at all.
-As a counterpoint, channels are safe places that do not suffer from abuse.
-
-Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
-with \FC (\Xnn).
-A fundamental difference is that Aether is designed for ephemeral, mutable
-posts with no intention to enforce global consensus across peers.
-Aether employs a very pragmatic approach to mitigate abuse in forums.
-It uses established techniques, such as proof-of-work to combat spam, and an
-innovative voting system to moderate forums, but which affects local instances
-only.
-In contrast, \FC relies on its permissionless reputation and consensus
-mechanisms for moderation.
-
-Regarding the structure of messages, append-only Merkle~DAGs have been proposed
-as self-certified archives, and as CRDTs that provide strong eventual
-consistency~\cite{fed.matrix,p2p.byz}.
-However, when these DAGs are open to permissionless writes, they are subject to
-abuse, which may degrade the content and performance of the network.
-Another aspect is that a DAG itself has no attached semantics, which weakens
-its consistency property at the application level, which may interpret the DAG
-in conflicting orders.
-The proposed consensus mechanism addresses permissionless writes and provides
-a total order for applications (at the cost of rollbacks).
-
-A similar dVCS have been recently proposed~\cite{p2p.dvcs}, with a DAG
-representation and merging policies.
-To resolve \emph{competition conflicts}, they propose to use an external
-scoring function, such as users' reputations.
-Our proposed consensus mechanism internalizes such reputation scoring function.
-Integrated reputation also prevents spam and abusive behavior from byzantine
-nodes, which could otherwise generate very large graphs that take forever to
-synchronize (as discussed for Byzantine Causal Broadcast~\cite{p2p.dag.sync}).
-
-Some works for P2P file sharing propose to account the reputation of peers to
-form a web of trust based on their behavior
-history~\cite{p2p.rep.wang,rep.eigentrust}.
-However, there are three key aspects in terms of scope that distinguishes our
-reputation system: its focus on the contents, its subjective nature, and its
-dependency on consensus.
-First, it is the actual contents that are stored and evaluated in the forums,
-with the identities being a secondary attribute.
-Second, content evaluation is subjective, as well as any decision to revoke
-posts or to fork forums.
-Third, at any given point in time, peers must agree on a common forum DAG
-prefix with global and deterministic accuracy to act identically as a whole.
-In this case, consensus is fundamental, since a subtle off-by-one discrepancy
-in reputation creates an irreconcilable fork in the network.
-Achieving consensus on a permissionless network is the key contribution of this
-work.
 
 \section{Conclusion}
 \label{sec.conclusion}
