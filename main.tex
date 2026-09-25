@@ -1207,18 +1207,19 @@ IRC/Discord or Usenet/Reddit.
 \subsection{CRDTs}
 
 Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
-foundation for local-first concurrent updates, as operations are commutative
+foundation for concurrent updates, as operations are commutative
 and peers can apply them consistently either online or offline.
 %
+For instance, they support multi-user collaborative environments under
+peer-to-peer local-first networks~\cite{p2p.automerge,p2p.pushpin}, but
+typically among trusted collaborators.
+
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
 archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}.
-Automerge~\cite{p2p.automerge} and its peer-to-peer collaboration
-apps~\cite{p2p.pushpin} are widely used, but in permissioned settings, where
-replicas are trusted collaborators.
 %
 In fact, we rely on the Git DAG as a state-based CRDT (CvRDT), since it only
-grows by appends and unions, so that peers converge by construction
+grows by appends and unions, making peers converge by construction
 (\S\ref{sec.design.sec}).
 
 However, CRDTs alone cannot address content volume or quality under
