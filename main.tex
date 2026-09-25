@@ -1212,13 +1212,16 @@ Operations are designed to commute, so that peers apply them immediately, even
 offline, and still converge to the same state.
 %
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
-consistency and self-certified archives~\cite{p2p.merkle-crdts,p2p.byz}, and
+consistency and self-certified
+archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}, and
 Automerge~\cite{p2p.automerge} is a widely used CRDT library for peer-to-peer
 collaboration.
 
 However, CRDTs provide no notion of a global order, so conflicts that depend
 on ordering still require human intervention, such as manual merges in version
 control systems.
+Likewise, a DAG has no attached semantics, so applications may interpret it in
+conflicting orders.
 %
 In addition, CRDT systems assume honest replicas or only address
 integrity~\cite{p2p.merkle-crdts,p2p.byz}, not volume or content quality.
@@ -1384,17 +1387,6 @@ innovative voting system to moderate forums, but which affects local instances
 only.
 In contrast, \FC relies on its permissionless reputation and consensus
 mechanisms for moderation.
-
-Regarding the structure of messages, append-only Merkle~DAGs have been proposed
-as self-certified archives, and as CRDTs that provide strong eventual
-consistency~\cite{fed.matrix,p2p.byz}.
-However, when these DAGs are open to permissionless writes, they are subject to
-abuse, which may degrade the content and performance of the network.
-Another aspect is that a DAG itself has no attached semantics, which weakens
-its consistency property at the application level, which may interpret the DAG
-in conflicting orders.
-The proposed consensus mechanism addresses permissionless writes and provides
-a total order for applications (at the cost of rollbacks).
 
 A similar dVCS have been recently proposed~\cite{p2p.dvcs}, with a DAG
 representation and merging policies.
