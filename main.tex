@@ -1213,6 +1213,9 @@ and peers can apply them consistently either online or offline.
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
 archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}.
+Automerge~\cite{p2p.automerge} and its peer-to-peer collaboration
+apps~\cite{p2p.pushpin} are widely used, but in permissioned settings, where
+replicas are trusted collaborators.
 %
 In fact, we rely on the Git DAG as a state-based CRDT (CvRDT), since it only
 grows by appends and unions, so that peers converge by construction
