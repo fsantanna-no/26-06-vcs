@@ -9,7 +9,6 @@
       Related Work "A similar dVCS ... p2p.dvcs" (ln ~1698-1702) and
       Conclusion "three-layered CRDT architecture ... prototyped a
       dVCS" (ln ~1758-1766); rewrite or drop when 5/6 are resumed
-    - unused images: imgs/conflict.png, imgs/state-revoked.png
 
 - Evaluation: replay cost bounded by state snapshots (2026-09-24)
     - impl snapshots state per commit in `refs/local/<cid>`
