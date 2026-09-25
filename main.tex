@@ -1206,15 +1206,11 @@ IRC/Discord or Usenet/Reddit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For instance, federated protocols explicitly leave spam filtering to the server
-side~\cite{pubsub.activitypub}, while CRDT-based
+\subsection{CRDTs}
+
+while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
 integrity, not volume or content quality.
-
-Here we consider the classes of publish-subscribe, federated, and peer-to-peer
-protocols.
-
-\subsection{CRDTs}
 
 Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
 foundation for concurrent updates in local-first applications~\cite{p2p.local}.
@@ -1281,6 +1277,9 @@ layers, which suggests that \FC could benefit of the latter to manage the
 interconnections between peers.
 
 \subsection{Federated Protocols}
+
+For instance, federated protocols explicitly leave spam filtering to the server
+side~\cite{pubsub.activitypub},
 
 Federated protocols, such as e-mail, allow users from one domain to exchange
 messages with users of other domains seamlessly.
