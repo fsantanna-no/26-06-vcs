@@ -1216,6 +1216,32 @@ sharing~\cite{p2p.survey,p2p.ecosystem}.
 Here we consider the classes of publish-subscribe, federated, and peer-to-peer
 protocols.
 
+\subsection{CRDTs}
+
+Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
+foundation for concurrent updates in local-first applications~\cite{p2p.local}.
+Operations are designed to commute, so that peers apply them immediately, even
+offline, and still converge to the same state.
+%
+Merkle~DAGs have been proposed as CRDTs that provide strong eventual
+consistency and self-certified archives~\cite{p2p.merkle-crdts,p2p.byz}, and
+Automerge~\cite{p2p.automerge} is a widely used CRDT library for peer-to-peer
+collaboration.
+
+However, CRDTs provide no notion of a global order, so conflicts that depend
+on ordering still require human intervention (\emph{quasi-CRDTs}), such as
+manual merges in version control systems.
+%
+In addition, CRDT systems assume honest replicas or only address
+integrity~\cite{p2p.merkle-crdts,p2p.byz}, not volume or content quality.
+When DAGs are open to permissionless writes, they are subject to abuse, which
+may degrade the content and performance of the network.
+%
+Since the proposed consensus mechanism already relies on human interactions,
+\FC uses it to address permissionless writes and to provide a total order for
+applications (at the cost of rollbacks), which can resolve such conflicts
+automatically.
+
 \subsection{Publish-Subscribe Protocols}
 
 Decentralized topic-based publish-subscribe protocols, such as
