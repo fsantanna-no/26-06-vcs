@@ -1189,30 +1189,28 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Related Work}
 \label{sec.related}
 
-% >>> TODO: moved from intro to related work
-Permissionless consensus is notably challenging to the point that protocols
-partially abdicate it along two axes.
+Permissionless consensus is notably challenging to the point that decentralized
+forums~\cite{p2p.survey,p2p.ecosystem} settle for weaker forms.
 %
-On the one hand, \emph{multi-user/single-node consensus} supports a consistent
-multi-user public forum, but restricted to a single trusted server ordering
-messages (e.g., federated protocols~\cite{p2p.ecosystem}).
+On the one hand, \emph{multi-user/single-node} consensus supports a consistent
+multi-user forum, but restricted to a single trusted server ordering messages
+(e.g., federated protocols~\cite{p2p.ecosystem}).
 %
-On the other hand, \emph{single-user/multi-node consensus} supports a
+On the other hand, \emph{single-user/multi-node} consensus supports a
 consistent feed across multiple machines, but restricted to a single author
 ordering messages (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
-%
-Our goal, therefore, is to support \emph{multi-user/multi-node consensus} in
-the context of peer-to-peer public forums, i.e., a permissionless counterpart
-of IRC/Discord or Usenet/Reddit.
+
+Our proposal addresses \emph{multi-user/multi-node} consensus, in which forums
+are ordered consistently across all machines with no trusted authority, i.e., a
+permissionless counterpart of IRC/Discord or Usenet/Reddit.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 For instance, federated protocols explicitly leave spam filtering to the server
 side~\cite{pubsub.activitypub}, while CRDT-based
 systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
 integrity, not volume or content quality.
-% <<<
 
-Many other systems have been proposed for decentralized content
-sharing~\cite{p2p.survey,p2p.ecosystem}.
 Here we consider the classes of publish-subscribe, federated, and peer-to-peer
 protocols.
 
