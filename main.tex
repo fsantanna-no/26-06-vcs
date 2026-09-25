@@ -1239,12 +1239,10 @@ that centralization is inevitable, and thus uses a function of time and wealth
 to elect peers to mint new blocks.
 As an advantage, these proof mechanisms are generic and apply to multiple
 domains, since they depend on extrinsic resources.
-% (i.e., the richer gets richer)
 In contrast, we chose an intrinsic resource, which is authored content in the
 chains themselves.
 We believe that human work grows more linearly with effort and is not directly
 portable across chains with different topics.
-These hypotheses support the intended decentralization of our system.
 %
 Another distinction is that generic public ledgers require permanent
 connectivity to avoid forks, which opposes our local-first principle.
@@ -1269,6 +1267,15 @@ On the other hand, replicating large files across the network in Merkle~DAGs is
 also impractical.
 An alternative is to use DHT links in Merkle payloads to benefit from both
 architectures.
+
+Peer-to-peer publish-subscribe protocols, such as
+gossipsub~\cite{pubsub.gossipsub}, focus on scalable dissemination, but are
+unaware of the applications on top of them, which is insufficient against
+Sybils~\cite{pubsub.gossipsub2}.
+The gossip layer of \FC is integrated with the semantics of chains, which
+verify actions at publishing time (\S\ref{sec.git}).
+Nevertheless, \FC could still benefit from pubsubs to manage the
+interconnections between peers.
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
