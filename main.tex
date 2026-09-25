@@ -1189,22 +1189,13 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Related Work}
 \label{sec.related}
 
-Permissionless consensus is notably challenging to the point that decentralized
-forums~\cite{p2p.survey,p2p.ecosystem} settle for weaker forms.
-%
-On the one hand, \emph{multi-user/single-node} forums rely on trusted servers
-to order and moderate messages consistently among members (e.g., federated
-protocols~\cite{p2p.ecosystem}).
-%
-On the other hand, \emph{single-user/multi-node} feeds support consistency
-across machines, but restricted to a single writer (e.g.,
-Scuttlebutt~\cite{p2p.scuttlebutt}).
-%
-Our proposal supports \emph{multi-user/multi-node} consistent forums across
-peers with no trusted authorities, i.e., a permissionless counterpart of
-IRC/Discord or Usenet/Reddit.
+In this section, we compare \FC against CRDTs as the underlying data
+model~(\S\ref{sec.related.crdts}), peer-to-peer protocols as the underlying
+network~(\S\ref{sec.related.p2ps}), and decentralized forums as the closest
+applications~(\S\ref{sec.related.apps}).
 
 \subsection{CRDTs}
+\label{sec.related.crdts}
 
 Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
 foundation for concurrent updates, as operations are commutative
@@ -1232,6 +1223,27 @@ since it depends on ordering to prevent double-spends.
 \FC addresses both through reputation-based consensus, restricting writes
 (\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and providing a total
 order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
+
+\subsection{Peer-to-Peer Protocols}
+\label{sec.related.p2ps}
+
+\subsection{Decentralized Forums}
+\label{sec.related.apps}
+
+Permissionless consensus is notably challenging to the point that decentralized
+forums~\cite{p2p.survey,p2p.ecosystem} settle for weaker forms.
+%
+On the one hand, \emph{multi-user/single-node} forums rely on trusted servers
+to order and moderate messages consistently among members (e.g., federated
+protocols~\cite{p2p.ecosystem}).
+%
+On the other hand, \emph{single-user/multi-node} feeds support consistency
+across machines, but restricted to a single writer (e.g.,
+Scuttlebutt~\cite{p2p.scuttlebutt}).
+%
+Our proposal supports \emph{multi-user/multi-node} consistent forums across
+peers with no trusted authorities, i.e., a permissionless counterpart of
+IRC/Discord or Usenet/Reddit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
