@@ -1218,16 +1218,16 @@ In fact, we rely on the Git DAG as a state-based CRDT (CvRDT), since it only
 grows by appends and unions, so that peers converge by construction
 (\S\ref{sec.design.sec}).
 
-However, CRDTs are too restrictive and cannot express forum moderation,
-since it depends on ordering to prevent double-spends
-(\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
-%
-In addition, CRDTs alone cannot address content volume or quality under
-permissionless access, assuming honest replicas
+However, CRDTs alone cannot address content volume or quality under
+permissionless writes, assuming honest replicas
 only~\cite{p2p.merkle-crdts,p2p.byz}.
 %
-\FC addresses both with reputation-based consensus, which orders the DAG at
-the cost of rollbacks (\S\ref{sec.design.consensus}).
+In addition, CRDTs are too restrictive and cannot express forum moderation,
+since it depends on ordering to prevent double-spends.
+%
+\FC addresses both through reputation-based consensus, restricting writes
+(\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and providing a total
+order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
