@@ -1207,31 +1207,27 @@ IRC/Discord or Usenet/Reddit.
 \subsection{CRDTs}
 
 Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
-foundation for concurrent updates in local-first applications~\cite{p2p.local}.
-Operations are designed to commute, so that peers apply them immediately, even
-offline, and still converge to the same state.
+foundation for local-first concurrent updates, as operations are commutative
+and peers can apply them consistently either online or offline.
 %
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
-archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}, and
-Automerge~\cite{p2p.automerge} is a widely used CRDT library for peer-to-peer
-collaboration.
+archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}.
+%
+In fact, we rely on the Git DAG as a state-based CRDT (CvRDT), since it only
+grows by appends and unions, so that peers converge by construction
+(\S\ref{sec.design.sec}).
 
-However, CRDTs provide no notion of a global order, so conflicts that depend
-on ordering still require human intervention, such as manual merges in version
-control systems.
-Likewise, a DAG has no attached semantics, so applications may interpret it in
-conflicting orders.
+However, CRDTs are too restrictive and cannot express forum moderation,
+since it depends on ordering to prevent double-spends
+(\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 %
-In addition, CRDT systems assume honest replicas or only address
-integrity~\cite{p2p.merkle-crdts,p2p.byz}, not volume or content quality.
-When DAGs are open to permissionless writes, they are subject to abuse, which
-may degrade the content and performance of the network.
+In addition, CRDTs alone cannot address content volume or quality under
+permissionless access, assuming honest replicas
+only~\cite{p2p.merkle-crdts,p2p.byz}.
 %
-Since the proposed consensus already relies on human interactions, \FC uses
-it to address permissionless writes and to provide a total order for
-applications (at the cost of rollbacks).
-This order resolves such conflicts automatically.
+\FC addresses both with reputation-based consensus, which orders the DAG at
+the cost of rollbacks (\S\ref{sec.design.consensus}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
