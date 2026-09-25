@@ -1204,13 +1204,7 @@ Our proposal supports \emph{multi-user/multi-node} consistent forums across
 peers with no trusted authorities, i.e., a permissionless counterpart of
 IRC/Discord or Usenet/Reddit.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{CRDTs}
-
-while CRDT-based
-systems~\cite{p2p.merkle-crdts,p2p.byz} assume honest replicas or only address
-integrity, not volume or content quality.
 
 Conflict-free replicated data types (CRDTs)~\cite{p2p.crdts} are a robust
 foundation for concurrent updates in local-first applications~\cite{p2p.local}.
@@ -1223,18 +1217,20 @@ Automerge~\cite{p2p.automerge} is a widely used CRDT library for peer-to-peer
 collaboration.
 
 However, CRDTs provide no notion of a global order, so conflicts that depend
-on ordering still require human intervention (\emph{quasi-CRDTs}), such as
-manual merges in version control systems.
+on ordering still require human intervention, such as manual merges in version
+control systems.
 %
 In addition, CRDT systems assume honest replicas or only address
 integrity~\cite{p2p.merkle-crdts,p2p.byz}, not volume or content quality.
 When DAGs are open to permissionless writes, they are subject to abuse, which
 may degrade the content and performance of the network.
 %
-Since the proposed consensus mechanism already relies on human interactions,
-\FC uses it to address permissionless writes and to provide a total order for
-applications (at the cost of rollbacks), which can resolve such conflicts
-automatically.
+Since the proposed consensus already relies on human interactions, \FC uses
+it to address permissionless writes and to provide a total order for
+applications (at the cost of rollbacks).
+This order resolves such conflicts automatically.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Publish-Subscribe Protocols}
 
