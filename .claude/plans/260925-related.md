@@ -86,6 +86,36 @@
 - stray line in the P2P subsection: `128KB also immutable`
   (editing leftover, delete or turn into a sentence)
 
+# BitTorrent and IPFS (26/09/25)
+
+- ONE structural difference: hashing granularity
+    - BT hashes the collection -> the collection is the unit
+      of sharing; closed set with a known size and piece list,
+      which is what enables rarest-first, endgame and
+      TIT-FOR-TAT (both peers want the same finite set)
+    - IPFS hashes each chunk -> dedup and linking across
+      collections, but no "set" to reciprocate over, hence no
+      incentive layer at all
+    - DHT lookup, multi-peer download and hash verification
+      are IDENTICAL in both: do not dress them up as different
+- so both exist for one good reason: BT is a TRANSFER protocol
+  (better when moving a known fileset), IPFS is a NAMING
+  system (a permanent linkable id, embeddable in pages and
+  other files); BT v2 Merkle hashes narrow the gap
+- BT's DHT is an AFTERTHOUGHT (2005, BEP 5); 2001 had only
+  trackers (an HTTP peer list; no data passes through it)
+    - the layering is exactly what we propose for \FC:
+      tracker (hub) -> PEX peer exchange (in-band addresses)
+      -> DHT only as a trackerless cold-start fallback
+- MOTIVATION ITEM: in-session tit-for-tat did not sustain
+  seeding, so the community built PRIVATE TRACKERS with
+  accounts and upload:download ratios -- persistent reputation
+  that is centralized, per-site and non-portable
+    - \FC is that accounting in-band, as chain state
+    - also the closest prior art to our "intrinsic resource"
+      claim: bandwidth actually contributed, not hash power
+      or stake -- but scoped to one session
+
 # Discovery and reachability (26/09/25, replaces the DHT idea)
 
 - a DHT is NOT worth it here: it needs hardcoded bootstrap
@@ -115,6 +145,63 @@
 - one paper sentence: discovery is solved in-band by the
   forum; reachability needs at least one reachable peer,
   which is a deployment assumption, not a protocol feature
+
+# Section 5 structure (26/09/25, decided)
+
+- 5.1 CRDTs (done)
+- 5.2 DHTs -- ADJACENT INFRASTRUCTURE, not a rival design
+    - one family: Kademlia, BitTorrent, IPFS; locate and
+      distribute immutable hash-named content
+    - state the TWO intersections with \FC and nothing else:
+        - discovery: our problem too, answered in-band
+          (invite -> announcement posts -> relay through any
+          reachable peer); a DHT is the fallback we do not need
+        - LARGE PAYLOADS: the real intersection -- the 128 KB
+          cap sends media elsewhere, so a post carries a CID
+          (this is the Merkle-payload aside at ln ~1264, now
+          the punchline instead of a stray remark)
+    - tracker/PEX/DHT layering, tit-for-tat and private
+      trackers are context for those two points
+- 5.3 Decentralized Forums (and their substrates), in order:
+    - Dat/Hypercore + Autobase: pubkey-addressed signed logs,
+      the closest substrate; Autobase = permissioned multiwriter
+    - Scuttlebutt: same primitive, subjective, newcomers unseen
+    - Nostr: signed events over relays, no ordering
+    - federated: ActivityPub/Mastodon/Lemmy, Matrix
+    - Aether: ephemeral, PoW, local votes
+    - dVCS: external scoring
+    - reputation systems: closing line
+    - naming: say the first two are SUBSTRATES, or title the
+      subsection "... and their Substrates"
+
+# Idea: a tracker as a chain (application example)
+
+- replace the private tracker's account database with a chain
+    - announcements = posts carrying `infohash -> address`
+    - a completed download is acknowledged by a LIKE from the
+      downloader: seeding credit issued by the counterparty,
+      not measured by a server
+    - \reps then gate who may announce and who is trusted
+- versus the two existing options
+    - in-session tit-for-tat: credit dies with the session
+    - private trackers: credit persists but is centralized,
+      per-site and non-portable
+- honest caveat: nobody can verify the bytes moved, so Sybil
+  pairs could mint credit for each other -- the answer is the
+  economy (a like costs the liker, 10% burns), same as fake
+  likes, and it must be stated rather than hidden
+- doubles as a NON-CONVERSATIONAL forum example: the "forum"
+  is a swarm registry (discovery + reputation + revoking a
+  lying peer)
+
+# Elsewhere in the paper
+
+- `--dictator` deserves a SINGLE-USER / MULTI-NODE example:
+  one person, many devices (laptop, phone, server) syncing a
+  personal chain -- no admission problem, no economy, just
+  signed append + replication
+    - shows the dictator mode is not only "the platform", and
+      gives the cheapest possible deployment story
 
 # Loose ends
 
