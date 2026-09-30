@@ -1275,16 +1275,16 @@ with no consistency guarantees.
 and consistently replicates each room as a DAG of events across servers, but
 with no consensus order.
 %
-As drawbacks, federations fall in the \emph{single-node} authority the user
-chooses:
+As drawbacks, federations fall under the \emph{single-node} authority that
+each user chooses:
     identities are not portable across domains~\cite{fed.distributed}, and
     messages crossing boundaries may be subject to different
     policies~\cite{p2p.ecosystem}.
 %
 As a pragmatic stance, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
-but which applies only after the potential abusive messages have already been
-flooded in the network.
+which, however, is reactive and applies only after potentially abusive messages
+have already been flooded in the network.
 
 
 In all federations, ordering and moderation rest on the servers.
