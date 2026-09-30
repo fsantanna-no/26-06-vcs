@@ -1189,10 +1189,10 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Related Work}
 \label{sec.related}
 
-In this section, we discuss related work on three fronts: CRDTs as the
-underlying data model~(\S\ref{sec.related.crdts}), peer-to-peer protocols as
-the network layer~(\S\ref{sec.related.p2ps}), and decentralized forums as the
-closest applications~(\S\ref{sec.related.apps}).
+In this section, we discuss related work on three fronts: CRDTs as an
+underlying data model~(\S\ref{sec.related.crdts}), DHTs as an alternative
+peer-to-peer architecturer~(\S\ref{sec.related.p2ps}), and decentralized forums
+as the closest applications~(\S\ref{sec.related.apps}).
 
 \subsection{CRDTs}
 \label{sec.related.crdts}
@@ -1224,29 +1224,25 @@ since it depends on ordering to prevent double-spends.
 (\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and providing a total
 order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 
-\subsection{Distributed Hash Tables}
+\subsection{DHTs}
 \label{sec.related.p2ps}
 
-DHTs~\cite{p2p.kademlia} contrast with gossip as an alternative architecture
-to serve known indexes and popular content, but not for discovery and live
-feeds.
+Distributed Hash Tables (DHTs~\cite{p2p.kademlia}) contrast with gossip as an
+alternative architecture to serve known indexes and popular content, but not
+for discovery and live feeds.
 For instance, DHTs typically rely on hash-based links to immutable content,
 requiring the user to request that exact identification and content, such as
 the link to a known movie or software version.
 
-BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs} are the main
-representatives of this architecture.
-BitTorrent distributes large files to many downloaders at once, whereas IPFS
-provides permanent links to immutable data, such as archives and static
-websites.
-The difference is what the hash names: a set of files in BitTorrent, hence a
-one-off download, and every piece of content in IPFS, hence a global namespace.
-In both cases, a change is a new name, so neither suits a forum, whose state
-changes with every post and whose stable identities are authors, not contents.
+In BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs}, users provide
+content hashes to locate multiple peers and download at faster rates.
+However, they share the limitation of naming contents rather than authors, so
+that any change becomes a new name, which does not suit forums that evolve with
+every post.
 
 Although DHTs are not the best model for forums with continuous updates, we
-could benefit of content-addressed payloads to overcome our 128KB size
-limitation (\S\ref{sec.design}, \R{4.c}).
+could benefit of content-addressed payloads (e.g., IPFS links) to overcome our
+128KB size limitation (\S\ref{sec.design}, \R{4.c}).
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
