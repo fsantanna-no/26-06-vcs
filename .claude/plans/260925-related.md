@@ -149,6 +149,28 @@
 # Section 5 structure (26/09/25, decided)
 
 - 5.1 CRDTs (done)
+- 5.2 "Distributed Hash Tables" -- DECIDED 26/09/30, DHTs ONLY
+    - keep label `sec.related.p2ps`; four paragraphs:
+        - P1 one family: BitTorrent, Kademlia, IPFS (hash-named,
+          immutable, DHT discovery; tracker -> PEX -> DHT)
+        - P2 good for large popular content, bad for search and
+          for continuous updates (a change is a new name)
+        - P2b optional: tit-for-tat pairwise/first-hand, private
+          trackers persistent but central; \reps in-band
+        - P3 intersection 1, discovery: answered in-band
+          (invite -> announcement posts -> relay via reachable
+          peer); DHT by genesis hash = optional fallback
+        - P4 intersection 2, payloads: 128 KB cap -> post carries
+          a hash; replaces the stray `128KB also immutable`
+    - drop: both Dat sentences (-> 5.3), the gossip paragraph
+      (P5), the "could benefit from pubsubs" clause
+    - NO libp2p; gossipsub/gossipsub2 become uncited -> either
+      drop from bib or move the one Sybil sentence to sec.git
+    - before writing: confirm the 128 KB rule number in
+      `tab.rules`; check §3 states announcement posts (else P3
+      says "assumes")
+    - bib added 26/09/30: p2p.kademlia, p2p.bittorrent
+- (superseded detail below kept for reference)
 - 5.2 DHTs -- ADJACENT INFRASTRUCTURE, not a rival design
     - one family: Kademlia, BitTorrent, IPFS; locate and
       distribute immutable hash-named content
