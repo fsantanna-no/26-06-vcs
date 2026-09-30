@@ -1191,7 +1191,7 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 In this section, we discuss related work on three fronts: CRDTs as an
 underlying data model~(\S\ref{sec.related.crdts}), DHTs as an alternative
-peer-to-peer architecturer~(\S\ref{sec.related.p2ps}), and decentralized forums
+peer-to-peer architecture~(\S\ref{sec.related.p2ps}), and decentralized forums
 as the closest applications~(\S\ref{sec.related.apps}).
 
 \subsection{CRDTs}
@@ -1235,14 +1235,14 @@ requiring the user to request that exact identification and content, such as
 the link to a known movie or software version.
 
 In BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs}, users provide
-content hashes to locate multiple peers and download at faster rates.
-However, they share the limitation of naming contents rather than authors, so
-that any change becomes a new name, which does not suit forums that evolve with
-every post.
+content hashes that locate multiple peers, allowing downloads at faster rates.
+In Dat~\cite{TODO}, ...
+However, in both approaches, a central authority (keypair or content itself),
+which is incompatible with ...
 
 Although DHTs are not the best model for forums with continuous updates, we
-could benefit of content-addressed payloads (e.g., IPFS links) to overcome our
-128KB size limitation (\S\ref{sec.design}, \R{4.c}).
+could benefit from content-addressed payloads (e.g., IPFS links) to overcome
+our 128KB size limitation (\S\ref{sec.design}, \R{4.c}).
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
