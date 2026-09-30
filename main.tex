@@ -1224,12 +1224,11 @@ since it depends on ordering to prevent double-spends.
 (\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and providing a total
 order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 
-\subsection{Peer-to-Peer Protocols}
+\subsection{Distributed Hash Tables}
 \label{sec.related.p2ps}
 
-Distributed Hash Tables (DHTs~\cite{}) constrast with gossip as an alternative
-architecture to serve known indexes and popular content, but not for discovery
-and live feeds.
+DHTs~\cite{TODO} constrast with gossip as an alternative architecture to serve
+known indexes and popular content, but not for discovery and live feeds.
 Users need to know in advance what they want, such as the exact link to a movie
 or a particular identity in the network.
 %
@@ -1245,15 +1244,6 @@ also impractical.
 An alternative, which addresses the 128KB limitation for payloads
 (\S\ref{sec.design}, \R{4.c}) is to use content-addressed DHT links to benefit
 from both architectures.
-
-Peer-to-peer publish-subscribe protocols, such as
-gossipsub~\cite{pubsub.gossipsub}, focus on scalable dissemination, but are
-unaware of the applications on top of them, which is insufficient against
-Sybils~\cite{pubsub.gossipsub2}.
-The gossip layer of \FC is integrated with the semantics of chains, which
-verify actions at publishing time (\S\ref{sec.git}).
-Nevertheless, \FC could still benefit from pubsubs to manage the
-interconnections between peers.
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
