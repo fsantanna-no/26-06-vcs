@@ -410,7 +410,7 @@ Actions cost at least \nreps{500} (\nreps{1000} for revokes).
 Members are limited to at most \nreps{50K}.
 \\
         & 4.c & size &
-Payloads are limited to at most \emph{128~KB}.
+Payloads are limited to at most \emph{128KB}.
 \\
 \hline
 \end{tabular}
@@ -1229,7 +1229,7 @@ order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 
 Distributed Hash Tables (DHTs~\cite{p2p.kademlia}) contrast with gossip as an
 alternative architecture to serve known indexes and popular content, but not
-for seraching or browsing.
+for searching or browsing.
 For instance, DHTs typically rely on hash-based links to immutable content,
 requiring the user to request that exact identification and content, such as
 the link to a known movie or software version.
@@ -1237,14 +1237,13 @@ the link to a known movie or software version.
 In BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs}, users provide
 content hashes that locate multiple peers, allowing downloads at faster rates.
 In Dat~\cite{p2p.dat}, users provide instead a public key allowing owners to
-publish append-only archives.
-However, both approaches rely on a single authority (keypair or content
-itself), which is incompatible with forums in which many authors contribute to
-the same evolving state.
+publish append-only archives verified by signature.
+However, both approaches rely on a single authority (keypair or content hash),
+which is incompatible with forums in which many authors contribute to the same
+evolving state.
 
-Although DHTs are not the best model for forums with continuous updates, we
-could benefit from content-addressed payloads (e.g., IPFS links) to overcome
-our 128KB size limitation (\S\ref{sec.design}, \R{4.c}).
+Still, we could benefit from content-addressed payloads (e.g., IPFS links) to
+overcome our 128~KB size limitation (\S\ref{sec.design}, \R{4.c}).
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
