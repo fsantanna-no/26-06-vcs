@@ -1227,23 +1227,26 @@ order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 \subsection{Distributed Hash Tables}
 \label{sec.related.p2ps}
 
-DHTs~\cite{TODO} constrast with gossip as an alternative architecture to serve
-known indexes and popular content, but not for discovery and live feeds.
-Users need to know in advance what they want, such as the exact link to a movie
-or a particular identity in the network.
-%
-As examples IPFS~\cite{p2p.ipfs} is centered around immutable content-addressed
-data, while Dat~\cite{p2p.dat} around mutable pubkey-addressed data.
-IPFS is more suitable to share large and stable content such as movies and
-archives, while Dat is more suitable for dynamic content such as web apps.
-%
-On the one hand, DHTs are not the best model for forums with continuous
-updates.
-On the other hand, replicating large files across the network in Merkle~DAGs is
-also impractical.
-An alternative, which addresses the 128KB limitation for payloads
-(\S\ref{sec.design}, \R{4.c}) is to use content-addressed DHT links to benefit
-from both architectures.
+DHTs~\cite{p2p.kademlia} contrast with gossip as an alternative architecture
+to serve known indexes and popular content, but not for discovery and live
+feeds.
+For instance, DHTs typically rely on hash-based links to immutable content,
+requiring the user to request that exact identification and content, such as
+the link to a known movie or software version.
+
+BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs} are the main
+representatives of this architecture.
+BitTorrent distributes large files to many downloaders at once, whereas IPFS
+provides permanent links to immutable data, such as archives and static
+websites.
+The difference is what the hash names: a set of files in BitTorrent, hence a
+one-off download, and every piece of content in IPFS, hence a global namespace.
+In both cases, a change is a new name, so neither suits a forum, whose state
+changes with every post and whose stable identities are authors, not contents.
+
+Although DHTs are not the best model for forums with continuous updates, we
+could benefit of content-addressed payloads to overcome our 128KB size
+limitation (\S\ref{sec.design}, \R{4.c}).
 
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
