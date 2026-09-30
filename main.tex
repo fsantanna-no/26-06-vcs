@@ -1229,16 +1229,18 @@ order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
 
 Distributed Hash Tables (DHTs~\cite{p2p.kademlia}) contrast with gossip as an
 alternative architecture to serve known indexes and popular content, but not
-for discovery and live feeds.
+for seraching or browsing.
 For instance, DHTs typically rely on hash-based links to immutable content,
 requiring the user to request that exact identification and content, such as
 the link to a known movie or software version.
 
 In BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs}, users provide
 content hashes that locate multiple peers, allowing downloads at faster rates.
-In Dat~\cite{TODO}, ...
-However, in both approaches, a central authority (keypair or content itself),
-which is incompatible with ...
+In Dat~\cite{p2p.dat}, users provide instead a public key allowing owners to
+publish append-only archives.
+However, both approaches rely on a single authority (keypair or content
+itself), which is incompatible with forums in which many authors contribute to
+the same evolving state.
 
 Although DHTs are not the best model for forums with continuous updates, we
 could benefit from content-addressed payloads (e.g., IPFS links) to overcome
