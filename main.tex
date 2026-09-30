@@ -1263,48 +1263,40 @@ Our proposal supports \emph{multi-user/multi-node} consistent forums across
 peers with no trusted authorities, i.e., a permissionless counterpart of
 IRC/Discord or Usenet/Reddit.
 
+Federated protocols, such as e-mail and Usenet, allow users of one domain to
+exchange messages with users of other domains asynchronously.
+%
+Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon} and \emph{Lemmy}
+(for microblogging and forums), which rely on
+ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
+with no consistency guarantees.
+%
+\emph{Matrix}~\cite{fed.matrix} targets real-time collaboration (e.g., chats)
+and consistently replicates each room as a DAG of events across servers, but
+with no consensus order.
+%
+As drawbacks, federations fall in the \emph{single-node} authority the user
+chooses:
+    identities are not portable across domains~\cite{fed.distributed}, and
+    messages crossing boundaries may be subject to different
+    policies~\cite{p2p.ecosystem}.
+%
+As a pragmatic stance, Matrix supports a permissioned moderation system%
+\footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
+but which applies only after the potential abusive messages have already been
+flooded in the network.
+
+
+In all federations, ordering and moderation rest on the servers.
+
+Unlike \FC, which enforces consensus and moderation across peers.
+
+users leave ordering, moderation, and spam
+filtering to each server.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
-\subsection{Publish-Subscribe Protocols}
-
-Decentralized topic-based publish-subscribe protocols, such as
-    \emph{ActivityPub}~\cite{pubsub.activitypub}, and
-decouples publishers from subscribers in the network.
-
-\subsection{Federated Protocols}
-
-For instance, federated protocols explicitly leave spam filtering to the server
-side~\cite{pubsub.activitypub},
-
-Federated protocols, such as e-mail, allow users from one domain to exchange
-messages with users of other domains seamlessly.
-\emph{Diaspora}, \emph{Matrix}, and \emph{Mastodon} are recent federations for
-social media, chat, and microblogging~\cite{p2p.ecosystem}, respectively.
-
-As a drawback, identities in federations are not portable across domains, which
-may become a problem when servers shutdown or users become unsatisfied with the
-service~\cite{fed.distributed}.
-In any of these cases, users have to grab their content, move to another
-server, and announce a new identity to followers.
-
-Moderation is also a major concern in federations~\cite{p2p.ecosystem}.
-As an example, messages crossing domain boundaries may be subject to different
-policies that might affect delivery.
-With no coordinated consensus, it is difficult to make pervasive public forums
-practical.
-%
-For this reason, Matrix supports a permissioned moderation system%
-\footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
-but which applies only within clients, after the messages have already been
-flooded in the network.
-
-As a counterpoint, federated protocols seem to be more appropriate for
-real-time applications such as large chats rooms.
-The number of hops and header overhead can be much smaller in client-server
-architectures compared to peer-to-peer systems, which typically include message
-signing, hash linking, and extra verification rules (\S\ref{sec.evaluation}).
-
 \subsection{Peer-to-Peer Protocols}
 
 Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
