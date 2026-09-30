@@ -1269,42 +1269,8 @@ IRC/Discord or Usenet/Reddit.
 \subsection{Publish-Subscribe Protocols}
 
 Decentralized topic-based publish-subscribe protocols, such as
-    \emph{XMPP}~\cite{pubsub.xmpp},
     \emph{ActivityPub}~\cite{pubsub.activitypub}, and
-    \emph{gossipsub}~\cite{pubsub.gossipsub},
 decouples publishers from subscribers in the network.
-%
-A key limitation of \emph{pubsubs} is that the brokers that mediate
-communication still have a special role in the network, such as authenticating
-and validating actions.
-%
-Nevertheless, some pubsubs do not rely on server roles, and instead, use
-peer-to-peer gossip dissemination~\cite{pubsub.tera,pubsub.rappel,pubsub.stan,pubsub.vitis,pubsub.gossipsub,pubsub.rappel}.
-Most of these protocols focus on techniques to achieve scalability and
-performance, such as throughput, load balancing, and real-time relaying.
-
-However, these techniques alone are not sufficient to operate permissionless
-networks with malicious Sybils~\cite{pubsub.gossipsub2}.
-Being generic protocols, pubsubs are typically unaware of the applications
-built on top of them.
-%
-In contrast, as stated in Section~\ref{sec.git}, the gossip layer of \FC is
-conceptually at the application level and is integrated with the semantics of
-chains, which already verifies actions at publishing time.
-For instance, to flood the network with posts, malicious peers need to spend
-reputation, which takes hours to recharge (rule~\code{2} in
-Table~\ref{tab.rules}).
-In addition, blocked actions (Figure~\ref{fig.state}) are not a concern either,
-because they have limited reachability.
-Another advantage of a tighter integration between the application and protocol
-is that Merkle~DAGs simplify synchronization, provide persistence, and prevent
-duplication of messages.
-Full persistence resists long churn periods, and de-duplication tolerates
-CmRDTs with operations that are not idempotent.
-
-In summary, \FC and \emph{pubsub} middlewares operate at different network
-layers, which suggests that \FC could benefit of the latter to manage the
-interconnections between peers.
 
 \subsection{Federated Protocols}
 
