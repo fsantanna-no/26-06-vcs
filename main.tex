@@ -918,11 +918,17 @@ Figure~\ref{fig.reps}:
     \code{c <- y} (last two actions)
 \end{itemize}
 
+% TODO : SZT : [legitimate actions that are erased must be reposted ... should be rare]
+%   Mas se acontecer? O que acontece com os reps gastos?
+% FRA : nao foram gastos : nao estao no DAG : como se nunca tivessem sido postados
+
 Peers that received the losing branch first need to reorder actions after the
 fork point, similarly to a blockchain reorganization.
 Moreover, legitimate actions that are erased must be reposted by their
 authors, which should be rare, since members are expected to gossip among
 themselves often.
+Note that erased posts never charge \reps, since they are no longer in the DAG,
+as if they had never occurred.
 
 \subsection{Chain Time}
 \label{sec.design.time}
