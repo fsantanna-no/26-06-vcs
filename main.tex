@@ -555,6 +555,12 @@ carol       4500
 dave        1300
 \end{lstlisting}
 
+% TODO : SZT : [begging] begging mesmo? Não é forte?
+% TODO : SZT : [outside the chain]
+%   entendo que são posts que ainda não estão na cadeia, mas o post foi feito
+%   justamente para isso ... o outside não confunde?
+%   Talvez "not yet" ou "candidate"
+
 Once initialized, the only way to welcome new members is through likes, which
 transfer \reps between identities.
 %
@@ -577,6 +583,10 @@ Listing~\ref{lst.welcome} illustrates both:
 %
 Since likes are at best zero-sum (transfers and taxes do not add value),
 cycling \reps among colluding Sybils gains nothing.
+
+% TODO : SZT : [Begging posts have restricted reach...]
+%   Não entendi ... Alias, begging funciona como um post? Não né?
+%   Então como ele se estabelece na cadeia? E quem ve?
 
 Begging posts have restricted reach, since they are not part of the Merkle DAG%
 \footnote{
@@ -641,6 +651,9 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 Section~\ref{sec.design.time} discusses how to count these periods
 consistently without a global clock.
 
+% TODO : SZT : [sufficient time for other members to judge]
+%   Isso é relativo, não?
+
 The 24-hour period gives sufficient time for other members to judge the post
 before the reward.
 It also regulates the emission of \reps, since extra posts do not reward
@@ -652,6 +665,11 @@ identities to multiply emission.
 %
 We argue that these are not Sybils in the strict sense, since each identity
 needs to behave as an independent human to pass proof-of-authoring.
+
+% TODO : SZT : [resists automation]
+%   E com essas LLMs espertas? Acho que poderia incluir algo sobre isso ...
+%   Vi que já falou ...
+% TODO : SZT : [AI-generated] ops ... kkk ... já falou ...
 
 Authoring demands non-trivial work that resists automation.
 Still, the actual threat is junk content, human or AI-generated, which the
@@ -714,6 +732,10 @@ $ fc /chat payload 65980b7
 nice product
 \end{lstlisting}
 
+% TODO : SZT : [revoke paragraph]
+%   Ficou difícil de entender ... eu ainda não entendi a dinâmica do revoke...
+%   ele gasta reps?
+
 Ratings alone cannot stop abuse, such as spam, misinformation, or even
 illegal content.
 For such cases, members may \emph{revoke} an action to erase its payload in all
@@ -747,6 +769,13 @@ Otherwise, it is \emph{begging} outside the chain until a like admits it
 (\S\ref{sec.design.members}).
 Once accepted, an action is part of the immutable history, but its payload
 can still be \emph{revoked} and restored according to the balance of votes.
+
+% TODO : SZT : [Revocation is deliberately expensive]
+%   Certo ... agora tem explicação.
+%   Mas o que levaria um membro a gastar reps para revogar? Só a
+%   indignação com o post? Imagina se é um forum com pessoas de convicções
+%   políticas antagônicas ... para ser "atual". Seria uma batalha de revogação
+%   ... isso prospera?
 
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
@@ -798,6 +827,8 @@ xion           0       # rejected
 carol          0
 \end{lstlisting}
 
+% TODO : SZT : [synchronizes] Ainda não explicou isso ...
+
 In Listing~\ref{lst.double}, \emph{Carol} with only \nreps{4500} (ln~1--2)
 tries to double-spend it with concurrent likes to \emph{Xion} and \emph{York}
 on peers \emph{I} and \emph{J} (ln~4--6 and 8--10), just before they
@@ -808,6 +839,8 @@ DAG.
 Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
 replays the DAG in topological order, accounts for the actions in sequence,
 detects the conflict, and rejects one of them (ln~17--21).
+
+% TODO : SZT : [we are about to discuss] ok ...
 
 As a consistency requirement, all peers must replay the DAG in the exact same
 order to compute \reps in the same way.
@@ -826,6 +859,8 @@ further votes or network coordination.
 It resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, but instead
 of favoring wealth, we reward authors for adding content, which is valuable in
 itself.
+
+% TODO : SZT : [both sides] Não entendi, quem são...
 
 The key idea is to favor branches whose members hold the majority of the
 reputation in the common history, which contains the actions that both sides
