@@ -555,15 +555,6 @@ carol       4500
 dave        1300
 \end{lstlisting}
 
-% TODO : SZT : [begging] begging mesmo? Não é forte?
-% FRA : foi o nome mais simples/direto (--beg) e eh uma metafora facil de pegar
-
-% TODO : SZT : [outside the chain]
-%   entendo que são posts que ainda não estão na cadeia, mas o post foi feito
-%   justamente para isso ... o outside não confunde?
-%   Talvez "not yet" ou "candidate"
-% FRA : pending admission
-
 Once initialized, the only way to welcome new members is through likes, which
 transfer \reps between identities.
 %
@@ -587,12 +578,6 @@ Listing~\ref{lst.welcome} illustrates both:
 %
 Since likes are at best zero-sum (transfers and taxes do not add value),
 cycling \reps among colluding Sybils gains nothing.
-
-% TODO : SZT : [Begging posts have restricted reach...]
-%   Não entendi ... Alias, begging funciona como um post? Não né?
-%   Então como ele se estabelece na cadeia? E quem ve?
-% FRA : é um post normal, mas que ninguem se liga, por isso ainda esta "fora"
-% do DAG (esta em uma ponta que pode ser ignorada)
 
 A begging post is a normal post commit that sits as a tip in a side branch,
 waiting for a like that eventually merges it into the chain DAG.
@@ -652,10 +637,6 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
 Section~\ref{sec.design.time} discusses how to count these periods
 consistently without a global clock.
 
-% TODO : SZT : [sufficient time for other members to judge]
-%   Isso é relativo, não?
-% FRA : tirei o peso to tempo de julgamento e fortaleci a regulacao de reps
-
 The 24-hour period gives time for other members to judge the post before the
 reward.
 More importantly, it regulates the emission of \reps, since extra posts do not
@@ -667,12 +648,6 @@ identities to multiply emission.
 %
 We argue that these are not Sybils in the strict sense, since each identity
 must behave as an independent member to pass proof-of-authoring.
-
-% TODO : SZT : [resists automation]
-%   E com essas LLMs espertas? Acho que poderia incluir algo sobre isso ...
-%   Vi que já falou ...
-% TODO : SZT : [AI-generated] ops ... kkk ... já falou ...
-% FRA : simplifiquei
 
 The actual threat is therefore junk content, human or AI-generated, which the
 community must judge by its frequency and relevance, and revoke accordingly.
@@ -734,12 +709,6 @@ $ fc /chat payload 65980b7
 nice product
 \end{lstlisting}
 
-% TODO : SZT : [revoke paragraph]
-%   Ficou difícil de entender ... eu ainda não entendi a dinâmica do revoke...
-%   ele gasta reps?
-% FRA : sim, regra 3.d referenciada:
-%   "Revoke counts -$n to origin and target, and erases the payload."
-
 Ratings alone cannot stop abuse, such as spam, misinformation, or even
 illegal content.
 For such cases, members may spend \reps to \emph{revoke} an action to erase its
@@ -773,19 +742,6 @@ Otherwise, it is \emph{begging} outside the chain until a like admits it
 (\S\ref{sec.design.members}).
 Once accepted, an action is part of the immutable history, but its payload
 can still be \emph{revoked} and restored according to the balance of votes.
-
-% TODO : SZT : [Revocation is deliberately expensive]
-%   Certo ... agora tem explicação.
-%   Mas o que levaria um membro a gastar reps para revogar? Só a
-%   indignação com o post? Imagina se é um forum com pessoas de convicções
-%   políticas antagônicas ... para ser "atual". Seria uma batalha de revogação
-%   ... isso prospera?
-% FRA : gastaria pra manter a cadeia limpa e saudavel
-%       visoes radicalmente antagonicas podem levar as cadeias ao colapso
-%       cada membro da cadeia vai reagir como quiser
-%       mas o dislike ou orevoke pode ser adotados em situacoes diferentes
-%       (ambos podem colapsar a cadeia, ja que "queimam" reps dos dois lados)
-%   (pode pular pro fim da 3.9 pra ver a ultima frase que esta relacionada)
 
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
@@ -840,10 +796,6 @@ xion           0       # rejected
 carol          0
 \end{lstlisting}
 
-% TODO : SZT : [synchronizes] Ainda não explicou isso ...
-% FRA : é o mesmo sync da secao 2 de Freechains/Git
-%   (nao sei se entendi)
-
 In Listing~\ref{lst.double}, \emph{Carol} with only \nreps{4500} (ln~1--2)
 tries to double-spend it with concurrent likes to \emph{Xion} and \emph{York}
 on peers \emph{I} and \emph{J} (ln~4--6 and 8--10), just before they
@@ -854,9 +806,6 @@ DAG.
 Therefore, when peer \emph{I} synchronizes with \emph{J} (ln~12--15), it
 replays the DAG in topological order, accounts for the actions in sequence,
 detects the conflict, and rejects one of them (ln~17--21).
-
-% TODO : SZT : [we are about to discuss] ok ...
-% FRA : devo explicar algo a mais?
 
 As a consistency requirement, all peers must replay the DAG in the exact same
 order to compute \reps in the same way.
