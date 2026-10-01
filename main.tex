@@ -1275,8 +1275,8 @@ with no consistency guarantees.
 and consistently replicates each room as a DAG of events across servers, but
 with no consensus order.
 %
-As drawbacks, federations fall under the \emph{single-node} authority that
-each user chooses:
+As drawbacks, federations fall under the \emph{single-node} authority each user
+trusts:
     identities are not portable across domains~\cite{fed.distributed}, and
     messages crossing boundaries may be subject to different
     policies~\cite{p2p.ecosystem}.
@@ -1284,6 +1284,12 @@ each user chooses:
 As a pragmatic mitigation, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
 which, however, applies reactively after abusive messages flood the network.
+
+On the other side of the spectrum, \emph{single-user} feeds, such as
+Scuttlebutt~\cite{p2p.scuttlebutt} and Bluesky~\cite{p2p.atproto}, move the
+authority from domains to users.
+This weakens the essence of public forums as shared spaces, since each user has
+complete sovereignty over a separate unit of replication.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
