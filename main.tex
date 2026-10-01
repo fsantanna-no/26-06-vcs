@@ -594,16 +594,10 @@ cycling \reps among colluding Sybils gains nothing.
 % FRA : é um post normal, mas que ninguem se liga, por isso ainda esta "fora"
 % do DAG (esta em uma ponta que pode ser ignorada)
 
-Begging posts are normal post commits with restricted reach, since they are not
-yet part of the Merkle DAG%
-\footnote{
-    In Git, a beg is a tip reference, whose like becomes its merge point into
-    the immutable chain DAG.
-    Until then, a beg can be synchronized or dropped at will.
-}.
-However, if they are never retransmitted, strangers have no way in.
-Although peers are not required to hold or forward begs, a reasonable policy is
-to keep them in a temporary pool for some visibility.
+A begging post is a normal post commit that sits as a tip in a side branch,
+waiting for a like that eventually merges it into the chain DAG.
+Peers are not required to hold or forward beg branches, so a reasonable policy
+is to keep and synchronize them long enough for strangers to be seen.
 
 \subsection{Proof-of-Authoring}
 \label{sec.design.poa}
