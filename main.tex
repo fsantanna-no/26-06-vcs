@@ -847,7 +847,7 @@ carol          0
 In Listing~\ref{lst.double}, \emph{Carol} with only \nreps{4500} (ln~1--2)
 tries to double-spend it with concurrent likes to \emph{Xion} and \emph{York}
 on peers \emph{I} and \emph{J} (ln~4--6 and 8--10), just before they
-synchronize.
+synchronize (\S\ref{sec.git}).
 %
 Note that each like is legitimate in isolation, but inconsistent in the merged
 DAG.
@@ -883,7 +883,8 @@ The key idea is to favor branches whose members hold the majority of the
 reputation in the common history, which contains the actions that both branches
 agree on.
 %
-When faced with a fork, we first determine the exclusive members of each side.
+When faced with a fork, we first determine the exclusive members of each
+branch.
 To pick the winner, we compare the aggregate \reps each set held at the fork
 point.
 %
