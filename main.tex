@@ -654,6 +654,7 @@ consistently without a global clock.
 
 % TODO : SZT : [sufficient time for other members to judge]
 %   Isso é relativo, não?
+% FRA : tirei o peso to tempo de julgamento e fortaleci a regulacao de reps
 
 The 24-hour period gives time for other members to judge the post before the
 reward.
@@ -840,6 +841,8 @@ carol          0
 \end{lstlisting}
 
 % TODO : SZT : [synchronizes] Ainda não explicou isso ...
+% FRA : é o mesmo sync da secao 2 de Freechains/Git
+%   (nao sei se entendi)
 
 In Listing~\ref{lst.double}, \emph{Carol} with only \nreps{4500} (ln~1--2)
 tries to double-spend it with concurrent likes to \emph{Xion} and \emph{York}
@@ -853,6 +856,7 @@ replays the DAG in topological order, accounts for the actions in sequence,
 detects the conflict, and rejects one of them (ln~17--21).
 
 % TODO : SZT : [we are about to discuss] ok ...
+% FRA : devo explicar algo a mais?
 
 As a consistency requirement, all peers must replay the DAG in the exact same
 order to compute \reps in the same way.
@@ -873,9 +877,10 @@ of favoring wealth, we reward authors for adding content, which is valuable in
 itself.
 
 % TODO : SZT : [both sides] Não entendi, quem são...
+%   FRA : os proprios branches
 
 The key idea is to favor branches whose members hold the majority of the
-reputation in the common history, which contains the actions that both sides
+reputation in the common history, which contains the actions that both branches
 agree on.
 %
 When faced with a fork, we first determine the exclusive members of each side.
