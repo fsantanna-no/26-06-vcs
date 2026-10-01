@@ -556,10 +556,13 @@ dave        1300
 \end{lstlisting}
 
 % TODO : SZT : [begging] begging mesmo? Não é forte?
+% FRA : foi o nome mais simples/direto (--beg) e eh uma metafora facil de pegar
+
 % TODO : SZT : [outside the chain]
 %   entendo que são posts que ainda não estão na cadeia, mas o post foi feito
 %   justamente para isso ... o outside não confunde?
 %   Talvez "not yet" ou "candidate"
+% FRA : pending admission
 
 Once initialized, the only way to welcome new members is through likes, which
 transfer \reps between identities.
@@ -567,9 +570,10 @@ transfer \reps between identities.
 Likes reach newcomers in two complementary ways:
     (i) \emph{friend-to-friend}, where members target known newcomers directly;
         and
-    (ii) \emph{begging posts}, where members target posts outside the chain.
-The second is more interesting, since it admits total strangers based purely on
-content quality.
+    (ii) \emph{begging posts}, where members target posts pending admission.
+%
+The second is more interesting, since it accepts total strangers based purely
+on content quality.
 %
 Listing~\ref{lst.welcome} illustrates both:
 %
@@ -587,8 +591,11 @@ cycling \reps among colluding Sybils gains nothing.
 % TODO : SZT : [Begging posts have restricted reach...]
 %   Não entendi ... Alias, begging funciona como um post? Não né?
 %   Então como ele se estabelece na cadeia? E quem ve?
+% FRA : é um post normal, mas que ninguem se liga, por isso ainda esta "fora"
+% do DAG (esta em uma ponta que pode ser ignorada)
 
-Begging posts have restricted reach, since they are not part of the Merkle DAG%
+Begging posts are normal post commits with restricted reach, since they are not
+yet part of the Merkle DAG%
 \footnote{
     In Git, a beg is a tip reference, whose like becomes its merge point into
     the immutable chain DAG.
