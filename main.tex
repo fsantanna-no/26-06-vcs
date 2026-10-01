@@ -853,6 +853,13 @@ sequence, respectively.
 \label{fig.reps}
 \end{figure}
 
+% TODO : SZT : [Figure 2.A illustrates a forum DAG forked ... a and b have more contributions]
+%   Isso funciona mesmo se um participante estiver em dois ou mais branches?
+%   Vai discutir o impacto da decisão, considerando o tempo real (mensagens
+%   postadas antes, aparecendo depois na DAG)
+% FRA : funciona, os valores se cancelam : adicionei acima "(common members are ignored)"
+% FRA : tempo real : adicionei acima "(regardless of self-declared timestamps, ...)"
+
 Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
 partition.
 The common history has signed actions from members $a$, $b$, and $c$.
@@ -882,6 +889,20 @@ In Figure~\ref{fig.reps}.B, suppose that the last action by $a$ in
 insufficient \reps.
 Then, its last post in \code{branch-1} (in red) is invalidated, together with
 all subsequent actions.
+
+% TODO : SZT : [Split members into disjoint sets ... M1 = {c,x,y} and M2 = {a,b}]
+%   Perguntei antes se os dois grupos M1 e M2 poderiam ter posts de membros
+%   comuns. Se a instância pode rodar em qualquer momento, o que impediria?
+% FRA : sim. nada impede. nao muda nada. é o conjunto diferenca
+
+% TODO : SZT : [highest sum first]
+%   Esse critério o Tanenbaum chama de "bully", aplicado a algoritmos de
+%   eleição de coordenador. Vale mencionar?
+% FRA : pelo que li agora "bully" seria eleicao de lider por maior ID estatico
+%   aqui nao é eleição (todos somam) e não é por ID (mas por reps)
+
+% TODO : SZT : [tip] Já tinha introduzido esse termo?
+% FRA : apareceu em --beg : e é comum em Git branches
 
 We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
