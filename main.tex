@@ -736,11 +736,13 @@ nice product
 % TODO : SZT : [revoke paragraph]
 %   Ficou difícil de entender ... eu ainda não entendi a dinâmica do revoke...
 %   ele gasta reps?
+% FRA : sim, regra 3.d referenciada:
+%   "Revoke counts -$n to origin and target, and erases the payload."
 
 Ratings alone cannot stop abuse, such as spam, misinformation, or even
 illegal content.
-For such cases, members may \emph{revoke} an action to erase its payload in all
-honest peers (\R{3.d}).
+For such cases, members may spend \reps to \emph{revoke} an action to erase its
+payload in all honest peers (\R{3.d}).
 %
 In Listing~\ref{lst.revoke}, \emph{Dave} posts spam (ln~1--2), which
 \emph{Alice} revokes (ln~3), making its payload unavailable (ln~4--5).
@@ -777,15 +779,24 @@ can still be \emph{revoked} and restored according to the balance of votes.
 %   indignação com o post? Imagina se é um forum com pessoas de convicções
 %   políticas antagônicas ... para ser "atual". Seria uma batalha de revogação
 %   ... isso prospera?
+% FRA : gastaria pra manter a cadeia limpa e saudavel
+%       visoes radicalmente antagonicas podem levar as cadeias ao colapso
+%       cada membro da cadeia vai reagir como quiser
+%       mas o dislike ou orevoke pode ser adotados em situacoes diferentes
+%       (ambos podem colapsar a cadeia, ja que "queimam" reps dos dois lados)
+%   (pode pular pro fim da 3.9 pra ver a ultima frase que esta relacionada)
 
 Revocation is deliberately expensive: it costs the revoker at least
 \nreps{1000}, twice the minimum of other actions (\R{4.a}), and it drains the
 target and its author (\R{3.b}).
 It also cancels the reward of the revoked post (\R{1.b}), which is the
 ultimate defense against farmed reputation (\S\ref{sec.design.poa}).
+%
 Hence, revokes are meant to combat abuse, whereas dislikes exist for
 disagreement.
-%
+However, in either case they burn \reps on both sides, so antagonistic members
+draining each other relentlessly may collapse the chain.
+
 Finally, as a \emph{right to be forgotten}, authors may revoke their own posts
 for free, which no other member can undo.
 
