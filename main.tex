@@ -825,17 +825,21 @@ It resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, but instead
 of favoring wealth, we reward authors for adding content, which is valuable in
 itself.
 
+% TODO : SZT : [both sides] Não entendi, quem são...
+%   FRA : os proprios branches
+
 The key idea is to favor branches whose members hold the majority of the
-reputation in the common history, which contains the actions that both sides
+reputation in the common history, which contains the actions that both branches
 agree on.
 %
 When faced with a fork, we first determine the exclusive members of each
-branch.
+branch (common members are ignored).
 To pick the winner, we compare the aggregate \reps each set held at the fork
 point.
 %
 Finally, the winning branch is placed first as a whole and the losing one is
-appended after it.
+appended after it (regardless of self-declared timestamps,
+\S\ref{sec.design.time}).
 For nested or multi-way forks, we apply the same rule recursively or in
 sequence, respectively.
 
