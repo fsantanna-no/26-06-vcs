@@ -1001,7 +1001,7 @@ the maximum between the previous position timestamp~($P_{i-1}$) and its own
 self-declared timestamp~($S_i$): $P_i=\max(P_{i-1},S_i)$, with $P_0=S_0$.
 %
 Figure~\ref{fig.monotonic}.A illustrates a forked DAG with non-monotonic
-self-declared timestamps, whereas Figure~\ref{fig.monotonic}.B shows its
+timestamps, whereas Figure~\ref{fig.monotonic}.B shows its
 consensus order as a monotonic clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
