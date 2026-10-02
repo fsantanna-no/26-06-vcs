@@ -243,8 +243,8 @@ Then, relying on non-intrusive hooks, we add what Git alone cannot provide:
 reputation, moderation, and consensus.
 
 The operation of a chain is simple: each action --- post, like or revoke --- is
-an individual commit in the history DAG, which peers synchronize point-to-point
-through Git, as in gossip protocols~\cite{p2p.survey}.
+an individual commit in the history DAG, which peers synchronize point-to-point,
+with Git as the transport layer, as in gossip protocols~\cite{p2p.survey}.
 %
 Since state is a pure function of the immutable DAG, synchronized by appends
 and unions, peers converge by construction (\S\ref{sec.design.sec}).
@@ -349,7 +349,8 @@ same forked DAG (ln~11--14), now closed with a merge commit (hidden since not
 an action).
 
 In \FC, a \code{sync} is the only moment two peers connect: a short exchange
-of missing actions, after which both sides become offline again.
+of missing actions (a Git fetch and push), after which both sides become
+offline again.
 There are no servers, brokers, discovery, broadcasts, or any underlying
 network architecture: only explicit point-to-point ephemeral connections.
 In peer-to-peer terms, ``joining'' is cloning, ``leaving'' is simply not
@@ -1006,7 +1007,8 @@ one can distinguish whether the causes are deliberate or accidental.
 
 Therefore, \FC does not treat partitions as attacks, but only reacts to the
 damage they may cause.
-Next, we discuss the threats and countermeasures under a hostile network:
+Next, we discuss the considered threats and their countermeasures under a
+hostile network:
 %
 \begin{description}
 \item [\S\ref{sec.design.byz}]
@@ -1027,7 +1029,8 @@ A \emph{Byzantine peer}~\cite{lamport.byz} may serve forged actions, suppress
 branches, or answer differently to different peers.
 %
 Nevertheless, since peers are not trusted a priori, and every action is part of
-the tamper-proof DAG, any erratic data is detected on the first inconsistency,
+the tamper-proof DAG, any erratic data is detected at the first inconsistent
+action,
 allowing the receiver to drop the connection and blacklist the remote peer.
 
 Therefore, a Byzantine peer cannot impose forged content or prevent other peers
