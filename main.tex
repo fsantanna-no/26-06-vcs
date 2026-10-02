@@ -1296,17 +1296,17 @@ This weakens the essence of public forums as shared spaces, since each user has
 complete sovereignty over an isolated unit of replication.
 %
 For instance, Scuttlebutt is designed around public identities that follow each
-other to form a graph of connections, which replicates in the network topology
-and local storage:
+other to form a graph of connections, which shapes both the network topology
+and what each peer stores:
     if identity $A$ follows identity $B$, it means that the computer of $A$
-    connects to $B$'s in a few hops and also that it stores all of his posts
+    connects to $B$'s in a few hops and also that it stores all of their posts
     locally.
 %
 For shared spaces, Scuttlebutt supports channels (e.g. \emph{\#sports}), which
-agglutinates tagged posts in local virtual feeds.
+aggregate tagged posts into local virtual feeds.
 However, users only see channel posts from members they already follow.
-In practice, channels simply merge friends posts and filter them by tags.
-However, to read all posts of a channel, a user would need to follow all users
+In practice, channels simply merge friends' posts and filter them by tags.
+Thus, to read all posts of a channel, a user would need to follow all users
 in the network (which implies storing their full feeds).
 Another limitation of this model is that new users struggle to integrate in
 channel communities because their posts have no visibility at all.
