@@ -345,13 +345,15 @@ eventually synchronizes with the other side (ln~9--10), both converging to the
 same forked DAG (ln~11--14), now closed with a merge commit (hidden since not
 an action).
 
-In \FC, a \code{sync} is the only moment two peers connect to exchange missing
-actions, and only for a short period, after which both sides become offline
-again.
+In \FC, a \code{sync} is the only moment two peers connect: a short exchange
+of missing actions, after which both sides become offline again.
 There are no servers, brokers, discovery, broadcasts, or any underlying
-network architecture, only explicit point-to-point ephemeral connections.
+network architecture: only explicit point-to-point ephemeral connections.
 In peer-to-peer terms, ``joining'' is cloning, ``leaving'' is simply not
 syncing, and ``reconnecting'' is syncing again.
+Whom to sync with, and how often, is left to users and applications, so
+replicas may legitimately diverge for a long time
+(\S\ref{sec.design.partitions}).
 
 Note that forks represent concurrency and imply ambiguity in the order of
 actions, which is a fundamental obstacle to consensus.
