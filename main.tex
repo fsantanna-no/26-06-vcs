@@ -1272,8 +1272,8 @@ IRC/Discord or Usenet/Reddit.
 Federated protocols, such as e-mail and Usenet, allow users of one domain to
 exchange messages with users of other domains asynchronously.
 %
-Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon} and \emph{Lemmy}
-(for microblogging and forums), which rely on
+Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon} and
+\emph{Lemmy}~\cite{forum.lemmy}, which rely on
 ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
 with no consistency guarantees.
 %
@@ -1285,7 +1285,8 @@ As drawbacks, federations fall under the \emph{single-node} authority each user
 trusts:
     identities are not portable across domains~\cite{fed.distributed}, and
     messages crossing boundaries may be subject to different
-    policies~\cite{p2p.ecosystem}.
+    policies~\cite{p2p.ecosystem}, up to whole servers blocking each
+    other~\cite{fed.defederation,fed.blocklists}.
 %
 As a pragmatic mitigation, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
