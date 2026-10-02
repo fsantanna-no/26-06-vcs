@@ -825,9 +825,6 @@ It resembles \emph{proof-of-stake}~\cite{pos.ouroboros,pos.weak}, but instead
 of favoring wealth, we reward authors for adding content, which is valuable in
 itself.
 
-% TODO : SZT : [both sides] Não entendi, quem são...
-%   FRA : os proprios branches
-
 The key idea is to favor branches whose members hold the majority of the
 reputation in the common history, which contains the actions that both branches
 agree on.
@@ -852,13 +849,6 @@ sequence, respectively.
 }
 \label{fig.reps}
 \end{figure}
-
-% TODO : SZT : [Figure 2.A illustrates a forum DAG forked ... a and b have more contributions]
-%   Isso funciona mesmo se um participante estiver em dois ou mais branches?
-%   Vai discutir o impacto da decisão, considerando o tempo real (mensagens
-%   postadas antes, aparecendo depois na DAG)
-% FRA : funciona, os valores se cancelam : adicionei acima "(common members are ignored)"
-% FRA : tempo real : adicionei acima "(regardless of self-declared timestamps, ...)"
 
 Figure~\ref{fig.reps}.A illustrates a forum DAG forked by a temporary network
 partition.
@@ -890,20 +880,6 @@ insufficient \reps.
 Then, its last post in \code{branch-1} (in red) is invalidated, together with
 all subsequent actions.
 
-% TODO : SZT : [Split members into disjoint sets ... M1 = {c,x,y} and M2 = {a,b}]
-%   Perguntei antes se os dois grupos M1 e M2 poderiam ter posts de membros
-%   comuns. Se a instância pode rodar em qualquer momento, o que impediria?
-% FRA : sim. nada impede. nao muda nada. é o conjunto diferenca
-
-% TODO : SZT : [highest sum first]
-%   Esse critério o Tanenbaum chama de "bully", aplicado a algoritmos de
-%   eleição de coordenador. Vale mencionar?
-% FRA : pelo que li agora "bully" seria eleicao de lider por maior ID estatico
-%   aqui nao é eleição (todos somam) e não é por ID (mas por reps)
-
-% TODO : SZT : [tip] Já tinha introduzido esse termo?
-% FRA : apareceu em --beg : e é comum em Git branches
-
 We now recap the consensus mechanism and how it applies to
 Figure~\ref{fig.reps}:
 %
@@ -917,10 +893,6 @@ Figure~\ref{fig.reps}:
 \item Discard actions from the first failure on:            \\
     \code{c <- y} (last two actions)
 \end{itemize}
-
-% TODO : SZT : [legitimate actions that are erased must be reposted ... should be rare]
-%   Mas se acontecer? O que acontece com os reps gastos?
-% FRA : nao foram gastos : nao estao no DAG : como se nunca tivessem sido postados
 
 Peers that received the losing branch first need to reorder actions after the
 fork point, similarly to a blockchain reorganization.
@@ -986,11 +958,6 @@ immutable parents, hence the term \emph{chain time}.
 }
 \label{fig.monotonic}
 \end{figure}
-
-% TODO : SZT : [between the previous position timestamp and its own self-declared timestamp]
-%   Isso também meio que se alinha com Relógios Lógicos do Lamport ... não sei
-%   se vale mencionar...
-% FRA : o lamport nao usa timestamp, mas contadores : mas veja se funciona...
 
 We also rely on chain time to derive a monotonic consensus timeline in the
 spirit of Lamport's logical clocks~\cite{time.lamport}, but anchored in
