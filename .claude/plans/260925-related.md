@@ -170,6 +170,10 @@
       `tab.rules`; check §3 states announcement posts (else P3
       says "assumes")
     - bib added 26/09/30: p2p.kademlia, p2p.bittorrent
+    - 26/10/01: Autobase moved HERE (same Dat/Hypercore stack;
+      collaboration tool, not a forum): one sentence after the
+      "single authority" one -- permissioned, designated writers;
+      `p2p.autobase` (@misc) added; nothing about it in 5.3
 - (superseded detail below kept for reference)
 - 5.2 DHTs -- ADJACENT INFRASTRUCTURE, not a rival design
     - one family: Kademlia, BitTorrent, IPFS; locate and
