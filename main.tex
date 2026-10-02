@@ -1295,28 +1295,22 @@ authority from domains to users.
 This weakens the essence of public forums as shared spaces, since each user has
 complete sovereignty over an isolated unit of replication.
 %
-Scuttlebutt~\cite{p2p.scuttlebutt} is designed around public identities that
-follow each other to form a graph of connections.
-This graph is replicated in the network topology as well as in data storage.
-For instance, if identity $A$ follows identity $B$, it means that the computer
-of $A$ connects to $B$'s in a few hops and also that it stores all of his posts
-locally.
-Note however that the basic unit of communication in Scuttlebutt is
-unidirectional, with a public identity broadcasting a feed to its
-followers (\Xon).
+For instance, Scuttlebutt is designed around public identities that follow each
+other to form a graph of connections, which replicates in the network topology
+and local storage:
+    if identity $A$ follows identity $B$, it means that the computer of $A$
+    connects to $B$'s in a few hops and also that it stores all of his posts
+    locally.
 %
-For open groups communication (\Xnn), Scuttlebutt uses the concept of channels,
-which are in fact nothing more than hash tags (e.g. \emph{\#sports}).
-Members can tag posts, which appear not only in their feeds but also in local
-virtual feeds representing these channels.
+For shared spaces, Scuttlebutt supports channels (e.g. \emph{\#sports}), which
+agglutinates tagged posts in local virtual feeds.
 However, users only see channel posts from members they already follow.
 In practice, channels simply merge friends posts and filter them by tags.
-In theory, to read all posts of a channel, a user would need to follow all
-users in the network (which also implies storing their feeds).
-A limitation of this model is that new users struggle to integrate in channel
-communities because their posts have no visibility at all.
+However, to read all posts of a channel, a user would need to follow all users
+in the network (which implies storing their full feeds).
+Another limitation of this model is that new users struggle to integrate in
+channel communities because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
