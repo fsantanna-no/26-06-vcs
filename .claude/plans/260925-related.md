@@ -220,6 +220,34 @@
   is a swarm registry (discovery + reputation + revoking a
   lying peer)
 
+# Status 26/10/02 and pendings
+
+- done: 5.1 CRDTs; 5.2 DHTs (BT/IPFS/Dat, Autobase permissioned +
+  quorum, 128 KB payload hook); 5.3 opener; 5.3 federations
+  (Mastodon/Lemmy on ActivityPub, Matrix, drawbacks with
+  defederation/blocklist cites, Matrix mitigation); 5.3 feeds
+  opener + Scuttlebutt (shrunk, \Xon/\Xnn gone)
+- bib added: p2p.kademlia, p2p.bittorrent, p2p.autobase,
+  p2p.atproto, time.lamport, forum.lemmy, fed.defederation,
+  fed.blocklists (all house style; header comment extended)
+- PENDING, in order:
+    - Bluesky sentence in the feeds paragraph (named in the topic
+      sentence, never described): per-user signed repository, but
+      relays crawl every repository into a global index; ordering
+      and moderation are services of the index
+    - opener example "(Dat and Scuttlebutt)" -> "(Scuttlebutt and
+      Bluesky)" (Dat is 5.2's now)
+    - "e.g. \emph{\#sports}" -> "e.g.,"
+    - multi/multi attempts paragraph: Nostr (relays, no ordering,
+      spam by relay policy; `p2p.nostr` unused in bib), Aether
+      (ephemeral, PoW, local votes), dVCS (external scoring)
+    - reputation systems closing (three aspects; closing line)
+    - delete the \iffalse block and both %%% rules
+    - Farcaster: still optional (staked storage as post cost)
+- also: gossipsub/gossipsub2 now uncited (dropped with P5); keep
+  under the bib's disabled-sections rule or move the Sybil
+  sentence to sec.git
+
 # Elsewhere in the paper
 
 - `--dictator` deserves a SINGLE-USER / MULTI-NODE example:

@@ -1,5 +1,8 @@
 # TODO
 
+- Related Work: pendings tracked in 260925-related.md ("Status
+  26/10/02 and pendings"); Lemmy corpus in 260930-lemmy.md
+
 - Leftovers of the CRDT section deletion (2026-09-24, disabled block)
     - wiki replay in Section 4 needs the conflict policy of the old
       dVCS: patches applied in consensus order, first write wins,
@@ -21,6 +24,9 @@
 
 - Verify all citations (2026-09-24; generalizes the item below on
   citations added since 2026-09-05)
+    - added 2026-09-30..10-02, unverified against pdfs/: p2p.kademlia,
+      p2p.bittorrent, p2p.autobase (docs), p2p.atproto, time.lamport,
+      forum.lemmy (docs), fed.defederation, fed.blocklists
     - download each into `pdfs/` as `<key>-<author><year>.{pdf,txt}`
     - verify each corresponds to its bibtex entry (authors, year,
       venue, title)
