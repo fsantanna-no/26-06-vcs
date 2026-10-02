@@ -987,7 +987,14 @@ immutable parents, hence the term \emph{chain time}.
 \label{fig.monotonic}
 \end{figure}
 
-We also rely on chain time to derive a monotonic consensus timeline.
+% TODO : SZT : [between the previous position timestamp and its own self-declared timestamp]
+%   Isso também meio que se alinha com Relógios Lógicos do Lamport ... não sei
+%   se vale mencionar...
+% FRA : o lamport nao usa timestamp, mas contadores : mas veja se funciona...
+
+We also rely on chain time to derive a monotonic consensus timeline in the
+spirit of Lamport's logical clocks~\cite{time.lamport}, but anchored in
+timestamps as in Bitcoin~\cite{btc.timestamps}.
 %
 Each action in the total order carries a \emph{position timestamp}~($P_i$) as
 the maximum between the previous position timestamp~($P_{i-1}$) and its own
