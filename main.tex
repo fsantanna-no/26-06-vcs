@@ -348,11 +348,11 @@ eventually synchronizes with the other side (ln~9--10), both converging to the
 same forked DAG (ln~11--14), now closed with a merge commit (hidden since not
 an action).
 
-In \FC, a \code{sync} is the only moment two peers connect: a short exchange
-of missing actions (a Git fetch and push), after which both sides become
-offline again.
+A \code{sync} is the only moment two peers connect: a short exchange of missing
+actions (a Git fetch and push), after which both sides become offline again.
 There are no servers, brokers, discovery, broadcasts, or any underlying
-network architecture: only explicit point-to-point ephemeral connections.
+network architecture in \FC: only explicit point-to-point ephemeral
+connections.
 In peer-to-peer terms, ``joining'' is cloning, ``leaving'' is simply not
 syncing, and ``reconnecting'' is syncing again.
 Whom to sync with, and how often, is left to users and applications, so
