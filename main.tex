@@ -212,6 +212,7 @@ Section~\ref{sec.conclusion} concludes this work.
 \textbf{Command}   & \textbf{Description}        & \textbf{Git}                \\
 \hline
 \code{init}        & Creates fresh chain         & \code{init}                 \\
+\code{daemon}      & Accepts remote requests     & \code{daemon}               \\
 \code{clone}       & Replicates remote chain     & \code{clone}                \\
 \code{sync}        & Exchanges actions           & \code{fetch,push,merge}     \\
 \code{post}        & Appends post to chain       & \code{commit}               \\
@@ -308,6 +309,9 @@ genesis with a random id, and the first post pointing to its payload.
     style=numbered,
     caption={Peer replication between \emph{X} and \emph{Y}.}
 ]
+# PEER X
+$ fc daemon start
+
 # PEER Y
 $ fc /chat clone X
 726e32918b7ac760de4088a5959168bde5e5a608
@@ -337,9 +341,10 @@ $ fc /chat list dag
 c7a56bc     eb18b45     # "From Y"   "From X"
 \end{lstlisting}
 
-To illustrate point-to-point synchronization, Listing~\ref{lst.clone}
-introduces a second peer \emph{Y} (ln~1) that clones \emph{X} (ln~2--3),
-receiving the single \emph{``Hello World''} post (ln~4--5).
+To illustrate point-to-point synchronization, in Listing~\ref{lst.clone}, peer
+\emph{X} starts listening for requests (ln~1--2, omitted in the next listings),
+and a second peer \emph{Y} (ln~4) clones it by its address (ln~5--6), receiving
+the single \emph{``Hello World''} post (ln~7--8).
 %
 In local-first protocols, replicas evolve separately and synchronize at some
 point in the future.
@@ -348,8 +353,11 @@ eventually synchronizes with the other side (ln~9--10), both converging to the
 same forked DAG (ln~11--14), now closed with a merge commit (hidden since not
 an action).
 
-A \code{sync} is the only moment two peers connect: a short exchange of missing
-actions (a Git fetch and push), after which both sides become offline again.
+After the initial \code{clone}, a \code{sync} is the only moment two peers
+connect: a short exchange of missing actions (a Git fetch and push), after
+which the connection is closed.
+The remote address needs to be known in advance, as with bootstrap contacts in
+peer-to-peer systems~\cite{p2p.survey,p2p.scuttlebutt}.
 There are no servers, brokers, discovery, broadcasts, or any underlying
 network architecture in \FC: only explicit point-to-point ephemeral
 connections.
