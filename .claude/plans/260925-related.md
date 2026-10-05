@@ -231,13 +231,15 @@
   p2p.atproto, time.lamport, forum.lemmy, fed.defederation,
   fed.blocklists (all house style; header comment extended)
 - PENDING, in order:
-    - Bluesky sentence in the feeds paragraph (named in the topic
-      sentence, never described): per-user signed repository, but
-      relays crawl every repository into a global index; ordering
-      and moderation are services of the index
-    - opener example "(Dat and Scuttlebutt)" -> "(Scuttlebutt and
-      Bluesky)" (Dat is 5.2's now)
-    - "e.g. \emph{\#sports}" -> "e.g.,"
+    - [x] 26/10/04 Bluesky sentence, end of the feeds paragraph:
+      "Halfway to federations, Bluesky recovers a global view by
+      crawling known feeds into a central index, which users query
+      instead of replicating feeds, and which thus becomes the
+      authority for ordering and moderation"
+    - [x] 26/10/05 opener example -> "(e.g., Scuttlebutt)" only;
+      Bluesky left out (halfway to federations, not a clean
+      single-user/multi-node case)
+    - [x] 26/10/04 "e.g. \emph{\#sports}" -> "e.g.,"
     - multi/multi attempts paragraph: Nostr (relays, no ordering,
       spam by relay policy; `p2p.nostr` unused in bib), Aether
       (ephemeral, PoW, local votes), dVCS (external scoring)

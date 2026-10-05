@@ -1287,8 +1287,8 @@ to order and moderate messages consistently among members (e.g., federated
 protocols~\cite{p2p.ecosystem}).
 %
 On the other hand, \emph{single-user/multi-node} feeds support consistency
-across machines, but restricted to a single writer (e.g., Dat~\cite{p2p.dat}
-and Scuttlebutt~\cite{p2p.scuttlebutt}).
+across machines, but restricted to a single writer (e.g.,
+Scuttlebutt~\cite{p2p.scuttlebutt}).
 %
 Our proposal supports \emph{multi-user/multi-node} consistent forums across
 peers with no trusted authorities, i.e., a permissionless counterpart of
@@ -1330,7 +1330,7 @@ and what each peer stores:
     connects to $B$'s in a few hops and also that it stores all of their posts
     locally.
 %
-For shared spaces, Scuttlebutt supports channels (e.g. \emph{\#sports}), which
+For shared spaces, Scuttlebutt supports channels (e.g., \emph{\#sports}), which
 aggregate tagged posts into local virtual feeds.
 However, users only see channel posts from members they already follow.
 In practice, channels simply merge friends' posts and filter them by tags.
@@ -1339,6 +1339,10 @@ in the network (which implies storing their full feeds).
 Another limitation of this model is that new users struggle to integrate in
 channel communities because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
+%
+Halfway to federations, Bluesky recovers a global view by crawling known feeds
+into a central index, which users query instead of replicating feeds, and which
+thus becomes the authority for ordering and moderation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
