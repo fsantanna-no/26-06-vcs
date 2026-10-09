@@ -393,13 +393,14 @@ The next section addresses both problems:
 Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
         & 1.b & old post &
-Consolidated post grants \sreps{+}{1K} after 24h (unless revoked), at most once
-a day.
+Consolidated posts grant \sreps{+}{1K} once per author per full tick (at most
+24h).
 \\
 \hline
 \makecell{Expense\\(combat excess)}
         & 2   & new post &
-New post charges \sreps{-}{500} temporarily, refunded within 12h.
+New post charges \sreps{-}{500} temporarily, refunded after a half tick (at
+most 12h).
 \\
 \hline
 \multirow{6}{*}{\makecell{Transfer\\(highlight quality)}}
@@ -416,10 +417,12 @@ Like counts \sreps{-}{n} to origin and \sreps{+}{n} to target.
 Dislike counts \sreps{-}{n} to origin and \sreps{-}{n} to target.
 \\
         & 3.d & revoke   &
-Revoke counts \sreps{-}{n} to origin and target, and erases the payload.
+Revoke counts \sreps{-}{n} to origin and target, deducts consolidation \reps
+and erases the payload.
 \\
         &     & unrevoke &
-Unrevoke counts \sreps{-}{n} to origin, and restores the payload.
+Unrevoke counts \sreps{-}{n} to origin, and restores the consolidation \reps
+and payload.
 \\
 \hline
 \multirow{3}{*}{\makecell{Constraints\\(combat abuse)}}
