@@ -922,9 +922,11 @@ as if they had never occurred.
 \subsection{Chain Time}
 \label{sec.design.time}
 
-\FC depends on consistent wall-clock durations across peers to count the 24h
-tick (\R{1.b}, \R{2}) and the 7-day settling window
-(\S\ref{sec.design.partitions}), a challenge without a global clock.
+\FC faces the challenge of counting time across peers consistently without a
+global clock:
+    the 24-hour ticks (\R{1.b}, \R{2}) and
+    the 7-day settling window (\S\ref{sec.design.partitions})
+    depend on real time passing.
 
 \begin{figure}[t]
 \centering
