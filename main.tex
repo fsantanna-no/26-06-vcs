@@ -179,10 +179,8 @@ We implement \FC on top of unmodified Git, relying on hooks to add reputation,
 moderation, and consensus.
 
 As a main limitation, since partitions are unbounded, forums are subject to
-long-range attacks~\cite{pos.weak}.
-As a countermeasure, local history settles after a threshold (7 days), while
-unsettled malicious branches can be refuted manually by a single honest member
-with sufficient reputation.
+long-range attacks, which we mitigate by settling local history after a
+threshold (7 days)~\cite{pos.weak}.
 %
 As another limitation shared with blockchains, forum graphs are ever growing,
 with costs to store and validate posts that increase over time.
