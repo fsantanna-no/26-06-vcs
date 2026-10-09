@@ -997,23 +997,20 @@ This prevents losing branches from settling instantly when recovering from
 network partitions (\S\ref{sec.design.partitions}).
 
 Finally, the consensus timeline also drives the ticks that refund and reward
-posts (\R{1.b}, \R{2}).
-The duration of a tick varies between 0 and 24h as follows:
+posts (\R{1.b}, \R{2}), varying between 0 and 24h as follows:
 \[
     24h \cdot \max(0,\, 1 - 2M/R)
 \]
-where $M$ is the sum of \reps of the members acting since the tick started,
-and $R$ is the total of \reps in the chain.
+It considers the sum of \reps of the members acting since the tick started
+($M$) over the total of \reps in the chain ($T$).
 %
 Figure~\ref{fig.monotonic}.C illustrates chain ticks:
-    \code{T0} to \code{T1} lasts 12h, since members $a$ and $b$ hold $25\%$
-    of the chain economy;
-    \code{T1} to \code{T2} lasts 24h, since the chain is idle;
-    \code{T2} to \code{T3} lasts 1h, since member $c$ holds almost half of
-    the \reps.
-%
-At each tick, all posts since the previous tick are refunded, and each author
-with a non-revoked post is rewarded once, regardless of the number of posts
+    $T_1=12h$ as members $a$ and $b$ hold $25\%$ of the chain economy;
+    $T_1=24h$ as the chain is idle;
+    $T_2=0h$ as member $c$ holds the majority of \reps.
+
+At each boundary, all posts from the previous tick are refunded (\R{2}), but
+each author is rewarded once (, regardless of the number of posts
 ($b$ at \code{T1}).
 %
 Since ticks follow the consensus order, a losing branch counts its ticks only
