@@ -1,5 +1,8 @@
 # TODO
 
+- Tick (26/10/09): paper update for the chain clock tracked in
+  261009-tick.md; blocked in part by vcs 261006-bug-winner.md
+
 - Related Work: pendings tracked in 260925-related.md ("Status
   26/10/02 and pendings"); Lemmy corpus in 260930-lemmy.md
 
