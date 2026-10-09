@@ -393,14 +393,13 @@ The next section addresses both problems:
 Chain creation grants \sreps{+}{50K}, equally distributed among pioneers.
 \\
         & 1.b & old post &
-Consolidated posts grant \sreps{+}{1K} once per author per full tick (at most
-24h).
+Consolidated posts grant \sreps{+}{1K} once per author per tick (at most 24h).
 \\
 \hline
 \makecell{Expense\\(combat excess)}
         & 2   & new post &
-New post charges \sreps{-}{500} temporarily, refunded after a half tick (at
-most 12h).
+New post charges \sreps{-}{500} temporarily, refunded at the next tick (at most
+24h).
 \\
 \hline
 \multirow{6}{*}{\makecell{Transfer\\(highlight quality)}}
@@ -634,9 +633,7 @@ $ fc /chat post 'Nice Post' --sign=carol
 1a5c8e21d934e6a44e47f72f188250faeaf0a6de
 $ fc /chat reps member carol     # T1: after post
 4000
-$ fc /chat reps member carol     # T2: after 12h
-4500
-$ fc /chat reps member carol     # T3: after 24h
+$ fc /chat reps member carol     # T2: after tick
 5500
 \end{lstlisting}
 
@@ -651,14 +648,11 @@ To illustrate proof-of-authoring, Listing~\ref{lst.poa} traces how
     welcoming like (\R{3.c}).
 \item[T1:] The new post costs \nreps{500} (\R{2}), which limits how often
     she can post.
-\item[T2:] The cost is refunded within 12 hours (\R{2}), or sooner in
-    proportion to the \reps of members acting after it.
-\item[T3:] The post consolidates after 24 hours and rewards her with
-    \nreps{1000} (\R{1.b}).
+\item[T2:] The cost is refunded at the next tick (\R{2}), which also
+    consolidates the post and rewards her with \nreps{1000} (\R{1.b}).
+    Each tick takes up to 24 hours, less under chain activity
+    (\S\ref{sec.design.time}).
 \end{description}
-%
-Section~\ref{sec.design.time} discusses how to count these periods
-consistently without a global clock.
 
 The 24-hour period gives time for other members to judge the post before the
 reward.
@@ -928,10 +922,9 @@ as if they had never occurred.
 \subsection{Chain Time}
 \label{sec.design.time}
 
-Some rules of the protocol depend on wall-clock durations:
-    the 12h refund (\R{2}),
-    the 24h reward (\R{1.b}), and
-    the 7-day settling window (\S\ref{sec.design.partitions}).
+\FC depends on consistent wall-clock durations across peers to count the 24h
+tick (\R{1.b}, \R{2}) and the 7-day settling window
+(\S\ref{sec.design.partitions}), a challenge without a global clock.
 
 \begin{figure}[t]
 \centering
@@ -942,8 +935,8 @@ Some rules of the protocol depend on wall-clock durations:
 \label{fig.times}
 \end{figure}
 
-\FC adopts the principle of a \emph{chain time} based on immutable timestamps
-in the chain, such that peers holding the same DAG compute the same durations.
+We adopt the principle of a \emph{chain time} based on immutable timestamps in
+the chain, such that peers holding the same DAG compute the same durations.
 However, in our permissionless context, we cannot trust self-declared
 timestamps, since malicious members could manipulate them to collect rewards or
 to vandalize chains.
