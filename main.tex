@@ -1007,15 +1007,15 @@ It considers the sum of \reps of the members acting since the tick started
 Figure~\ref{fig.monotonic}.C illustrates chain ticks:
     $T_1=12h$ as members $a$ and $b$ hold $25\%$ of the chain economy;
     $T_2=24h$ as the chain is idle;
-    $T_2=0h$ as member $c$ holds the majority of \reps.
+    $T_3=0h$ as member $c$ holds the majority of \reps.
 %
 At each boundary, all posts from the previous tick are refunded (\R{2}), but
 each author is rewarded at most once (\R{1.b}), regardless of extra posts
 (gray $b$ at $T_1$).
 %
-Note that posts in losing branches are aglutinated to later ticks
-(Figure~\ref{fig.monotonic}.B), which limit their rewards thus preventing
-farming attacks (\S\ref{sec.design.partitions.farming}).
+Note that posts in losing branches fall into later ticks (all $P_i \geq 12$ in
+Figure~\ref{fig.monotonic}.B), which prevents farming \reps in isolation
+(\S\ref{sec.design.partitions.farming}).
 
 \subsection{Network Threats}
 \label{sec.design.partitions}
