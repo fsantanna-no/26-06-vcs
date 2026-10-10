@@ -996,8 +996,8 @@ order rather than how old it claims to be.
 This prevents losing branches from settling instantly when recovering from
 network partitions (\S\ref{sec.design.partitions}).
 
-Finally, the consensus timeline also drives the ticks that refund and reward
-posts (\R{1.b}, \R{2}), varying between 0 and 24h as follows:
+Finally, the consensus timeline drives the ticks that refund and reward posts
+(\R{1.b}, \R{2}), varying between 0 and 24h as follows:
 \[
     24h \cdot \max(0,\, 1 - 2M/R)
 \]
@@ -1008,14 +1008,14 @@ Figure~\ref{fig.monotonic}.C illustrates chain ticks:
     $T_1=12h$ as members $a$ and $b$ hold $25\%$ of the chain economy;
     $T_1=24h$ as the chain is idle;
     $T_2=0h$ as member $c$ holds the majority of \reps.
-
-At each boundary, all posts from the previous tick are refunded (\R{2}), but
-each author is rewarded once (, regardless of the number of posts
-($b$ at \code{T1}).
 %
-Since ticks follow the consensus order, a losing branch counts its ticks only
-after the winning branch, which bounds \reps farmed in isolation
-(\S\ref{sec.design.partitions.farming}).
+At each boundary, all posts from the previous tick are refunded (\R{2}), but
+each author is rewarded at most once (\R{1.b}), regardless of extra posts
+(gray $b$ at $T_1$).
+%
+Note that posts in losing branches are aglutinated to later ticks
+(Figure~\ref{fig.monotonic}.B), which limit their rewards thus preventing
+farming attacks (\S\ref{sec.design.partitions.farming}).
 
 \subsection{Network Threats}
 \label{sec.design.partitions}
