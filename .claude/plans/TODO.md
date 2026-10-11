@@ -1,7 +1,8 @@
 # TODO
 
-- Tick (26/10/09): paper update for the chain clock tracked in
-  261009-tick.md; blocked in part by vcs 261006-bug-winner.md
+- Tick (26/10/09, done 26/10/11): paper updated for the chain
+  clock, see done/261009-tick.md; recheck ln 1120 "peers holding
+  the same DAG reach the same verdict" after vcs 261006-bug-winner
 
 - Related Work: pendings tracked in 260925-related.md ("Status
   26/10/02 and pendings"); Lemmy corpus in 260930-lemmy.md
