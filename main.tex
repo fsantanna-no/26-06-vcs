@@ -220,7 +220,6 @@ Section~\ref{sec.conclusion} concludes this work.
 \code{(dis)like}   & Rates member or action      & \code{commit}, \code{merge} \\
 \code{(un)revoke}  & Erases/restores payload     & \code{commit}               \\
 \code{reps}        & Queries reputation          & hooks                       \\
-\code{discard}     & Drops local actions         & \code{reset}                \\
 \code{sweep}       & Erases revoked payloads     & \code{gc}                   \\
 \hline
 \end{tabular}
@@ -1013,9 +1012,9 @@ At each boundary, all posts from the previous tick are refunded (\R{2}), but
 each author is rewarded at most once (\R{1.b}), regardless of extra posts
 (gray $b$ at $T_1$).
 %
-Note that posts in losing branches fall into later ticks (all $P_i \geq 12$ in
-Figure~\ref{fig.monotonic}.B), which prevents farming \reps in isolation
-(\S\ref{sec.design.partitions.farming}).
+Note that posts in losing branches are squeezed into a later tick (all
+$P_i \geq 12$ in Figure~\ref{fig.monotonic}.B), which prevents farming \reps in
+isolation (\S\ref{sec.design.partitions.farming}).
 
 \subsection{Network Threats}
 \label{sec.design.partitions}
@@ -1041,7 +1040,7 @@ hostile network:
     how self-verification reduces malicious peers to denial of service.
 \item [\S\ref{sec.design.partitions.farming}]
     Reputation Farming:
-    how common history bounds \reps minted in isolation.
+    how tick squeezing bounds \reps minted in isolation.
 \item [\S\ref{sec.design.partitions.hardforks}]
     Hard Forks:
     how local settled actions become immune to reordering.
@@ -1076,44 +1075,14 @@ $c$ intentionally disconnects from the network for weeks to cultivate fake
 identities $x$ and $y$ that accumulate \reps from junk posts every 24 hours
 (\R{1.b}).
 %
-When merging, these Sybils would become legitimate and contaminate the forum,
-now holding the majority of \reps.
+The intention is that when merging, these Sybils would become legitimate and
+now hold the majority of \reps.
 
-\begin{lstlisting}[
-    float=t,
-    label={lst.discard},
-    caption={Refuting a minority farming attack.}
-]
-# PEER A
-$ fc /chat sync C                # receives branch-1
-$ fc /chat discard 7c1e2a9       # drops sync merge
-$ fc /chat dislike 5000 member c --sign=a
-$ fc /chat sync C                # merges again
-$ fc /chat list order
-...                              # branch-2
-...                              # branch-1 missing
-\end{lstlisting}
-
-However, this attack is refutable, since the common history is the basis of
-consensus (\S\ref{sec.design.consensus}), which ignores the new remote \reps.
-Hence, members with more past reputation in the local branch can still react,
-even \emph{a posteriori}.
-
-For instance, members $a$ and $b$ can pretend that they did not yet see remote
-\code{branch-1} and post extra dislikes to member $c$ from local
-\code{branch-2} so that a further merge invalidates all remote actions, as if
-they never existed.
-%
-Listing~\ref{lst.discard} uses the \code{discard} command to drop the offending
-\code{branch-1} locally before casting the dislike that bans $c$, so that the
-next merge rejects \code{branch-1} for good.
-%
-Note that, as peers synchronize, all honest peers converge to the same state,
-i.e., a single refutation propagates to the rest of the network.
-
-Therefore, a minority attack that farms new \reps is refutable, since its
-power is bounded by the \reps in the common history, but it requires the
-intervention of at least one honest member.
+However, this attack is ineffective in the losing branch
+(Figure~\ref{fig.reps}.B), since their posts are all squeezed into the same
+tick, which can only produce \nreps{1000} per identity (\R{1.b}).
+Therefore, not only farming fails, but member $c$ cannot afford most of the
+posts, which are invalidated.
 
 \subsubsection{Hard Forks}
 \label{sec.design.partitions.hardforks}
@@ -1180,16 +1149,16 @@ branch \code{R} are as follows:
 \footnotesize
 \begin{tabular}{@{}lll@{}}
 \hline
-\textbf{Threat}      & \textbf{Countermeasure}          & Section \\
+\textbf{Threat}      & \textbf{Countermeasure}  & Section \\
 \hline
-Sybil admission      & pioneers, likes, begs            & \ref{sec.design.boot}, \ref{sec.design.members} \\
-Identity splitting   & authoring, revocation            & \ref{sec.design.poa} \\
-Abusive content      & dislikes, revocation             & \ref{sec.design.votes} \\
-Double-spend         & consensus order                  & \ref{sec.design.double}, \ref{sec.design.consensus} \\
-Forged timestamps    & chain time bounds                & \ref{sec.design.time} \\
-Byzantine peers      & self-certified DAG               & \ref{sec.design.byz} \\
-Reputation farming   & common-history reputation        & \ref{sec.design.partitions.farming} \\
-Long-range attack    & settling window                  & \ref{sec.design.partitions.hardforks} \\
+Sybil admission      & pioneers, likes, begs    & \ref{sec.design.boot}, \ref{sec.design.members} \\
+Identity splitting   & authoring, revocation    & \ref{sec.design.poa} \\
+Abusive content      & dislikes, revocation     & \ref{sec.design.votes} \\
+Double-spend         & consensus order          & \ref{sec.design.double}, \ref{sec.design.consensus} \\
+Forged timestamps    & chain time bounds        & \ref{sec.design.time} \\
+Byzantine peers      & self-certified DAG       & \ref{sec.design.byz} \\
+Reputation farming   & tick squeezing           & \ref{sec.design.partitions.farming} \\
+Long-range attack    & settling window          & \ref{sec.design.partitions.hardforks} \\
 \hline
 \end{tabular}
 \caption{
