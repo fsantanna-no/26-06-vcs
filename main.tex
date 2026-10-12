@@ -1201,6 +1201,76 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Evaluation}
 \label{sec.evaluation}
 
+We evaluate \FC by replaying public forum archives as if they had been
+\FC chains from the start:
+    each original message becomes a post signed by its author, with its
+    original timestamp as declared time, issued from the peer where the
+    author resides;
+    peers then synchronize point-to-point under a given policy, with no
+    coordination.
+%
+Table~\ref{tab.corpora} lists the archives, which cover distinct genres and
+time scales (TODO).
+%
+Since all replays run on a single implementation (TODO: build), the measures
+compare the actual costs of the protocol (post, sync, sweep, storage) and the
+behavior of consensus under real posting rhythms.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{topo}
+\caption{
+    Simulated network: 5 super peers (orange), 9 middle peers (green), and 45
+    leaves (white); dotted links are backups, used only while the primary
+    uplink is down.
+}
+\label{fig.topo}
+\end{figure}
+
+All replays share the same network of 59 peers (Figure~\ref{fig.topo}): a core
+of 5 fully connected super peers, 9 middle peers attached to the core, and 45
+leaves attached to middle peers in uneven fans.
+This core-periphery shape follows measured peer-to-peer networks, such as
+Kazaa and Skype super peers~\cite{TODO} and Monero~\cite{TODO}, and also
+federated forums, with middle peers as instances and leaves as users.
+%
+Authors are placed uniformly over the leaves, and a peer that receives new
+actions pushes them to its neighbors after a short random delay.
+%
+By keeping the topology fixed, differences across the experiments come only
+from the archives' rhythms and from the synchronization policy, which is the
+one parameter we vary per regime: from sessions of hours between leaves and
+instances to instantaneous relays.
+
+In the rest of this section, we discuss one archive per regime:
+
+\begin{description}
+\item [\S\ref{sec.eval.usenet}]
+    Usenet, local-first:
+    how peers converge after days of isolation.
+\item [\S\ref{sec.eval.chat}]
+    Chat, real-time:
+    how the protocol behaves under continuous activity.
+\item [\S\ref{sec.eval.lemmy}]
+    Lemmy, quality and moderation:
+    how the \reps economy fares against real votes and moderation logs.
+\end{description}
+
+\subsection{Local-First Newsgroups}
+\label{sec.eval.usenet}
+
+TODO
+
+\subsection{Real-Time Chats}
+\label{sec.eval.chat}
+
+TODO
+
+\subsection{Moderation in the Wild}
+\label{sec.eval.lemmy}
+
+TODO
+
 \section{Related Work}
 \label{sec.related}
 
