@@ -1262,6 +1262,9 @@ In the rest of this section, we discuss one archive per concern:
 \item [\S\ref{sec.eval.lemmy}]
     Lemmy, moderation:
     whether \reps earned from posting afford real moderation logs.
+\item [\S\ref{sec.eval.scale}]
+    Synthetic, scale:
+    how post, sync, and clone costs grow with the chain.
 \end{description}
 
 \subsection{Local-First Newsgroups}
@@ -1283,6 +1286,25 @@ TODO
 \label{sec.eval.lemmy}
 
 TODO
+
+\subsection{Scaling with Chain Size}
+\label{sec.eval.scale}
+
+The replays mix chain size with posting rhythms and synchronization policies.
+%
+To isolate size, a single peer grows one chain with posts only, so that its
+history has no forks, and at each checkpoint (1k, 5k, 10k, 34k, and 100k
+posts) we time
+    a post,
+    a sync with nothing new,
+    a sync with one new post,
+    a sync with one concurrent post on each side, and
+    a full clone from scratch
+(TODO: figure, log-log).
+%
+TODO: post cost stays flat;
+sync cost (TODO: grows with size / stays bounded), and why;
+clone cost grows linearly with the chain.
 
 \section{Related Work}
 \label{sec.related}
