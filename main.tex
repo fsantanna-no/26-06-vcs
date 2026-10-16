@@ -1341,9 +1341,8 @@ Conflict-free replicated data types~\cite{p2p.crdts} are a robust foundation
 for concurrent updates, as operations are commutative and peers can apply them
 consistently either online or offline.
 %
-For instance, they support multi-user collaborative environments under
-peer-to-peer local-first networks~\cite{p2p.automerge,p2p.pushpin}, but
-typically among trusted collaborators.
+CRDTs can deliver multi-user collaborative environments under peer-to-peer
+local-first networks~\cite{p2p.automerge,p2p.pushpin}.
 
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
@@ -1354,32 +1353,33 @@ grows by appends and unions, making peers converge by construction
 (\S\ref{sec.design.sec}).
 
 However, CRDTs alone cannot address content volume or quality under
-permissionless writes, assuming honest replicas
+permissionless writes, and thus assume honest replicas
 only~\cite{p2p.merkle-crdts,p2p.byz}.
 %
 In addition, CRDTs are too restrictive and cannot express forum moderation,
 since it depends on ordering to prevent double-spends.
 %
-\FC addresses both through reputation-based consensus, restricting writes
-(\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and providing a total
-order of actions (\S\ref{sec.design.double} and \S\ref{sec.design.consensus}).
+\FC addresses admission and moderation through reputation-based consensus,
+restricting writes (\S\ref{sec.design.boot} and \S\ref{sec.design.members}) and
+providing a total order of actions (\S\ref{sec.design.double} and
+\S\ref{sec.design.consensus}).
 
 \subsection{DHTs}
 \label{sec.related.p2ps}
 
 Distributed Hash Tables~\cite{p2p.kademlia} contrast with gossip as an
 alternative architecture to serve known indexes and popular content, but not
-for searching or browsing.
+to search and browser content.
 For instance, DHTs typically rely on hash-based links to immutable content,
-requiring the user to request that exact identification and content, such as
-the link to a known movie or software version.
+requiring the user to request that exact identification, such as the link to a
+known movie or software version.
 
 In BitTorrent~\cite{p2p.bittorrent} and IPFS~\cite{p2p.ipfs}, users provide
 content hashes that locate multiple peers, allowing downloads at faster rates.
 In Dat~\cite{p2p.dat}, users provide instead a public key allowing owners to
 publish append-only archives verified by signature.
 However, both approaches rely on a single authority (keypair or content hash),
-which is incompatible with forums in which many authors contribute to the same
+which is incompatible with forums in which many authors write to the same
 evolving state.
 Autobase~\cite{p2p.autobase} extends Dat with multiple permissioned writers,
 and relies on a designated quorum to settle the order.
@@ -1414,7 +1414,7 @@ ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
 with no consistency guarantees.
 %
 \emph{Matrix}~\cite{fed.matrix} targets real-time collaboration (e.g., chats)
-and consistently replicates each room as a DAG of events across servers, but
+and replicates each room as a DAG of events across servers consistently, but
 with no consensus order.
 %
 As drawbacks, federations fall under the \emph{single-node} authority each user
@@ -1425,7 +1425,7 @@ trusts:
     other~\cite{fed.defederation,fed.blocklists}.
 %
 As a pragmatic mitigation, Matrix supports a permissioned moderation system%
-\footnote{Matrix moderation: \url{https://matrix.org/docs/guides/moderation}},
+\footnote{Matrix moderation: \url{https://matrix.org/docs/communities/moderation/}},
 which, however, applies reactively after abusive messages flood the network.
 
 On the other side of the spectrum, \emph{single-user} feeds, such as
@@ -1438,17 +1438,12 @@ For instance, Scuttlebutt is designed around public identities that follow each
 other to form a graph of connections, which shapes both the network topology
 and what each peer stores:
     if identity $A$ follows identity $B$, it means that the computer of $A$
-    connects to $B$'s in a few hops and also that it stores all of their posts
-    locally.
+    connects to $B$'s and also that it stores all of their posts locally.
 %
 For shared spaces, Scuttlebutt supports channels (e.g., \emph{\#sports}), which
 aggregate tagged posts into local virtual feeds.
-However, users only see channel posts from members they already follow.
-In practice, channels simply merge friends' posts and filter them by tags.
-Thus, to read all posts of a channel, a user would need to follow all users
-in the network (which implies storing their full feeds).
-Another limitation of this model is that new users struggle to integrate in
-channel communities because their posts have no visibility at all.
+In practice, channels simply merge friends' posts and filter them by tags,
+hindering new users to integrate because their posts have no visibility at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
 %
 Halfway to federations, Bluesky recovers a global view by crawling known feeds
