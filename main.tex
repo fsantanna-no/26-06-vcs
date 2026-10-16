@@ -1203,13 +1203,13 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 We evaluate the performance and robustness of \FC by simulating publicly
 available forum archives over it.
-Peers replay and gossip each original message under the protocol rules, as if
-they had been part of a \FC chain from the start.
-We measure post and sync time, storage, forks and convergence, and the
-economy of \reps.
+Peers replay and gossip original messages under the protocol rules, as if they
+had been part of a chain from the start.
+We then measure metrics such as post and sync times, storage, forks and
+convergence, and the economy of \reps.
 
-We selected four public archives (and a fifth synthetic), each a scenario with
-its own challenges:
+We selected four public archives (and a fifth synthetic), each representing a
+scenario with its own challenges:
 
 \begin{description}
 \item [\S\ref{sec.eval.usenet}]
@@ -1243,17 +1243,17 @@ in Figure~\ref{fig.topo}:
 %
 \begin{itemize}
 \item
-    70 primary links and 42 backup links (dotted gray), with a diameter of 6
-    hops (e.g., \code{45-M9-S5-S4-S3-M7-43}).
+    70 primary links (gray) and 42 backup links (light dotted), with a diameter
+    of 6 hops (e.g., \code{45-M9-S5-S4-S3-M7-43}).
 \item
     5 \emph{super peers} in a ring (\code{S1}--\code{S5}), with \code{S1} fully
     connected.
 \item
-    9 \emph{middle peers} (\code{M1}--\code{M9}), each attached to 1--3 super
-    peers, and with a backup ring among them.
+    9 \emph{middle peers} in a backup ring (\code{M1}--\code{M9}), each
+    attached to 1--3 supers.
 \item
     45 \emph{leaf peers} (\code{01}--\code{45}), split into groups of 1--15
-    siblings, each attached to a primary middle peer (33 with backups).
+    siblings, each attached to a primary middle (33 with backups).
 \end{itemize}
 %
 This core-periphery shape is typical of peer-to-peer and federated
@@ -1276,8 +1276,8 @@ differing only in the number of connections and synchronization schedule:
 \end{itemize}
 
 In the simulations, we distribute authors uniformly over the leaves.
-We replay the original messages as posts signed by their authors, issued from
-their peers at the declared times.
+We replay the original messages as chain posts signed by their authors, issued
+from their peers at the declared times.
 A peer that receives new actions pushes them to its neighbors after a short
 random delay.
 We rely on queues during churn, offline periods, and partitions that affect
@@ -1306,6 +1306,9 @@ TODO
 \subsection{Synthetic Chain}
 \label{sec.eval.scale}
 
+TODO
+
+\iffalse
 The replays mix chain size with posting rhythms and synchronization policies.
 %
 To isolate size, a single peer grows one chain with posts only, so that its
@@ -1321,6 +1324,7 @@ posts) we time
 TODO: post cost stays flat;
 sync cost (TODO: grows with size / stays bounded), and why;
 clone cost grows linearly with the chain.
+\fi
 
 \section{Related Work}
 \label{sec.related}
