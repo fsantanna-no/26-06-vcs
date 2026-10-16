@@ -1331,8 +1331,9 @@ clone cost grows linearly with the chain.
 
 In this section, we discuss related work on three fronts: CRDTs as an
 underlying data model~(\S\ref{sec.related.crdts}), DHTs as an alternative
-peer-to-peer architecture~(\S\ref{sec.related.p2ps}), and decentralized forums
-as the closest applications~(\S\ref{sec.related.apps}).
+peer-to-peer architecture~(\S\ref{sec.related.dhts}), decentralized forums as
+the closest applications~(\S\ref{sec.related.apps}), and reputation
+systems~(\S\ref{sec.related.reps} as TODO.
 
 \subsection{CRDTs}
 \label{sec.related.crdts}
@@ -1365,7 +1366,7 @@ providing a total order of actions (\S\ref{sec.design.double} and
 \S\ref{sec.design.consensus}).
 
 \subsection{DHTs}
-\label{sec.related.p2ps}
+\label{sec.related.dhts}
 
 Distributed Hash Tables~\cite{p2p.kademlia} contrast with gossip as an
 alternative architecture to serve known indexes and popular content, but not
@@ -1405,6 +1406,8 @@ Our proposal supports \emph{multi-user/multi-node} consistent forums across
 peers with no trusted authorities, i.e., a permissionless counterpart of
 IRC/Discord or Usenet/Reddit.
 
+\subsubsection{Multi-user/single-node forums}
+
 Federated protocols, such as e-mail and Usenet, allow users of one domain to
 exchange messages with users of other domains asynchronously.
 %
@@ -1428,6 +1431,8 @@ As a pragmatic mitigation, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/communities/moderation/}},
 which, however, applies reactively after abusive messages flood the network.
 
+\subsubsection{Single-user/multi-node forums}
+
 On the other side of the spectrum, \emph{single-user} feeds, such as
 Scuttlebutt~\cite{p2p.scuttlebutt} and Bluesky~\cite{p2p.atproto}, move the
 authority from domains to users.
@@ -1445,11 +1450,15 @@ aggregate tagged posts into local virtual feeds.
 In practice, channels simply merge friends' posts and filter them by tags,
 hindering new users from integrating because their posts have no visibility
 at all.
-As a counterpoint, channels are safe places that do not suffer from abuse.
+As a counterpoint, channels are safe places that rarely suffer from abuse.
 %
 Halfway to federations, Bluesky recovers a global view by crawling known feeds
-into a central index, which users query instead of replicating feeds, and which
+into larger indexes, which users query instead of replicating feeds, and which
 thus becomes the authority for ordering and moderation.
+
+\subsubsection{Multi-user/multi-node forums}
+
+\subsection{Reputation Systems}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
