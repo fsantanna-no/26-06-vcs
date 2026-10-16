@@ -1353,7 +1353,7 @@ grows by appends and unions, making peers converge by construction
 (\S\ref{sec.design.sec}).
 
 However, CRDTs alone cannot address content volume or quality under
-permissionless writes, and thus assume honest replicas
+permissionless writes, since they assume honest replicas
 only~\cite{p2p.merkle-crdts,p2p.byz}.
 %
 In addition, CRDTs are too restrictive and cannot express forum moderation,
@@ -1369,7 +1369,7 @@ providing a total order of actions (\S\ref{sec.design.double} and
 
 Distributed Hash Tables~\cite{p2p.kademlia} contrast with gossip as an
 alternative architecture to serve known indexes and popular content, but not
-to search and browser content.
+to search and browse content.
 For instance, DHTs typically rely on hash-based links to immutable content,
 requiring the user to request that exact identification, such as the link to a
 known movie or software version.
@@ -1414,7 +1414,7 @@ ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
 with no consistency guarantees.
 %
 \emph{Matrix}~\cite{fed.matrix} targets real-time collaboration (e.g., chats)
-and replicates each room as a DAG of events across servers consistently, but
+and consistently replicates each room as a DAG of events across servers, but
 with no consensus order.
 %
 As drawbacks, federations fall under the \emph{single-node} authority each user
@@ -1443,7 +1443,8 @@ and what each peer stores:
 For shared spaces, Scuttlebutt supports channels (e.g., \emph{\#sports}), which
 aggregate tagged posts into local virtual feeds.
 In practice, channels simply merge friends' posts and filter them by tags,
-hindering new users to integrate because their posts have no visibility at all.
+hindering new users from integrating because their posts have no visibility
+at all.
 As a counterpoint, channels are safe places that do not suffer from abuse.
 %
 Halfway to federations, Bluesky recovers a global view by crawling known feeds
