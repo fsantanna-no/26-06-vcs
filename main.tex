@@ -1347,7 +1347,7 @@ local-first networks~\cite{p2p.local,p2p.automerge,p2p.pushpin}.
 
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
-archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz}.
+archives~\cite{p2p.merkle-crdts,fed.matrix,p2p.byz,p2p.dvcs}.
 %
 In fact, we rely on the Git DAG as a state-based CRDT (CvRDT), since it only
 grows by appends and unions, making peers converge by construction
@@ -1502,15 +1502,6 @@ innovative voting system to moderate forums, but which affects local instances
 only.
 In contrast, \FC relies on its permissionless reputation and consensus
 mechanisms for moderation.
-
-A similar dVCS have been recently proposed~\cite{p2p.dvcs}, with a DAG
-representation and merging policies.
-To resolve \emph{competition conflicts}, they propose to use an external
-scoring function, such as users' reputations.
-Our proposed consensus mechanism internalizes such reputation scoring function.
-Integrated reputation also prevents spam and abusive behavior from byzantine
-nodes, which could otherwise generate very large graphs that take forever to
-synchronize (as discussed for Byzantine Causal Broadcast~\cite{p2p.dag.sync}).
 
 Some works for P2P file sharing propose to account the reputation of peers to
 form a web of trust based on their behavior

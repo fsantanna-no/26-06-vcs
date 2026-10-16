@@ -242,7 +242,11 @@
     - [x] 26/10/04 "e.g. \emph{\#sports}" -> "e.g.,"
     - multi/multi attempts paragraph: Nostr (relays, no ordering,
       spam by relay policy; `p2p.nostr` unused in bib), Aether
-      (ephemeral, PoW, local votes), dVCS (external scoring)
+      (ephemeral, PoW, local votes), FMS, Steem/Hive
+        - axis: who pays for spam, and when it is rejected
+          (local filters after replication vs FC admission)
+    - [x] 26/10/16 dVCS: cite only in CRDTs Merkle DAG sentence;
+      \iffalse paragraph dropped
     - reputation systems closing (three aspects; closing line)
     - delete the \iffalse block and both %%% rules
     - Farcaster: still optional (staked storage as post cost)
@@ -278,3 +282,4 @@
 
 - Ethereum mention in P2P: no bib entry, Bitcoin/PoS suffice
 - restore Automerge as a standalone sentence: folded into CRDTs
+- dVCS paragraph in multi/multi: short paper, not forums
