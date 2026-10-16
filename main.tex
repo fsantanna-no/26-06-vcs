@@ -1229,13 +1229,6 @@ its own challenges:
     how post, sync, and clone costs grow with the chain over time.
 \end{description}
 
-Table~\ref{tab.corpora} lists the archives, which cover distinct genres and
-time scales (TODO).
-%
-Since all replays run on a single implementation (TODO: build), the measures
-compare the actual costs of the protocol (post, sync, sweep, storage) and the
-behavior of consensus under real posting rhythms.
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{topo}
@@ -1248,9 +1241,25 @@ behavior of consensus under real posting rhythms.
 \label{fig.topo}
 \end{figure}
 
-All replays share the same network of 59 peers (Figure~\ref{fig.topo}): a core
-of 5 fully connected super peers, 9 middle peers attached to the core, and 45
-leaves attached to middle peers in uneven fans.
+All simulations share the same network of 59 peers, illustrated in
+Figure~\ref{fig.topo}:
+\begin{itemize}
+\item
+    5 super peers in a ring with 2 chords (7 links);
+\item
+    9 middle peers, each attached to 1--3 super peers, with a backup ring
+    among them;
+\item
+    45 leaves attached to a middle peer in uneven fans of 15 down to 1,
+    33 of them with a backup link to a second middle peer;
+\item
+    70 primary links and 42 backup links (dotted), with a diameter of 6
+    hops over primary links.
+\end{itemize}
+%
+Regardless of the names, all peers run the same unmodified \FC software,
+differing only on the number of connections and xxx time.
+%
 This core-periphery shape follows measured peer-to-peer networks, such as
 Kazaa and Skype super peers~\cite{TODO} and Monero~\cite{TODO}, and also
 federated forums, with middle peers as instances and leaves as users.
@@ -1262,6 +1271,13 @@ By keeping the topology fixed, differences across the experiments come only
 from the archives' rhythms and from the synchronization policy, which is the
 one parameter we vary per regime: from sessions of hours between leaves and
 instances to instantaneous relays.
+
+Table~\ref{tab.corpora} lists the archives, which cover distinct genres and
+time scales (TODO).
+%
+Since all replays run on a single implementation (TODO: build), the measures
+compare the actual costs of the protocol (post, sync, sweep, storage) and the
+behavior of consensus under real posting rhythms.
 
 In the rest of this section, we discuss one archive per concern:
 
