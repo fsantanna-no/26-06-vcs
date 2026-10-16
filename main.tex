@@ -1329,11 +1329,11 @@ clone cost grows linearly with the chain.
 \section{Related Work}
 \label{sec.related}
 
-In this section, we discuss related work on three fronts: CRDTs as an
+In this section, we discuss related work on four fronts: CRDTs as an
 underlying data model~(\S\ref{sec.related.crdts}), DHTs as an alternative
 peer-to-peer architecture~(\S\ref{sec.related.dhts}), decentralized forums as
 the closest applications~(\S\ref{sec.related.apps}), and reputation
-systems~(\S\ref{sec.related.reps} as TODO.
+systems as TODO~(\S\ref{sec.related.reps}).
 
 \subsection{CRDTs}
 \label{sec.related.crdts}
@@ -1406,7 +1406,7 @@ Our proposal supports \emph{multi-user/multi-node} consistent forums across
 peers with no trusted authorities, i.e., a permissionless counterpart of
 IRC/Discord or Usenet/Reddit.
 
-\subsubsection{Multi-user/single-node forums}
+\subsubsection{Multi-User/Single-Node Forums}
 
 Federated protocols, such as e-mail and Usenet, allow users of one domain to
 exchange messages with users of other domains asynchronously.
@@ -1431,7 +1431,7 @@ As a pragmatic mitigation, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/communities/moderation/}},
 which, however, applies reactively after abusive messages flood the network.
 
-\subsubsection{Single-user/multi-node forums}
+\subsubsection{Single-User/Multi-Node Forums}
 
 On the other side of the spectrum, \emph{single-user} feeds, such as
 Scuttlebutt~\cite{p2p.scuttlebutt} and Bluesky~\cite{p2p.atproto}, move the
@@ -1454,11 +1454,15 @@ As a counterpoint, channels are safe places that rarely suffer from abuse.
 %
 Halfway to federations, Bluesky recovers a global view by crawling known feeds
 into larger indexes, which users query instead of replicating feeds, and which
-thus becomes the authority for ordering and moderation.
+thus become the authority for ordering and moderation.
 
-\subsubsection{Multi-user/multi-node forums}
+\subsubsection{Multi-User/Multi-Node Forums}
+
+TODO
 
 \subsection{Reputation Systems}
+
+TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
