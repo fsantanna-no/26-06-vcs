@@ -242,15 +242,29 @@
     - [x] 26/10/04 "e.g. \emph{\#sports}" -> "e.g.,"
     - [x] 26/10/16 Nostr in single-user/multi-node: relays, no
       ordering, 35 relays/post (`p2p.nostr`), spec `p2p.nostr.nip01`
-    - multi/multi attempts paragraph: Aether
-      (ephemeral, PoW, local votes), FMS, Steem/Hive
+    - multi/multi attempts paragraph (26/10/16), three levels:
+      no consensus / bought consensus / intrinsic reputation
         - axis: who pays for spam, and when it is rejected
           (local filters after replication vs FC admission)
+        - Aether (`p2p.ecosystem`): flood, stores all, PoW,
+          elected mods, impeach = per-user view, posts expire
+        - Freenet FMS (new @misc): own outboxes, trust lists,
+          intro puzzles; rejects spam before download, but
+          subjective (no consensus); Frost died by flooding
+        - Steem/Hive (new: white paper; Li and Palanisamy,
+          WebSci 2019): on-chain posts/votes, DPoS 21 witnesses,
+          resource credits by stake, 2020 Sun takeover -> Hive
+          fork; reputation bought with external stake
+        - Farcaster (optional): on-chain ids, storage rent,
+          hubs CRDT -> Snapchain BFT (2025); consensus by
+          validators, posts by payment
+        - Retroshare (optional, one clause): friend-to-friend,
+          permissioned, no global order
+        - [ ] verify and add bib: Steem, Li 2019, FMS, Aether?
     - [x] 26/10/16 dVCS: cite only in CRDTs Merkle DAG sentence;
       \iffalse paragraph dropped
     - reputation systems closing (three aspects; closing line)
     - delete the \iffalse block and both %%% rules
-    - Farcaster: still optional (staked storage as post cost)
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->
       p2p.dosn + p2p.osn, fed.usenet (RFC 977, new),
