@@ -1256,6 +1256,8 @@ in Figure~\ref{fig.topo}:
     siblings, each attached to a primary middle peer (33 with backups).
 \end{itemize}
 %
+This core-periphery shape is typical of peer-to-peer and federated
+networks~\cite{p2p.survey,p2p.overlay,p2p.skype,p2p.monero,p2p.mastodon,p2p.flocking}.
 Despite the group names, all peers run the same unmodified \FC software,
 differing only in the number of connections and synchronization schedule:
 %
@@ -1272,30 +1274,12 @@ differing only in the number of connections and synchronization schedule:
     periodically like yellow peers.
 \end{itemize}
 
-This core-periphery shape follows measured peer-to-peer networks, such as
-Kazaa and Skype super peers~\cite{TODO} and Monero~\cite{TODO}, and also
-federated forums, with middle peers as instances and leaves as users.
-%
-Authors are placed uniformly over the leaves, and each message becomes a
-post signed by its author, with the original timestamp as declared time,
-issued from the author's peer.
-%
+In the simulations, we distribute authors uniformly over the leaves.
+We replay the original messages as signed posts at the declared times.
 A peer that receives new actions pushes them to its neighbors after a short
 random delay.
-%
-By keeping the topology fixed, differences across the experiments come only
-from the archives' rhythms and from the synchronization policy, which is the
-one parameter we vary per regime: from sessions of hours between leaves and
-instances to instantaneous relays.
-
-Table~\ref{tab.corpora} lists the archives, which cover distinct genres and
-time scales (TODO).
-%
-Since all replays run on a single implementation (TODO: build), the measures
-compare the actual costs of the protocol (post, sync, sweep, storage) and the
-behavior of consensus under real posting rhythms.
-
-In the rest of this section, we discuss one archive per concern:
+We rely on queues during churns, offline periods, and partitions that affect
+primary and backup links.
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
