@@ -240,8 +240,9 @@
       Bluesky left out (halfway to federations, not a clean
       single-user/multi-node case)
     - [x] 26/10/04 "e.g. \emph{\#sports}" -> "e.g.,"
-    - multi/multi attempts paragraph: Nostr (relays, no ordering,
-      spam by relay policy; `p2p.nostr` unused in bib), Aether
+    - [x] 26/10/16 Nostr in single-user/multi-node: relays, no
+      ordering, 35 relays/post (`p2p.nostr`), spec `p2p.nostr.nip01`
+    - multi/multi attempts paragraph: Aether
       (ephemeral, PoW, local votes), FMS, Steem/Hive
         - axis: who pays for spam, and when it is rejected
           (local filters after replication vs FC admission)

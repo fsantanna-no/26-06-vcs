@@ -1436,11 +1436,11 @@ which, however, applies reactively after abusive messages flood the network.
 \subsubsection{Single-User/Multi-Node Forums}
 
 On the other side of the spectrum, \emph{single-user} feeds, such as
-Scuttlebutt~\cite{p2p.scuttlebutt} and Bluesky~\cite{p2p.atproto}, move the
-authority from domains to users.
+Scuttlebutt~\cite{p2p.scuttlebutt}, Nostr~\cite{p2p.nostr.nip01}, and
+Bluesky~\cite{p2p.atproto}, move the authority from domains to users.
 This weakens the essence of public forums as shared spaces, since each user has
 complete sovereignty over an isolated unit of replication.
-%
+
 For instance, Scuttlebutt is designed around public identities that follow each
 other to form a graph of connections, which shapes both the network topology
 and what each peer stores:
@@ -1453,6 +1453,10 @@ In practice, channels simply merge friends' posts and filter them by tags,
 hindering new users from integrating because their posts have no visibility
 at all.
 As a counterpoint, channels are safe places that rarely suffer from abuse.
+
+Nostr~\cite{p2p.nostr.nip01} provides no structure, and each identity publishes
+its messages to multiple servers, so that other users can fetch them.
+All ordering, consistency, and moderation is therefore left to applications.
 %
 Halfway to federations, Bluesky recovers a global view by crawling known feeds
 into larger indexes, which users query instead of replicating feeds, and which
