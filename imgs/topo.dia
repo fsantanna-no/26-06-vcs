@@ -4,7 +4,7 @@
 <dia:object type="Standard - Line" version="0" id="O1">
  <dia:attribute name="obj_pos"><dia:point val="16.00,15.20"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,15.20"/><dia:point val="19.04,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -12,7 +12,7 @@
 <dia:object type="Standard - Line" version="0" id="O2">
  <dia:attribute name="obj_pos"><dia:point val="19.04,17.41"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="19.04,17.41"/><dia:point val="17.88,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -20,7 +20,7 @@
 <dia:object type="Standard - Line" version="0" id="O3">
  <dia:attribute name="obj_pos"><dia:point val="17.88,20.99"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.88,20.99"/><dia:point val="14.12,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -28,7 +28,7 @@
 <dia:object type="Standard - Line" version="0" id="O4">
  <dia:attribute name="obj_pos"><dia:point val="14.12,20.99"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="14.12,20.99"/><dia:point val="12.96,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -36,7 +36,7 @@
 <dia:object type="Standard - Line" version="0" id="O5">
  <dia:attribute name="obj_pos"><dia:point val="12.96,17.41"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="12.96,17.41"/><dia:point val="16.00,15.20"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -44,7 +44,7 @@
 <dia:object type="Standard - Line" version="0" id="O6">
  <dia:attribute name="obj_pos"><dia:point val="16.00,15.20"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,15.20"/><dia:point val="17.88,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -52,7 +52,7 @@
 <dia:object type="Standard - Line" version="0" id="O7">
  <dia:attribute name="obj_pos"><dia:point val="16.00,15.20"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,15.20"/><dia:point val="14.12,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#c2410c"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -60,7 +60,7 @@
 <dia:object type="Standard - Line" version="0" id="O8">
  <dia:attribute name="obj_pos"><dia:point val="18.60,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.60,11.26"/><dia:point val="16.00,15.20"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -68,7 +68,7 @@
 <dia:object type="Standard - Line" version="0" id="O9">
  <dia:attribute name="obj_pos"><dia:point val="18.60,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.60,11.26"/><dia:point val="19.04,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -76,14 +76,14 @@
 <dia:object type="Standard - Arc" version="0" id="O10">
  <dia:attribute name="obj_pos"><dia:point val="18.60,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.60,11.26"/><dia:point val="13.33,17.01"/></dia:attribute>
- <dia:attribute name="arc_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="arc_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="curve_distance"><dia:real val="1.0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
 </dia:object>
 <dia:object type="Standard - Line" version="0" id="O11">
  <dia:attribute name="obj_pos"><dia:point val="23.48,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.48,19.72"/><dia:point val="19.04,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -91,7 +91,7 @@
 <dia:object type="Standard - Line" version="0" id="O12">
  <dia:attribute name="obj_pos"><dia:point val="23.48,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.48,19.72"/><dia:point val="17.88,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -99,14 +99,14 @@
 <dia:object type="Standard - Arc" version="0" id="O13">
  <dia:attribute name="obj_pos"><dia:point val="23.48,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.48,19.72"/><dia:point val="16.47,15.48"/></dia:attribute>
- <dia:attribute name="arc_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="arc_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="curve_distance"><dia:real val="1.0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
 </dia:object>
 <dia:object type="Standard - Line" version="0" id="O14">
  <dia:attribute name="obj_pos"><dia:point val="16.00,26.00"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,26.00"/><dia:point val="17.88,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -114,7 +114,7 @@
 <dia:object type="Standard - Line" version="0" id="O15">
  <dia:attribute name="obj_pos"><dia:point val="16.00,26.00"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,26.00"/><dia:point val="14.12,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -122,14 +122,14 @@
 <dia:object type="Standard - Arc" version="0" id="O16">
  <dia:attribute name="obj_pos"><dia:point val="16.00,26.00"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,26.00"/><dia:point val="18.86,17.93"/></dia:attribute>
- <dia:attribute name="arc_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="arc_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="curve_distance"><dia:real val="1.0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
 </dia:object>
 <dia:object type="Standard - Line" version="0" id="O17">
  <dia:attribute name="obj_pos"><dia:point val="8.52,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="8.52,19.72"/><dia:point val="12.96,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -137,7 +137,7 @@
 <dia:object type="Standard - Line" version="0" id="O18">
  <dia:attribute name="obj_pos"><dia:point val="8.52,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="8.52,19.72"/><dia:point val="14.12,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -145,7 +145,7 @@
 <dia:object type="Standard - Line" version="0" id="O19">
  <dia:attribute name="obj_pos"><dia:point val="13.40,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="13.40,11.26"/><dia:point val="16.00,15.20"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -153,7 +153,7 @@
 <dia:object type="Standard - Line" version="0" id="O20">
  <dia:attribute name="obj_pos"><dia:point val="13.40,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="13.40,11.26"/><dia:point val="12.96,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -161,7 +161,7 @@
 <dia:object type="Standard - Line" version="0" id="O21">
  <dia:attribute name="obj_pos"><dia:point val="22.58,14.60"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.58,14.60"/><dia:point val="19.04,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -169,7 +169,7 @@
 <dia:object type="Standard - Line" version="0" id="O22">
  <dia:attribute name="obj_pos"><dia:point val="22.58,14.60"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.58,14.60"/><dia:point val="16.00,15.20"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -177,7 +177,7 @@
 <dia:object type="Standard - Line" version="0" id="O23">
  <dia:attribute name="obj_pos"><dia:point val="20.89,24.22"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="20.89,24.22"/><dia:point val="17.88,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -185,7 +185,7 @@
 <dia:object type="Standard - Line" version="0" id="O24">
  <dia:attribute name="obj_pos"><dia:point val="11.11,24.22"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="11.11,24.22"/><dia:point val="14.12,20.99"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -193,7 +193,7 @@
 <dia:object type="Standard - Line" version="0" id="O25">
  <dia:attribute name="obj_pos"><dia:point val="9.42,14.60"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="9.42,14.60"/><dia:point val="12.96,17.41"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#2f6f2f"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -201,7 +201,7 @@
 <dia:object type="Standard - Line" version="0" id="O26">
  <dia:attribute name="obj_pos"><dia:point val="22.58,14.60"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.58,14.60"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -209,7 +209,7 @@
 <dia:object type="Standard - Line" version="0" id="O27">
  <dia:attribute name="obj_pos"><dia:point val="18.60,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.60,11.26"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -217,7 +217,7 @@
 <dia:object type="Standard - Line" version="0" id="O28">
  <dia:attribute name="obj_pos"><dia:point val="13.40,11.26"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="13.40,11.26"/><dia:point val="9.42,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -225,7 +225,7 @@
 <dia:object type="Standard - Line" version="0" id="O29">
  <dia:attribute name="obj_pos"><dia:point val="9.42,14.60"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="9.42,14.60"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -233,7 +233,7 @@
 <dia:object type="Standard - Line" version="0" id="O30">
  <dia:attribute name="obj_pos"><dia:point val="8.52,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="8.52,19.72"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -241,7 +241,7 @@
 <dia:object type="Standard - Line" version="0" id="O31">
  <dia:attribute name="obj_pos"><dia:point val="11.11,24.22"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="11.11,24.22"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -249,7 +249,7 @@
 <dia:object type="Standard - Line" version="0" id="O32">
  <dia:attribute name="obj_pos"><dia:point val="16.00,26.00"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.00,26.00"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -257,7 +257,7 @@
 <dia:object type="Standard - Line" version="0" id="O33">
  <dia:attribute name="obj_pos"><dia:point val="20.89,24.22"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="20.89,24.22"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -265,7 +265,7 @@
 <dia:object type="Standard - Line" version="0" id="O34">
  <dia:attribute name="obj_pos"><dia:point val="23.48,19.72"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.48,19.72"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -273,7 +273,7 @@
 <dia:object type="Standard - Line" version="0" id="O35">
  <dia:attribute name="obj_pos"><dia:point val="23.41,7.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.41,7.78"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -281,7 +281,7 @@
 <dia:object type="Standard - Line" version="0" id="O36">
  <dia:attribute name="obj_pos"><dia:point val="23.52,6.73"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.52,6.73"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -289,7 +289,7 @@
 <dia:object type="Standard - Line" version="0" id="O37">
  <dia:attribute name="obj_pos"><dia:point val="22.31,7.55"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.31,7.55"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -297,7 +297,7 @@
 <dia:object type="Standard - Line" version="0" id="O38">
  <dia:attribute name="obj_pos"><dia:point val="22.88,5.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.88,5.78"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -305,7 +305,7 @@
 <dia:object type="Standard - Line" version="0" id="O39">
  <dia:attribute name="obj_pos"><dia:point val="21.79,6.73"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="21.79,6.73"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -313,7 +313,7 @@
 <dia:object type="Standard - Line" version="0" id="O40">
  <dia:attribute name="obj_pos"><dia:point val="21.73,5.69"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="21.73,5.69"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -321,7 +321,7 @@
 <dia:object type="Standard - Line" version="0" id="O41">
  <dia:attribute name="obj_pos"><dia:point val="20.92,6.32"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="20.92,6.32"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -329,7 +329,7 @@
 <dia:object type="Standard - Line" version="0" id="O42">
  <dia:attribute name="obj_pos"><dia:point val="20.77,5.29"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="20.77,5.29"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -337,7 +337,7 @@
 <dia:object type="Standard - Line" version="0" id="O43">
  <dia:attribute name="obj_pos"><dia:point val="19.94,6.43"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="19.94,6.43"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -345,7 +345,7 @@
 <dia:object type="Standard - Line" version="0" id="O44">
  <dia:attribute name="obj_pos"><dia:point val="19.78,4.98"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="19.78,4.98"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -353,7 +353,7 @@
 <dia:object type="Standard - Line" version="0" id="O45">
  <dia:attribute name="obj_pos"><dia:point val="19.09,6.18"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="19.09,6.18"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -361,7 +361,7 @@
 <dia:object type="Standard - Line" version="0" id="O46">
  <dia:attribute name="obj_pos"><dia:point val="18.77,4.76"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.77,4.76"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -369,7 +369,7 @@
 <dia:object type="Standard - Line" version="0" id="O47">
  <dia:attribute name="obj_pos"><dia:point val="18.20,6.02"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.20,6.02"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -377,7 +377,7 @@
 <dia:object type="Standard - Line" version="0" id="O48">
  <dia:attribute name="obj_pos"><dia:point val="17.73,4.63"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.73,4.63"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -385,7 +385,7 @@
 <dia:object type="Standard - Line" version="0" id="O49">
  <dia:attribute name="obj_pos"><dia:point val="17.15,5.51"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.15,5.51"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -393,7 +393,7 @@
 <dia:object type="Standard - Line" version="0" id="O50">
  <dia:attribute name="obj_pos"><dia:point val="27.74,23.98"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="27.74,23.98"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -401,7 +401,7 @@
 <dia:object type="Standard - Line" version="0" id="O51">
  <dia:attribute name="obj_pos"><dia:point val="28.14,23.06"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.14,23.06"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -409,7 +409,7 @@
 <dia:object type="Standard - Line" version="0" id="O52">
  <dia:attribute name="obj_pos"><dia:point val="28.46,22.11"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.46,22.11"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -417,7 +417,7 @@
 <dia:object type="Standard - Line" version="0" id="O53">
  <dia:attribute name="obj_pos"><dia:point val="28.71,21.15"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.71,21.15"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -425,7 +425,7 @@
 <dia:object type="Standard - Line" version="0" id="O54">
  <dia:attribute name="obj_pos"><dia:point val="28.88,20.16"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.88,20.16"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -433,7 +433,7 @@
 <dia:object type="Standard - Line" version="0" id="O55">
  <dia:attribute name="obj_pos"><dia:point val="28.98,19.17"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.98,19.17"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -441,7 +441,7 @@
 <dia:object type="Standard - Line" version="0" id="O56">
  <dia:attribute name="obj_pos"><dia:point val="29.00,18.17"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="29.00,18.17"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -449,7 +449,7 @@
 <dia:object type="Standard - Line" version="0" id="O57">
  <dia:attribute name="obj_pos"><dia:point val="28.94,17.18"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.94,17.18"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -457,7 +457,7 @@
 <dia:object type="Standard - Line" version="0" id="O58">
  <dia:attribute name="obj_pos"><dia:point val="13.52,31.16"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="13.52,31.16"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -465,7 +465,7 @@
 <dia:object type="Standard - Line" version="0" id="O59">
  <dia:attribute name="obj_pos"><dia:point val="14.51,31.31"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="14.51,31.31"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -473,7 +473,7 @@
 <dia:object type="Standard - Line" version="0" id="O60">
  <dia:attribute name="obj_pos"><dia:point val="15.50,31.39"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="15.50,31.39"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -481,7 +481,7 @@
 <dia:object type="Standard - Line" version="0" id="O61">
  <dia:attribute name="obj_pos"><dia:point val="16.50,31.39"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="16.50,31.39"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -489,7 +489,7 @@
 <dia:object type="Standard - Line" version="0" id="O62">
  <dia:attribute name="obj_pos"><dia:point val="17.49,31.31"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.49,31.31"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -497,7 +497,7 @@
 <dia:object type="Standard - Line" version="0" id="O63">
  <dia:attribute name="obj_pos"><dia:point val="18.48,31.16"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.48,31.16"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -505,7 +505,7 @@
 <dia:object type="Standard - Line" version="0" id="O64">
  <dia:attribute name="obj_pos"><dia:point val="3.00,18.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.00,18.67"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -513,7 +513,7 @@
 <dia:object type="Standard - Line" version="0" id="O65">
  <dia:attribute name="obj_pos"><dia:point val="3.06,19.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.06,19.67"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -521,7 +521,7 @@
 <dia:object type="Standard - Line" version="0" id="O66">
  <dia:attribute name="obj_pos"><dia:point val="3.20,20.66"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.20,20.66"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -529,7 +529,7 @@
 <dia:object type="Standard - Line" version="0" id="O67">
  <dia:attribute name="obj_pos"><dia:point val="3.41,21.63"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.41,21.63"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -537,7 +537,7 @@
 <dia:object type="Standard - Line" version="0" id="O68">
  <dia:attribute name="obj_pos"><dia:point val="3.69,22.59"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.69,22.59"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -545,7 +545,7 @@
 <dia:object type="Standard - Line" version="0" id="O69">
  <dia:attribute name="obj_pos"><dia:point val="12.99,5.75"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="12.99,5.75"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -553,7 +553,7 @@
 <dia:object type="Standard - Line" version="0" id="O70">
  <dia:attribute name="obj_pos"><dia:point val="12.03,6.02"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="12.03,6.02"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -561,7 +561,7 @@
 <dia:object type="Standard - Line" version="0" id="O71">
  <dia:attribute name="obj_pos"><dia:point val="11.09,6.36"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="11.09,6.36"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -569,7 +569,7 @@
 <dia:object type="Standard - Line" version="0" id="O72">
  <dia:attribute name="obj_pos"><dia:point val="10.18,6.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="10.18,6.78"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -577,7 +577,7 @@
 <dia:object type="Standard - Line" version="0" id="O73">
  <dia:attribute name="obj_pos"><dia:point val="27.72,12.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="27.72,12.78"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -585,7 +585,7 @@
 <dia:object type="Standard - Line" version="0" id="O74">
  <dia:attribute name="obj_pos"><dia:point val="27.26,11.90"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="27.26,11.90"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -593,7 +593,7 @@
 <dia:object type="Standard - Line" version="0" id="O75">
  <dia:attribute name="obj_pos"><dia:point val="26.73,11.06"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="26.73,11.06"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -601,7 +601,7 @@
 <dia:object type="Standard - Line" version="0" id="O76">
  <dia:attribute name="obj_pos"><dia:point val="23.97,28.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.97,28.67"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -609,7 +609,7 @@
 <dia:object type="Standard - Line" version="0" id="O77">
  <dia:attribute name="obj_pos"><dia:point val="24.73,28.03"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="24.73,28.03"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -617,7 +617,7 @@
 <dia:object type="Standard - Line" version="0" id="O78">
  <dia:attribute name="obj_pos"><dia:point val="7.64,28.36"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="7.64,28.36"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -625,7 +625,7 @@
 <dia:object type="Standard - Line" version="0" id="O79">
  <dia:attribute name="obj_pos"><dia:point val="4.74,11.90"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="4.74,11.90"/><dia:point val="9.42,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#1c7ed6"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#a0a0a0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="0"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -633,7 +633,7 @@
 <dia:object type="Standard - Line" version="0" id="O80">
  <dia:attribute name="obj_pos"><dia:point val="27.72,12.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="27.72,12.78"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -641,7 +641,7 @@
 <dia:object type="Standard - Line" version="0" id="O81">
  <dia:attribute name="obj_pos"><dia:point val="26.73,11.06"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="26.73,11.06"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -649,7 +649,7 @@
 <dia:object type="Standard - Line" version="0" id="O82">
  <dia:attribute name="obj_pos"><dia:point val="23.41,7.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.41,7.78"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -657,7 +657,7 @@
 <dia:object type="Standard - Line" version="0" id="O83">
  <dia:attribute name="obj_pos"><dia:point val="23.52,6.73"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.52,6.73"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -665,7 +665,7 @@
 <dia:object type="Standard - Line" version="0" id="O84">
  <dia:attribute name="obj_pos"><dia:point val="22.31,7.55"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.31,7.55"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -673,7 +673,7 @@
 <dia:object type="Standard - Line" version="0" id="O85">
  <dia:attribute name="obj_pos"><dia:point val="22.88,5.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="22.88,5.78"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -681,7 +681,7 @@
 <dia:object type="Standard - Line" version="0" id="O86">
  <dia:attribute name="obj_pos"><dia:point val="21.79,6.73"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="21.79,6.73"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -689,7 +689,7 @@
 <dia:object type="Standard - Line" version="0" id="O87">
  <dia:attribute name="obj_pos"><dia:point val="19.09,6.18"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="19.09,6.18"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -697,7 +697,7 @@
 <dia:object type="Standard - Line" version="0" id="O88">
  <dia:attribute name="obj_pos"><dia:point val="18.77,4.76"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.77,4.76"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -705,7 +705,7 @@
 <dia:object type="Standard - Line" version="0" id="O89">
  <dia:attribute name="obj_pos"><dia:point val="18.20,6.02"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.20,6.02"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -713,7 +713,7 @@
 <dia:object type="Standard - Line" version="0" id="O90">
  <dia:attribute name="obj_pos"><dia:point val="17.73,4.63"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.73,4.63"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -721,7 +721,7 @@
 <dia:object type="Standard - Line" version="0" id="O91">
  <dia:attribute name="obj_pos"><dia:point val="17.15,5.51"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.15,5.51"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -729,7 +729,7 @@
 <dia:object type="Standard - Line" version="0" id="O92">
  <dia:attribute name="obj_pos"><dia:point val="12.99,5.75"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="12.99,5.75"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -737,7 +737,7 @@
 <dia:object type="Standard - Line" version="0" id="O93">
  <dia:attribute name="obj_pos"><dia:point val="12.03,6.02"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="12.03,6.02"/><dia:point val="18.60,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -745,7 +745,7 @@
 <dia:object type="Standard - Line" version="0" id="O94">
  <dia:attribute name="obj_pos"><dia:point val="10.18,6.78"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="10.18,6.78"/><dia:point val="9.42,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -753,7 +753,7 @@
 <dia:object type="Standard - Line" version="0" id="O95">
  <dia:attribute name="obj_pos"><dia:point val="4.74,11.90"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="4.74,11.90"/><dia:point val="13.40,11.26"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -761,7 +761,7 @@
 <dia:object type="Standard - Line" version="0" id="O96">
  <dia:attribute name="obj_pos"><dia:point val="3.00,18.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.00,18.67"/><dia:point val="9.42,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -769,7 +769,7 @@
 <dia:object type="Standard - Line" version="0" id="O97">
  <dia:attribute name="obj_pos"><dia:point val="3.06,19.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.06,19.67"/><dia:point val="9.42,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -777,7 +777,7 @@
 <dia:object type="Standard - Line" version="0" id="O98">
  <dia:attribute name="obj_pos"><dia:point val="3.41,21.63"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.41,21.63"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -785,7 +785,7 @@
 <dia:object type="Standard - Line" version="0" id="O99">
  <dia:attribute name="obj_pos"><dia:point val="3.69,22.59"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="3.69,22.59"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -793,7 +793,7 @@
 <dia:object type="Standard - Line" version="0" id="O100">
  <dia:attribute name="obj_pos"><dia:point val="7.64,28.36"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="7.64,28.36"/><dia:point val="8.52,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -801,7 +801,7 @@
 <dia:object type="Standard - Line" version="0" id="O101">
  <dia:attribute name="obj_pos"><dia:point val="13.52,31.16"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="13.52,31.16"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -809,7 +809,7 @@
 <dia:object type="Standard - Line" version="0" id="O102">
  <dia:attribute name="obj_pos"><dia:point val="14.51,31.31"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="14.51,31.31"/><dia:point val="11.11,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -817,7 +817,7 @@
 <dia:object type="Standard - Line" version="0" id="O103">
  <dia:attribute name="obj_pos"><dia:point val="17.49,31.31"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="17.49,31.31"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -825,7 +825,7 @@
 <dia:object type="Standard - Line" version="0" id="O104">
  <dia:attribute name="obj_pos"><dia:point val="18.48,31.16"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="18.48,31.16"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -833,7 +833,7 @@
 <dia:object type="Standard - Line" version="0" id="O105">
  <dia:attribute name="obj_pos"><dia:point val="23.97,28.67"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="23.97,28.67"/><dia:point val="16.00,26.00"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -841,7 +841,7 @@
 <dia:object type="Standard - Line" version="0" id="O106">
  <dia:attribute name="obj_pos"><dia:point val="24.73,28.03"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="24.73,28.03"/><dia:point val="23.48,19.72"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -849,7 +849,7 @@
 <dia:object type="Standard - Line" version="0" id="O107">
  <dia:attribute name="obj_pos"><dia:point val="27.74,23.98"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="27.74,23.98"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -857,7 +857,7 @@
 <dia:object type="Standard - Line" version="0" id="O108">
  <dia:attribute name="obj_pos"><dia:point val="28.14,23.06"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.14,23.06"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -865,7 +865,7 @@
 <dia:object type="Standard - Line" version="0" id="O109">
  <dia:attribute name="obj_pos"><dia:point val="28.46,22.11"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.46,22.11"/><dia:point val="20.89,24.22"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -873,7 +873,7 @@
 <dia:object type="Standard - Line" version="0" id="O110">
  <dia:attribute name="obj_pos"><dia:point val="28.98,19.17"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.98,19.17"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -881,7 +881,7 @@
 <dia:object type="Standard - Line" version="0" id="O111">
  <dia:attribute name="obj_pos"><dia:point val="29.00,18.17"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="29.00,18.17"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
@@ -889,7 +889,7 @@
 <dia:object type="Standard - Line" version="0" id="O112">
  <dia:attribute name="obj_pos"><dia:point val="28.94,17.18"/></dia:attribute>
  <dia:attribute name="conn_endpoints"><dia:point val="28.94,17.18"/><dia:point val="22.58,14.60"/></dia:attribute>
- <dia:attribute name="line_color"><dia:color val="#b0b0b0"/></dia:attribute>
+ <dia:attribute name="line_color"><dia:color val="#d0d0d0"/></dia:attribute>
  <dia:attribute name="line_width"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="line_style"><dia:enum val="4"/></dia:attribute>
  <dia:attribute name="dashlength"><dia:real val="0.25"/></dia:attribute>
