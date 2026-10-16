@@ -1203,12 +1203,13 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 We evaluate the performance and robustness of \FC by simulating publicly
 available forum archives over it.
-Peers replay and gossip each original message under the protocol rules, as a
-\FC chain from the start.
-We measure post and sync time, forks and convergence, and the economy of \reps.
+Peers replay and gossip each original message under the protocol rules, as if
+they had been part of a \FC chain from the start.
+We measure post and sync time, storage, forks and convergence, and the
+economy of \reps.
 
-We selected four public archives, and a fifth procedurally generated, each
-representing a scenario of interest with its own peculiarities and challenges:
+We selected four public archives, and a synthetic fifth, each a scenario with
+its own challenges:
 
 \begin{description}
 \item [\S\ref{sec.eval.usenet}]
@@ -1222,7 +1223,7 @@ representing a scenario of interest with its own peculiarities and challenges:
     how votes highlight content and distribute \reps.
 \item [\S\ref{sec.eval.lemmy}]
     Lemmy Forum:
-    whether awarded \reps can afford moderation action.
+    whether awarded \reps can afford real moderation actions.
 \item [\S\ref{sec.eval.scale}]
     Synthetic Chain:
     how post, sync, and clone costs grow with the chain over time.
@@ -1264,27 +1265,27 @@ instances to instantaneous relays.
 
 In the rest of this section, we discuss one archive per concern:
 
-\subsection{Local-First Newsgroups}
+\subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
 
 TODO
 
-\subsection{Real-Time Chats}
+\subsection{Online Chat}
 \label{sec.eval.chat}
 
 TODO
 
-\subsection{Quality by Votes}
+\subsection{GitHub Issues}
 \label{sec.eval.github}
 
 TODO
 
-\subsection{Moderation in the Wild}
+\subsection{Lemmy Forum}
 \label{sec.eval.lemmy}
 
 TODO
 
-\subsection{Scaling with Chain Size}
+\subsection{Synthetic Chain}
 \label{sec.eval.scale}
 
 The replays mix chain size with posting rhythms and synchronization policies.
