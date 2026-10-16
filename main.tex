@@ -1208,7 +1208,7 @@ they had been part of a \FC chain from the start.
 We measure post and sync time, storage, forks and convergence, and the
 economy of \reps.
 
-We selected four public archives, and a synthetic fifth, each a scenario with
+We selected four public archives (and a fifth synthetic), each a scenario with
 its own challenges:
 
 \begin{description}
@@ -1222,7 +1222,7 @@ its own challenges:
     GitHub Issues:
     how votes highlight content and distribute \reps.
 \item [\S\ref{sec.eval.lemmy}]
-    Lemmy Forum:
+    Lemmy Community:
     whether awarded \reps can afford real moderation actions.
 \item [\S\ref{sec.eval.scale}]
     Synthetic Chain:
@@ -1233,33 +1233,45 @@ its own challenges:
 \centering
 \includegraphics[width=\columnwidth]{topo}
 \caption{
-    Simulated network: 5 super peers, 9 middle peers, and 45 leaves.
-    Fills mark the sync class of each middle peer, shared by its leaves:
-    always on (green), sync around posts (yellow), sessions only (red).
-    Dotted links are backups, used only while the primary uplink is down.
+    Network topology for the simulations.
 }
 \label{fig.topo}
 \end{figure}
 
-All simulations share the same network of 59 peers, illustrated in
-Figure~\ref{fig.topo}:
+All simulations share the same network topology with 59 peers, as illustrated
+in Figure~\ref{fig.topo}:
+%
 \begin{itemize}
 \item
-    5 super peers in a ring with 2 chords (7 links);
+    70 primary links and 42 backup links (dotted gray), with a diameter of 6
+    hops (e.g., \code{45-M9-S5-S4-S3-M7-43}).
 \item
-    9 middle peers, each attached to 1--3 super peers, with a backup ring
-    among them;
+    5 \emph{super peers} in a ring (\code{S1}--\code{S5}), with \code{S1} fully
+    connected.
 \item
-    45 leaves attached to a middle peer in uneven fans of 15 down to 1,
-    33 of them with a backup link to a second middle peer;
+    9 \emph{middle peers} (\code{M1}--\code{M9}), each attached to 1--3 super
+    peers, and with a backup ring among them.
 \item
-    70 primary links and 42 backup links (dotted), with a diameter of 6
-    hops over primary links.
+    45 \emph{leaf peers} (\code{01}--\code{45}), split into groups of 1--15
+    siblings, each attached to a primary middle peer (33 with backups).
 \end{itemize}
 %
-Regardless of the names, all peers run the same unmodified \FC software,
-differing only on the number of connections and synchronization schedule.
+Despite the group names, all peers run the same unmodified \FC software,
+differing only in the number of connections and synchronization schedule:
 %
+\begin{itemize}
+\item
+    \emph{Green peers} are always online, except for their churn rate of 1\%
+    (supers) and 5\% (others).
+\item
+    \emph{Yellow peers} connect every 6--24h (for middles and leaves,
+    respectively), with a churn rate of 10\%.
+    They synchronize, post, synchronize again, and disconnect.
+\item
+    \emph{Red peers} are local-first peers posting offline and connecting
+    periodically like yellow peers.
+\end{itemize}
+
 This core-periphery shape follows measured peer-to-peer networks, such as
 Kazaa and Skype super peers~\cite{TODO} and Monero~\cite{TODO}, and also
 federated forums, with middle peers as instances and leaves as users.
