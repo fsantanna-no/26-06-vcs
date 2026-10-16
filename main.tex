@@ -1333,7 +1333,7 @@ In this section, we discuss related work on four fronts: CRDTs as an
 underlying data model~(\S\ref{sec.related.crdts}), DHTs as an alternative
 peer-to-peer architecture~(\S\ref{sec.related.dhts}), decentralized forums as
 the closest applications~(\S\ref{sec.related.apps}), and reputation
-systems as TODO~(\S\ref{sec.related.reps}).
+systems as the basis of our consensus~(\S\ref{sec.related.reps}).
 
 \subsection{CRDTs}
 \label{sec.related.crdts}
@@ -1343,7 +1343,7 @@ for concurrent updates, as operations are commutative and peers can apply them
 consistently either online or offline.
 %
 CRDTs can deliver multi-user collaborative environments under peer-to-peer
-local-first networks~\cite{p2p.automerge,p2p.pushpin}.
+local-first networks~\cite{p2p.local,p2p.automerge,p2p.pushpin}.
 
 Merkle~DAGs have been proposed as CRDTs that provide strong eventual
 consistency and self-certified
@@ -1355,7 +1355,7 @@ grows by appends and unions, making peers converge by construction
 
 However, CRDTs alone cannot address content volume or quality under
 permissionless writes, since they assume honest replicas
-only~\cite{p2p.merkle-crdts,p2p.byz}.
+only~\cite{p2p.merkle-crdts,p2p.byz,p2p.dag.sync}.
 %
 In addition, CRDTs are too restrictive and cannot express forum moderation,
 since it depends on ordering to prevent double-spends.
@@ -1391,8 +1391,10 @@ overcome the 128~KB size limitation (\S\ref{sec.design}, \R{4.c}).
 \subsection{Decentralized Forums}
 \label{sec.related.apps}
 
-Permissionless consensus is notably challenging to the point that decentralized
-forums~\cite{p2p.survey,p2p.ecosystem} settle for weaker forms.
+Permissionless consensus is notably
+challenging~\cite{permissionless,blockchain.wild} to the point that
+decentralized forums~\cite{p2p.dosn,p2p.osn,p2p.ecosystem} settle for weaker
+forms.
 %
 On the one hand, \emph{multi-user/single-node} forums rely on trusted servers
 to order and moderate messages consistently among members (e.g., federated
@@ -1408,10 +1410,10 @@ IRC/Discord or Usenet/Reddit.
 
 \subsubsection{Multi-User/Single-Node Forums}
 
-Federated protocols, such as e-mail and Usenet, allow users of one domain to
-exchange messages with users of other domains asynchronously.
+Federated protocols, such as e-mail and Usenet~\cite{fed.usenet}, allow users
+of one domain to exchange messages with users of other domains asynchronously.
 %
-Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon} and
+Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon,p2p.flocking} and
 \emph{Lemmy}~\cite{forum.lemmy}, which rely on
 ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
 with no consistency guarantees.
@@ -1461,6 +1463,7 @@ thus become the authority for ordering and moderation.
 TODO
 
 \subsection{Reputation Systems}
+\label{sec.related.reps}
 
 TODO
 

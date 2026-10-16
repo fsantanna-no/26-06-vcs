@@ -246,6 +246,12 @@
     - reputation systems closing (three aspects; closing line)
     - delete the \iffalse block and both %%% rules
     - Farcaster: still optional (staked storage as post cost)
+    - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
+      permissionless + blockchain.wild, forums p2p.survey ->
+      p2p.dosn + p2p.osn, fed.usenet (RFC 977, new),
+      p2p.flocking
+    - pending new bib + text: Aether, Freenet FMS, Steem/Hive,
+      SybilGuard; prior fcs.sbseg20/23 (double-blind?)
 - also: gossipsub/gossipsub2 now uncited (dropped with P5); keep
   under the bib's disabled-sections rule or move the Sybil
   sentence to sec.git
