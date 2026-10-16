@@ -1258,14 +1258,18 @@ Figure~\ref{fig.topo}:
 \end{itemize}
 %
 Regardless of the names, all peers run the same unmodified \FC software,
-differing only on the number of connections and xxx time.
+differing only on the number of connections and synchronization schedule.
 %
 This core-periphery shape follows measured peer-to-peer networks, such as
 Kazaa and Skype super peers~\cite{TODO} and Monero~\cite{TODO}, and also
 federated forums, with middle peers as instances and leaves as users.
 %
-Authors are placed uniformly over the leaves, and a peer that receives new
-actions pushes them to its neighbors after a short random delay.
+Authors are placed uniformly over the leaves, and each message becomes a
+post signed by its author, with the original timestamp as declared time,
+issued from the author's peer.
+%
+A peer that receives new actions pushes them to its neighbors after a short
+random delay.
 %
 By keeping the topology fixed, differences across the experiments come only
 from the archives' rhythms and from the synchronization policy, which is the
