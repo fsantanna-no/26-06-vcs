@@ -1201,18 +1201,33 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Evaluation}
 \label{sec.evaluation}
 
-We evaluate the performance and robustness of \FC by replaying publicly
-available forum archives on it, and track network costs (post and sync time,
-bytes, storage), convergence (forks, reorders, visibility delay), and the
-economy of \reps.
-%
-Each message is replayed under the protocol rules as if the archive had been
-a \FC chain from the start:
-    it becomes a post signed by its author, with its original timestamp as
-    declared time, issued from the peer where the author resides;
-    peers then synchronize point-to-point under a given policy, with no
-    coordination.
-%
+We evaluate the performance and robustness of \FC by simulating publicly
+available forum archives over it.
+Peers replay and gossip each original message under the protocol rules, as a
+\FC chain from the start.
+We measure post and sync time, forks and convergence, and the economy of \reps.
+
+We selected four public archives, and a fifth procedurally generated, each
+representing a scenario of interest with its own peculiarities and challenges:
+
+\begin{description}
+\item [\S\ref{sec.eval.usenet}]
+    Usenet Newsgroup:
+    how local-first peers converge after deliberate offline periods.
+\item [\S\ref{sec.eval.chat}]
+    Online Chat:
+    how the protocol behaves under real-time activity.
+\item [\S\ref{sec.eval.github}]
+    GitHub Issues:
+    how votes highlight content and distribute \reps.
+\item [\S\ref{sec.eval.lemmy}]
+    Lemmy Forum:
+    whether awarded \reps can afford moderation action.
+\item [\S\ref{sec.eval.scale}]
+    Synthetic Chain:
+    how post, sync, and clone costs grow with the chain over time.
+\end{description}
+
 Table~\ref{tab.corpora} lists the archives, which cover distinct genres and
 time scales (TODO).
 %
@@ -1248,24 +1263,6 @@ one parameter we vary per regime: from sessions of hours between leaves and
 instances to instantaneous relays.
 
 In the rest of this section, we discuss one archive per concern:
-
-\begin{description}
-\item [\S\ref{sec.eval.usenet}]
-    Usenet, local-first:
-    how peers converge after deliberate offline periods.
-\item [\S\ref{sec.eval.chat}]
-    Chat, real-time:
-    how the protocol behaves under continuous activity.
-\item [\S\ref{sec.eval.github}]
-    GitHub, quality:
-    how votes move \reps and contend with moderation over the same posts.
-\item [\S\ref{sec.eval.lemmy}]
-    Lemmy, moderation:
-    whether \reps earned from posting afford real moderation logs.
-\item [\S\ref{sec.eval.scale}]
-    Synthetic, scale:
-    how post, sync, and clone costs grow with the chain.
-\end{description}
 
 \subsection{Local-First Newsgroups}
 \label{sec.eval.usenet}
