@@ -1222,7 +1222,7 @@ its own challenges:
     GitHub Issues:
     how votes highlight content and distribute \reps.
 \item [\S\ref{sec.eval.lemmy}]
-    Lemmy Community:
+    Federated Community:
     whether awarded \reps can afford real moderation actions.
 \item [\S\ref{sec.eval.scale}]
     Synthetic Chain:
@@ -1258,6 +1258,7 @@ in Figure~\ref{fig.topo}:
 %
 This core-periphery shape is typical of peer-to-peer and federated
 networks~\cite{p2p.survey,p2p.overlay,p2p.skype,p2p.monero,p2p.mastodon,p2p.flocking}.
+%
 Despite the group names, all peers run the same unmodified \FC software,
 differing only in the number of connections and synchronization schedule:
 %
@@ -1275,11 +1276,12 @@ differing only in the number of connections and synchronization schedule:
 \end{itemize}
 
 In the simulations, we distribute authors uniformly over the leaves.
-We replay the original messages as signed posts at the declared times.
+We replay the original messages as posts signed by their authors, issued from
+their peers at the declared times.
 A peer that receives new actions pushes them to its neighbors after a short
 random delay.
-We rely on queues during churns, offline periods, and partitions that affect
-primary and backup links.
+We rely on queues during churn, offline periods, and partitions that affect
+both primary and backup links.
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
