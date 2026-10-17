@@ -310,6 +310,15 @@
         - [ ] verify and add bib: Steem, Li 2019, FMS, Aether?
     - [x] 26/10/16 dVCS: cite only in CRDTs Merkle DAG sentence;
       \iffalse paragraph dropped
+    - [x] 26/10/16 author: CRDTs and DHTs subsections removed,
+      subsubsections -> subsections (`sec.related.users/nodes/
+      multi`); opener as lead + description list (4 items)
+    - [ ] CRDTs: one paragraph inside multi/multi as root of the
+      local-moderation group (Automerge/Pushpin: honest replicas,
+      no admission); Autobase quorum in the permissioned group;
+      DHTs dropped, IPFS cite stays at the 128 KB rule
+    - [ ] orphan bib keys: p2p.automerge, p2p.pushpin, p2p.dvcs,
+      p2p.kademlia, p2p.bittorrent, p2p.dat, p2p.autobase
     - reputation systems closing (three aspects; closing line)
     - delete the \iffalse block and both %%% rules
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,

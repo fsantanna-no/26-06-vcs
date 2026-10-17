@@ -1332,29 +1332,34 @@ clone cost grows linearly with the chain.
 Permissionless consensus is notably
 challenging~\cite{permissionless,blockchain.wild} to the point that
 decentralized forums~\cite{p2p.dosn,p2p.osn,p2p.ecosystem} settle for weaker
-forms.
+forms:
 %
-On the one hand, \emph{multi-user/single-node} forums
-(\S\ref{sec.related.users}) rely on trusted servers to order and moderate
-messages consistently among members (e.g., federated
+\begin{description}
+\item [\S\ref{sec.related.users}]
+\emph{Multi-user/Single-node} forums rely on trusted servers to order and
+moderate messages consistently among members (e.g., federated
 protocols~\cite{p2p.ecosystem}).
-%
-On the other hand, \emph{single-user/multi-node} feeds
-(\S\ref{sec.related.nodes}) support consistency across machines, but restricted
-to a single writer (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
-%
-Our proposal supports \emph{multi-user/multi-node} consistent forums
-(\S\ref{sec.related.multi}) across peers with no trusted authorities, i.e., a
-permissionless counterpart of IRC/Discord or Usenet/Reddit.
+\item [\S\ref{sec.related.nodes}]
+\emph{Single-user/Multi-node} feeds support consistency across machines, but
+restricted to a single writer (e.g., Scuttlebutt~\cite{p2p.scuttlebutt}).
+\end{description}
 
-Reputation systems (\S\ref{sec.related.reps}) TODO...
+We also discuss alternatives closer to our proposal:
+%
+\begin{description}
+\item [\S\ref{sec.related.multi}]
+\emph{Multi-user/Multi-node} forums pursue consistency across peers with no
+trusted authorities (e.g., permissionless blockchains).
+\item [\S\ref{sec.related.reps}]
+    Reputation Systems xxx, yyy the basis of our admission and consensus.
+\end{description}
 
 \subsection{Multi-User/Single-Node Forums}
 \label{sec.related.users}
 
 Federated protocols, such as e-mail and Usenet~\cite{fed.usenet}, allow users
 of one domain to exchange messages with users of other domains asynchronously.
-%
+
 Modern equivalents include \emph{Mastodon}~\cite{p2p.mastodon,p2p.flocking} and
 \emph{Lemmy}~\cite{forum.lemmy}, which rely on
 ActivityPub~\cite{pubsub.activitypub} as a standard publish-subscribe model
@@ -1363,7 +1368,7 @@ with no consistency guarantees.
 \emph{Matrix}~\cite{fed.matrix} targets real-time collaboration (e.g., chats)
 and consistently replicates each room as a DAG of events across servers, but
 with no consensus order.
-%
+
 As drawbacks, federations fall under the \emph{single-node} authority each user
 trusts:
     identities are not portable across domains~\cite{fed.distributed}, and
