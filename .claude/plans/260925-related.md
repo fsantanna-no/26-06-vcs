@@ -246,6 +246,53 @@
       no consensus / bought consensus / intrinsic reputation
         - axis: who pays for spam, and when it is rejected
           (local filters after replication vs FC admission)
+        - split (26/10/16) into two groups, one paragraph each:
+            - permissioned: authority held by a closed set
+              (Retroshare/Briar friend-to-friend; Steem/Hive
+              witnesses by stake; Farcaster validators)
+            - local moderation: everything replicates, each
+              user filters (Aether per-user views; Freenet FMS
+              trust lists; Frost flooded)
+            - FC closes both: open membership, shared verdict
+            - closing (26/10/16): the permissionless and
+              consensus-based ones are blockchain-hosted forums,
+              posting by chain fee: DeSo/BitClout (own chain),
+              Memo.cash (BCH), Peepeth (Ethereum), Lens (Polygon),
+              Subsocial (Polkadot); Steem/Hive borderline (DPoS,
+              21 witnesses)
+                - contrast: consensus rented from an external
+                  currency; admission pay-to-post, votes buyable,
+                  moderation money-gated; FC keeps ordering
+                  intrinsic to the forum's own reps
+                - [x] verified (26/10/16): the Guidi survey is
+                  "When Blockchain meets Online Social Networks",
+                  Pervasive and Mobile Computing 62, 2020, 101131
+                  (doi 10.1016/j.pmcj.2020.101131); paywalled,
+                  Pisa repository behind Cloudflare; not fetched
+                - surveys fetched to `pdfs/` (26/10/16):
+                    - `dosn.navigating-jeong2025` arXiv 2504.00071,
+                      Jeong, Ng, Carley, Liu: four architectures
+                      (federated, P2P, blockchain, hybrid);
+                      blockchain = Steemit/Hive, Lens, DeSo, Minds;
+                      Farcaster hybrid; "bifurcated model: strong
+                      protocol-level censorship resistance combined
+                      with necessary front-end moderation";
+                      "consensus-driven blacklisting ... reserved
+                      for extreme cases" -> best opener
+                    - `blockchain.osn-guidi2021` Applied Sciences
+                      11(21):9880 (OA): Steem/Hive/EOS/Ethereum/
+                      Klaytn, all permissionless, DPoS/PoW/PBFT;
+                      "DPoS ... may not be a desirable approach
+                      for ... highly decentralized social media";
+                      rewards "incentivize bot activity"
+                    - `blockchain.slr-hisseine2022` Applied
+                      Sciences 12(13):6567, SLR of 42 papers: fake
+                      news and privacy; little on moderation
+                    - `steemit-li2019` arXiv 1904.07310 (WebSci
+                      2019): >16% of transfers to suspected bots
+                - [ ] bib: Jeong 2025 (opener), Guidi 2021 (DPoS,
+                  fees), Li 2019 (bots); Guidi 2020 optional;
+                  cite 2-3 systems only
         - Aether (`p2p.ecosystem`): flood, stores all, PoW,
           elected mods, impeach = per-user view, posts expire
         - Freenet FMS (new @misc): own outboxes, trust lists,
