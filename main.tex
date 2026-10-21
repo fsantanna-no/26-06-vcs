@@ -1492,17 +1492,15 @@ admits members and determines the order and moderation of posts.
 In our permissionless context, two results relate reputation systems and
 Sybils:
 %
-if identities are free, a member can discard a bad reputation and return
-as a newcomer, so newcomers must start with the lowest
-standing~\cite{rep.pseudonyms};
+free identities let members discard bad reputations, so newcomers must
+start with the lowest standing~\cite{rep.pseudonyms};
 %
-and no symmetric score is sybilproof, since Sybils rating each other can
-raise it, only scores flowing asymmetrically from a trusted node
-are~\cite{rep.sybilproof}.
+and symmetric score rules allow malicious members to rate each other, so only
+scores flowing from trusted parties are Sybil-proof~\cite{rep.sybilproof}.
 %
 \FC complies with both:
-    newcomers start with no \reps, and \reps only flow from pioneers
-    through likes.
+    newcomers start with no \reps, and \reps flow from pioneers to
+    contributing members, always through taxed likes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

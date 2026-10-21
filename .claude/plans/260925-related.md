@@ -519,6 +519,10 @@
       identity changes"; C&F "no symmetric sybilproof reputation
       function", "asymmetric reputation function based on flow";
       Cheng 2005 PDF saved (sigcomm.org)
+    - [x] 26/10/21 results shortened, no authors, cites at end; FC
+      closing clause: no reps for newcomers, reps flow from pioneers
+      to contributing members through taxed likes; Wang -> "a
+      Bayesian trust model"; author moved results to subsection end
     - delete the \iffalse block and both %%% rules
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->
