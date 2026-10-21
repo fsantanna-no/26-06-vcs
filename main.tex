@@ -1427,37 +1427,26 @@ across peers with no trusted authorities, which makes Sybils the fundamental
 challenge to address.
 %
 We identify two common approaches to combat Sybils:
-either make nodes or identities permissioned, or rely on an external resource
-for scarcity.
+either make the network permissioned, or rely on an external resource for
+scarcity.
 
-Permissioning can apply to identities or to nodes.
+Collaborative local-first software~\cite{p2p.local,p2p.automerge,p2p.pushpin}
+relies on conflict-free replicated data types (CRDTs~\cite{p2p.crdts}) as a
+robust foundation for consistent concurrent updates.
+However, CRDTs alone cannot address content volume or quality and assume honest
+(permissioned) replicas only~\cite{p2p.merkle-crdts,p2p.byz,p2p.dag.sync}.
 %
-Closed writer sets, such as Autobase~\cite{p2p.autobase} and local-first
-CRDTs~\cite{p2p.local,p2p.automerge,p2p.pushpin}, admit writers by
-invitation, which suits collaborators, not public forums;
-Freenet FMS~\cite{p2p.fms} opens writing to anyone but lets each user pick
-whom to read through transitive trust lists, i.e., a verdict that is never
-shared.
-%
-Permissioned nodes keep writing open but restrict who orders it:
-    forums on the Internet Computer~\cite{p2p.icp}, such as DSCVR and
-    Taggr, run on validators approved by governance, and
-    Farcaster~\cite{p2p.farcaster} keeps posts in a network of appointed
-    validators paid by storage rent.
-%
-In both cases, authority moves to a fixed set of operators, which is a
-federation under another name.
+Autobase~\cite{p2p.autobase} merges single-user Dat feeds~\cite{p2p.dat}
+into a multi-user/multi-node causal DAG whose order is eventually consistent
+and finalized by a quorum of permissioned indexers.
 
-Aether~\cite{p2p.ecosystem} relies on an external resource instead:
-    every key, post, and vote carries a proof-of-work, which rate-limits
-    floods without any authority.
+Aether~\cite{p2p.ecosystem} relies on proof-of-work for every post, which
+rate-limits floods without any authority, a dubious defense given the hardware
+asymmetry in heterogeneous networks.
 %
-However, Aether has no intention to enforce consensus:
-    posts are ephemeral, and the elected moderators of a community only
-    provide defaults that any user can impeach locally.
-%
-Pricing posts thus stops spam, but a shared verdict still requires someone
-to decide.
+Furthermore, Aether has no intention to enforce consensus: posts are ephemeral,
+and the elected moderators of a community only provide defaults that any user
+can impeach locally.
 
 Social blockchains~\cite{dosn.navigating,blockchain.osn} combine the two
 approaches, pricing identities and posts with a currency and ordering them
