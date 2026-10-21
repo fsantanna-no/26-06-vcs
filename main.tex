@@ -1377,7 +1377,8 @@ trusts:
     other~\cite{fed.defederation,fed.blocklists}.
 %
 As a pragmatic mitigation, Matrix supports a permissioned moderation system%
-\footnote{Matrix moderation: \url{https://matrix.org/docs/communities/moderation/}},
+\footnote{Matrix moderation:
+    \url{https://matrix.org/docs/communities/moderation/}},
 which, however, applies reactively after abusive messages flood the network.
 
 In friend-to-friend networks, such as Retroshare~\cite{p2p.retroshare} and
@@ -1421,9 +1422,9 @@ ordering and moderation.
 \subsection{Multi-User/Multi-Node Forums}
 \label{sec.related.multi}
 
-In their most general form, forums aim to provide consistent forums across
-peers with no trusted authorities, which makes Sybils the fundamental
-challenge to address.
+In their most general form, forums aim to provide consistency across peers with
+no trusted authorities, which makes Sybils the fundamental challenge to
+address.
 %
 We identify two common approaches to combat Sybils:
 either make the network permissioned, or rely on an external resource for
@@ -1452,8 +1453,8 @@ Steem/Hive~\cite{p2p.steem} and Farcaster~\cite{p2p.farcaster.imc}, deliver
 consensus, but rely on cryptocurrencies for scarcity with inherent drawbacks
 (\S\ref{sec.introduction}):
     admission and votes can be purchased~\cite{p2p.steemit.bots},
-    power concentrates up to capture (e.g., takeover that forked Hive from
-    Steem),
+    power concentrates up to capture (e.g., the takeover that forked Hive
+    from Steem),
     and posts (payloads) are immutable by design.
 
 \FC takes a third approach in which scarcity comes from the reputation earned
@@ -1467,11 +1468,13 @@ In peer-to-peer file sharing, reputation ranks sources but takes no part
 in storing or ordering content.
 %
 A Bayesian trust model~\cite{p2p.rep.wang} keeps a local view, in which a peer
-scores others based on past experiences and transitively from its trust circle.
+scores others based on past experiences and on recommendations of its trust
+circle.
 %
 EigenTrust~\cite{rep.eigentrust} computes instead a global view that reflects
 the experiences of all peers in the network, but depends on pre-trusted
-(permissioned) peers to guarantee convergence and break malicious cycles.
+(permissioned) peers to guarantee convergence and break up malicious
+collectives.
 
 In public forums, members earn reputation from votes on their posts.
 %
