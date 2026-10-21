@@ -246,8 +246,116 @@
       no consensus / bought consensus / intrinsic reputation
         - axis: who pays for spam, and when it is rejected
           (local filters after replication vs FC admission)
+        - Sybil defenses, abstractly (26/10/21): identities bound
+          to something not forgeable for free
+            - external resource (money, computation): stake, fees,
+              PoW; the only defense both permissionless and
+              authority-free (Douceur); drawbacks: plutocracy,
+              votes purchasable (Li 2019 bots), base capturable
+              (Hive fork), currency external to the forum
+            - social attestation: members vouch (friend links,
+              trust lists, SybilGuard graph cuts); covered by
+              federation and F2F in sec.related.users; FMS = trust
+              lists over Freenet, one clause there or drop
+            - central authority: accounts, CAPTCHAs; federations
+            - behavior over time (reputation): multiplier on top of
+              the two above, never the entry test (no history)
+            - non-defense, local filtering: Frost flooded, Nostr
+              relay policy (already in sec.related.nodes)
+            - FC = attestation at entry (likes, begs) + behavior
+              (reps per tick, time as the only resource) + shared
+              record by consensus; claim: permissionless nodes,
+              socially admitted members; trades full
+              permissionlessness for an intrinsic defense
+            - multi/multi text: lead + resource-priced systems
+              (Aether no order; Steem/Hive, Farcaster, chains rent
+              order from validators) + FC's reputation handing
+              over to sec.related.reps
+        - table of works (26/10/21), columns: identity scarcity /
+          post cost / global order / moderation
+            - Frost: none / none / no / none; flooded, dead
+            - Freenet FMS: intro puzzle + trust lists / none / no /
+              per-user trust lists
+            - Aether: none / PoW per post / no (flood, local
+              views) / elected mods, per-user impeach, posts expire
+            - closed writer sets (Autobase quorum; Automerge,
+              Pushpin CRDTs; BFT prototypes): invitation / none /
+              yes / owners; Sybil-free by construction, not public
+              forums; reuses orphan keys p2p.autobase,
+              p2p.automerge, p2p.pushpin
+            - Steem/Hive: account fee, stake / resource credits /
+              yes, DPoS 21 witnesses / stake downvotes, front-ends
+            - Farcaster: on-chain id fee / storage rent / yes,
+              Snapchain validators / client labels
+            - ICP forums (DSCVR 2021, Taggr, OpenChat): wallet /
+              cycles paid by the app / yes, appointed BFT
+              validators per subnet (node providers voted by
+              governance) / app owners
+            - chain forums (DeSo, Lens, Memo.cash): wallet /
+              gas, fee / yes, host chain / front-ends
+            - Freechains: vouched by members (likes, begs) / 500
+              reps / yes, reputation consensus / revokes in reps
+        - validators axis (26/10/21): who may validate separates
+          the works better than permissioned/permissionless users
+          (all are open to post): none (Aether, FMS, Frost) /
+          open (PoW, PoS chains) / elected (Steem DPoS) /
+          appointed (ICP, Snapchain, Hyperledger prototypes);
+          permissioning only moves authority to the validators,
+          a federation of operators under another name
+            - no deployed forum on Hyperledger-style chains;
+              SLR items are fake-news and notarization prototypes
+              (Dhall et al. Fabric PBFT; Saad et al. BFT); Ushare
+              (Chakravorty and Rong, IMCOM 2017) design only
+        - links (26/10/21, all reachable): Frost and FMS
+          github.com/hyphanet/wiki/wiki/{Frost,FMS},
+          github.com/SeekingFor/FMS; Aether getaether.net,
+          github.com/nehbit/aether; Autobase
+          docs.pears.com/building-blocks/autobase; Automerge
+          automerge.org, github.com/automerge/pushpin,
+          inkandswitch.com/local-first; Steem
+          steem.com/steem-whitepaper.pdf, hive.io/whitepaper.pdf,
+          arxiv.org/abs/1904.07310; Farcaster docs.farcaster.xyz,
+          github.com/farcasterxyz/protocol; ICP dscvr.one,
+          taggr.link, oc.app, internetcomputer.org/whitepaper.pdf;
+          DeSo docs.deso.org; Lens lens.xyz; Memo memo.cash/protocol;
+          SybilGuard doi 10.1145/1159913.1159945; SybilLimit doi
+          10.1109/SP.2008.13
+        - text split (26/10/21): permissioned (closed sets, one
+          sentence) / permissionless with local verdicts (Frost,
+          FMS, Aether) / permissionless with rented order (Steem,
+          Farcaster, ICP, chains; Jeong 2025 front-end moderation)
+          / Freechains (order and scarcity from the forum's reps)
+        - local verdicts vs federation (26/10/21): they do not
+          collapse; federation and F2F delegate to a trusted node
+          (spam stopped before relay by its policy); Frost, FMS,
+          Aether delegate nothing: open transport, every node gets
+          everything, filter after replication per user; missing
+          only the shared verdict; FMS trust lists pick identities
+          to read, not links; Aether mods are defaults each user
+          can impeach
+        - Aether (26/10/21): two axes; Sybil/spam defense = PoW on
+          every entity (keys, posts, votes), computation not money;
+          verdict local (votes, elected mods per client, posts
+          expire); bridge case: a resource test rate-limits spam
+          but yields no shared verdict, chains add validators for
+          that; use it to open the rented-order paragraph
+        - [x] 26/10/21 multi/multi drafted in main.tex: lead by
+          the author (permissioned vs external resource), then
+          permissioned identities/nodes (Autobase, CRDTs, FMS;
+          ICP forums, Farcaster), Aether (PoW, no consensus),
+          social blockchains (Steem/Hive, chain forums; bots,
+          Hive fork, front-end moderation), FC closing; stub
+          list removed; 9 bib entries added (p2p.fms, p2p.icp,
+          p2p.farcaster, p2p.steem, p2p.steemit.bots,
+          dosn.navigating, blockchain.osn, sybil.guard,
+          sybil.limit); orphan keys autobase/automerge/pushpin
+          reused; Frost dropped
+        - subsection reads as "who decides": nobody (local
+          verdicts) / a validator set (rented order) / the members
+          (Freechains)
         - superseded (26/10/20) the 26/10/16 split (permissioned
-          vs local moderation); now split by Sybil defense:
+          vs local moderation); split by Sybil defense (refined
+          26/10/21 above):
             - lead: consistency with no authority makes Sybils
               the fundamental problem (free identities, any
               majority rule is for sale)

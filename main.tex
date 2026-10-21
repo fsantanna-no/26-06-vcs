@@ -1425,16 +1425,59 @@ ordering and moderation.
 Finally, \emph{multi-user/multi-node} forums aim to provide consistent forums
 across peers with no trusted authorities, which makes Sybils the fundamental
 challenge to address.
+%
+We identify two common approaches to combat Sybils:
+either make nodes or identities permissioned, or rely on an external resource
+for scarcity.
 
-One solution is to 
+Permissioning can apply to identities or to nodes.
+%
+Closed writer sets, such as Autobase~\cite{p2p.autobase} and local-first
+CRDTs~\cite{p2p.local,p2p.automerge,p2p.pushpin}, admit writers by
+invitation, which suits collaborators, not public forums;
+Freenet FMS~\cite{p2p.fms} opens writing to anyone but lets each user pick
+whom to read through transitive trust lists, i.e., a verdict that is never
+shared.
+%
+Permissioned nodes keep writing open but restrict who orders it:
+    forums on the Internet Computer~\cite{p2p.icp}, such as DSCVR and
+    Taggr, run on validators approved by governance, and
+    Farcaster~\cite{p2p.farcaster} keeps posts in a network of appointed
+    validators paid by storage rent.
+%
+In both cases, authority moves to a fixed set of operators, which is a
+federation under another name.
 
-, i.e., a permissionless counterpart of
-IRC/Discord or Usenet/Reddit.
+Aether~\cite{p2p.ecosystem} relies on an external resource instead:
+    every key, post, and vote carries a proof-of-work, which rate-limits
+    floods without any authority.
+%
+However, Aether has no intention to enforce consensus:
+    posts are ephemeral, and the elected moderators of a community only
+    provide defaults that any user can impeach locally.
+%
+Pricing posts thus stops spam, but a shared verdict still requires someone
+to decide.
 
-- aether
-- farcaster
-- Freenet FMS/Frost
-- Steem/Hive
+Social blockchains~\cite{dosn.navigating,blockchain.osn} combine the two
+approaches, pricing identities and posts with a currency and ordering them
+through validators:
+    Steem/Hive~\cite{p2p.steem} store posts and votes on a chain of 21
+    elected witnesses, with influence proportional to stake, and
+    DeSo, Lens, and Memo.cash post by paying fees to a host chain.
+%
+As a consequence, admission is pay-to-post, votes are
+purchasable~\cite{p2p.steemit.bots}, and the chain itself can be captured, as
+in the 2020 takeover that forked Hive from Steem.
+%
+Moreover, the ledger only preserves content, so moderation falls back to
+front-ends~\cite{dosn.navigating}, i.e., to single nodes again.
+
+\FC takes a third approach:
+    scarcity comes from a reputation earned inside the forum, and verdicts
+    come from the members weighted by it, which trades full
+    permissionlessness for a Sybil defense intrinsic to the
+    forum~\cite{sybil.guard,sybil.limit}.
 
 \subsection{Reputation Systems}
 \label{sec.related.reps}
