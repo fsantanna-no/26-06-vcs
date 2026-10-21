@@ -490,8 +490,11 @@
       local-moderation group (Automerge/Pushpin: honest replicas,
       no admission); Autobase quorum in the permissioned group;
       DHTs dropped, IPFS cite stays at the 128 KB rule
-    - [ ] orphan bib keys: p2p.automerge, p2p.pushpin, p2p.dvcs,
-      p2p.kademlia, p2p.bittorrent, p2p.dat, p2p.autobase
+    - [ ] orphan bib keys (26/10/21): cap, kahn, p2p.bittorrent,
+      p2p.dvcs, p2p.kademlia, p2p.proofs, p2p.sec, pubsub.gossipsub,
+      pubsub.gossipsub2, pubsub.rappel, pubsub.stan, pubsub.tera,
+      pubsub.vitis, pubsub.xmpp, sybil.guard, sybil.limit
+      (pubsub.*/cap were cited only in the deleted old text)
     - [x] 26/10/21 reputation systems written: Resnick systems,
       Wang/EigenTrust webs of trust; cheap pseudonyms (newcomers
       start at zero) and sybilproof (asymmetric flow from a seed)
@@ -523,7 +526,9 @@
       closing clause: no reps for newcomers, reps flow from pioneers
       to contributing members through taxed likes; Wang -> "a
       Bayesian trust model"; author moved results to subsection end
-    - delete the \iffalse block and both %%% rules
+    - [x] 26/10/21 deleted: both %%% rules, old P2P Protocols block,
+      old related leftovers and 2021 experiments; old Conclusion kept
+      in \iffalse (ln ~1508-1562) as source for the new one
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->
       p2p.dosn + p2p.osn, fed.usenet (RFC 977, new),
