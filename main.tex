@@ -1462,36 +1462,40 @@ the forum, and consensus comes from the members weighted by that reputation.
 \subsection{Reputation Systems}
 \label{sec.related.reps}
 
-Reputation systems~\cite{rep.systems} let strangers cooperate by scoring
-identities from their past behavior, which peer-to-peer file sharing turned
-into webs of trust among peers~\cite{p2p.rep.wang,rep.eigentrust}.
-%
-Under free identities, however, two lessons apply:
-    newcomers must start with no standing, since cheap pseudonyms let
-    misbehavers rejoin at no cost~\cite{rep.pseudonyms}; and
-    symmetric scores, such as PageRank-like trust, are never sybilproof,
-    whereas asymmetric scores flowing from a trusted seed can
-    be~\cite{rep.sybilproof}.
-%
-\FC follows both:
-    \reps enter a chain only through pioneers and reach newcomers by likes
-    and begs (\S\ref{sec.design.boot}, \S\ref{sec.design.members}), and a
-    member with no \reps cannot act.
+Reputation systems~\cite{rep.systems} let strangers cooperate by rating content
+and other members.
 
-Three aspects of scope distinguish our reputation system from the above:
-    it scores contents, with identities as a secondary attribute;
-    its evaluations are subjective, as are decisions to revoke posts or to
-    fork forums; and
-    it depends on consensus, since peers must agree on a common DAG prefix
-    with global and deterministic accuracy, where a subtle off-by-one
-    discrepancy in \reps creates an irreconcilable fork.
+In peer-to-peer file sharing, reputation ranks sources but takes no part
+in storing or ordering content.
 %
-Social blockchains also keep a reputation score~\cite{p2p.steem}, but
-derived from stake-weighted votes, so it measures wealth rather than
+Wang and Vassileva~\cite{p2p.rep.wang} keep a local view, in which each
+peer scores providers from its own experience and from recommendations of
+``those few peers that it trusts most''.
+%
+EigenTrust~\cite{rep.eigentrust} computes instead a global view that ``reflects
+the experiences of all peers in the network'', but it notes that pre-trusted
+peers ``guarantee convergence and break up malicious collectives''.
+In some sense, permissioned seeds play the same role as pioneers in \FC.
+
+In public forums, members earn reputation from votes on their posts.
+%
+Slashdot grants moderation points only to users with positive
+karma~\cite{forum.slashdot}, and Reddit makes karma the main reward of
+participation~\cite{forum.reddit.karma}, but both under a central server.
+
+Two results bound what reputation can do under free identities:
+    cheap pseudonyms force newcomers to start with no
+    standing~\cite{rep.pseudonyms}, and only asymmetric scores flowing from
+    a trusted seed are sybilproof~\cite{rep.sybilproof}.
+
+Social blockchains also assign reputation~\cite{p2p.steem}, but derived
+from stake-weighted votes, so it measures wealth rather than
 contribution~\cite{p2p.steem.wealth}.
 %
-Achieving consensus on a permissionless network from an intrinsic
-reputation is the key contribution of this work.
+\FC differs in scope:
+    reputation is computed by consensus over the content itself, in a
+    permissionless network, and it both admits members and weighs the order
+    and moderation of posts.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

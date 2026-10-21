@@ -498,6 +498,22 @@
       -> FC pioneers, likes, begs; old three aspects kept; Steem
       reputation = stake (p2p.steem.wealth); closing line; bib
       rep.sybilproof, p2p.steem.wealth added
+    - [x] 26/10/21 rewritten as a survey (author: "sounded like
+      design discussion"): works first, FC in one closing
+      sentence; three aspects and design refs dropped; Slashdot
+      karma added (forum.slashdot, Lampe and Resnick CHI 2004)
+    - [x] 26/10/21 "webs of trust" -> "trust scores" (term in
+      neither paper; verbatim checked: EigenTrust "aggregates the
+      local trust values", "choose the peers from whom they
+      download"; Wang "arrange the list according to its trust")
+    - [x] 26/10/21 Slashdot: "karma gates moderation" -> "grants
+      moderation points only to users whose karma ... is positive"
+    - [x] 26/10/21 karma sentence covers Reddit too (forum.reddit.karma,
+      Richterich JoPP 2014: "quasi-monetary incentive"); forum.reddit
+      (Gilbert 2013) was already the author's, cited in design
+    - [x] 26/10/21 file sharing split local view (Wang: "those few
+      peers that it trusts most") vs global view (EigenTrust: pre-trusted
+      peers "essential ... break up malicious collectives" = pioneers)
     - delete the \iffalse block and both %%% rules
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->
