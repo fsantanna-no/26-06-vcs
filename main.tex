@@ -1468,9 +1468,9 @@ and other members.
 In peer-to-peer file sharing, reputation ranks sources but takes no part
 in storing or ordering content.
 %
-Wang and Vassileva~\cite{p2p.rep.wang} keep a local view, in which each
-peer scores providers from its own experience and from recommendations of
-``those few peers that it trusts most''.
+A Bayesian trust model~\cite{p2p.rep.wang} keeps a local view, in which
+each peer scores providers from its own experience and from recommendations
+of ``those few peers that it trusts most''.
 %
 EigenTrust~\cite{rep.eigentrust} computes instead a global view that ``reflects
 the experiences of all peers in the network'', but it notes that pre-trusted
@@ -1483,28 +1483,26 @@ Slashdot grants moderation points only to users with positive
 karma~\cite{forum.slashdot}, and Reddit makes karma the main reward of
 participation~\cite{forum.reddit.karma}, but both under a central server.
 
-Social blockchains derives reputation from wealth rather than
+Social blockchains derive reputation from wealth rather than
 contributions~\cite{p2p.steem.wealth}.
 %
-\FC differs in scope:
-    reputation is computed by consensus over the content itself, in a
-    permissionless network, and it both admits members and weighs the order
-    and moderation of posts.
+In \FC, reputation derives from consensus over the content itself, and it both
+admits members and determines the order and moderation of posts.
 
 In our permissionless context, two results relate reputation systems and
 Sybils:
 %
-Friedman and Resnick~\cite{rep.pseudonyms} show that, if identities are
-free, a member with bad reputation can discard it and return as a newcomer,
-so any rational system must treat newcomers as suspect and give them the
-lowest standing;
+if identities are free, a member can discard a bad reputation and return
+as a newcomer, so newcomers must start with the lowest
+standing~\cite{rep.pseudonyms};
 %
-Cheng and Friedman~\cite{rep.sybilproof} define a reputation function as
-sybilproof if creating fake identities cannot raise one's score, and prove
-that no symmetric function is sybilproof, i.e., any score that looks only at
-the graph without a distinguished origin can be gamed by Sybils rating each
-other, and only asymmetric functions, computed as flow from a trusted node,
-can be.
+and no symmetric score is sybilproof, since Sybils rating each other can
+raise it, only scores flowing asymmetrically from a trusted node
+are~\cite{rep.sybilproof}.
+%
+\FC complies with both:
+    newcomers start with no \reps, and \reps only flow from pioneers
+    through likes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
