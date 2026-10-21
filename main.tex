@@ -1381,6 +1381,14 @@ As a pragmatic mitigation, Matrix supports a permissioned moderation system%
 \footnote{Matrix moderation: \url{https://matrix.org/docs/communities/moderation/}},
 which, however, applies reactively after abusive messages flood the network.
 
+In friend-to-friend networks, such as Retroshare~\cite{p2p.retroshare} and
+Briar~\cite{p2p.briar}, nodes relay posts from friends to friends
+transitively, with no order or shared verdict.
+%
+Therefore, they are similar to federations in the sense that each node applies
+local policies and decides whom to connect to, i.e., each user is their own
+server.
+
 \subsection{Single-User/Multi-Node Forums}
 \label{sec.related.nodes}
 
@@ -1414,16 +1422,19 @@ ordering and moderation.
 \subsection{Multi-User/Multi-Node Forums}
 \label{sec.related.multi}
 
-Finally, \emph{multi-user/multi-node} aim to provide consistent forums across
-peers with no trusted authorities, but need to combat Sybils.
+Finally, \emph{multi-user/multi-node} forums aim to provide consistent forums
+across peers with no trusted authorities, which makes Sybils the fundamental
+challenge to address.
 
+One solution is to 
+
+, i.e., a permissionless counterpart of
 IRC/Discord or Usenet/Reddit.
 
 - aether
 - farcaster
 - Freenet FMS/Frost
 - Steem/Hive
-- Retroshare and Briar forums
 
 \subsection{Reputation Systems}
 \label{sec.related.reps}

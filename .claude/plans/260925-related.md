@@ -246,14 +246,34 @@
       no consensus / bought consensus / intrinsic reputation
         - axis: who pays for spam, and when it is rejected
           (local filters after replication vs FC admission)
-        - split (26/10/16) into two groups, one paragraph each:
-            - permissioned: authority held by a closed set
-              (Retroshare/Briar friend-to-friend; Steem/Hive
-              witnesses by stake; Farcaster validators)
-            - local moderation: everything replicates, each
-              user filters (Aether per-user views; Freenet FMS
-              trust lists; Frost flooded)
-            - FC closes both: open membership, shared verdict
+        - superseded (26/10/20) the 26/10/16 split (permissioned
+          vs local moderation); now split by Sybil defense:
+            - lead: consistency with no authority makes Sybils
+              the fundamental problem (free identities, any
+              majority rule is for sale)
+            - trust among known peers: Freenet FMS (trust lists,
+              intro puzzles; subjective, no consensus); Frost (no
+              defense, died by flooding)
+            - priced identities or posts: Aether (PoW per post,
+              posts expire); Farcaster (on-chain id fee, storage
+              rent); Steem/Hive (stake, DPoS witnesses)
+            - closing: only the priced ones reach a global order,
+              rented from a validator set (Steem 21 witnesses,
+              Farcaster Snapchain) or a public chain (DeSo, Lens,
+              Memo.cash); Hive fork 2020 = stake is capturable;
+              FC keeps order intrinsic to authoring reputation;
+              hands over to sec.related.reps
+            - [x] 26/10/21 F2F paragraph at the end of
+              sec.related.users; bib p2p.retroshare (team blog
+              2013), p2p.briar (quick start); stub item removed
+            - Retroshare/Briar moved out (26/10/20): F2F forums
+              flood over personal links with no order or shared
+              verdict, i.e., Usenet with users as servers; one
+              clause in sec.related.users after Usenet:
+              "federations in which each user is their own
+              server"
+            - main.tex ea9b64e: "multi-user/multi-node aim" lacks
+              "forums"; dangling "IRC/Discord or Usenet/Reddit."
             - closing (26/10/16): the permissionless and
               consensus-based ones are blockchain-hosted forums,
               posting by chain fee: DeSo/BitClout (own chain),
@@ -305,8 +325,7 @@
         - Farcaster (optional): on-chain ids, storage rent,
           hubs CRDT -> Snapchain BFT (2025); consensus by
           validators, posts by payment
-        - Retroshare (optional, one clause): friend-to-friend,
-          permissioned, no global order
+        - Retroshare/Briar: see 26/10/20 above (sec.related.users)
         - [ ] verify and add bib: Steem, Li 2019, FMS, Aether?
     - [x] 26/10/16 dVCS: cite only in CRDTs Merkle DAG sentence;
       \iffalse paragraph dropped
