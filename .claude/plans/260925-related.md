@@ -492,7 +492,12 @@
       DHTs dropped, IPFS cite stays at the 128 KB rule
     - [ ] orphan bib keys: p2p.automerge, p2p.pushpin, p2p.dvcs,
       p2p.kademlia, p2p.bittorrent, p2p.dat, p2p.autobase
-    - reputation systems closing (three aspects; closing line)
+    - [x] 26/10/21 reputation systems written: Resnick systems,
+      Wang/EigenTrust webs of trust; cheap pseudonyms (newcomers
+      start at zero) and sybilproof (asymmetric flow from a seed)
+      -> FC pioneers, likes, begs; old three aspects kept; Steem
+      reputation = stake (p2p.steem.wealth); closing line; bib
+      rep.sybilproof, p2p.steem.wealth added
     - delete the \iffalse block and both %%% rules
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->

@@ -1462,34 +1462,41 @@ the forum, and consensus comes from the members weighted by that reputation.
 \subsection{Reputation Systems}
 \label{sec.related.reps}
 
-- rep.eigentrust and p2p.rep.wang
-- rep.systems, rep.pseudonyms, p2p.sybil
-- SybilGuard/SybilLimit (new): social-graph Sybil defense.
-- Steem reputation (new, shared with Multi-User/Multi-Node item 4)
+Reputation systems~\cite{rep.systems} let strangers cooperate by scoring
+identities from their past behavior, which peer-to-peer file sharing turned
+into webs of trust among peers~\cite{p2p.rep.wang,rep.eigentrust}.
+%
+Under free identities, however, two lessons apply:
+    newcomers must start with no standing, since cheap pseudonyms let
+    misbehavers rejoin at no cost~\cite{rep.pseudonyms}; and
+    symmetric scores, such as PageRank-like trust, are never sybilproof,
+    whereas asymmetric scores flowing from a trusted seed can
+    be~\cite{rep.sybilproof}.
+%
+\FC follows both:
+    \reps enter a chain only through pioneers and reach newcomers by likes
+    and begs (\S\ref{sec.design.boot}, \S\ref{sec.design.members}), and a
+    member with no \reps cannot act.
+
+Three aspects of scope distinguish our reputation system from the above:
+    it scores contents, with identities as a secondary attribute;
+    its evaluations are subjective, as are decisions to revoke posts or to
+    fork forums; and
+    it depends on consensus, since peers must agree on a common DAG prefix
+    with global and deterministic accuracy, where a subtle off-by-one
+    discrepancy in \reps creates an irreconcilable fork.
+%
+Social blockchains also keep a reputation score~\cite{p2p.steem}, but
+derived from stake-weighted votes, so it measures wealth rather than
+contribution~\cite{p2p.steem.wealth}.
+%
+Achieving consensus on a permissionless network from an intrinsic
+reputation is the key contribution of this work.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iffalse
 \subsection{Peer-to-Peer Protocols}
-
-In all federations, ordering and moderation rest on the servers.
-Unlike \FC, which enforces consensus and moderation across peers.
-users leave ordering, moderation, and spam
-filtering to each server.
-
-Scuttlebutt~\cite{p2p.scuttlebutt} and Aether~\cite{p2p.ecosystem} are closer
-to \FC goals and cover human communication.
-
-Aether~\cite{p2p.ecosystem} provides peer-to-peer public communities aligned
-with \FC (\Xnn).
-A fundamental difference is that Aether is designed for ephemeral, mutable
-posts with no intention to enforce global consensus across peers.
-Aether employs a very pragmatic approach to mitigate abuse in forums.
-It uses established techniques, such as proof-of-work to combat spam, and an
-innovative voting system to moderate forums, but which affects local instances
-only.
-In contrast, \FC relies on its permissionless reputation and consensus
-mechanisms for moderation.
 
 Some works for P2P file sharing propose to account the reputation of peers to
 form a web of trust based on their behavior
