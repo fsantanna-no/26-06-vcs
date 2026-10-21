@@ -194,8 +194,8 @@ Section~\ref{sec.design} describes the reputation-based consensus and discusses
 relevant security threats.
 Section~\ref{sec.evaluation} evaluates the performance of \FC on real forum
 archives.
-Section~\ref{sec.related} compares our design against federated applications
-and fully peer-to-peer systems.
+Section~\ref{sec.related} discusses consistency and consensus in federated and
+peer-to-peer forums, as well as alternative reputation systems.
 Section~\ref{sec.conclusion} concludes this work.
 
 \section{\FC and Git}
@@ -1422,8 +1422,8 @@ ordering and moderation.
 \subsection{Multi-User/Multi-Node Forums}
 \label{sec.related.multi}
 
-Finally, \emph{multi-user/multi-node} forums aim to provide consistent forums
-across peers with no trusted authorities, which makes Sybils the fundamental
+\emph{Multi-user/multi-node} forums aim to provide consistent forums across
+peers with no trusted authorities, which makes Sybils the fundamental
 challenge to address.
 %
 We identify two common approaches to combat Sybils:
@@ -1436,9 +1436,9 @@ robust foundation for consistent concurrent updates.
 However, CRDTs alone cannot address content volume or quality and assume honest
 (permissioned) replicas only~\cite{p2p.merkle-crdts,p2p.byz,p2p.dag.sync}.
 %
-Autobase~\cite{p2p.autobase} merges single-user Dat feeds~\cite{p2p.dat}
-into a multi-user/multi-node causal DAG whose order is eventually consistent
-and finalized by a quorum of permissioned indexers.
+Autobase~\cite{p2p.autobase} merges single-user Hypercore (formerly Dat)
+feeds~\cite{p2p.dat} into a multi-user/multi-node causal DAG whose order is
+eventually consistent and finalized by a quorum of permissioned indexers.
 
 Aether~\cite{p2p.ecosystem} relies on proof-of-work for every post, which
 rate-limits floods without any authority, a dubious defense given the hardware
@@ -1453,10 +1453,11 @@ Steem/Hive~\cite{p2p.steem} and Farcaster~\cite{p2p.farcaster.imc}, deliver
 consensus, but rely on a cryptocurrency for scarcity with inherent drawbacks
 (\S\ref{sec.introduction}):
     admission and votes are purchasable~\cite{p2p.steemit.bots},
-    power concentrates up to capture (e.g., fork between Steem and Hive),
+    power concentrates up to capture (e.g., the takeover that forked Hive
+    from Steem),
     and posts (payloads) are immutable by design.
 
-In \FC takes a third approach: scarcity comes from the reputation earned inside
+\FC takes a third approach: scarcity comes from the reputation earned inside
 the forum, and consensus comes from the members weighted by that reputation.
 
 \subsection{Reputation Systems}
@@ -1475,19 +1476,16 @@ of ``those few peers that it trusts most''.
 EigenTrust~\cite{rep.eigentrust} computes instead a global view that ``reflects
 the experiences of all peers in the network'', but it notes that pre-trusted
 peers ``guarantee convergence and break up malicious collectives''.
-In some sense, permissioned seeds play the same role as pioneers in \FC.
+Such pre-trusted seeds play the same role as pioneers in \FC.
 
 In public forums, members earn reputation from votes on their posts.
 %
 Slashdot grants moderation points only to users with positive
 karma~\cite{forum.slashdot}, and Reddit makes karma the main reward of
 participation~\cite{forum.reddit.karma}, but both under a central server.
-
+%
 Social blockchains derive reputation from wealth rather than
 contributions~\cite{p2p.steem.wealth}.
-%
-In \FC, reputation derives from consensus over the content itself, and it both
-admits members and determines the order and moderation of posts.
 
 In our permissionless context, two results relate reputation systems and
 Sybils:
@@ -1495,12 +1493,17 @@ Sybils:
 free identities let members discard bad reputations, so newcomers must
 start with the lowest standing~\cite{rep.pseudonyms};
 %
-and symmetric score rules allow malicious members to rate each other, so only
-scores flowing from trusted parties are Sybil-proof~\cite{rep.sybilproof}.
+and symmetric score rules allow Sybils to rate each other, so only scores
+flowing from trusted parties are
+Sybil-resistant~\cite{rep.sybilproof,sybil.guard,sybil.limit}.
 %
 \FC complies with both:
     newcomers start with no \reps, and \reps flow from pioneers to
     contributing members, always through taxed likes.
+%
+Unlike all of the above, reputation in \FC derives from consensus over the
+content itself, and it both admits members and determines the order and
+moderation of posts.
 
 \section{Conclusion}
 \label{sec.conclusion}

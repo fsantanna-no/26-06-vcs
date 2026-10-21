@@ -526,6 +526,16 @@
       closing clause: no reps for newcomers, reps flow from pioneers
       to contributing members through taxed likes; Wang -> "a
       Bayesian trust model"; author moved results to subsection end
+    - [x] 26/10/21 review pass (tex + pdf), applied: "In FC takes",
+      Sybils (not members) rate each other, "sybilproof" term, intro
+      roadmap lists four subsections, drop "Finally", "Such
+      pre-trusted seeds", Hypercore (formerly Dat)
+    - [x] 26/10/21 review leftovers: FC sentence moved to close §5.4
+      ("Unlike all of the above"); sybil.guard/sybil.limit cited at
+      "trusted parties" (no orphans left there); "takeover that
+      forked Hive from Steem"
+    - won't do: Aether has no paper, stays cited via p2p.ecosystem;
+      §5.4 stretch goes away once §Conclusion has text
     - [x] 26/10/21 deleted: both %%% rules, old P2P Protocols block,
       old related leftovers and 2021 experiments; old Conclusion kept
       in \iffalse (ln ~1508-1562) as source for the new one
