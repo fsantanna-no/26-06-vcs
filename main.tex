@@ -1448,34 +1448,16 @@ Furthermore, Aether has no intention to enforce consensus: posts are ephemeral,
 and the elected moderators of a community only provide defaults that any user
 can impeach locally.
 
-Social blockchains~\cite{dosn.navigating,blockchain.osn} combine the two
-approaches.
-X, Y, Z rely on permissioned validators to xxx.
-A, B, C rely on xxx, but need to pay yyy.
-In either case, zzz.
+Social blockchains~\cite{dosn.navigating,blockchain.osn}, such as
+Steem/Hive~\cite{p2p.steem} and Farcaster~\cite{p2p.farcaster.imc}, deliver
+consensus, but rely on a cryptocurrency for scarcity with inherent drawbacks
+(\S\ref{sec.introduction}):
+    admission and votes are purchasable~\cite{p2p.steemit.bots},
+    power concentrates up to capture (e.g., fork between Steem and Hive),
+    and posts (payloads) are immutable by design.
 
-, pricing identities and posts with a currency and ordering them
-through validators:
-    Steem/Hive~\cite{p2p.steem} store posts and votes on a chain of 21
-    elected witnesses, with influence proportional to stake;
-    Farcaster~\cite{p2p.farcaster} rents storage per account and orders
-    posts through an elected committee of validators;
-    DSCVR and Taggr run on the Internet Computer~\cite{p2p.icp}, whose
-    node providers are approved by governance; and
-    DeSo, Lens, and Memo.cash post by paying fees to a host chain.
-%
-As a consequence, admission is pay-to-post, votes are
-purchasable~\cite{p2p.steemit.bots}, and the chain itself can be captured, as
-in the 2020 takeover that forked Hive from Steem.
-%
-Moreover, the ledger only preserves content, so moderation falls back to
-front-ends~\cite{dosn.navigating}, i.e., to single nodes again.
-
-\FC takes a third approach:
-    scarcity comes from a reputation earned inside the forum, and verdicts
-    come from the members weighted by it, which trades full
-    permissionlessness for a Sybil defense intrinsic to the
-    forum~\cite{sybil.guard,sybil.limit}.
+In \FC takes a third approach: scarcity comes from the reputation earned inside
+the forum, and consensus comes from the members weighted by that reputation.
 
 \subsection{Reputation Systems}
 \label{sec.related.reps}

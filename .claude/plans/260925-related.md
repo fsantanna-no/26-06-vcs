@@ -358,6 +358,44 @@
           (node providers approved by governance) moved into the
           social-blockchains list; Farcaster is permissionless for
           users, validators elected (Snapchain whitepaper)
+        - [x] 26/10/21 social blockchains paragraph: permissioned
+          validators (Steem/Hive, Farcaster, ICP) vs open chains
+          (DeSo, Lens, Memo.cash); "order rented from an external
+          currency" + intro drawbacks (\S sec.introduction): pay
+          to post, bots, Hive fork, no revocation, front-ends
+        - [x] 26/10/21 two examples each: Steem/Hive, Farcaster
+          (permissioned validators) / DeSo, Lens (open chains);
+          ICP and Memo.cash dropped, p2p.icp removed, p2p.deso and
+          p2p.lens added
+        - [x] 26/10/21 verbatim support collected: Steem wp "21
+          witnesses ... selected by approval voting", "purchase
+          more SP to improve voting power"; Snapchain wp
+          "Validators are selected through a voting committee",
+          "Users must rent a storage unit"; DeSo docs
+          "Permissionlessly run validators with no staking
+          minimums", "<1/10,00th of a cent per post"; Lens docs
+          "layer 2 leveraging ZKsync", sponsorships "cover gas
+          fees"; text fixed: "elected by stake or by vote", "open
+          chains" (Lens is an L2); Steem wp in pdfs/
+        - [x] 26/10/21 cited works only: Steem/Hive (wp, Li 2019),
+          Farcaster (spec, Ye et al. IMC 2026 "Behind Farcaster":
+          "struggles to maintain a consistent state across hubs",
+          "$2.6M in storage fees, no redistribution"), others via
+          dosn.navigating; p2p.deso, p2p.lens removed;
+          p2p.farcaster.imc added; optional p2p.steem.wealth
+          (Guidi, Michienzi, Ricci, IEEE TCSS 2024)
+        - [x] 26/10/21 final: social blockchains = external
+          currency, consensus assumed correct and permissionless;
+          text focuses on drawbacks (intro a-d, bots, Hive fork,
+          no revocation, front-ends); validators/witnesses/
+          committees out of the text (stake election = resource,
+          only Farcaster's committee is permissioned)
+        - [x] 26/10/21 not all pay per post: Steem wp "eliminate
+          the need for fees", "bandwidth-per-share" rationing by
+          stake; Farcaster storage rent (IMC: "$2.6M in storage
+          fees"); Guidi 2021 Table 1 fees Steem/Hive "-"; text:
+          "either as a fee per action or as stake that rations
+          actions", "admission is paid in that currency"
         - subsection reads as "who decides": nobody (local
           verdicts) / a validator set (rented order) / the members
           (Freechains)
