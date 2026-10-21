@@ -350,6 +350,14 @@
           dosn.navigating, blockchain.osn, sybil.guard,
           sybil.limit); orphan keys autobase/automerge/pushpin
           reused; Frost dropped
+        - [x] 26/10/21 author rewrite: permissioned paragraph =
+          CRDTs + Autobase (quorum of permissioned indexers); FMS,
+          Frost dropped (p2p.fms removed from bib); Aether PoW
+          "dubious defense given the hardware asymmetry";
+          Farcaster (elected committee, storage rent) and ICP
+          (node providers approved by governance) moved into the
+          social-blockchains list; Farcaster is permissionless for
+          users, validators elected (Snapchain whitepaper)
         - subsection reads as "who decides": nobody (local
           verdicts) / a validator set (rented order) / the members
           (Freechains)
