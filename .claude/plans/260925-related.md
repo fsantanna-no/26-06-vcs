@@ -514,6 +514,11 @@
     - [x] 26/10/21 file sharing split local view (Wang: "those few
       peers that it trusts most") vs global view (EigenTrust: pre-trusted
       peers "essential ... break up malicious collectives" = pioneers)
+    - [x] 26/10/21 Sybil results as two sentences (author intro):
+      F&R "distrust of newcomers is an inherent social cost of easy
+      identity changes"; C&F "no symmetric sybilproof reputation
+      function", "asymmetric reputation function based on flow";
+      Cheng 2005 PDF saved (sigcomm.org)
     - delete the \iffalse block and both %%% rules
     - [x] 26/10/16 cites only, no text: p2p.local, p2p.dag.sync,
       permissionless + blockchain.wild, forums p2p.survey ->
