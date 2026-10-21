@@ -8,3 +8,5 @@ main.pdf
 *.blg
 *.out
 *.toc
+*.fdb_latexmk
+*.fls

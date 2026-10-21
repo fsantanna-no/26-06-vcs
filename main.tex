@@ -1331,8 +1331,7 @@ clone cost grows linearly with the chain.
 
 Permissionless consensus is notably
 challenging~\cite{permissionless,blockchain.wild} to the point that
-decentralized forums~\cite{p2p.dosn,p2p.osn,p2p.ecosystem} settle for weaker
-forms:
+decentralized forums~\cite{p2p.ecosystem} settle for weaker forms:
 %
 \begin{description}
 \item [\S\ref{sec.related.users}]
@@ -1349,10 +1348,10 @@ We also discuss alternatives closer to our proposal:
 \begin{description}
 \item [\S\ref{sec.related.multi}]
 \emph{Multi-User/Multi-Node} forums pursue consistency across peers with no
-trusted authorities (e.g., social blockchains).
+trusted authorities (e.g., social blockchains~\cite{blockchain.osn}).
 \item [\S\ref{sec.related.reps}]
-    Reputation systems allow members to judge content and other members by
-    their past behavior.
+    Reputation systems~\cite{rep.systems} allow members to judge content and
+    other members by their past behavior.
 \end{description}
 
 \subsection{Multi-User/Single-Node Forums}
@@ -1422,7 +1421,7 @@ ordering and moderation.
 \subsection{Multi-User/Multi-Node Forums}
 \label{sec.related.multi}
 
-\emph{Multi-user/multi-node} forums aim to provide consistent forums across
+In their most general form, forums aim to provide consistent forums across
 peers with no trusted authorities, which makes Sybils the fundamental
 challenge to address.
 %
@@ -1431,14 +1430,14 @@ either make the network permissioned, or rely on an external resource for
 scarcity.
 
 Collaborative local-first software~\cite{p2p.local,p2p.automerge,p2p.pushpin}
-relies on conflict-free replicated data types (CRDTs~\cite{p2p.crdts}) as a
-robust foundation for consistent concurrent updates.
+relies on conflict-free replicated data types (CRDTs) as a
+robust foundation for consistent concurrent updates~\cite{p2p.crdts}.
 However, CRDTs alone cannot address content volume or quality and assume honest
 (permissioned) replicas only~\cite{p2p.merkle-crdts,p2p.byz,p2p.dag.sync}.
 %
-Autobase~\cite{p2p.autobase} merges single-user Hypercore (formerly Dat)
-feeds~\cite{p2p.dat} into a multi-user/multi-node causal DAG whose order is
-eventually consistent and finalized by a quorum of permissioned indexers.
+Autobase~\cite{p2p.autobase} merges single-user Dat feeds~\cite{p2p.dat} into
+multi-user/multi-node causal DAGs, which are eventually consistent but depend
+on quorums of permissioned indexers.
 
 Aether~\cite{p2p.ecosystem} relies on proof-of-work for every post, which
 rate-limits floods without any authority, a dubious defense given the hardware
@@ -1450,33 +1449,29 @@ can impeach locally.
 
 Social blockchains~\cite{dosn.navigating,blockchain.osn}, such as
 Steem/Hive~\cite{p2p.steem} and Farcaster~\cite{p2p.farcaster.imc}, deliver
-consensus, but rely on a cryptocurrency for scarcity with inherent drawbacks
+consensus, but rely on cryptocurrencies for scarcity with inherent drawbacks
 (\S\ref{sec.introduction}):
-    admission and votes are purchasable~\cite{p2p.steemit.bots},
-    power concentrates up to capture (e.g., the takeover that forked Hive
-    from Steem),
+    admission and votes can be purchased~\cite{p2p.steemit.bots},
+    power concentrates up to capture (e.g., takeover that forked Hive from
+    Steem),
     and posts (payloads) are immutable by design.
 
-\FC takes a third approach: scarcity comes from the reputation earned inside
-the forum, and consensus comes from the members weighted by that reputation.
+\FC takes a third approach in which scarcity comes from the reputation earned
+inside the forum, and consensus comes from the members weighted by that
+reputation.
 
 \subsection{Reputation Systems}
 \label{sec.related.reps}
 
-Reputation systems~\cite{rep.systems} let strangers cooperate by rating content
-and other members.
-
 In peer-to-peer file sharing, reputation ranks sources but takes no part
 in storing or ordering content.
 %
-A Bayesian trust model~\cite{p2p.rep.wang} keeps a local view, in which
-each peer scores providers from its own experience and from recommendations
-of ``those few peers that it trusts most''.
+A Bayesian trust model~\cite{p2p.rep.wang} keeps a local view, in which a peer
+scores others based on past experiences and transitively from its trust circle.
 %
-EigenTrust~\cite{rep.eigentrust} computes instead a global view that ``reflects
-the experiences of all peers in the network'', but it notes that pre-trusted
-peers ``guarantee convergence and break up malicious collectives''.
-Such pre-trusted seeds play the same role as pioneers in \FC.
+EigenTrust~\cite{rep.eigentrust} computes instead a global view that reflects
+the experiences of all peers in the network, but depends on pre-trusted
+(permissioned) peers to guarantee convergence and break malicious cycles.
 
 In public forums, members earn reputation from votes on their posts.
 %
@@ -1496,7 +1491,7 @@ start with the lowest standing~\cite{rep.pseudonyms};
 and symmetric score rules allow Sybils to rate each other, so only scores
 flowing from trusted parties are
 Sybil-resistant~\cite{rep.sybilproof,sybil.guard,sybil.limit}.
-%
+
 \FC complies with both:
     newcomers start with no \reps, and \reps flow from pioneers to
     contributing members, always through taxed likes.

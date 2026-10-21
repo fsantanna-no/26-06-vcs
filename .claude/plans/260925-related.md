@@ -534,6 +534,9 @@
       ("Unlike all of the above"); sybil.guard/sybil.limit cited at
       "trusted parties" (no orphans left there); "takeover that
       forked Hive from Steem"
+    - [x] 26/10/21 opener cites: decentralized forums -> p2p.ecosystem
+      only (p2p.dosn/p2p.osn stay in intro); §5.3 item cites
+      blockchain.osn (Guidi 2021 overview)
     - won't do: Aether has no paper, stays cited via p2p.ecosystem;
       §5.4 stretch goes away once §Conclusion has text
     - [x] 26/10/21 deleted: both %%% rules, old P2P Protocols block,
