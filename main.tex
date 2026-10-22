@@ -1329,7 +1329,7 @@ actual payload).
 %
 The full simulation takes around 90~h to complete with the 33k \code{post}
 operations and over 1M \code{sync} operations that effectively transfer data
-(35 per post).
+(34 per post).
 % transfering over 1GB (500B per sync)
 
 Since this is our local-first scenario, we focus on measuring the following:
@@ -1370,24 +1370,27 @@ Since this is our local-first scenario, we focus on measuring the following:
 \small
 \begin{tabular}{@{}ll@{}}
 Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
-Run time / syncs with data       & 90 h / 1M (35 per post)     \\
+Run time / syncs with data       & 88.5 h / 1.16M (34 per post)\\
 \hline
 Convergence (peers that differ)  & 0 of 58                     \\
-Convergence time (med/p90/max)   & 29 h / -- / --              \\
-Forks (always-on baseline)       & 67\% (0\%)                  \\
+Convergence time (med/p90/max)   & 29 h / 44 h / 8.4 d         \\
+Forks (always-on baseline)       & 66\% (0\%)                  \\
 \quad green / yellow / red       & 55\% / 67\% / 89\%          \\
 \quad missing posts (med/p90/max)& 1 / 7 / 56                  \\
-Reorders per merge (avg/max)     & 3.4 / 21                    \\
-Clamps ($P_i > S_i$)             & 54.8\%                      \\
-\quad $P_i - S_i$ (med/max)      & 11.6 h / 51.5 h             \\
+Reorders per merge (avg/max)     & -- / --                     \\
+Clamps ($P_i > S_i$)             & 31.0\%                      \\
+\quad $P_i - S_i$ (med/p90/max)  & 4.8 h / 16.6 h / 69.2 h     \\
 \hline
-Offline S / M / L                & 1.1\% / 8.2\% / 5.0\%       \\
-Backup pulls                     & 4.0\%                       \\
+Offline S / M / L                & 1.0\% / 8.3\% / 5.0\%       \\
+Backup pulls                     & 2.6\%                       \\
+Reconnect pulls (commits med/max)& 59.5k (2 / 91)              \\
 \hline
-Blocked ($W$=0 / 500 / 1000)     & 0.47\% / 0.38\% / 0\%       \\
+Blocked ($W$=0 / 500 / 1000)     & 1.24\% / 1.15\% / 0.08\%    \\
 \hline
-Pull time (avg/max)              & 0.85 s / 7 s                \\
-Storage per peer                 & 24 MB                       \\
+Pull time (med/p90/max)          & 0.47 s / 1.14 s / 10.3 s    \\
+Commits per pull (med/p90/max)   & 1 / 5 / 96                  \\
+Storage per peer (no payloads)   & 154 MB (119 MB)             \\
+Corpus (mbox)                    & 85 MB                       \\
 \end{tabular}
 \end{table}
 
