@@ -1363,6 +1363,34 @@ Since this is our local-first scenario, we focus on measuring the following:
     the original payload.
 \end{itemize}
 
+\begin{table}[t]
+\centering
+\caption{Usenet simulation results.}
+\label{tab.eval.usenet}
+\small
+\begin{tabular}{@{}ll@{}}
+Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
+Run time / syncs with data       & 90 h / 1M (35 per post)     \\
+\hline
+Convergence (peers that differ)  & 0 of 58                     \\
+Convergence time (med/p90/max)   & 29 h / -- / --              \\
+Forks (always-on baseline)       & 67\% (0\%)                  \\
+\quad green / yellow / red       & 55\% / 67\% / 89\%          \\
+\quad missing posts (med/p90/max)& 1 / 7 / 56                  \\
+Reorders per merge (avg/max)     & 3.4 / 21                    \\
+Clamps ($P_i > S_i$)             & 54.8\%                      \\
+\quad $P_i - S_i$ (med/max)      & 11.6 h / 51.5 h             \\
+\hline
+Offline S / M / L                & 1.1\% / 8.2\% / 5.0\%       \\
+Backup pulls                     & 4.0\%                       \\
+\hline
+Blocked ($W$=0 / 500 / 1000)     & 0.47\% / 0.38\% / 0\%       \\
+\hline
+Pull time (avg/max)              & 0.85 s / 7 s                \\
+Storage per peer                 & 24 MB                       \\
+\end{tabular}
+\end{table}
+
 \subsection{Online Chat}
 \label{sec.eval.chat}
 
