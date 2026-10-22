@@ -1286,9 +1286,10 @@ both primary and backup links.
 As expected, all peers in all simulations converge to the same final state and
 consensus order.
 %
-Hard forks (\S\ref{sec.design.partitions.hardforks}) never occur, since delays
-remain far below the 7-day window, and we do not force them, since they are an
-orthogonal (and subjective) safeguard that would only split the forum.
+Hard forks (\S\ref{sec.design.partitions.hardforks}) never occur, since peers
+reconnect far below the 7-day window, making late branches unlikely.
+We do not force hard forks either, since they are an orthogonal (and
+subjective) safeguard that would only split the forum.
 
 We run all simulations on a single standard desktop PC:
 %
