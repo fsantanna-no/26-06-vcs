@@ -1279,14 +1279,91 @@ In the simulations, we distribute authors uniformly over the leaves.
 We replay the original messages as chain posts signed by their authors, issued
 from their peers at the declared times.
 A peer that receives new actions pushes them to its neighbors after a short
-random delay.
+random relay delay (1--60 seconds).
 We rely on queues during churn, offline periods, and partitions that affect
 both primary and backup links.
+As expected, all peers in all simulations converge to the same final state and
+consensus order.
+
+We run all simulations in a single standard desktop PC:
+%
+\begin{description}
+\item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
+\item[RAM:] 16 GB (+2 GB swap file)
+\item[SSD:] 512 GB NVMe
+\end{description}
+%
+Each \code{sync} runs locally, between repositories in the same disk, to
+avoid network noise.
+Note that the relay delay(30s in the average) already overestimates network
+propagation times.
+TODO: what a post/sync comprises? git backend (fetch,commit,etc), hook with
+basic rules + consensus
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
 
-TODO
+In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
+representative of local-first forums, in which members may read and respond to
+messages while offline, eventually synchronizing with the network.
+%
+This store-and-forward model maps naturally to our topology, in which middle
+peers act as servers and leaves as end users connecting in sessions.
+
+We simulate the \emph{comp.compilers} newsgroup%
+\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
+with a corpus of over 33k messages by 12k authors spanning from 1987 to 2013
+(26 years).
+%
+Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
+interactions with larger payloads:
+in our corpus, the median gap between posts is 42 minutes, and the average
+article has 3kB (which includes a timestamp, a sender, a subject, and the
+actual payload).
+%
+The full simulation takes around 90h to complete with the 33k \code{post}
+operations and over 1M \code{sync} operations (35 per post) with effective
+data.
+% transfering over 1GB (500B per sync)
+
+Each author gets a key pair on its first message, and the chain is open, so
+that no post depends on likes.
+%
+We measure the following:
+%
+\begin{itemize}
+\item
+    \emph{Convergence}:
+    whether all peers reach the same order once the network quiesces.
+\item
+    \emph{Forks}:
+    the ratio of posts that fork the chain, against an always-on baseline, and
+    the actions reordered per merge.
+\item
+    \emph{Visibility}:
+    the delay for a post to reach all peers.
+\item
+    \emph{Clamps}:
+    the ratio of posts whose chain time exceeds their declared time, and by
+    how much.
+\item
+    \emph{Churn}:
+    the time offline per peer group, the use of backup links, and the pulls
+    after reconnections.
+\item
+    \emph{Blocked posts}:
+    the ratio of posts that an author could not afford after a welcome of $W$
+    \reps.
+\item
+    \emph{Costs}:
+    the time and number of commits per pull, and the storage per peer against
+    the original payload.
+\end{itemize}
+%
+Hard forks and voided actions do not occur by construction, since visibility
+delays remain far below the 7-day window, and posts in an open chain need no
+\reps.
+convergence time
 
 \subsection{Online Chat}
 \label{sec.eval.chat}
