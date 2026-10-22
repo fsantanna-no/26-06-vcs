@@ -1282,8 +1282,13 @@ A peer that receives new actions pushes them to its neighbors after a short
 random relay delay (1--60 seconds).
 We rely on queues during churn, offline periods, and partitions that affect
 both primary and backup links.
+
 As expected, all peers in all simulations converge to the same final state and
 consensus order.
+%
+Hard forks (\S\ref{sec.design.partitions.hardforks}) never occur, since delays
+remain far below the 7-day window, and we do not force them, since they are an
+orthogonal (and subjective) safeguard that would only split the forum.
 
 We run all simulations in a single standard desktop PC:
 %
@@ -1307,8 +1312,9 @@ In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
 representative of local-first forums, in which members may read and respond to
 messages while offline, eventually synchronizing with the network.
 %
-This store-and-forward model maps naturally to our topology, in which middle
-peers act as servers and leaves as end users connecting in sessions.
+This store-and-forward model naturally leads to forks, specially considering
+our topology, in which some middle peers act as intermitent servers and leaves
+as end users connecting in sessions.
 
 We simulate the \emph{comp.compilers} newsgroup%
 \footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
@@ -1326,14 +1332,11 @@ operations and over 1M \code{sync} operations (35 per post) with effective
 data.
 % transfering over 1GB (500B per sync)
 
-Each author gets a key pair on its first message, and the chain is open, so
-that no post depends on likes.
-%
-We measure the following:
+Since this is our local-first scenario, we focus on measuring the following:
 %
 \begin{itemize}
 \item
-    \emph{Convergence}:
+    \emph{Convergence time}: TODO
     whether all peers reach the same order once the network quiesces.
 \item
     \emph{Forks}:
