@@ -1290,7 +1290,7 @@ Hard forks (\S\ref{sec.design.partitions.hardforks}) never occur, since delays
 remain far below the 7-day window, and we do not force them, since they are an
 orthogonal (and subjective) safeguard that would only split the forum.
 
-We run all simulations in a single standard desktop PC:
+We run all simulations on a single standard desktop PC:
 %
 \begin{description}
 \item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
@@ -1300,7 +1300,7 @@ We run all simulations in a single standard desktop PC:
 %
 Each \code{sync} runs locally, between repositories in the same disk, to
 avoid network noise.
-Note that the relay delay(30s in the average) already overestimates network
+Note that the relay delay (30~s on average) already overestimates network
 propagation times.
 TODO: what a post/sync comprises? git backend (fetch,commit,etc), hook with
 basic rules + consensus
@@ -1312,8 +1312,8 @@ In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
 representative of local-first forums, in which members may read and respond to
 messages while offline, eventually synchronizing with the network.
 %
-This store-and-forward model naturally leads to forks, specially considering
-our topology, in which some middle peers act as intermitent servers and leaves
+This store-and-forward model naturally leads to forks, especially considering
+our topology, in which some middle peers act as intermittent servers and leaves
 as end users connecting in sessions.
 
 We simulate the \emph{comp.compilers} newsgroup%
@@ -1324,31 +1324,29 @@ with a corpus of over 33k messages by 12k authors spanning from 1987 to 2013
 Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
 interactions with larger payloads:
 in our corpus, the median gap between posts is 42 minutes, and the average
-article has 3kB (which includes a timestamp, a sender, a subject, and the
+article has 3~kB (which includes a timestamp, a sender, a subject, and the
 actual payload).
 %
-The full simulation takes around 90h to complete with the 33k \code{post}
-operations and over 1M \code{sync} operations (35 per post) with effective
-data.
+The full simulation takes around 90~h to complete with the 33k \code{post}
+operations and over 1M \code{sync} operations that effectively transfer data
+(35 per post).
 % transfering over 1GB (500B per sync)
 
 Since this is our local-first scenario, we focus on measuring the following:
 %
 \begin{itemize}
 \item
-    \emph{Convergence time}: TODO
-    whether all peers reach the same order once the network quiesces.
+    \emph{Convergence time}:
+    the delay for a post to reach all peers, and thus to be ordered
+    consistently across the network.
 \item
     \emph{Forks}:
     the ratio of posts that fork the chain, against an always-on baseline, and
     the actions reordered per merge.
 \item
-    \emph{Visibility}:
-    the delay for a post to reach all peers.
-\item
     \emph{Clamps}:
-    the ratio of posts whose chain time exceeds their declared time, and by
-    how much.
+    the ratio of posts whose position timestamp exceeds their self-declared
+    timestamp ($P_i > S_i$), and by how much.
 \item
     \emph{Churn}:
     the time offline per peer group, the use of backup links, and the pulls
@@ -1362,11 +1360,6 @@ Since this is our local-first scenario, we focus on measuring the following:
     the time and number of commits per pull, and the storage per peer against
     the original payload.
 \end{itemize}
-%
-Hard forks and voided actions do not occur by construction, since visibility
-delays remain far below the 7-day window, and posts in an open chain need no
-\reps.
-convergence time
 
 \subsection{Online Chat}
 \label{sec.eval.chat}
