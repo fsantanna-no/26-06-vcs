@@ -464,7 +464,7 @@
                       news and privacy; little on moderation
                     - `steemit-li2019` arXiv 1904.07310 (WebSci
                       2019): >16% of transfers to suspected bots
-                - [ ] bib: Jeong 2025 (opener), Guidi 2021 (DPoS,
+                - [x] bib: Jeong 2025 (opener), Guidi 2021 (DPoS,
                   fees), Li 2019 (bots); Guidi 2020 optional;
                   cite 2-3 systems only
         - Aether (`p2p.ecosystem`): flood, stores all, PoW,
@@ -480,21 +480,18 @@
           hubs CRDT -> Snapchain BFT (2025); consensus by
           validators, posts by payment
         - Retroshare/Briar: see 26/10/20 above (sec.related.users)
-        - [ ] verify and add bib: Steem, Li 2019, FMS, Aether?
+        - [x] 26/10/22 checked: Steem, Li 2019 in bib
+          (p2p.steem, p2p.steemit.bots); Aether via
+          p2p.ecosystem; FMS -> won't do
     - [x] 26/10/16 dVCS: cite only in CRDTs Merkle DAG sentence;
       \iffalse paragraph dropped
     - [x] 26/10/16 author: CRDTs and DHTs subsections removed,
       subsubsections -> subsections (`sec.related.users/nodes/
       multi`); opener as lead + description list (4 items)
-    - [ ] CRDTs: one paragraph inside multi/multi as root of the
+    - [x] CRDTs: one paragraph inside multi/multi as root of the
       local-moderation group (Automerge/Pushpin: honest replicas,
       no admission); Autobase quorum in the permissioned group;
       DHTs dropped, IPFS cite stays at the 128 KB rule
-    - [ ] orphan bib keys (26/10/21): cap, kahn, p2p.bittorrent,
-      p2p.dvcs, p2p.kademlia, p2p.proofs, p2p.sec, pubsub.gossipsub,
-      pubsub.gossipsub2, pubsub.rappel, pubsub.stan, pubsub.tera,
-      pubsub.vitis, pubsub.xmpp, sybil.guard, sybil.limit
-      (pubsub.*/cap were cited only in the deleted old text)
     - [x] 26/10/21 reputation systems written: Resnick systems,
       Wang/EigenTrust webs of trust; cheap pseudonyms (newcomers
       start at zero) and sybilproof (asymmetric flow from a seed)
@@ -546,8 +543,8 @@
       permissionless + blockchain.wild, forums p2p.survey ->
       p2p.dosn + p2p.osn, fed.usenet (RFC 977, new),
       p2p.flocking
-    - pending new bib + text: Aether, Freenet FMS, Steem/Hive,
-      SybilGuard; prior fcs.sbseg20/23 (double-blind?)
+    - [x] 26/10/22 new bib + text: Aether, Steem/Hive, SybilGuard
+      done; FMS -> won't do; fcs.sbseg20/23 (double-blind?) open
 - also: gossipsub/gossipsub2 now uncited (dropped with P5); keep
   under the bib's disabled-sections rule or move the Sybil
   sentence to sec.git
@@ -575,3 +572,7 @@
 - Ethereum mention in P2P: no bib entry, Bitcoin/PoS suffice
 - restore Automerge as a standalone sentence: folded into CRDTs
 - dVCS paragraph in multi/multi: short paper, not forums
+- Freenet FMS: no paper, not in text; Sybil defenses covered
+- orphan bib keys: BibTeX skips uncited entries; cap, kahn,
+  p2p.bittorrent, p2p.dvcs, p2p.kademlia, p2p.proofs, p2p.sec,
+  pubsub.* (cited only in deleted old text)
