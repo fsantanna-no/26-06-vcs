@@ -1289,7 +1289,7 @@ consensus order.
 Hard forks (\S\ref{sec.design.partitions.hardforks}) never occur, since peers
 reconnect far below the 7-day window, making late branches unlikely.
 We do not force hard forks either, since they are an orthogonal (and
-subjective) safeguard that would only split the forum.
+subjective) safeguard that would only split the simulation.
 
 We run all simulations on a single standard desktop PC:
 %
@@ -1303,8 +1303,24 @@ Each \code{sync} runs locally, between repositories in the same disk, to
 avoid network noise.
 Note that the relay delay (30~s on average) already overestimates network
 propagation times.
-TODO: what a post/sync comprises? git backend (fetch,commit,etc), hook with
-basic rules + consensus
+%
+In terms of costs, a \code{post} validates the signature and payload size
+(\R{4.c}), applies the reputation rules to the current state
+(Table~\ref{tab.rules}), and then commits the metadata, stores the payload as
+a blob, and snapshots the resulting state as a local ref.
+%
+A \code{sync} is a Git push whose \code{pre-receive} hook runs on the
+receiver:
+    it fetches the missing commits and payloads,
+    replays the remote branch from the common ancestor under the same rules,
+    computes the consensus order (\S\ref{sec.design.consensus}),
+    replays the losing branch from the winner's state (voiding failures),
+    checks the settling window (\S\ref{sec.design.partitions.hardforks}),
+    and finally moves \code{HEAD} or creates a merge commit with a new
+    snapshot.
+%
+State snapshots never cross the wire, so a \code{sync} transfers only the
+Git objects of the missing actions.
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
