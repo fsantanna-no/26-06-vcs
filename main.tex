@@ -1301,26 +1301,12 @@ We run all simulations on a single standard desktop PC:
 %
 Each \code{sync} runs locally, between repositories in the same disk, to
 avoid network noise.
-Note that the relay delay (30~s on average) already overestimates network
+Nevertheless, the relay delay (30~s on average) already overestimates network
 propagation times.
 %
-In terms of costs, a \code{post} validates the signature and payload size
-(\R{4.c}), applies the reputation rules to the current state
-(Table~\ref{tab.rules}), and then commits the metadata, stores the payload as
-a blob, and snapshots the resulting state as a local ref.
-%
-A \code{sync} is a Git push whose \code{pre-receive} hook runs on the
-receiver:
-    it fetches the missing commits and payloads,
-    replays the remote branch from the common ancestor under the same rules,
-    computes the consensus order (\S\ref{sec.design.consensus}),
-    replays the losing branch from the winner's state (voiding failures),
-    checks the settling window (\S\ref{sec.design.partitions.hardforks}),
-    and finally moves \code{HEAD} or creates a merge commit with a new
-    snapshot.
-%
-State snapshots never cross the wire, so a \code{sync} transfers only the
-Git objects of the missing actions.
+In terms of costs, recall that a \code{sync} extends a \code{git push} with a
+a hook (\S\ref{sec.git}) that verifies remote posts from the common ancestor
+and computes the consensus order (\S\ref{sec.design.consensus}).
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
@@ -1349,6 +1335,7 @@ operations and over 1M \code{sync} operations that effectively transfer data
 (34 per post).
 % transfering over 1GB (500B per sync)
 
+Table~\ref{tab.eval.usenet} summarizes the results.
 Since this is our local-first scenario, we focus on measuring the following:
 %
 \begin{itemize}
@@ -1380,36 +1367,116 @@ Since this is our local-first scenario, we focus on measuring the following:
     the original payload.
 \end{itemize}
 
+As detailed next, we measure the following evaluation parameters:
+    (a) metadata overhead,
+    (b) consensus runtime,
+    (c) graph forks, and
+    (d) blocked messages.
+
+1.15% was computed over addresses. The merged-author
+  estimate is 0.94%
+
 \begin{table}[t]
 \centering
-\caption{Usenet simulation results.}
+\caption{Usenet simulation results (triples are median / p90 / max).}
 \label{tab.eval.usenet}
-\small
+\footnotesize
 \begin{tabular}{@{}ll@{}}
 Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
-Run time / syncs with data       & 88.5 h / 1.16M (34 per post)\\
+Run time / syncs with data       & 88.5 h / 1.16M (34/post)   \\
 \hline
-Convergence (peers that differ)  & 0 of 58                     \\
-Convergence time (med/p90/max)   & 29 h / 44 h / 8.4 d         \\
+Diverging peers                  & 0 of 58                     \\
+Convergence time                 & 29 h / 44 h / 8.4 d         \\
 Forks (always-on baseline)       & 66\% (0\%)                  \\
 \quad green / yellow / red       & 55\% / 67\% / 89\%          \\
-\quad missing posts (med/p90/max)& 1 / 7 / 56                  \\
+\quad missing posts              & 1 / 7 / 56                  \\
 Reorders per merge (avg/max)     & -- / --                     \\
 Clamps ($P_i > S_i$)             & 31.0\%                      \\
-\quad $P_i - S_i$ (med/p90/max)  & 4.8 h / 16.6 h / 69.2 h     \\
+\quad $P_i - S_i$                & 4.8 h / 16.6 h / 69.2 h     \\
 \hline
 Offline S / M / L                & 1.0\% / 8.3\% / 5.0\%       \\
 Backup pulls                     & 2.6\%                       \\
-Reconnect pulls (commits med/max)& 59.5k (2 / 91)              \\
+Reconnect pulls (commits)        & 59.5k (2 / 91)              \\
 \hline
 Blocked ($W$=0 / 500 / 1000)     & 1.24\% / 1.15\% / 0.08\%    \\
 \hline
-Pull time (med/p90/max)          & 0.47 s / 1.14 s / 10.3 s    \\
-Commits per pull (med/p90/max)   & 1 / 5 / 96                  \\
-Storage per peer (no payloads)   & 154 MB (119 MB)             \\
+Pull time                        & 0.47 s / 1.14 s / 10.3 s    \\
+Commits per pull                 & 1 / 5 / 96                  \\
+Peer storage (no payloads)       & 154 MB (119 MB)             \\
 Corpus (mbox)                    & 85 MB                       \\
 \end{tabular}
 \end{table}
+
+Table~\ref{tab.eval.usenet} summarizes the results.
+%
+All 58 peers end with the same consensus order (and the same \reps) as the
+reference super peer \code{S1}.
+%
+Convergence is slow by design: a post takes a median of 29~h to reach all
+peers (44~h at the 90th percentile), since leaves connect once a day and
+middles every 6~h.
+% TODO (sims): max of 8.4 d exceeds the 7-day window; find the post/peer and
+% why it caused no hard fork (lost or unsettled fork point?)
+%
+Sessions of hours make forks the norm: 66\% of the posts fork the chain,
+from 55\% at always-on green leaves to 89\% at local-first red leaves, against
+0\% in an always-on baseline run.
+% TODO: the baseline is a 5k-prefix run on an older build (r160)
+Forks are shallow, though: a forking post misses a median of 1 earlier post
+(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
+no coordination.
+%
+Clamps follow the same pattern: 31\% of the posts are positioned after their
+declared time ($P_i > S_i$), by a median of 4.8~h and at most 69~h, all well
+within the 7-day window.
+%
+Churn remains mostly invisible: supers are offline 1\% of the time, middles
+8\%, and leaves 5\%; only 2.6\% of the pulls go through backup links; and the
+59.5k pulls after reconnections carry a median of 2 commits (91 at most).
+% TODO (sims): setup says yellow peers churn 10%, but the report says only
+% the 22 always-on leaves churn
+%
+Even though the chain is open, we also replay the admission rule (\R{4.a})
+counterfactually over the 20.5k posts by returning authors:
+    without a welcome, 1.24\% of them could not afford the post;
+    with a welcome of \nreps{1000}, only 0.08\%.
+% TODO (author): explain the open chain (no reps to post, no votes), which
+% blocked posts and voided actions rely on (261022-review.md, item 2)
+%
+Finally, the costs stay low: a pull takes a median of 0.47~s (1.14~s at the
+90th percentile, 10.3~s at most) and carries a median of 1 commit (5 and 96,
+respectively).
+Storage per peer is 154~MB packed, against 85~MB for the original mbox
+corpus.
+Without payloads, it is still 119~MB, since the bulk are the per-action state
+snapshots, which we revisit in \S\ref{sec.eval.scale}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{reps}
+\caption{
+    Reputation against posts per author at the end of the Usenet simulation
+    (log-log).
+    Bubble areas are proportional to the number of authors.
+}
+\label{fig.reps.usenet}
+\end{figure}
+
+Figure~\ref{fig.reps.usenet} shows the resulting economy of \reps.
+%
+Since the newsgroup has no likes or dislikes, \reps come only from posting
+(\R{1.b}):
+    every author ends with \nreps{1000} per day with a post (dashed line), up
+    to the cap of \nreps{50K} (\R{4.b}), which 39 authors reach.
+Authors below the line posted several times in the same tick, which rewards
+them only once.
+%
+Reputation thus works as an activity counter, which distributes \reps more
+evenly than the posts themselves:
+    the 8.5k authors (68\%) with a single post all hold \nreps{1000};
+    the top 1\% of authors hold 16\% of all \reps while writing 25\% of the
+    posts;
+    and the top 50\% hold 78\% while writing 81\%.
 
 \subsection{Online Chat}
 \label{sec.eval.chat}
