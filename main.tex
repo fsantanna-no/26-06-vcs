@@ -1304,9 +1304,9 @@ avoid network noise.
 Nevertheless, the relay delay (30~s on average) already overestimates network
 propagation times.
 %
-In terms of costs, recall that a \code{sync} extends a \code{git push} with a
-a hook (\S\ref{sec.git}) that verifies remote posts from the common ancestor
-and computes the consensus order (\S\ref{sec.design.consensus}).
+In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
+hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
+ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
 
 \subsection{Usenet Newsgroup}
 \label{sec.eval.usenet}
@@ -1335,8 +1335,38 @@ operations and over 1M \code{sync} operations that effectively transfer data
 (34 per post).
 % transfering over 1GB (500B per sync)
 
-Table~\ref{tab.eval.usenet} summarizes the results.
-Since this is our local-first scenario, we focus on measuring the following:
+\begin{table}[t]
+\centering
+\caption{Usenet simulation results (triples are median / p90 / max).}
+\label{tab.eval.usenet}
+\footnotesize
+\begin{tabular}{@{}ll@{}}
+Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
+Run time / syncs with data       & 88.5 h / 1.16M (34/post)   \\
+\hline
+Diverging peers                  & 0 of 58                     \\
+Convergence time                 & 29 h / 44 h / 8.4 d         \\
+Forks (always-on baseline)       & 66\% (0\%)                  \\
+\quad green / yellow / red       & 55\% / 67\% / 89\%          \\
+\quad missing posts              & 1 / 7 / 56                  \\
+Reorders per merge (avg/max)     & -- / --                     \\
+Clamps ($P_i > S_i$)             & 31.0\%                      \\
+\quad $P_i - S_i$                & 4.8 h / 16.6 h / 69.2 h     \\
+\hline
+Offline S / M / L                & 1.0\% / 8.3\% / 5.0\%       \\
+Backup pulls                     & 2.6\%                       \\
+Reconnect pulls (commits)        & 59.5k (2 / 91)              \\
+\hline
+Blocked ($W$=0 / 500 / 1000)     & 1.24\% / 1.15\% / 0.08\%    \\
+\hline
+Pull time                        & 0.47 s / 1.14 s / 10.3 s    \\
+Commits per pull                 & 1 / 5 / 96                  \\
+Peer storage (no payloads)       & 154 MB (119 MB)             \\
+Corpus (mbox)                    & 85 MB                       \\
+\end{tabular}
+\end{table}
+
+Table~\ref{tab.eval.usenet} shows the measures for our local-first scenario:
 %
 \begin{itemize}
 \item
@@ -1375,37 +1405,6 @@ As detailed next, we measure the following evaluation parameters:
 
 1.15% was computed over addresses. The merged-author
   estimate is 0.94%
-
-\begin{table}[t]
-\centering
-\caption{Usenet simulation results (triples are median / p90 / max).}
-\label{tab.eval.usenet}
-\footnotesize
-\begin{tabular}{@{}ll@{}}
-Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
-Run time / syncs with data       & 88.5 h / 1.16M (34/post)   \\
-\hline
-Diverging peers                  & 0 of 58                     \\
-Convergence time                 & 29 h / 44 h / 8.4 d         \\
-Forks (always-on baseline)       & 66\% (0\%)                  \\
-\quad green / yellow / red       & 55\% / 67\% / 89\%          \\
-\quad missing posts              & 1 / 7 / 56                  \\
-Reorders per merge (avg/max)     & -- / --                     \\
-Clamps ($P_i > S_i$)             & 31.0\%                      \\
-\quad $P_i - S_i$                & 4.8 h / 16.6 h / 69.2 h     \\
-\hline
-Offline S / M / L                & 1.0\% / 8.3\% / 5.0\%       \\
-Backup pulls                     & 2.6\%                       \\
-Reconnect pulls (commits)        & 59.5k (2 / 91)              \\
-\hline
-Blocked ($W$=0 / 500 / 1000)     & 1.24\% / 1.15\% / 0.08\%    \\
-\hline
-Pull time                        & 0.47 s / 1.14 s / 10.3 s    \\
-Commits per pull                 & 1 / 5 / 96                  \\
-Peer storage (no payloads)       & 154 MB (119 MB)             \\
-Corpus (mbox)                    & 85 MB                       \\
-\end{tabular}
-\end{table}
 
 Table~\ref{tab.eval.usenet} summarizes the results.
 %
