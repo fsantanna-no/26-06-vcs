@@ -1342,27 +1342,32 @@ operations and over 1M \code{sync} operations that effectively transfer data
 \begin{tabular}{@{}lrrr@{}}
                                  & median & p90    & max    \\
 \hline
-Convergence time                 & 29h   & 44h   & 8.4d  \\
+Convergence time                 & 29h    & 44h    & 8.4d   \\
 Forks                            & \multicolumn{3}{l}{66\%}               \\
 \quad green / yellow / red       & \multicolumn{3}{l}{55\% / 67\% / 89\%} \\
 \quad missing posts              & 1      & 7      & 56     \\
 \quad reorders per merge         & 1      & 6      & 18     \\
+\quad voided per merge           & \multicolumn{3}{l}{0 (no likes)}       \\
 Clamps ($P_i > S_i$)             & \multicolumn{3}{l}{31.0\%}             \\
-\quad $P_i - S_i$                & 4.8h  & 16.6h & 69.2h \\
+\quad $P_i - S_i$                & 4.8h   & 16.6h  & 69.2h  \\
 Commits per reconnect pull       & 2      & --     & 91     \\
-\hline
 Blocked posts                    & \multicolumn{3}{l}{1.15\%}             \\
 \hline
-Peer storage (no payloads)       & \multicolumn{3}{l}{154MB (119MB)}    \\
-Corpus (mbox)                    & \multicolumn{3}{l}{85MB}              \\
+Post time                        & --     & --     & --     \\
+Pull time                        & 0.47s  & 1.14s  & 10.3s  \\
+\quad commits                    & 1      & 5      & 96     \\
+\quad bytes                      & 510B   & 1.9kB  & 36kB   \\
+Storage (3.8$\times$ payloads)      & \multicolumn{3}{l}{32 / 14 / 76MB}     \\
+\quad payloads / commits / snaps. & & & \\
 \end{tabular}
 \end{table}
 % dropped rows (26/10/26), numbers kept for other sections:
 %   Diverging peers: 0 of 58 (stated once in the setup)
 %   Offline S / M / L: 1.0% / 8.3% / 5.0% (setup check)
 %   Backup pulls: 2.6% (setup check)
-%   Pull time: 0.47s / 1.14s / 10.3s (-> 4.2 chat, 4.5 scale)
-%   Commits per pull: 1 / 5 / 96 (-> 4.5 scale)
+%   Post time: pending from sims (per-action post= fields)
+%   Bytes per pull total 1178.5 MB; storage = gc'd object bytes
+%   (L45 after git gc; S1 as kept 32 / 14 / 96 MB, 4.4x)
 %   Blocked W=0 / 1000: 1.24% / 0.08% (W=1000 in the text)
 %   Blocked 1.15% is over 12,539 addresses; 0.94% is an estimate
 %   over 11,348 merged authors
