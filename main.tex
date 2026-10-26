@@ -1319,10 +1319,9 @@ This store-and-forward model naturally leads to forks, especially considering
 our topology, in which some middle peers act as intermittent servers and leaves
 as end users connecting in sessions.
 
-We simulate the \emph{comp.compilers} newsgroup%
+We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
+messages by 12k authors spanning from 1987 to 2013 (26 years).%
 \footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
-with a corpus of over 33k messages by 12k authors spanning from 1987 to 2013
-(26 years).
 %
 Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
 interactions with larger payloads:
@@ -1337,26 +1336,25 @@ operations and over 1M \code{sync} operations that effectively transfer data
 
 \begin{table}[t]
 \centering
-\caption{Usenet simulation results (triples are median / p90 / max).}
+\caption{Usenet simulation results.}
 \label{tab.eval.usenet}
 \footnotesize
-\begin{tabular}{@{}ll@{}}
-Posts / authors / period         & 33.8k / 12.5k / 26 y        \\
-Run time / syncs with data       & 88.5 h / 1.16M (34/post)    \\
+\begin{tabular}{@{}lrrr@{}}
+                                 & median & p90    & max    \\
 \hline
-Convergence time                 & 29 h / 44 h / 8.4 d         \\
-Forks (always-on baseline)       & 66\% (0\%)                  \\
-\quad green / yellow / red       & 55\% / 67\% / 89\%          \\
-\quad missing posts              & 1 / 7 / 56                  \\
-\quad reorders per merge (avg/max) & 2.5 / 18                  \\
-Clamps ($P_i > S_i$)             & 31.0\%                      \\
-\quad $P_i - S_i$                & 4.8 h / 16.6 h / 69.2 h     \\
-Reconnect pulls (commits)        & 59.5k (2 / 91)              \\
+Convergence time                 & 29 h   & 44 h   & 8.4 d  \\
+Forks                            & \multicolumn{3}{l}{66\%}               \\
+\quad green / yellow / red       & \multicolumn{3}{l}{55\% / 67\% / 89\%} \\
+\quad missing posts              & 1      & 7      & 56     \\
+\quad reorders per merge         & 1      & 6      & 18     \\
+Clamps ($P_i > S_i$)             & \multicolumn{3}{l}{31.0\%}             \\
+\quad $P_i - S_i$                & 4.8 h  & 16.6 h & 69.2 h \\
+Commits per reconnect pull       & 2      & --     & 91     \\
 \hline
-Blocked posts ($W$=500)          & 1.15\%                      \\
+Blocked posts                    & \multicolumn{3}{l}{1.15\%}             \\
 \hline
-Peer storage (no payloads)       & 154 MB (119 MB)             \\
-Corpus (mbox)                    & 85 MB                       \\
+Peer storage (no payloads)       & \multicolumn{3}{l}{154 MB (119 MB)}    \\
+Corpus (mbox)                    & \multicolumn{3}{l}{85 MB}              \\
 \end{tabular}
 \end{table}
 % dropped rows (26/10/26), numbers kept for other sections:
@@ -1368,7 +1366,10 @@ Corpus (mbox)                    & 85 MB                       \\
 %   Blocked W=0 / 1000: 1.24% / 0.08% (W=1000 in the text)
 %   Blocked 1.15% is over 12,539 addresses; 0.94% is an estimate
 %   over 11,348 merged authors
-%   Reorders 2.5 / 18 come from an r2 sample (400 merges, loser side)
+%   Reorders 1 / 6 / 18 (mean 2.5) come from an r2 sample of 400 of
+%   the 6,517 S1 merges with snapshots (loser side)
+%   Always-on baseline: 0% forks (5k prefix, build r160), dropped
+%   Reconnect pulls: 59.5k in total
 
 Table~\ref{tab.eval.usenet} shows the measures for our local-first scenario:
 %
