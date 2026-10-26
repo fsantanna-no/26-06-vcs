@@ -1295,13 +1295,13 @@ We run all simulations on a single standard desktop PC:
 %
 \begin{description}
 \item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
-\item[RAM:] 16 GB (+2 GB swap file)
-\item[SSD:] 512 GB NVMe
+\item[RAM:] 16GB (+2GB swap file)
+\item[SSD:] 512GB NVMe
 \end{description}
 %
 Each \code{sync} runs locally, between repositories in the same disk, to
 avoid network noise.
-Nevertheless, the relay delay (30~s on average) already overestimates network
+Nevertheless, the relay delay (30s on average) already overestimates network
 propagation times.
 %
 In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
@@ -1325,11 +1325,11 @@ messages by 12k authors spanning from 1987 to 2013 (26 years).%
 %
 Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
 interactions with larger payloads:
-in our corpus, the median gap between posts is 2.6~h, and the average
-article has 3~kB (which includes a timestamp, a sender, a subject, and the
+in our corpus, the median gap between posts is 2.6h, and the average
+article has 3kB (which includes a timestamp, a sender, a subject, and the
 actual payload).
 %
-The full simulation takes around 90~h to complete with the 33k \code{post}
+The full simulation takes around 90h to complete with the 33k \code{post}
 operations and over 1M \code{sync} operations that effectively transfer data
 (34 per post).
 % transfering over 1GB (500B per sync)
@@ -1342,26 +1342,26 @@ operations and over 1M \code{sync} operations that effectively transfer data
 \begin{tabular}{@{}lrrr@{}}
                                  & median & p90    & max    \\
 \hline
-Convergence time                 & 29 h   & 44 h   & 8.4 d  \\
+Convergence time                 & 29h   & 44h   & 8.4d  \\
 Forks                            & \multicolumn{3}{l}{66\%}               \\
 \quad green / yellow / red       & \multicolumn{3}{l}{55\% / 67\% / 89\%} \\
 \quad missing posts              & 1      & 7      & 56     \\
 \quad reorders per merge         & 1      & 6      & 18     \\
 Clamps ($P_i > S_i$)             & \multicolumn{3}{l}{31.0\%}             \\
-\quad $P_i - S_i$                & 4.8 h  & 16.6 h & 69.2 h \\
+\quad $P_i - S_i$                & 4.8h  & 16.6h & 69.2h \\
 Commits per reconnect pull       & 2      & --     & 91     \\
 \hline
 Blocked posts                    & \multicolumn{3}{l}{1.15\%}             \\
 \hline
-Peer storage (no payloads)       & \multicolumn{3}{l}{154 MB (119 MB)}    \\
-Corpus (mbox)                    & \multicolumn{3}{l}{85 MB}              \\
+Peer storage (no payloads)       & \multicolumn{3}{l}{154MB (119MB)}    \\
+Corpus (mbox)                    & \multicolumn{3}{l}{85MB}              \\
 \end{tabular}
 \end{table}
 % dropped rows (26/10/26), numbers kept for other sections:
 %   Diverging peers: 0 of 58 (stated once in the setup)
 %   Offline S / M / L: 1.0% / 8.3% / 5.0% (setup check)
 %   Backup pulls: 2.6% (setup check)
-%   Pull time: 0.47 s / 1.14 s / 10.3 s (-> 4.2 chat, 4.5 scale)
+%   Pull time: 0.47s / 1.14s / 10.3s (-> 4.2 chat, 4.5 scale)
 %   Commits per pull: 1 / 5 / 96 (-> 4.5 scale)
 %   Blocked W=0 / 1000: 1.24% / 0.08% (W=1000 in the text)
 %   Blocked 1.15% is over 12,539 addresses; 0.94% is an estimate
@@ -1413,10 +1413,10 @@ Table~\ref{tab.eval.usenet} summarizes the results.
 All 58 peers end with the same consensus order (and the same \reps) as the
 reference super peer \code{S1}.
 %
-Convergence is slow by design: a post takes a median of 29~h to reach all
-peers (44~h at the 90th percentile), since leaves connect once a day and
-middles every 6~h.
-% TODO (sims): max of 8.4 d exceeds the 7-day window; find the post/peer and
+Convergence is slow by design: a post takes a median of 29h to reach all
+peers (44h at the 90th percentile), since leaves connect once a day and
+middles every 6h.
+% TODO (sims): max of 8.4d exceeds the 7-day window; find the post/peer and
 % why it caused no hard fork (lost or unsettled fork point?)
 %
 Sessions of hours make forks the norm: 66\% of the posts fork the chain,
@@ -1428,7 +1428,7 @@ Forks are shallow, though: a forking post misses a median of 1 earlier post
 no coordination.
 %
 Clamps follow the same pattern: 31\% of the posts are positioned after their
-declared time ($P_i > S_i$), by a median of 4.8~h and at most 69~h, all well
+declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all well
 within the 7-day window.
 %
 Churn remains mostly invisible: supers are offline 1\% of the time, middles
@@ -1444,12 +1444,12 @@ counterfactually over the 20.5k posts by returning authors:
 % TODO (author): explain the open chain (no reps to post, no votes), which
 % blocked posts and voided actions rely on (261022-review.md, item 2)
 %
-Finally, the costs stay low: a pull takes a median of 0.47~s (1.14~s at the
-90th percentile, 10.3~s at most) and carries a median of 1 commit (5 and 96,
+Finally, the costs stay low: a pull takes a median of 0.47s (1.14s at the
+90th percentile, 10.3s at most) and carries a median of 1 commit (5 and 96,
 respectively).
-Storage per peer is 154~MB packed, against 85~MB for the original mbox
+Storage per peer is 154MB packed, against 85MB for the original mbox
 corpus.
-Without payloads, it is still 119~MB, since the bulk are the per-action state
+Without payloads, it is still 119MB, since the bulk are the per-action state
 snapshots, which we revisit in \S\ref{sec.eval.scale}.
 
 \begin{figure}[t]
