@@ -558,6 +558,18 @@
     - shows the dictator mode is not only "the platform", and
       gives the cheapest possible deployment story
 
+# Wording pass 26/10/27 (done)
+
+- [x] Bluesky: "crawling" -> "aggregating"
+- [x] social blockchains: "power concentrates up to domination
+  (e.g., the Steem takeover)"
+- [x] "weighted by" -> "in proportion to"
+- [x] Sybil results: "indicate how reputation can resist Sybils";
+  taxed likes "(penalizing Sybils that like each other)"
+  (colleague asked how the two results relate to FC)
+- [x] "In turn, reputation admits members ..." split sentence
+- diff artifact: https://claude.ai/artifact/EfchQ7Fx7RuQHZ3F3eeyRE
+
 # Loose ends
 
 - empty `\section{Evaluation}` at ln 1186 with `sec.evaluation`
