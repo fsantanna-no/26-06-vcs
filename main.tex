@@ -1206,8 +1206,8 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 We evaluate the performance and robustness of \FC against the actual history of
 real online forums.
 We take public forum archives and simulate them as a new chain: every message
-is replayed with its original time and author, but this time as a signed post
-under the protocol rules, as if the forum had always run on it.
+is replayed with its original time and author, but this time as a post under
+the protocol rules, as if the forum had always run on it.
 %
 Unlike synthetic workloads, these archives carry real human activity: bursts
 and silences, a few prolific authors among many occasional ones, and years of
@@ -1284,8 +1284,8 @@ connections, but only synchronize point-to-point during online periods
 (connect, sync, disconnect).
 
 Each simulation distributes authors uniformly over the leaves and replays all
-original messages in a fresh chain as posts by their authors, issued from their
-peers at the declared times.
+original messages in a fresh chain as signed posts by their authors, issued
+from their peers at the declared times.
 A peer that receives new posts pushes them through its links after a short
 random relay delay (1--60 seconds).
 The topology dictates the simulation steps: peers synchronize only along their
