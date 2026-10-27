@@ -1613,7 +1613,7 @@ multiple servers, so that other users can fetch them.
 All ordering, consistency, and moderation are therefore left to applications.
 %
 In contrast, Bluesky recovers a global view, halfway to federations, by
-crawling known feeds into larger indexes, which become the authority for
+aggregating known feeds into larger indexes, which become the authority for
 ordering and moderation.
 
 \subsection{Multi-User/Multi-Node Forums}
@@ -1650,18 +1650,17 @@ Steem/Hive~\cite{p2p.steem} and Farcaster~\cite{p2p.farcaster.imc}, deliver
 consensus, but rely on cryptocurrencies for scarcity with inherent drawbacks
 (\S\ref{sec.introduction}):
     admission and votes can be purchased~\cite{p2p.steemit.bots},
-    power concentrates up to capture (e.g., the takeover that forked Hive
-    from Steem),
-    and posts (payloads) are immutable by design.
+    power concentrates up to domination (e.g., the Steem takeover), and
+    posts (payloads) are immutable by design.
 
 \FC takes a third approach in which scarcity comes from the reputation earned
-inside the forum, and consensus comes from the members weighted by that
+inside the forum, and consensus comes from the members in proportion to that
 reputation.
 
 \subsection{Reputation Systems}
 \label{sec.related.reps}
 
-In peer-to-peer file sharing, reputation ranks sources but takes no part
+In peer-to-peer file sharing, reputation ranks sources, but takes no part
 in storing or ordering content.
 %
 A Bayesian trust model~\cite{p2p.rep.wang} keeps a local view, in which a peer
@@ -1682,19 +1681,18 @@ participation~\cite{forum.reddit.karma}, but both under a central server.
 Social blockchains derive reputation from wealth rather than
 contributions~\cite{p2p.steem.wealth}.
 
-In our permissionless context, two results relate reputation systems and
-Sybils:
+In our permissionless context, two previous results indicate how
+reputation can resist Sybils:
 %
-free identities let members discard bad reputations, so newcomers must
-start with the lowest standing~\cite{rep.pseudonyms};
-%
-and symmetric score rules allow Sybils to rate each other, so only scores
-flowing from trusted parties are
-Sybil-resistant~\cite{rep.sybilproof,sybil.guard,sybil.limit}.
+since identities are free, members can easily discard bad reputations, so
+newcomers must start with the lowest rank~\cite{rep.pseudonyms}; and
+since Sybils can rate each other, only scores flowing from trusted
+parties are Sybil-resistant~\cite{rep.sybilproof,sybil.guard,sybil.limit}.
 
 \FC complies with both:
     newcomers start with no \reps, and \reps flow from pioneers to
-    contributing members, always through taxed likes.
+    contributing members, always through taxed likes (penalizing Sybils liking
+    each other).
 %
 Unlike all of the above, reputation in \FC derives from consensus over the
 content itself, and it both admits members and determines the order and
