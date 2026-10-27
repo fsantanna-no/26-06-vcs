@@ -1293,49 +1293,6 @@ reconnect far below the 7-day window, making late branches unlikely.
 We do not force hard forks either, since they are an orthogonal (and
 subjective) safeguard that would only split the simulation.
 
-We run all simulations on a single standard desktop PC:
-%
-\begin{description}
-\item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
-\item[RAM:] 16GB DDR4-3200 (2$\times$8GB, +2GB swap file)
-\item[SSD:] 512GB NVMe
-\end{description}
-%
-Each \code{sync} runs locally, between repositories in the same disk, to
-avoid network noise.
-Nevertheless, the relay delay (30s on average) already overestimates network
-propagation times.
-%
-In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
-hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
-ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
-
-\subsection{Usenet Newsgroup}
-\label{sec.eval.usenet}
-
-In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
-representative of local-first forums, in which members may read and respond to
-messages while offline, eventually synchronizing with the network.
-%
-This store-and-forward model naturally leads to forks, especially considering
-our topology, in which some middle peers act as intermittent servers and leaves
-as end users connecting in sessions.
-
-We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
-messages by 12k authors spanning from 1987 to 2013 (26 years).%
-\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
-%
-Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
-interactions with larger payloads:
-in our corpus, the median gap between posts is 2.6h, and the average
-article has 3kB (which includes a timestamp, a sender, a subject, and the
-actual payload).
-%
-The full simulation takes around 90h to complete with the 33k \code{post}
-operations and over 1M \code{sync} operations that effectively transfer data
-(34 per post).
-% transfering over 1GB (500B per sync)
-
 \begin{table}[t]
 \centering
 \caption{Usenet simulation results.}
@@ -1423,6 +1380,49 @@ As detailed next, we measure the following evaluation parameters:
     (b) consensus runtime,
     (c) graph forks, and
     (d) blocked messages.
+
+We run all simulations on a single standard desktop PC:
+%
+\begin{description}
+\item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
+\item[RAM:] 16GB DDR4-3200 (2$\times$8GB, +2GB swap file)
+\item[SSD:] 512GB NVMe
+\end{description}
+%
+Each \code{sync} runs locally, between repositories in the same disk, to
+avoid network noise.
+Nevertheless, the relay delay (30s on average) already overestimates network
+propagation times.
+%
+In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
+hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
+ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
+
+\subsection{Usenet Newsgroup}
+\label{sec.eval.usenet}
+
+In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
+representative of local-first forums, in which members may read and respond to
+messages while offline, eventually synchronizing with the network.
+%
+This store-and-forward model naturally leads to forks, especially considering
+our topology, in which some middle peers act as intermittent servers and leaves
+as end users connecting in sessions.
+
+We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
+messages by 12k authors spanning from 1987 to 2013 (26 years).%
+\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
+%
+Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
+interactions with larger payloads:
+in our corpus, the median gap between posts is 2.6h, and the average
+article has 3kB (which includes a timestamp, a sender, a subject, and the
+actual payload).
+%
+The full simulation takes around 90h to complete with the 33k \code{post}
+operations and over 1M \code{sync} operations that effectively transfer data
+(34 per post).
+% transfering over 1GB (500B per sync)
 
 Table~\ref{tab.eval.usenet} summarizes the results.
 %
