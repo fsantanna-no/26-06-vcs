@@ -1203,15 +1203,20 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 \section{Evaluation}
 \label{sec.evaluation}
 
-We evaluate the performance and robustness of \FC by simulating publicly
-available forum archives over it.
-Peers replay and gossip original messages under the protocol rules, as if they
-had been part of a chain from the start.
-We then measure metrics such as post and sync times, storage, forks and
-convergence, and the economy of \reps.
+We evaluate the performance and robustness of \FC against the actual history of
+real online forums.
+We take public forum archives and replay every message, with its original
+time and author, but this time as a signed post under the rules of \FC, as if
+the forum had always run on it.
+%
+Unlike synthetic workloads, these archives carry real human activity: bursts
+and silences, a few prolific authors among many occasional ones, and years of
+accumulated content.
+Over these replays, we measure post and sync times, storage, forks and
+convergence, and how \reps flow among authors.
 
-We selected four public archives (and a fifth synthetic), each representing a
-scenario with its own challenges:
+We selected four public archives, each representing a scenario with its own
+challenges:
 
 \begin{description}
 \item [\S\ref{sec.eval.usenet}]
@@ -1226,9 +1231,6 @@ scenario with its own challenges:
 \item [\S\ref{sec.eval.lemmy}]
     Federated Community:
     whether awarded \reps can afford real moderation actions.
-\item [\S\ref{sec.eval.scale}]
-    Synthetic Chain:
-    how post, sync, and clone costs grow with the chain over time.
 \end{description}
 
 \begin{figure}[t]
@@ -1276,14 +1278,21 @@ differing only in the number of connections and synchronization schedule:
     \emph{Red peers} are local-first peers posting offline and connecting
     periodically like yellow peers.
 \end{itemize}
+%
+In the context of \FC, links and connectivity are abstract: peers keep no open
+connections, but only synchronize point-to-point during online periods
+(connect, sync, disconnect).
 
-In the simulations, we distribute authors uniformly over the leaves.
-We replay the original messages as chain posts signed by their authors, issued
-from their peers at the declared times.
-A peer that receives new actions pushes them to its neighbors after a short
+Each simulation creates a fresh chain for the forum to be replayed and
+distributes authors uniformly over the leaves.
+Then, it replays all original messages as chain posts signed by their authors,
+issued from their peers at the declared times.
+A peer that receives new posts pushes them through its links after a short
 random relay delay (1--60 seconds).
-We rely on queues during churn, offline periods, and partitions that affect
-both primary and backup links.
+The topology dictates the simulation steps: peers synchronize only along their
+links and according to their schedules.
+To handle churn, offline periods, and network partitions, the simulation
+driver (outside \FC) includes an internal queueing mechanism for pending posts.
 
 As expected, all peers in all simulations converge to the same final state and
 consensus order.
@@ -1468,7 +1477,7 @@ respectively).
 Storage per peer is 154MB packed, against 85MB for the original mbox
 corpus.
 Without payloads, it is still 119MB, since the bulk are the per-action state
-snapshots, which we revisit in \S\ref{sec.eval.scale}.
+snapshots.
 
 \begin{figure}[t]
 \centering
@@ -1513,29 +1522,6 @@ TODO
 \label{sec.eval.lemmy}
 
 TODO
-
-\subsection{Synthetic Chain}
-\label{sec.eval.scale}
-
-TODO
-
-\iffalse
-The replays mix chain size with posting rhythms and synchronization policies.
-%
-To isolate size, a single peer grows one chain with posts only, so that its
-history has no forks, and at each checkpoint (1k, 5k, 10k, 34k, and 100k
-posts) we time
-    a post,
-    a sync with nothing new,
-    a sync with one new post,
-    a sync with one concurrent post on each side, and
-    a full clone from scratch
-(TODO: figure, log-log).
-%
-TODO: post cost stays flat;
-sync cost (TODO: grows with size / stays bounded), and why;
-clone cost grows linearly with the chain.
-\fi
 
 \section{Related Work}
 \label{sec.related}
