@@ -1338,19 +1338,23 @@ Forks                            & \multicolumn{3}{l}{66\%}               \\
 %   Reconnect pulls: 59.5k in total; commits per reconnect pull
 %   2 / -- / 91 (dropped: lower bound on the backlog, mid-dependent)
 
-Table~\ref{tab.eval.usenet} shows the measures for our local-first scenario:
+Table~\ref{tab.eval.usenet} shows the measures for the metrics we describe as
+follows:
 %
 \begin{enumerate}
-\item
-    \emph{Storage}:
-    the size of a peer repository against the payloads alone, split into
+\item \emph{Storage:}
+    on-disk size of the packed Git repository in peer \code{S1}:
     \begin{enumerate}
-    \item payloads, action commits, and state snapshots.
+    \item \emph{Payloads:}   all payloads combined (same as original packed archive)
+    \item \emph{Commits:}    all action commits combined
+    \item \emph{Snapshots:}  all per-action snapshots combined
+    \item \emph{Overhead:}   total size over Payloads
     \end{enumerate}
 \item
     \emph{Operations}:
+    local runtime cost of operations:
     \begin{enumerate}
-    \item the time to \code{post};
+    \item \emph{Posts:} the time to \code{post};
     \item the time, commits, and bytes per \code{sync} pull.
     \end{enumerate}
 \item
