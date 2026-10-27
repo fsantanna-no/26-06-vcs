@@ -989,6 +989,8 @@ timestamps, whereas Figure~\ref{fig.monotonic}.B shows its
 consensus order as a monotonic clock.
 For instance, note how timestamp $S_4=4$ in the losing branch (in gray) becomes
 $P_4=12$ (much newer) when preceded by the winning branch.
+We say that such a post is \emph{clamped}, since its position timestamp exceeds
+its declared timestamp ($P_4 > S_4$).
 
 The monotonic timeline determines how recent a losing branch is in the local
 order rather than how old it claims to be.
@@ -1359,7 +1361,7 @@ Forks                            & \multicolumn{3}{l}{66\%}               \\
 \quad missing posts              & 1      & 7      & 56     \\
 \quad reorders per merge         & 1      & 6      & 18     \\
 \quad voided per merge           & \multicolumn{3}{l}{0 (no likes)}       \\
-\quad late posts ($P_i > S_i$)   & \multicolumn{3}{l}{31.0\%}             \\
+\quad clamped posts ($P_i > S_i$)& \multicolumn{3}{l}{31.0\%}             \\
 \quad $P_i - S_i$                & 4.8h   & 16.6h  & 69.2h  \\
 \end{tabular}
 \end{table}
@@ -1412,8 +1414,7 @@ Table~\ref{tab.eval.usenet} shows the measures for our local-first scenario:
     \item the earlier posts a forking post misses;
     \item the actions reordered per merge;
     \item the actions voided per merge;
-    \item the posts that consensus places after their declared time
-          ($P_i > S_i$), and by how much.
+    \item the clamped posts ($P_i > S_i$), and by how much.
     \end{enumerate}
 \end{enumerate}
 
