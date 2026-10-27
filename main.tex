@@ -1205,14 +1205,14 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 
 We evaluate the performance and robustness of \FC against the actual history of
 real online forums.
-We take public forum archives and replay every message, with its original
-time and author, but this time as a signed post under the rules of \FC, as if
-the forum had always run on it.
+We take public forum archives and simulate them as a new chain: every message
+is replayed with its original time and author, but this time as a signed post
+under the protocol rules, as if the forum had always run on it.
 %
 Unlike synthetic workloads, these archives carry real human activity: bursts
 and silences, a few prolific authors among many occasional ones, and years of
 accumulated content.
-Over these replays, we measure post and sync times, storage, forks and
+Over these simulations, we measure post and sync times, storage, forks and
 convergence, and how \reps flow among authors.
 
 We selected four public archives, each representing a scenario with its own
@@ -1283,10 +1283,9 @@ In the context of \FC, links and connectivity are abstract: peers keep no open
 connections, but only synchronize point-to-point during online periods
 (connect, sync, disconnect).
 
-Each simulation creates a fresh chain for the forum to be replayed and
-distributes authors uniformly over the leaves.
-Then, it replays all original messages as chain posts signed by their authors,
-issued from their peers at the declared times.
+Each simulation distributes authors uniformly over the leaves and replays all
+original messages in a fresh chain as posts by their authors, issued from their
+peers at the declared times.
 A peer that receives new posts pushes them through its links after a short
 random relay delay (1--60 seconds).
 The topology dictates the simulation steps: peers synchronize only along their
