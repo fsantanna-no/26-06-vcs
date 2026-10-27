@@ -1343,39 +1343,37 @@ follows:
 %
 \begin{enumerate}
 \item \emph{Storage:}
-    on-disk size of the packed Git repository in peer \code{S1}:
+    on-disk size of the packed Git repository:
     \begin{enumerate}
     \item \emph{Payloads:}   all payloads combined (same as original packed archive)
     \item \emph{Commits:}    all action commits combined
     \item \emph{Snapshots:}  all per-action snapshots combined
     \item \emph{Overhead:}   total size over Payloads
     \end{enumerate}
-\item
-    \emph{Operations}:
-    local runtime cost of operations:
+\item \emph{Operations:}
+    cost of local operations:
     \begin{enumerate}
-    \item \emph{Posts:} the time to \code{post};
-    \item the time, commits, and bytes per \code{sync} pull.
+    \item \emph{Post:}       time to issue a post
+    \item \emph{Pull:}       time per \code{sync} pull
+    \item \emph{Commits:}    commits per pull
+    \item \emph{Bytes:}      bytes per pull
     \end{enumerate}
-\item
-    \emph{Propagation}:
-    the delay for a post to reach all peers, and thus to be ordered
-    consistently across the network.
-\item
-    \emph{Begs}:
-    the ratio of posts that an author could not afford, and would thus
-    require begging (\S\ref{sec.design.members}).
+\item \emph{Propagation:}
+    delay for a post to reach all peers, and thus to be ordered
+    consistently across the network
+\item \emph{Begs:}
+    ratio of posts that their authors could not afford, and would thus
+    require begging (\S\ref{sec.design.members})
     %so ~33k posts, with ~12k authors, ~21k non-first posts, ~1% of ~21k is ~200
     %over 26 years
-\item
-    \emph{Forks}:
-    the ratio of posts that fork the chain, and
+\item \emph{Forks:}
+    ratio of posts that fork the chain:
     \begin{enumerate}
-    \item the ratio by peer class;
-    \item the earlier posts a forking post misses;
-    \item the actions reordered per merge;
-    \item the actions voided per merge;
-    \item the clamped posts ($P_i > S_i$), and by how much.
+    \item \emph{Classes:}    ratio by peer class
+    \item \emph{Missing:}    earlier posts a forking post lacks
+    \item \emph{Reorders:}   actions reordered per merge
+    \item \emph{Voided:}     actions voided per merge
+    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
     \end{enumerate}
 \end{enumerate}
 
