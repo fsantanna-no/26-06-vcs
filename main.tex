@@ -1342,23 +1342,25 @@ operations and over 1M \code{sync} operations that effectively transfer data
 \begin{tabular}{@{}lrrr@{}}
                                  & median & p90    & max    \\
 \hline
-Convergence time                 & 29h    & 44h    & 8.4d   \\
+Storage (3.8$\times$ payloads)      & \multicolumn{3}{l}{32 / 14 / 76MB}     \\
+\quad payloads / commits / snaps. & & & \\
+\hline
+Operations: post time            & 0.09s  & 0.13s  & 0.42s  \\
+\quad pull time                  & 0.47s  & 1.14s  & 10.3s  \\
+\quad pull commits               & 1      & 5      & 96     \\
+\quad pull bytes                 & 510B   & 1.9kB  & 36kB   \\
+\hline
+Propagation                      & 29h    & 44h    & 8.4d   \\
+\hline
+Begs                             & \multicolumn{3}{l}{1.15\%}             \\
+\hline
 Forks                            & \multicolumn{3}{l}{66\%}               \\
 \quad green / yellow / red       & \multicolumn{3}{l}{55\% / 67\% / 89\%} \\
 \quad missing posts              & 1      & 7      & 56     \\
 \quad reorders per merge         & 1      & 6      & 18     \\
 \quad voided per merge           & \multicolumn{3}{l}{0 (no likes)}       \\
-Clamps ($P_i > S_i$)             & \multicolumn{3}{l}{31.0\%}             \\
+\quad late posts ($P_i > S_i$)   & \multicolumn{3}{l}{31.0\%}             \\
 \quad $P_i - S_i$                & 4.8h   & 16.6h  & 69.2h  \\
-Commits per reconnect pull       & 2      & --     & 91     \\
-Blocked posts                    & \multicolumn{3}{l}{1.15\%}             \\
-\hline
-Post time                        & 0.09s  & 0.13s  & 0.42s  \\
-Pull time                        & 0.47s  & 1.14s  & 10.3s  \\
-\quad commits                    & 1      & 5      & 96     \\
-\quad bytes                      & 510B   & 1.9kB  & 36kB   \\
-Storage (3.8$\times$ payloads)      & \multicolumn{3}{l}{32 / 14 / 76MB}     \\
-\quad payloads / commits / snaps. & & & \\
 \end{tabular}
 \end{table}
 % dropped rows (26/10/26), numbers kept for other sections:
@@ -1374,38 +1376,46 @@ Storage (3.8$\times$ payloads)      & \multicolumn{3}{l}{32 / 14 / 76MB}     \\
 %   Reorders 1 / 6 / 18 (mean 2.5) come from an r2 sample of 400 of
 %   the 6,517 S1 merges with snapshots (loser side)
 %   Always-on baseline: 0% forks (5k prefix, build r160), dropped
-%   Reconnect pulls: 59.5k in total
+%   Reconnect pulls: 59.5k in total; commits per reconnect pull
+%   2 / -- / 91 (dropped: lower bound on the backlog, mid-dependent)
 
 Table~\ref{tab.eval.usenet} shows the measures for our local-first scenario:
 %
-\begin{itemize}
+\begin{enumerate}
 \item
-    \emph{Convergence time}:
+    \emph{Storage}:
+    the size of a peer repository against the payloads alone, split into
+    \begin{enumerate}
+    \item payloads, action commits, and state snapshots.
+    \end{enumerate}
+\item
+    \emph{Operations}:
+    \begin{enumerate}
+    \item the time to \code{post};
+    \item the time, commits, and bytes per \code{sync} pull.
+    \end{enumerate}
+\item
+    \emph{Propagation}:
     the delay for a post to reach all peers, and thus to be ordered
     consistently across the network.
 \item
-    \emph{Forks}:
-    the ratio of posts that fork the chain, against an always-on baseline, and
-    the actions reordered per merge.
-\item
-    \emph{Clamps}:
-    the ratio of posts whose position timestamp exceeds their self-declared
-    timestamp ($P_i > S_i$), and by how much.
-\item
-    \emph{Churn}:
-    the time offline per peer group, the use of backup links, and the pulls
-    after reconnections.
-\item
-    \emph{Blocked posts}:
-    the ratio of posts that an author could not afford after a welcome of $W$
-    \reps.
+    \emph{Begs}:
+    the ratio of posts that an author could not afford, and would thus
+    require begging (\S\ref{sec.design.members}).
     %so ~33k posts, with ~12k authors, ~21k non-first posts, ~1% of ~21k is ~200
     %over 26 years
 \item
-    \emph{Costs}:
-    the time and number of commits per pull, and the storage per peer against
-    the original payload.
-\end{itemize}
+    \emph{Forks}:
+    the ratio of posts that fork the chain, and
+    \begin{enumerate}
+    \item the ratio by peer class;
+    \item the earlier posts a forking post misses;
+    \item the actions reordered per merge;
+    \item the actions voided per merge;
+    \item the posts that consensus places after their declared time
+          ($P_i > S_i$), and by how much.
+    \end{enumerate}
+\end{enumerate}
 
 As detailed next, we measure the following evaluation parameters:
     (a) metadata overhead,
