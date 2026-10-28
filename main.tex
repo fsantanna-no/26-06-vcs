@@ -1316,36 +1316,13 @@ Next we describe the metrics we measure over the simulations:
     \item \emph{Snapshots:}  all per-action state combined
     \item \emph{Overhead:}   total size over Payloads
     \end{enumerate}
-\item \emph{Operations:}
-
-\begin{table}[t]
-\centering
-\caption{Usenet operations.}
-\label{tab.eval.usenet.ops}
-\footnotesize
-\begin{tabular}{@{}lrrr@{}}
-            & median & p90    & max    \\
-\hline
-Post        & 0.09s  & 0.13s  & 0.42s  \\
-Sync        & 0.47s  & 1.14s  & 10.3s  \\
-Commits     & 1      & 5      & 96     \\
-Bytes       & 510B   & 1.9kB  & 36kB   \\
-\end{tabular}
-\end{table}
-% per 5k posts (r2 log; mean / max of fast-forward syncs, s):
-%   0-5k 0.26/1.9, 5-10k 0.36/4.0, 10-15k 0.43/4.0, 15-20k 0.50/5.6,
-%   20-25k 0.63/5.4, 25-30k 0.94/7.6, 30-33.8k 1.04/10.3;
-%   post median 0.08 -> 0.12; medians per slice not recoverable;
-%   r2 ran 2 lanes on one disk; bytes total 1178.5MB
-
-Table~\ref{tab.eval.usenet.ops} shows that a \code{post} takes a median of
-0.09s (0.42s at most), and a \code{sync} takes a median of 0.47s (1.14s at
-the 90th percentile, 10.3s at most), carrying a median of 1 commit and 510B
-(96 commits and 36kB at most).
-Both grow with the chain, as replays and snapshots get longer: from the first
-to the last 5k posts, the mean \code{sync} goes from 0.26s to 1.04s, and the
-median \code{post} from 0.08s to 0.12s.
-
+\item \emph{Operations:} cost of protocol operations.
+    \begin{enumerate}
+    \item \emph{Post:}       local commit and validation time
+    \item \emph{Sync:}       local pull and validation time
+    \item \emph{Commits:}    commits per sync
+    \item \emph{Bytes:}      bytes per sync
+    \end{enumerate}
 \item \emph{Propagation:} delay for a post to reach all peers.
 \item \emph{Begs:} ratio of posts that require extra begs (after admission).
 \item \emph{Forks:} ratio of posts that fork the chain.
@@ -1407,8 +1384,6 @@ Next we discuss the measures of each metric.
 
 \begin{table}[t]
 \centering
-\caption{Usenet storage -- Peer \code{S1}.}
-\label{tab.eval.usenet.storage}
 \begin{tabular}{@{}lrr@{}}
 Storage     & Size (MB) & Share  \\
 \hline
@@ -1418,6 +1393,8 @@ Snapshots   & 76 & 62\%   \\
 \hline
 Overhead    & \multicolumn{2}{r}{3.8$\times$} \\
 \end{tabular}
+\caption{Usenet storage -- Peer \code{S1}.}
+\label{tab.eval.usenet.storage}
 \end{table}
 
 Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.8$\times$, dominated
@@ -1428,6 +1405,33 @@ An alternative we did not explore is to snapshot every $N$ actions, trading
 replay time for an overhead between 1.4$\times$ and 3.8$\times$.
 
 \paragraph{Operations:}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lrrr@{}}
+Operations  & Median & p90    & Max    \\
+\hline
+Post        & 0.09s  & 0.13s  & 0.42s  \\
+Sync        & 0.47s  & 1.14s  & 10.3s  \\
+Commits     & 1      & 5      & 96     \\
+Bytes       & 510B   & 1.9kB  & 36kB   \\
+\end{tabular}
+\caption{Usenet operations.}
+\label{tab.eval.usenet.ops}
+\end{table}
+% per 5k posts (r2 log; mean / max of fast-forward syncs, s):
+%   0-5k 0.26/1.9, 5-10k 0.36/4.0, 10-15k 0.43/4.0, 15-20k 0.50/5.6,
+%   20-25k 0.63/5.4, 25-30k 0.94/7.6, 30-33.8k 1.04/10.3;
+%   post median 0.08 -> 0.12; medians per slice not recoverable;
+%   r2 ran 2 lanes on one disk; bytes total 1178.5MB
+
+Table~\ref{tab.eval.usenet.ops} shows that a \code{post} takes a median of
+0.09s (0.42s at most), and a \code{sync} takes a median of 0.47s (1.14s at
+the 90th percentile, 10.3s at most), carrying a median of 1 commit and 510B
+(96 commits and 36kB at most).
+Both grow with the chain, as replays and snapshots get longer: from the first
+to the last 5k posts, the mean \code{sync} goes from 0.26s to 1.04s, and the
+median \code{post} from 0.08s to 0.12s.
 
 \iffalse
 \begin{enumerate}
