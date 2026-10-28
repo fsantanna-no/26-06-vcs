@@ -1,0 +1,7 @@
+# chat full run (old build, stopped at 30.7k) per 5k posts: slice_end  sync_mean  sync_max  post_mean  (seconds; sync = fast-forward pulls)
+5000	0.214	8.1	0.081
+10000	0.283	9.4	0.084
+15000	0.381	10.0	0.092
+20000	0.417	9.5	0.082
+25000	0.565	56.4	0.131
+30000	0.649	14.0	0.115

@@ -1577,6 +1577,30 @@ evenly than the posts themselves:
 - no posts during churns (leaves->mids)
 TODO
 
+\iffalse
+Chat full run, old build (chat-full-bk, 28/10/26 19:47): 30,720 of
+155,528 posts (20%) after 47.3h; forks 11% from 15k on (10% at 5k and
+10k); 3,540 merges at 30k. Stopped for the refs-fix rerun.
+
+Per 5k slice (seconds; n = pulls; bump at 20-25k = 2011-02-08 burst):
+slice   post mean  ff mean/max (n)      mg mean/max (n)   slice time
+0-5k    0.081      0.214 / 8.1 (240k)   0.360 / 1.1 (591)   4.3h
+5-10k   0.084      0.283 / 9.4 (250k)   0.436 / 0.8 (764)   5.6h
+10-15k  0.092      0.381 / 10.0 (246k)  0.505 / 1.1 (773)   7.0h
+15-20k  0.082      0.417 / 9.5 (244k)   0.545 / 2.2 (630)   7.5h
+20-25k  0.131      0.565 / 56.4 (247k)  0.795 / 2.0 (910)  10.0h
+25-30k  0.115      0.649 / 14.0 (249k)  0.816 / 3.2 (739)  11.2h
+
+Cumulative at 30k: pull time median 0.38 / p90 0.69 / max 56.4s;
+commits per pull 1 / 2 / 1,541; bytes per pull 555B / 733B, total
+1.0GB; visibility median 1.0h / p90 4.6h / max 18.2h; deferred posts
+1,738, delay median 40min. Begs: not counted by the driver.
+Storage: one peer 66MB at 30.5k (du after sweep); kept S1+L45 at 30k
+= 131MB; no breakdown yet (payload mean ~43B, so ~1.3MB of payloads).
+ETA of the full run on the old build: ~24/11 (each 5k slice ~4.5h
+longer than the previous).
+\fi
+
 \subsection{GitHub Issues}
 \label{sec.eval.github}
 
