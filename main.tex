@@ -1400,25 +1400,12 @@ Next we dicuss the measures of each metric:
 \item \emph{Storage:}
 
 Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.8$\times$, dominated
-by snapshots.
+by state snapshots (\S\ref{sec.design.consensus}).
+The overhead is a tradeoff that favors consensus time over disk space.
+Without snapshots, the overhead shrinks to only 1.4$\times$ (\code{(32+14)/32)}.
+An alternative we did not explore is to reduce the number of snapshots to reach
+an overhead between 1.4$\times$ and 3.8$\times$.
 
-Without snapshots, \FC would 
-
-
-
-(\code{(32+14+76)/32})
-
-breaks down the storage of the super peer
-\code{S1} after packing, which is the payloads: the 32MB of packed payloads (the archive itself) come with
-14MB of action commits and 76MB of state snapshots, which dominate the
-repository.
-
-    \begin{enumerate}
-    \item \emph{Payloads:}   all combined (same as cleaned archive)
-    \item \emph{Commits:}    all actions combined
-    \item \emph{Snapshots:}  all per-action state combined
-    \item \emph{Overhead:}   total size over Payloads
-    \end{enumerate}
 \item \emph{Operations:} cost of protocol operations.
     \begin{enumerate}
     \item \emph{Post:}       local commit and validation time
