@@ -886,10 +886,14 @@ winners:
 
 After determining the consensus order, we replay all actions in sequence to
 check for inconsistencies.
+%
+In our implementation, peers cache consensus state on every commit to optimize
+replays from snapshots in common, rather than from genesis.
+%
 Once an action fails (e.g., a double-spend), all subsequent actions in the
 losing branch are rejected and erased (as if they never existed), since they
 descend from it in the Merkle~DAG.
-%
+
 In Figure~\ref{fig.reps}.B, suppose that the last action by $a$ in
 \code{branch-2} (in gray) is a dislike that leaves member $c$ with
 insufficient \reps.
@@ -1375,14 +1379,71 @@ operations and over 1M \code{sync} operations that effectively transfer data
 
 \begin{table}[t]
 \centering
+\caption{Usenet storage -- Peer \code{S1}.}
+\label{tab.eval.usenet.storage}
+\begin{tabular}{@{}lrr@{}}
+Storage     & Size (MB) & Share  \\
+\hline
+Payloads    & 32 & 26\%   \\
+Commits     & 14 & 11\%   \\
+Snapshots   & 76 & 62\%   \\
+\hline
+Overhead    & \multicolumn{2}{r}{3.8$\times$} \\
+\end{tabular}
+\end{table}
+
+Next we dicuss the measures of each metric:
+%
+\begin{enumerate}
+
+\item \emph{Storage:}
+
+Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.8$\times$, dominated
+by snapshots.
+
+Without snapshots, \FC would 
+
+
+
+(\code{(32+14+76)/32})
+
+breaks down the storage of the super peer
+\code{S1} after packing, which is the payloads: the 32MB of packed payloads (the archive itself) come with
+14MB of action commits and 76MB of state snapshots, which dominate the
+repository.
+
+    \begin{enumerate}
+    \item \emph{Payloads:}   all combined (same as cleaned archive)
+    \item \emph{Commits:}    all actions combined
+    \item \emph{Snapshots:}  all per-action state combined
+    \item \emph{Overhead:}   total size over Payloads
+    \end{enumerate}
+\item \emph{Operations:} cost of protocol operations.
+    \begin{enumerate}
+    \item \emph{Post:}       local commit and validation time
+    \item \emph{Sync:}       local pull and validation time
+    \item \emph{Commits:}    commits per sync
+    \item \emph{Bytes:}      bytes per sync
+    \end{enumerate}
+\item \emph{Propagation:} delay for a post to reach all peers.
+\item \emph{Begs:} ratio of posts that require extra begs (after admission).
+\item \emph{Forks:} ratio of posts that fork the chain.
+    \begin{enumerate}
+    \item \emph{Classes:}    ratio by peer class
+    \item \emph{Missing:}    earlier posts a forking post lacks
+    \item \emph{Reorders:}   actions reordered per merge
+    \item \emph{Voided:}     actions voided per merge
+    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
+    \end{enumerate}
+\end{enumerate}
+
+\begin{table}[t]
+\centering
 \caption{Usenet simulation results.}
 \label{tab.eval.usenet}
 \footnotesize
 \begin{tabular}{@{}lrrr@{}}
                                  & median & p90    & max    \\
-\hline
-Storage (3.8$\times$ payloads)      & \multicolumn{3}{l}{32 / 14 / 76MB}     \\
-\quad payloads / commits / snaps. & & & \\
 \hline
 Operations: post time            & 0.09s  & 0.13s  & 0.42s  \\
 \quad pull time                  & 0.47s  & 1.14s  & 10.3s  \\
@@ -1418,12 +1479,7 @@ Forks                            & \multicolumn{3}{l}{66\%}               \\
 %   Reconnect pulls: 59.5k in total; commits per reconnect pull
 %   2 / -- / 91 (dropped: lower bound on the backlog, mid-dependent)
 
-Table~\ref{tab.eval.usenet} summarizes the results.
-%
-Storage, measured on the super peer \code{S1} after packing, is 3.8$\times$
-the payloads: the 32MB of packed payloads (the archive itself) come with
-14MB of action commits and 76MB of state snapshots, which dominate the
-repository.
+Table~\ref{tab.eval.usenet} summarizes the remaining metrics.
 %
 Operations stay cheap: a \code{post} takes a median of 0.09s (0.42s at most),
 and a \code{sync} pull takes a median of 0.47s (1.14s at the 90th percentile,
