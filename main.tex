@@ -1577,6 +1577,57 @@ evenly than the posts themselves:
 - no posts during churns (leaves->mids)
 TODO
 
+\paragraph{Storage:}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lr@{}}
+Storage     & Size (MB) \\
+\hline
+Payloads    & 1.3       \\
+Total       & 66        \\
+Overhead    & 50$\times$ \\
+\end{tabular}
+\caption{Chat storage at 30k posts -- one peer.}
+\label{tab.eval.chat.storage}
+\end{table}
+
+Table~\ref{tab.eval.chat.storage} shows a storage overhead of 50$\times$ at 30k
+posts, since chat messages are tiny (43B on average) while the per-post cost
+of commits and snapshots is the same as in the Usenet chain.
+% TODO: breakdown (commits, snapshots) from a gc'd kept peer, as in usenet
+
+\paragraph{Operations:}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lrrr@{}}
+Per sync    & Median & P90    & Max    \\
+\hline
+Commits     & 1      & 2      & 1,541  \\
+Bytes       & 555B   & 733B   & --     \\
+\end{tabular}
+\caption{Chat transfers per sync.}
+\label{tab.eval.chat.ops}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{ops-chat}
+\caption{
+    Chat operation times (mean and max per 5k posts) as the chain grows.
+}
+\label{fig.ops.chat}
+\end{figure}
+
+Table~\ref{tab.eval.chat.ops} shows that a \code{sync} carries a median of
+1 commit and 555B (1,541 commits at most, after a long offline period).
+%
+Figure~\ref{fig.ops.chat} shows the operation times per 5k posts:
+    the mean \code{post} stays between 0.08s and 0.13s,
+    whereas the mean \code{sync} goes from 0.21s up to 0.65s.
+% TODO: max bytes per sync; figure from the rerun with the refs fix
+
 \iffalse
 Chat full run, old build (chat-full-bk, 28/10/26 19:47): 30,720 of
 155,528 posts (20%) after 47.3h; forks 11% from 15k on (10% at 5k and
