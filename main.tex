@@ -1393,7 +1393,7 @@ Overhead    & \multicolumn{2}{r}{3.8$\times$} \\
 \end{tabular}
 \end{table}
 
-Next we dicuss the measures of each metric:
+Next we discuss the measures of each metric:
 %
 \begin{enumerate}
 
@@ -1401,10 +1401,10 @@ Next we dicuss the measures of each metric:
 
 Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.8$\times$, dominated
 by state snapshots (\S\ref{sec.design.consensus}).
-The overhead is a tradeoff that favors consensus time over disk space.
-Without snapshots, the overhead shrinks to only 1.4$\times$ (\code{(32+14)/32)}.
-An alternative we did not explore is to reduce the number of snapshots to reach
-an overhead between 1.4$\times$ and 3.8$\times$.
+The overhead is a tradeoff that favors replay time over disk space.
+Without snapshots, the overhead shrinks to only 1.4$\times$.
+An alternative we did not explore is to snapshot every $N$ actions, trading
+replay time for an overhead between 1.4$\times$ and 3.8$\times$.
 
 \item \emph{Operations:} cost of protocol operations.
     \begin{enumerate}
