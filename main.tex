@@ -855,6 +855,10 @@ appended after it (regardless of self-declared timestamps,
 \S\ref{sec.design.time}).
 For nested or multi-way forks, we apply the same rule recursively or in
 sequence, respectively.
+%
+In our implementation, peers cache consensus state after every commit, so that
+replays restart from the snapshot at the common ancestors rather than from
+genesis.
 
 \begin{figure}[t]
 \centering
@@ -891,9 +895,6 @@ Once an action fails (e.g., a double-spend), all subsequent actions in the
 losing branch are rejected and erased (as if they never existed), since they
 descend from it in the Merkle~DAG.
 %
-In our implementation, peers cache consensus state after every commit, so that
-replays restart from snapshots in common ancestors rather than from genesis.
-
 In Figure~\ref{fig.reps}.B, suppose that the last action by $a$ in
 \code{branch-2} (in gray) is a dislike that leaves member $c$ with
 insufficient \reps.
