@@ -1,5 +1,5 @@
 # Usenet operation times vs chain size (grayscale SVG for the paper).
-# Data: ops.tsv (r2 log sliced per 5k posts). Fonts sized for one column.
+# Data: ops.tsv (r2 log sliced per 1k posts). Fonts sized for one column.
 # Usage: python3 ops.py > ops.svg; soffice --headless --convert-to pdf ops.svg
 import math
 W,H=900,520; L,R,T,B=110,30,30,80
@@ -26,7 +26,7 @@ for name,col,color,dash,wd in series:
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{pts}"/>')
     for r in rows:
-        p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
+        p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
     p.append(txt(X(last[0])-12,Y(last[col])-14,name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
 p.append('</svg>'); print('\n'.join(p))

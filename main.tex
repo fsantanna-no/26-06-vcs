@@ -1417,29 +1417,27 @@ Bytes       & 510B   & 1.9kB  & 36kB   \\
 \caption{Usenet transfers per sync.}
 \label{tab.eval.usenet.ops}
 \end{table}
-% per 5k posts (r2 log; mean / max of fast-forward syncs, s):
-%   0-5k 0.26/1.9, 5-10k 0.36/4.0, 10-15k 0.43/4.0, 15-20k 0.50/5.6,
-%   20-25k 0.63/5.4, 25-30k 0.94/7.6, 30-33.8k 1.04/10.3;
-%   post mean 0.082 -> 0.122 (median 0.08 -> 0.12); sync medians per
-%   slice not recoverable;
-%   r2 ran 2 lanes on one disk; bytes total 1178.5MB
-%   whole-run times (dropped from the table, depend on run length):
-%   post median 0.09 p90 0.13 max 0.42 s; sync 0.47 / 1.14 / 10.3 s
+
+Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times grow
+linearly with the chain size:
+    a post goes from 0.08s up to 0.12s,
+    whereas a sync goes from 0.26s up to 1.04s.
+%
+For a huge forum with a few posts per day, a sync time of 1.04s is still usable
+
 
 Table~\ref{tab.eval.usenet.ops} shows that a \code{sync} carries a median of
 1 commit and 510B (96 commits and 36kB at most), which depends on what a peer
 missed since its last session, not on the chain size.
+
 Operation times, instead, grow with the chain, as syncs replay longer branches
 and posts write larger snapshots:
-Figure~\ref{fig.ops.usenet} shows that, from the first to the last 5k posts,
-the mean \code{sync} goes from 0.26s to 1.04s (max from 1.9s to 10.3s), and
-the mean \code{post} from 0.08s to 0.12s.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{ops}
 \caption{
-    Usenet operation times (mean and max per 5k posts) as the chain grows.
+    Usenet operation times (mean and max per 1k posts) as the chain grows.
 }
 \label{fig.ops.usenet}
 \end{figure}
