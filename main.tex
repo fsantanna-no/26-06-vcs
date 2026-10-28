@@ -1213,7 +1213,7 @@ Unlike synthetic workloads, these archives carry real human activity: bursts
 and silences, a few prolific authors among many occasional ones, and years of
 accumulated content.
 Over these simulations, we measure post and sync times, storage, forks and
-convergence, and how \reps flow among authors.
+convergence, and the economy of \reps.
 
 We selected four public archives, each representing a scenario with its own
 challenges:
@@ -1301,6 +1301,78 @@ reconnect far below the 7-day window, making late branches unlikely.
 We do not force hard forks either, since they are an orthogonal (and
 subjective) safeguard that would only split the simulation.
 
+Next we describe the metrics we measure over the simulations:
+%
+\begin{enumerate}
+\item \emph{Storage:} on-disk size of the packed Git repository.
+    \begin{enumerate}
+    \item \emph{Payloads:}   all combined (same as archive)
+    \item \emph{Commits:}    all actions combined
+    \item \emph{Snapshots:}  all per-action state combined
+    \item \emph{Overhead:}   total size over Payloads
+    \end{enumerate}
+\item \emph{Operations:} cost of protocol operations.
+    \begin{enumerate}
+    \item \emph{Post:}       local commit time
+    \item \emph{Sync:}       local pull time
+    \item \emph{Commits:}    commits per sync
+    \item \emph{Bytes:}      bytes per sync
+    \end{enumerate}
+\item \emph{Propagation:} delay time for a post to reach all peers.
+\item \emph{Begs:} ratio of posts that require beggings (extra to welcoming).
+\item \emph{Forks:} ratio of posts that fork the chain.
+    \begin{enumerate}
+    \item \emph{Classes:}    ratio by peer class
+    \item \emph{Missing:}    earlier posts a forking post lacks
+    \item \emph{Reorders:}   actions reordered per merge
+    \item \emph{Voided:}     actions voided per merge
+    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
+    \end{enumerate}
+\end{enumerate}
+
+Each \code{sync} runs locally, between repositories in the same disk, to
+avoid network noise.
+Nevertheless, the relay delay (30s on average) already overestimates network
+propagation times.
+%
+In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
+hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
+ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
+
+We run all simulations on a single standard desktop PC:
+%
+\begin{description}
+\item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
+\item[RAM:] 16GB DDR4-3200 (+2GB swap file)
+\item[SSD:] 512GB NVMe
+\end{description}
+
+\subsection{Usenet Newsgroup}
+\label{sec.eval.usenet}
+
+In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
+representative of local-first forums, in which members may read and respond to
+messages while offline, eventually synchronizing with the network.
+%
+This store-and-forward model naturally leads to forks, especially considering
+our topology, in which some middle peers act as intermittent servers and leaves
+as end users connecting in sessions.
+
+We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
+messages by 12k authors spanning from 1987 to 2013 (26 years).%
+\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
+%
+Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
+interactions with larger payloads:
+in our corpus, the median gap between posts is 2.6h, and the average
+article has 3kB (which includes a timestamp, a sender, a subject, and the
+actual payload).
+%
+The full simulation takes around 90h to complete with the 33k \code{post}
+operations and over 1M \code{sync} operations that effectively transfer data
+(34 per post).
+% transfering over 1GB (500B per sync)
+
 \begin{table}[t]
 \centering
 \caption{Usenet simulation results.}
@@ -1345,94 +1417,6 @@ Forks                            & \multicolumn{3}{l}{66\%}               \\
 %   Always-on baseline: 0% forks (5k prefix, build r160), dropped
 %   Reconnect pulls: 59.5k in total; commits per reconnect pull
 %   2 / -- / 91 (dropped: lower bound on the backlog, mid-dependent)
-
-Table~\ref{tab.eval.usenet} shows the measures for the metrics we describe as
-follows:
-%
-\begin{enumerate}
-\item \emph{Storage:}
-    on-disk size of the packed Git repository:
-    \begin{enumerate}
-    \item \emph{Payloads:}   all payloads combined (same as original packed archive)
-    \item \emph{Commits:}    all action commits combined
-    \item \emph{Snapshots:}  all per-action snapshots combined
-    \item \emph{Overhead:}   total size over Payloads
-    \end{enumerate}
-\item \emph{Operations:}
-    cost of local operations:
-    \begin{enumerate}
-    \item \emph{Post:}       time to issue a post
-    \item \emph{Pull:}       time per \code{sync} pull
-    \item \emph{Commits:}    commits per pull
-    \item \emph{Bytes:}      bytes per pull
-    \end{enumerate}
-\item \emph{Propagation:}
-    delay for a post to reach all peers, and thus to be ordered
-    consistently across the network
-\item \emph{Begs:}
-    ratio of posts that their authors could not afford, and would thus
-    require begging (\S\ref{sec.design.members})
-    %so ~33k posts, with ~12k authors, ~21k non-first posts, ~1% of ~21k is ~200
-    %over 26 years
-\item \emph{Forks:}
-    ratio of posts that fork the chain:
-    \begin{enumerate}
-    \item \emph{Classes:}    ratio by peer class
-    \item \emph{Missing:}    earlier posts a forking post lacks
-    \item \emph{Reorders:}   actions reordered per merge
-    \item \emph{Voided:}     actions voided per merge
-    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
-    \end{enumerate}
-\end{enumerate}
-
-As detailed next, we measure the following evaluation parameters:
-    (a) metadata overhead,
-    (b) consensus runtime,
-    (c) graph forks, and
-    (d) blocked messages.
-
-We run all simulations on a single standard desktop PC:
-%
-\begin{description}
-\item[CPU:] Intel Core i7-1355U (13th gen, 10 cores, 12 threads)
-\item[RAM:] 16GB DDR4-3200 (2$\times$8GB, +2GB swap file)
-\item[SSD:] 512GB NVMe
-\end{description}
-%
-Each \code{sync} runs locally, between repositories in the same disk, to
-avoid network noise.
-Nevertheless, the relay delay (30s on average) already overestimates network
-propagation times.
-%
-In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
-hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
-ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
-
-\subsection{Usenet Newsgroup}
-\label{sec.eval.usenet}
-
-In the first experiment, we perceive the Usenet~\cite{fed.usenet} as
-representative of local-first forums, in which members may read and respond to
-messages while offline, eventually synchronizing with the network.
-%
-This store-and-forward model naturally leads to forks, especially considering
-our topology, in which some middle peers act as intermittent servers and leaves
-as end users connecting in sessions.
-
-We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
-messages by 12k authors spanning from 1987 to 2013 (26 years).%
-\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
-%
-Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
-interactions with larger payloads:
-in our corpus, the median gap between posts is 2.6h, and the average
-article has 3kB (which includes a timestamp, a sender, a subject, and the
-actual payload).
-%
-The full simulation takes around 90h to complete with the 33k \code{post}
-operations and over 1M \code{sync} operations that effectively transfer data
-(34 per post).
-% transfering over 1GB (500B per sync)
 
 Table~\ref{tab.eval.usenet} summarizes the results.
 %
