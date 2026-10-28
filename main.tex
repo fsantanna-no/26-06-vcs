@@ -1420,47 +1420,45 @@ Forks                            & \multicolumn{3}{l}{66\%}               \\
 
 Table~\ref{tab.eval.usenet} summarizes the results.
 %
-All 58 peers end with the same consensus order (and the same \reps) as the
-reference super peer \code{S1}.
+Storage, measured on the super peer \code{S1} after packing, is 3.8$\times$
+the payloads: the 32MB of packed payloads (the archive itself) come with
+14MB of action commits and 76MB of state snapshots, which dominate the
+repository.
 %
-Convergence is slow by design: a post takes a median of 29h to reach all
+Operations stay cheap: a \code{post} takes a median of 0.09s (0.42s at most),
+and a \code{sync} pull takes a median of 0.47s (1.14s at the 90th percentile,
+10.3s at most), carrying a median of 1 commit and 510B (96 commits and 36kB
+at most).
+%
+Propagation is slow by design: a post takes a median of 29h to reach all
 peers (44h at the 90th percentile), since leaves connect once a day and
 middles every 6h.
 % TODO (sims): max of 8.4d exceeds the 7-day window; find the post/peer and
 % why it caused no hard fork (lost or unsettled fork point?)
 %
-Sessions of hours make forks the norm: 66\% of the posts fork the chain,
-from 55\% at always-on green leaves to 89\% at local-first red leaves, against
-0\% in an always-on baseline run.
-% TODO: the baseline is a 5k-prefix run on an older build (r160)
-Forks are shallow, though: a forking post misses a median of 1 earlier post
-(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
-no coordination.
-%
-Clamps follow the same pattern: 31\% of the posts are positioned after their
-declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all well
-within the 7-day window.
-%
-Churn remains mostly invisible: supers are offline 1\% of the time, middles
-8\%, and leaves 5\%; only 2.6\% of the pulls go through backup links; and the
-59.5k pulls after reconnections carry a median of 2 commits (91 at most).
-% TODO (sims): setup says yellow peers churn 10%, but the report says only
-% the 22 always-on leaves churn
-%
 Even though the chain is open, we also replay the admission rule (\R{4.a})
 counterfactually over the 20.5k posts by returning authors:
-    without a welcome, 1.24\% of them could not afford the post;
-    with a welcome of \nreps{1000}, only 0.08\%.
+    1.15\% of them could not afford the post after the smallest admission
+    like (\nreps{500}), and only 0.08\% after a like of \nreps{1000}.
 % TODO (author): explain the open chain (no reps to post, no votes), which
-% blocked posts and voided actions rely on (261022-review.md, item 2)
+% begs and voided actions rely on (261022-review.md, item 2)
+% TODO (sims): authors affected and begs per affected author
 %
-Finally, the costs stay low: a pull takes a median of 0.47s (1.14s at the
-90th percentile, 10.3s at most) and carries a median of 1 commit (5 and 96,
-respectively).
-Storage per peer is 154MB packed, against 85MB for the original mbox
-corpus.
-Without payloads, it is still 119MB, since the bulk are the per-action state
-snapshots.
+Sessions of hours make forks the norm: 66\% of the posts fork the chain,
+from 55\% at green leaves to 89\% at local-first red leaves.
+% TODO: an always-on baseline (5k prefix, build r160) gave 0% forks
+Forks are shallow, though: a forking post misses a median of 1 earlier post
+(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
+no coordination, moving a median of 1 action of the losing branch (6 at the
+90th percentile, 18 at most) and voiding none, since there are no likes to
+double spend.
+Clamped posts follow the same pattern: 31\% of the posts are positioned after
+their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
+well within the 7-day window.
+% dropped (26/10/28): churn sentence (offline S/M/L 1/8/5%, backup pulls
+% 2.6%, 59.5k reconnect pulls with median 2 / max 91 commits); diverging
+% peers (0 of 58, stated in §4); old storage 154MB packed / 119MB w/o
+% payloads (du of the gc'd repo dir, see 261022-data.md)
 
 \begin{figure}[t]
 \centering
