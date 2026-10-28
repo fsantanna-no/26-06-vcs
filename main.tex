@@ -1401,6 +1401,10 @@ operations and over 1M \code{sync} operations that effectively transfer data
 (34 per post).
 % transfering over 1GB (500B per sync)
 
+Next we discuss the measures of each metric.
+
+\paragraph{Storage:}
+
 \begin{table}[t]
 \centering
 \caption{Usenet storage -- Peer \code{S1}.}
@@ -1416,12 +1420,6 @@ Overhead    & \multicolumn{2}{r}{3.8$\times$} \\
 \end{tabular}
 \end{table}
 
-Next we discuss the measures of each metric:
-%
-\begin{enumerate}
-
-\item \emph{Storage:}
-
 Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.8$\times$, dominated
 by state snapshots (\S\ref{sec.design.consensus}).
 The overhead is a tradeoff that favors replay time over disk space.
@@ -1429,6 +1427,10 @@ Without snapshots, the overhead shrinks to only 1.4$\times$.
 An alternative we did not explore is to snapshot every $N$ actions, trading
 replay time for an overhead between 1.4$\times$ and 3.8$\times$.
 
+\paragraph{Operations:}
+
+\iffalse
+\begin{enumerate}
 \item \emph{Operations:} cost of protocol operations.
     \begin{enumerate}
     \item \emph{Post:}       local commit and validation time
@@ -1447,6 +1449,7 @@ replay time for an overhead between 1.4$\times$ and 3.8$\times$.
     \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
     \end{enumerate}
 \end{enumerate}
+\fi
 
 \begin{table}[t]
 \centering
