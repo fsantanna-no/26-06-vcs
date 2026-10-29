@@ -1465,13 +1465,16 @@ a graph.
 \begin{tabular}{@{}lrrr@{}}
 Author      & Median & P90    & Max    \\
 \hline
-Green       & 27h    & 29h    & --     \\
-Yellow      & 29h    & 32h    & --     \\
-Red         & 34h    & 45h    & --     \\
+Green       & 27h    & 29h    & 45h    \\
+Yellow      & 29h    & 32h    & 56h    \\
+Red         & 35h    & 45h    & 78h    \\
 \hline
-All         & 28h    & 35h    & --     \\
+All         & 28h    & 37h    & 78h    \\
+\hline
+First peer  & 0h     & 8h     & 24h    \\
+Half peers  & 1.1h   & 11h    & 29h    \\
 \end{tabular}
-\caption{Usenet propagation delay by author class.}
+\caption{Usenet propagation delay by author class, and reach.}
 \label{tab.eval.usenet.prop}
 \end{table}
 
@@ -1482,6 +1485,12 @@ the last peers to receive a post are leaves that connect once a day, behind
 middles that connect every 6h.
 Posts by red authors wait an extra 6h, since they stay at the offline author
 until its next session.
+%
+The maximum of 78h is a leaf that stayed offline for 64h.
+%
+A post reaches its first peer immediately (its own middle, 24h at most when
+the author is offline) and half of the peers in 1.1h, after a median of 4
+hops (10 at most).
 
 \paragraph{Forks:}
 
@@ -1507,6 +1516,7 @@ Missing posts           & 1      & 7      & 56     \\
 Reorders per merge      & 1      & 6      & 18     \\
 Voided per merge        & 0      & 0      & 0      \\
 Clamps ($P_i - S_i$)    & 4.8h   & 16.6h  & 69h    \\
+Fork life               & 12.6h  & 27.6h  & 49.7h  \\
 \end{tabular}
 \caption{Usenet forks: 66\% of posts (55\% / 67\% / 89\% at green / yellow /
 red peers), and 31\% clamped.}
@@ -1524,6 +1534,9 @@ double spend.
 Clamped posts follow the same pattern: 31\% of the posts are positioned after
 their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
 well within the 7-day window.
+%
+Forks live for a median of 12.6h until their merge (49.7h at most), also far
+within the window.
 
 \paragraph{Reputation:}
 
