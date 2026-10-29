@@ -1321,7 +1321,7 @@ Next we describe the metrics we measure over the simulations:
     \item \emph{Post:}       local commit and validation time
     \item \emph{Sync:}       local pull and validation time
     \item \emph{Commits:}    commits per sync
-    \item \emph{Bytes:}      bytes per sync
+    \item \emph{Bytes:}      bytes per sync (uncompressed, with payloads)
     \end{enumerate}
 \item \emph{Propagation:} delay for a post to reach all peers.
 \item \emph{Begs:} ratio of posts that require extra begs (after admission).
@@ -1376,7 +1376,7 @@ actual payload).
 The full simulation takes around 90h to complete with the 33k \code{post}
 operations and over 1M \code{sync} operations that effectively transfer data
 (34 per post).
-% transfering over 1GB (500B per sync)
+% r3 at 10k: 36 syncs per post, 2.2GB, 6.0kB mean per sync
 
 Next we discuss the measures of each metric.
 
@@ -1411,8 +1411,8 @@ replay time for an overhead between 1.4$\times$ and 3.8$\times$.
 \begin{tabular}{@{}lrrr@{}}
 Per sync    & Median & P90    & Max    \\
 \hline
-Commits     & 1      & 5      & 96     \\
-Bytes       & 510B   & 1.9kB  & 36kB   \\
+Commits     & 1      & 4      & 66     \\
+Bytes       & 2.3kB  & 11kB   & 535kB  \\
 \end{tabular}
 \caption{Usenet transfers per \code{sync} operation.}
 \label{tab.eval.usenet.ops}
@@ -1429,14 +1429,41 @@ usable... TODO
 Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
 commits and bytes in each \code{sync} operation.
 The P90 column demonstrates that 90\% of individual syncs received no more than
-XX commits and YYkB, which includes the metadata and payload of actions.
-TODO: discuss:
-    - bytes/commit should be similar to average commit+payload size
-    - that the P2P setting with significant hops, churn, offline periods
-      still delivers light syncs
-    - the number does not depend on chain size, so no graph
+4 commits and 11kB, which includes the metadata and payload of actions.
+On average, a sync transfers 2.6kB per commit, which matches the average size
+of a commit and its payload in the chain.
+%
+Even with multiple hops, churn, and offline periods, syncs remain light and
+do not depend on the chain size:
+the medians stay at 1 commit and around 2.3kB as the chain grows, so we omit
+a graph.
 
 \paragraph{Propagation:}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lrrr@{}}
+Author      & Median & P90    & Max    \\
+\hline
+Green       & 27h    & 29h    & 6.1d   \\
+Yellow      & 29h    & 32h    & 6.0d   \\
+Red         & 34h    & 45h    & 3.7d   \\
+\hline
+All         & 28h    & 35h    & 6.1d   \\
+\end{tabular}
+\caption{Usenet propagation delay by author class.}
+\label{tab.eval.usenet.prop}
+\end{table}
+
+Table~\ref{tab.eval.usenet.prop} shows the delay for a post to reach all
+peers, by the class of its author.
+The median of 28h follows the peer schedules:
+the last peers to receive a post are leaves that connect once a day, behind
+middles that connect every 6h.
+Posts by red authors wait an extra 6h, since they stay at the offline author
+until its next session.
+The maximum of 6.1d is a rare outlier (two posts above 3 days), still below
+the 7-day window.
 
 \iffalse
 \begin{enumerate}
