@@ -1474,10 +1474,50 @@ until its next session.
 The maximum of 6.1d is a rare outlier (two posts above 3 days), still below
 the 7-day window.
 
+\paragraph{Begs:}
+
+% ratio of posts that require extra begs (after admission).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{reps}
+\caption{
+    Reputation against posts per author at the end of the Usenet simulation
+    (log-log).
+    Bubble areas are proportional to the number of authors.
+}
+\label{fig.reps.usenet}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lrr@{}}
+Admission like  & Begs     & Authors \\
+\hline
+\nreps{500}     & 1.15\%   & XX\%    \\
+\nreps{1000}    & 0.08\%   & YY\%    \\
+\end{tabular}
+\caption{Usenet posts and authors requiring extra begs.}
+\label{tab.eval.usenet.begs}
+\end{table}
+
+A post requires an extra beg when its author is already a member but lacks
+the \reps to cover it after the admission like (\R{4.a}).
+Since the newsgroup has no likes, we replay the admission rule
+counterfactually over the 20.5k posts by returning authors, for the two
+admission likes in Table~\ref{tab.eval.usenet.begs}.
+%
+Only 1.15\% of these posts would require an extra beg after the smallest
+admission like (\nreps{500}), and only 0.08\% after a like of \nreps{1000}.
+%
+Figure~\ref{fig.reps.usenet} explains the low ratios:
+an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
+authors never block, and only bursts of posts can block.
+Therefore, the natural posting behavior of users already matches the rules,
+even though they were not aware of them.
+
 \iffalse
 \begin{enumerate}
-\item \emph{Propagation:} delay for a post to reach all peers.
-\item \emph{Begs:} ratio of posts that require extra begs (after admission).
 \item \emph{Forks:} ratio of posts that fork the chain.
     \begin{enumerate}
     \item \emph{Classes:}    ratio by peer class
@@ -1567,17 +1607,6 @@ well within the 7-day window.
 % 2.6%, 59.5k reconnect pulls with median 2 / max 91 commits); diverging
 % peers (0 of 58, stated in §4); old storage 154MB packed / 119MB w/o
 % payloads (du of the gc'd repo dir, see 261022-data.md)
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{reps}
-\caption{
-    Reputation against posts per author at the end of the Usenet simulation
-    (log-log).
-    Bubble areas are proportional to the number of authors.
-}
-\label{fig.reps.usenet}
-\end{figure}
 
 Figure~\ref{fig.reps.usenet} shows the resulting economy of \reps.
 %
