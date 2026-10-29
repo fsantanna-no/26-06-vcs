@@ -1311,7 +1311,7 @@ Next we describe the metrics we measure over the simulations:
 \begin{enumerate}
 \item \emph{Storage:} on-disk size of the packed Git repository.
     \begin{enumerate}
-    \item \emph{Payloads:}   all combined (same as cleaned archive)
+    \item \emph{Payloads:}   all combined (same as archive)
     \item \emph{Commits:}    all actions combined
     \item \emph{Snapshots:}  all per-action state combined
     \item \emph{Overhead:}   total size over Payloads
@@ -1414,7 +1414,7 @@ Per sync    & Median & P90    & Max    \\
 Commits     & 1      & 5      & 96     \\
 Bytes       & 510B   & 1.9kB  & 36kB   \\
 \end{tabular}
-\caption{Usenet transfers per sync.}
+\caption{Usenet transfers per \code{sync} operation.}
 \label{tab.eval.usenet.ops}
 \end{table}
 
@@ -1423,15 +1423,17 @@ linearly with the chain size:
     a post goes from 0.08s up to 0.12s,
     whereas a sync goes from 0.26s up to 1.04s.
 %
-For a huge forum with a few posts per day, a sync time of 1.04s is still usable
+For a huge forum with a few posts per day, a sync time of 1.04s is still
+usable... TODO
 
-
-Table~\ref{tab.eval.usenet.ops} shows that a \code{sync} carries a median of
-1 commit and 510B (96 commits and 36kB at most), which depends on what a peer
-missed since its last session, not on the chain size.
-
-Operation times, instead, grow with the chain, as syncs replay longer branches
-and posts write larger snapshots:
+Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
+commits and bytes in each \code{sync} operation.
+The P90 column demonstrates that 90\% of individual syncs received no more than
+XX commits and YYkB, which includes the metadata and payload of actions.
+TODO: discuss:
+    - bytes/commit should be similar to average commit+payload size
+    - that the P2P setting with significant hops, churn, offline periods
+      still delivers light syncs
 
 \begin{figure}[t]
 \centering
