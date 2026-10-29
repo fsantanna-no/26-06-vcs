@@ -19,6 +19,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{array,multirow,makecell}
+\usepackage{enumitem}
 \graphicspath{{imgs/}}
 
 \usepackage{xspace}
@@ -1310,14 +1311,14 @@ Next we describe the metrics we measure over the simulations:
 %
 \begin{enumerate}
 \item \emph{Storage:} on-disk size of the packed Git repository.
-    \begin{enumerate}
+    \begin{enumerate}[nosep]
     \item \emph{Payloads:}   all combined (same as archive)
     \item \emph{Commits:}    all actions combined
     \item \emph{Snapshots:}  all per-action state combined
     \item \emph{Overhead:}   total size over Payloads
     \end{enumerate}
 \item \emph{Operations:} cost of protocol operations.
-    \begin{enumerate}
+    \begin{enumerate}[nosep]
     \item \emph{Post:}       local commit and validation time
     \item \emph{Sync:}       local pull and validation time
     \item \emph{Commits:}    commits per sync
@@ -1325,7 +1326,7 @@ Next we describe the metrics we measure over the simulations:
     \end{enumerate}
 \item \emph{Propagation:} delay for a post to reach all peers.
 \item \emph{Forks:} ratio of posts that fork the chain.
-    \begin{enumerate}
+    \begin{enumerate}[nosep]
     \item \emph{Classes:}    ratio by peer class
     \item \emph{Missing:}    earlier posts a forking post lacks
     \item \emph{Reorders:}   actions reordered per merge
@@ -1333,7 +1334,7 @@ Next we describe the metrics we measure over the simulations:
     \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
     \end{enumerate}
 \item \emph{Reputation:} how \reps admit and reward authors.
-    \begin{enumerate}
+    \begin{enumerate}[nosep]
     \item \emph{Begs:} ratio of posts that require extra begs (after admission).
     \item \emph{Distribution:} share of \reps of top authors over their share of posts.
     \end{enumerate}
