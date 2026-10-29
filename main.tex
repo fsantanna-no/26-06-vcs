@@ -1493,6 +1493,33 @@ the 7-day window.
 \end{enumerate}
 \fi
 
+\begin{table}[t]
+\centering
+\begin{tabular}{@{}lrrr@{}}
+Forks                   & Median & P90    & Max    \\
+\hline
+Missing posts           & 1      & 7      & 56     \\
+Reorders per merge      & 1      & 6      & 18     \\
+Voided per merge        & 0      & 0      & 0      \\
+Clamps ($P_i - S_i$)    & 4.8h   & 16.6h  & 69h    \\
+\end{tabular}
+\caption{Usenet forks: 66\% of posts (55\% / 67\% / 89\% at green / yellow /
+red peers), and 31\% clamped.}
+\label{tab.eval.usenet.forks}
+\end{table}
+
+Sessions of hours make forks the norm: 66\% of the posts fork the chain,
+from 55\% at green leaves to 89\% at local-first red leaves.
+% TODO: an always-on baseline (5k prefix, build r160) gave 0% forks
+Forks are shallow, though: a forking post misses a median of 1 earlier post
+(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
+no coordination, moving a median of 1 action of the losing branch (6 at the
+90th percentile, 18 at most) and voiding none, since there are no likes to
+double spend.
+Clamped posts follow the same pattern: 31\% of the posts are positioned after
+their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
+well within the 7-day window.
+
 \paragraph{Reputation:}
 
 % ratio of posts that require extra begs (after admission).
@@ -1534,85 +1561,6 @@ an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
 authors never block, and only bursts of posts can block.
 Therefore, the natural posting behavior of users already matches the rules,
 even though they were not aware of them.
-
-\begin{table}[t]
-\centering
-\caption{Usenet simulation results.}
-\label{tab.eval.usenet}
-\footnotesize
-\begin{tabular}{@{}lrrr@{}}
-                                 & median & p90    & max    \\
-\hline
-Operations: post time            & 0.09s  & 0.13s  & 0.42s  \\
-\quad pull time                  & 0.47s  & 1.14s  & 10.3s  \\
-\quad pull commits               & 1      & 5      & 96     \\
-\quad pull bytes                 & 510B   & 1.9kB  & 36kB   \\
-\hline
-Propagation                      & 29h    & 44h    & 8.4d   \\
-\hline
-Begs                             & \multicolumn{3}{l}{1.15\%}             \\
-\hline
-Forks                            & \multicolumn{3}{l}{66\%}               \\
-\quad green / yellow / red       & \multicolumn{3}{l}{55\% / 67\% / 89\%} \\
-\quad missing posts              & 1      & 7      & 56     \\
-\quad reorders per merge         & 1      & 6      & 18     \\
-\quad voided per merge           & \multicolumn{3}{l}{0 (no likes)}       \\
-\quad clamped posts ($P_i > S_i$)& \multicolumn{3}{l}{31.0\%}             \\
-\quad $P_i - S_i$                & 4.8h   & 16.6h  & 69.2h  \\
-\end{tabular}
-\end{table}
-% dropped rows (26/10/26), numbers kept for other sections:
-%   Diverging peers: 0 of 58 (stated once in the setup)
-%   Offline S / M / L: 1.0% / 8.3% / 5.0% (setup check)
-%   Backup pulls: 2.6% (setup check)
-%   Post time: wall time of the post command (mean 0.10 s, p99 0.19 s)
-%   Bytes per pull total 1178.5 MB; storage = gc'd object bytes
-%   (L45 after git gc; S1 as kept 32 / 14 / 96 MB, 4.4x)
-%   Blocked W=0 / 1000: 1.24% / 0.08% (W=1000 in the text)
-%   Blocked 1.15% is over 12,539 addresses; 0.94% is an estimate
-%   over 11,348 merged authors
-%   Reorders 1 / 6 / 18 (mean 2.5) come from an r2 sample of 400 of
-%   the 6,517 S1 merges with snapshots (loser side)
-%   Always-on baseline: 0% forks (5k prefix, build r160), dropped
-%   Reconnect pulls: 59.5k in total; commits per reconnect pull
-%   2 / -- / 91 (dropped: lower bound on the backlog, mid-dependent)
-
-Table~\ref{tab.eval.usenet} summarizes the remaining metrics.
-%
-Operations stay cheap: a \code{post} takes a median of 0.09s (0.42s at most),
-and a \code{sync} pull takes a median of 0.47s (1.14s at the 90th percentile,
-10.3s at most), carrying a median of 1 commit and 510B (96 commits and 36kB
-at most).
-%
-Propagation is slow by design: a post takes a median of 29h to reach all
-peers (44h at the 90th percentile), since leaves connect once a day and
-middles every 6h.
-% TODO (sims): max of 8.4d exceeds the 7-day window; find the post/peer and
-% why it caused no hard fork (lost or unsettled fork point?)
-%
-Even though the chain is open, we also replay the admission rule (\R{4.a})
-counterfactually over the 20.5k posts by returning authors:
-    1.15\% of them could not afford the post after the smallest admission
-    like (\nreps{500}), and only 0.08\% after a like of \nreps{1000}.
-% TODO (author): explain the open chain (no reps to post, no votes), which
-% begs and voided actions rely on (261022-review.md, item 2)
-% TODO (sims): authors affected and begs per affected author
-%
-Sessions of hours make forks the norm: 66\% of the posts fork the chain,
-from 55\% at green leaves to 89\% at local-first red leaves.
-% TODO: an always-on baseline (5k prefix, build r160) gave 0% forks
-Forks are shallow, though: a forking post misses a median of 1 earlier post
-(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
-no coordination, moving a median of 1 action of the losing branch (6 at the
-90th percentile, 18 at most) and voiding none, since there are no likes to
-double spend.
-Clamped posts follow the same pattern: 31\% of the posts are positioned after
-their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
-well within the 7-day window.
-% dropped (26/10/28): churn sentence (offline S/M/L 1/8/5%, backup pulls
-% 2.6%, 59.5k reconnect pulls with median 2 / max 91 commits); diverging
-% peers (0 of 58, stated in §4); old storage 154MB packed / 119MB w/o
-% payloads (du of the gc'd repo dir, see 261022-data.md)
 
 Figure~\ref{fig.reps.usenet} shows the resulting economy of \reps.
 %
