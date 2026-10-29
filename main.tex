@@ -1406,6 +1406,23 @@ replay time for an overhead between 1.4$\times$ and 3.8$\times$.
 
 \paragraph{Operations:}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{ops}
+\caption{
+    Usenet operation times (mean and max per 5k posts) as the chain grows.
+}
+\label{fig.ops.usenet}
+\end{figure}
+
+Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times grow
+linearly with the chain size:
+    a post goes from 0.08s up to 0.12s,
+    whereas a sync goes from 0.26s up to 1.04s.
+%
+For a huge forum with a few posts per day, a sync time of 1.04s is still
+usable... TODO
+
 \begin{table}[t]
 \centering
 \begin{tabular}{@{}lrrr@{}}
@@ -1417,14 +1434,6 @@ Bytes       & 2.3kB  & 11kB   & 535kB  \\
 \caption{Usenet transfers per \code{sync} operation.}
 \label{tab.eval.usenet.ops}
 \end{table}
-
-Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times grow
-linearly with the chain size:
-    a post goes from 0.08s up to 0.12s,
-    whereas a sync goes from 0.26s up to 1.04s.
-%
-For a huge forum with a few posts per day, a sync time of 1.04s is still
-usable... TODO
 
 Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
 commits and bytes in each \code{sync} operation.
