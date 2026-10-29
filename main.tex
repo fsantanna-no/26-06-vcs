@@ -1434,25 +1434,12 @@ TODO: discuss:
     - bytes/commit should be similar to average commit+payload size
     - that the P2P setting with significant hops, churn, offline periods
       still delivers light syncs
+    - the number does not depend on chain size, so no graph
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{ops}
-\caption{
-    Usenet operation times (mean and max per 5k posts) as the chain grows.
-}
-\label{fig.ops.usenet}
-\end{figure}
+\paragraph{Propagation:}
 
 \iffalse
 \begin{enumerate}
-\item \emph{Operations:} cost of protocol operations.
-    \begin{enumerate}
-    \item \emph{Post:}       local commit and validation time
-    \item \emph{Sync:}       local pull and validation time
-    \item \emph{Commits:}    commits per sync
-    \item \emph{Bytes:}      bytes per sync
-    \end{enumerate}
 \item \emph{Propagation:} delay for a post to reach all peers.
 \item \emph{Begs:} ratio of posts that require extra begs (after admission).
 \item \emph{Forks:} ratio of posts that fork the chain.
