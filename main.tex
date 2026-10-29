@@ -1324,7 +1324,6 @@ Next we describe the metrics we measure over the simulations:
     \item \emph{Bytes:}      bytes per sync
     \end{enumerate}
 \item \emph{Propagation:} delay for a post to reach all peers.
-\item \emph{Begs:} ratio of posts that require extra begs (after admission).
 \item \emph{Forks:} ratio of posts that fork the chain.
     \begin{enumerate}
     \item \emph{Classes:}    ratio by peer class
@@ -1332,6 +1331,11 @@ Next we describe the metrics we measure over the simulations:
     \item \emph{Reorders:}   actions reordered per merge
     \item \emph{Voided:}     actions voided per merge
     \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
+    \end{enumerate}
+\item \emph{Reputation:} TODO
+    \begin{enumerate}
+    \item \emph{Begs:} ratio of posts that require extra begs (after admission).
+    \item \emph{Distribution:} TODO
     \end{enumerate}
 \end{enumerate}
 
@@ -1474,7 +1478,22 @@ until its next session.
 The maximum of 6.1d is a rare outlier (two posts above 3 days), still below
 the 7-day window.
 
-\paragraph{Begs:}
+\paragraph{Forks:}
+
+\iffalse
+\begin{enumerate}
+\item \emph{Forks:} ratio of posts that fork the chain.
+    \begin{enumerate}
+    \item \emph{Classes:}    ratio by peer class
+    \item \emph{Missing:}    earlier posts a forking post lacks
+    \item \emph{Reorders:}   actions reordered per merge
+    \item \emph{Voided:}     actions voided per merge
+    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
+    \end{enumerate}
+\end{enumerate}
+\fi
+
+\paragraph{Reputation:}
 
 % ratio of posts that require extra begs (after admission).
 
@@ -1515,19 +1534,6 @@ an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
 authors never block, and only bursts of posts can block.
 Therefore, the natural posting behavior of users already matches the rules,
 even though they were not aware of them.
-
-\iffalse
-\begin{enumerate}
-\item \emph{Forks:} ratio of posts that fork the chain.
-    \begin{enumerate}
-    \item \emph{Classes:}    ratio by peer class
-    \item \emph{Missing:}    earlier posts a forking post lacks
-    \item \emph{Reorders:}   actions reordered per merge
-    \item \emph{Voided:}     actions voided per merge
-    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
-    \end{enumerate}
-\end{enumerate}
-\fi
 
 \begin{table}[t]
 \centering
