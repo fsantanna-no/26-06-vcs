@@ -1465,11 +1465,11 @@ a graph.
 \begin{tabular}{@{}lrrr@{}}
 Author      & Median & P90    & Max    \\
 \hline
-Green       & 27h    & 29h    & 6.1d   \\
-Yellow      & 29h    & 32h    & 6.0d   \\
-Red         & 34h    & 45h    & 3.7d   \\
+Green       & 27h    & 29h    & --     \\
+Yellow      & 29h    & 32h    & --     \\
+Red         & 34h    & 45h    & --     \\
 \hline
-All         & 28h    & 35h    & 6.1d   \\
+All         & 28h    & 35h    & --     \\
 \end{tabular}
 \caption{Usenet propagation delay by author class.}
 \label{tab.eval.usenet.prop}
@@ -1482,8 +1482,6 @@ the last peers to receive a post are leaves that connect once a day, behind
 middles that connect every 6h.
 Posts by red authors wait an extra 6h, since they stay at the offline author
 until its next session.
-The maximum of 6.1d is a rare outlier (two posts above 3 days), still below
-the 7-day window.
 
 \paragraph{Forks:}
 
@@ -1547,8 +1545,8 @@ well within the 7-day window.
 \begin{tabular}{@{}lrr@{}}
 Admission like  & Begs     & Authors \\
 \hline
-\nreps{500}     & 1.15\%   & XX\%    \\
-\nreps{1000}    & 0.08\%   & YY\%    \\
+\nreps{500}     & 0.86\%   & 3.4\%   \\
+\nreps{1000}    & 0.02\%   & 0.07\%  \\
 \end{tabular}
 \caption{Usenet posts and authors requiring extra begs.}
 \label{tab.eval.usenet.begs}
@@ -1557,11 +1555,12 @@ Admission like  & Begs     & Authors \\
 A post requires an extra beg when its author is already a member but lacks
 the \reps to cover it after the admission like (\R{4.a}).
 Since the newsgroup has no likes, we replay the admission rule
-counterfactually over the 20.5k posts by returning authors, for the two
+counterfactually over the 5.6k posts by 1.4k returning authors, for the two
 admission likes in Table~\ref{tab.eval.usenet.begs}.
 %
-Only 1.15\% of these posts would require an extra beg after the smallest
-admission like (\nreps{500}), and only 0.08\% after a like of \nreps{1000}.
+Only 0.86\% of these posts would require an extra beg after the smallest
+admission like (\nreps{500}), affecting 3.4\% of returning authors with at
+most 2 begs each, and only 0.02\% after a like of \nreps{1000}.
 %
 Figure~\ref{fig.reps.usenet} explains the low ratios:
 an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
