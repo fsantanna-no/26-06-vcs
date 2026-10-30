@@ -31,25 +31,46 @@
 <line y1="30" y2="440" x1="761.4" x2="761.4" stroke="#dddddd"/>
 <text x="761.4" y="472.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555" >30k</text>
 <text x="490.0" y="504.0" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#000000" >chain size (posts)</text>
-<polyline fill="none" stroke="#999999" stroke-width="2" stroke-dasharray="4 4" points="131.7,226.0 153.4,213.0 175.1,201.1 196.9,195.2 218.6,192.2"/>
+<polyline fill="none" stroke="#999999" stroke-width="2" stroke-dasharray="4 4" points="131.7,226.0 153.4,213.0 175.1,201.1 196.9,195.2 218.6,192.2 240.3,173.4 262.0,167.8 283.7,186.2 305.4,173.1 327.1,170.7 348.9,170.7 370.6,177.1"/>
 <circle cx="131.7" cy="226.0" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="213.0" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="175.1" cy="201.1" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="196.9" cy="195.2" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="218.6" cy="192.2" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
-<text x="206.6" y="178.2" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >sync max</text>
-<polyline fill="none" stroke="#000000" stroke-width="3"  points="131.7,356.3 153.4,337.1 175.1,333.8 196.9,331.0 218.6,331.0"/>
+<circle cx="240.3" cy="173.4" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="262.0" cy="167.8" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="283.7" cy="186.2" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="305.4" cy="173.1" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="327.1" cy="170.7" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="348.9" cy="170.7" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="370.6" cy="177.1" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
+<text x="358.6" y="163.1" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >sync max</text>
+<polyline fill="none" stroke="#000000" stroke-width="3"  points="131.7,356.3 153.4,337.1 175.1,333.8 196.9,331.0 218.6,331.0 240.3,326.9 262.0,327.7 283.7,330.4 305.4,326.9 327.1,318.1 348.9,323.1 370.6,318.8"/>
 <circle cx="131.7" cy="356.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="337.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="175.1" cy="333.8" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="196.9" cy="331.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="218.6" cy="331.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<text x="206.6" y="317.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000" >sync mean</text>
-<polyline fill="none" stroke="#555555" stroke-width="3"  points="131.7,404.5 153.4,399.8 175.1,398.3 196.9,397.5 218.6,396.8"/>
+<circle cx="240.3" cy="326.9" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="262.0" cy="327.7" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="283.7" cy="330.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="305.4" cy="326.9" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="327.1" cy="318.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="348.9" cy="323.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="370.6" cy="318.8" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
+<text x="358.6" y="304.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000" >sync mean</text>
+<polyline fill="none" stroke="#555555" stroke-width="3"  points="131.7,404.5 153.4,399.8 175.1,398.3 196.9,397.5 218.6,396.8 240.3,388.6 262.0,391.2 283.7,395.4 305.4,394.7 327.1,393.9 348.9,393.3 370.6,392.6"/>
 <circle cx="131.7" cy="404.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="399.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="175.1" cy="398.3" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="196.9" cy="397.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="218.6" cy="396.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="206.6" y="382.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >post mean</text>
+<circle cx="240.3" cy="388.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="262.0" cy="391.2" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="283.7" cy="395.4" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="305.4" cy="394.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="327.1" cy="393.9" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="348.9" cy="393.3" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="370.6" cy="392.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
+<text x="358.6" y="378.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >post mean</text>
 </svg>
