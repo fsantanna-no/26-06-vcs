@@ -24,7 +24,7 @@ for v in [5000,10000,15000,20000,25000,30000]:
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
 hdr=open(DATA).readline()
 if 'ff_median' in hdr:   # r4 format: median / p90 / max
-    series=[('sync max',10,'#999999','4 4',2),('sync P90',9,INK2,'6 3',3),('sync mean',7,'#999999','2 3',2,30),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]  # TODO: drop 'sync mean' at END
+    series=[('sync max',10,'#999999','4 4',2),('sync P90',9,INK2,'6 3',3),('sync mean',7,'#999999','2 3',2,7000),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]  # TODO: drop 'sync mean' at END
 else:                    # r2 / chat format: mean / max
     series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
 for name,col,color,dash,wd,*dy in series:
@@ -34,5 +34,8 @@ for name,col,color,dash,wd,*dy in series:
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    p.append(txt(X(last[0])-12,Y(last[col])+(dy[0] if dy else -14),name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
+    lx,ly=(X(last[0])-12,Y(last[col])-14)
+    if dy:   # label at a given x (middle of the plot), above the line
+        r=min(rows,key=lambda r:abs(r[0]-dy[0])); lx,ly=X(r[0]),Y(r[col])-12
+    p.append(txt(lx,ly,name,size=24,anchor='middle' if dy else 'end',fill=color if color!='#999999' else INK2))
 p.append('</svg>'); print('\n'.join(p))
