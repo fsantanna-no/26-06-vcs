@@ -1393,20 +1393,14 @@ Next we discuss the measures of each metric.
 
 \paragraph{Storage:}
 
-\begin{table}[t]
+\begin{figure}[t]
 \centering
-\begin{tabular}{@{}lrr@{}}
-Storage     & Size (MB) & Share  \\
-\hline
-Payloads    & 32 & 26\%   \\
-Commits     & 14 & 11\%   \\
-Snapshots   & 79 & 63\%   \\
-\hline
-Overhead    & \multicolumn{2}{r}{3.9$\times$} \\
-\end{tabular}
-\caption{Storage in peer \code{S1}.}
-\label{tab.eval.usenet.storage}
-\end{table}
+\includegraphics[width=\columnwidth]{stor}
+\caption{
+    Storage of peer \code{S1}.
+}
+\label{fig.storage.usenet}
+\end{figure}
 
 Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.9$\times$, dominated
 by state snapshots (\S\ref{sec.design.consensus}).
@@ -1414,6 +1408,24 @@ The overhead is a tradeoff that favors replay time over disk space.
 Without snapshots, the overhead shrinks to only 1.4$\times$.
 An alternative we did not explore is to snapshot every $N$ actions, trading
 replay time for an overhead between 1.4$\times$ and 3.9$\times$.
+
+Figure~\ref{fig.storage.usenet} shows that storage grows linearly with the
+chain, around 4.5MB per 1k posts: 1.2MB of payloads, 0.4MB of commits, and
+2.8MB of state snapshots (\S\ref{sec.design.consensus}).
+%
+Each post stores the full state, so raw snapshots grow quadratically (1.3GB
+at 30k posts), but git stores consecutive states as deltas, so each costs
+around 3kB on disk, as much as a payload.
+%
+The overhead of 3.8$\times$ is relative to Usenet payloads (1.2kB on
+average); the Chat scenario pays the same per post, but 50$\times$ its
+shorter messages (\S\ref{sec.eval.chat}).
+%
+The overhead is a tradeoff that favors replay time over disk space.
+%
+An alternative we did not explore is to snapshot every $N$ posts, trading
+replay time for an overhead between 1.3$\times$ (commits only) and
+3.8$\times$.
 
 \paragraph{Operations:}
 
@@ -1472,7 +1484,7 @@ Red         & 34h    & 44h    & 78h    \\
 All         & 28h    & 36h    & 78h    \\
 \hline
 First peer  & 0h     & 7h     & 24h    \\
-Half peers  & 1.1h   & 9.3h   & 29h    \\
+Half peers  & 1.1h   & 9.2h   & 29h    \\
 \end{tabular}
 \caption{Usenet propagation delay by author class, and reach.}
 \label{tab.eval.usenet.prop}
@@ -1490,7 +1502,7 @@ The maximum of 78h is a leaf that stayed offline for 64h.
 %
 A post reaches its first peer immediately (its own middle, 24h at most when
 the author is offline) and half of the peers in 1.1h, after a median of 4
-hops (10 at most).
+hops (12 at most).
 
 \paragraph{Forks:}
 
@@ -1516,7 +1528,7 @@ Missing posts           & 1      & 7      & 56     \\
 Reorders per merge      & 1      & 6      & 18     \\
 Voided per merge        & 0      & 0      & 0      \\
 Clamps ($P_i - S_i$)    & 4.8h   & 16.6h  & 69h    \\
-Fork life               & 11.2h  & 27.0h  & 58.0h  \\
+Fork life               & 11.3h  & 26.9h  & 58.0h  \\
 \end{tabular}
 \caption{Usenet forks: 66\% of posts (55\% / 67\% / 89\% at green / yellow /
 red peers), and 31\% clamped.}
@@ -1535,7 +1547,7 @@ Clamped posts follow the same pattern: 31\% of the posts are positioned after
 their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
 well within the 7-day window.
 %
-Forks live for a median of 11.2h until their merge (58.0h at most), also far
+Forks live for a median of 11.3h until their merge (58.0h at most), also far
 within the window.
 
 \paragraph{Reputation:}

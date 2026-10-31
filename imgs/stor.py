@@ -39,19 +39,20 @@ for name,col,color,dash,wd in series:
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    p.append(txt(X(last[0])+10,Y(last[col])+9,name,size=24,anchor='start',fill=color if color!='#999999' else INK2))
+    p.append(txt(X(last[0])-12,Y(last[col])-14,name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
 # overhead strip: total / payloads, cumulative
 for v in range(R0,R1+1):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,YR(v)+9,f'{v}&#215;',anchor='end'))
 R0,R1=1,5
-for name,f,color,dash in [('with snapshots',lambda r:r[5]/r[1],INK,''),('without',lambda r:(r[1]+r[2])/r[1],INK2,'6 3')]:
+for name,f,color,dash in [('commits+snapshots',lambda r:r[5]/r[1],INK,''),('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3')]:
     pts=' '.join(f'{X(r[0]):.1f},{YR(f(r)):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="3" {d} points="{pts}"/>')
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{YR(f(r)):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    p.append(txt(X(last[0])+10,YR(f(last))+9,name,size=24,anchor='start',fill=color))
+    m=min(rows,key=lambda r:abs(r[0]-15000))   # label mid-plot, above the line
+    p.append(txt(X(m[0]),YR(f(m))-12,name.replace('+',' + '),size=24,anchor='middle',fill=color))
 p.append(txt(L+8,H-B-S+26,'overhead over payloads',size=22,fill=INK2))
 p.append('</svg>'); print('\n'.join(p))
