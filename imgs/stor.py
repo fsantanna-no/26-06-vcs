@@ -3,7 +3,7 @@
 # Usage: python3 stor.py [stor.tsv] > stor.svg; soffice --headless --convert-to pdf stor.svg
 import sys
 DATA=sys.argv[1] if len(sys.argv)>1 else 'stor.tsv'
-W,H=900,640; L,R,T,B=110,30,30,80
+W,H=900,760; L,R,T,B=110,30,30,80
 S=130; G=40   # overhead strip height and gap above it
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
@@ -31,20 +31,29 @@ for v in [5000,10000,15000,20000,25000,30000]:
     p.append(f'<line y1="{H-B-S}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
-series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',3),('commits',2,'#999999','4 4',2)]
+series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',3),('commits',2,'#999999','4 4',2),
+        ('archive',10,INK,'',1.5)]   # archive = gzip of the original posts: thin, no markers
+LABEL={'commits':(None,30),'archive':(None,34)}   # (x or None=end, dy); None = legend
 for name,col,color,dash,wd in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{pts}"/>')
-    for r in rows:
-        p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
+    if name!='archive':
+        for r in rows:
+            p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    lab=f'{name} ({100*last[col]/last[5]:.0f}%)'
-    if name=='snapshots':   # mid-plot, above the line, away from total
-        m=min(rows,key=lambda r:abs(r[0]-24000))
-        p.append(txt(X(m[0]),Y(m[col])-34,lab,size=24,anchor='middle',fill=INK2))
-    else:
-        p.append(txt(X(last[0])-12,Y(last[col])-14,lab,size=24,anchor='end',fill=color if color!='#999999' else INK2))
+    lab=name if name=='archive' else f'{name} ({100*last[col]/last[5]:.0f}%)'
+    fill=color if color!='#999999' else INK2
+    if LABEL.get(name,0) is None:   # legend entry, top-left
+        k=[n for n,*_ in series if LABEL.get(n,0) is None].index(name); y=T+30+k*32
+        p.append(f'<line x1="{L+20}" x2="{L+70}" y1="{y-8}" y2="{y-8}" stroke="{color}" stroke-width="{wd}" {d}/>')
+        p.append(txt(L+82,y,name,size=24,fill=fill)); continue
+    lx,dy=LABEL.get(name,(None,-14))
+    if lx:   # mid-plot label, above the line
+        m=min(rows,key=lambda r:abs(r[0]-lx))
+        p.append(txt(X(m[0]),Y(m[col])+dy,lab,size=24,anchor='middle',fill=fill))
+    else:    # at the line end, above (dy<0) or below (dy>0)
+        p.append(txt(X(last[0])-12,Y(last[col])+dy,lab,size=24,anchor='end',fill=fill))
 # overhead strip: total / payloads, cumulative
 for v in range(R0,R1+1):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')

@@ -1382,7 +1382,7 @@ Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
 interactions with larger payloads:
 in our corpus, the median gap between posts is 2.6h, and the average
 article has 3kB (which includes a timestamp, a sender, a subject, and the
-actual payload).
+actual message).
 %
 The full simulation takes around 90h to complete with the 33k \code{post}
 operations and over 1M \code{sync} operations that effectively transfer data
@@ -1409,8 +1409,23 @@ Without snapshots, the overhead shrinks to only 1.4$\times$.
 An alternative we did not explore is to snapshot every $N$ actions, trading
 replay time for an overhead between 1.4$\times$ and 3.9$\times$.
 
-Figure~\ref{fig.storage.usenet} shows how storage grows linearly with the
-chain.
+Figure~\ref{fig.storage.usenet} shows that storage grows linearly with the
+chain size.
+The \emph{archive} line is our benchmark and corresponds the original
+compressed forum messages.
+The matching \emph{payloads} line corresponds for the same archive data, but
+now held by the chain Git repository.
+It only accounts for 26\% of storage, with the remainder 74\% being the \FC
+overhead:
+
+
+, matching the steady
+
+which is expected to match
+The payloads account for 26\%
+
+
+, dominated by 65\% of state snapshots (\S\ref{sec.design.consensus}).
 
 
 , around 4.5MB per 1k posts: 1.2MB of payloads, 0.4MB of commits, and
