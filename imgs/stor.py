@@ -13,11 +13,13 @@ res=rows[-1][4]; tot=rows[-1][3]
 for r in rows:
     share=res*r[3]/tot; r[3]+=share; r[5]+=share-r[4]; r[4]=0
 YMAX=50*(int(max(r[5] for r in rows)/50)+1)
-x0,x1=0,35000
+import math
+x0=0; x1=5000*math.ceil(rows[-1][0]/5000)
 def X(v): return L+(v-x0)/(x1-x0)*(W-L-R)
 HM=H-B-S-G   # bottom of the main plot
 def Y(v): return HM-v/YMAX*(HM-T)
-R0,R1=1,5    # overhead range (x)
+OV=max(r[5]/r[1] for r in rows)   # overhead range (x): 1-5 by 1, else 0-N by 10
+R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10)
 def YR(v): return H-B-(v-R0)/(R1-R0)*S
 def txt(x,y,s,size=26,anchor='start',fill=INK2,extra=''):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}" {extra}>{s}</text>'
@@ -26,7 +28,8 @@ p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0
 for v in range(0,YMAX+1,50):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,Y(v)+9,f'{v}MB',anchor='end'))
-for v in [5000,10000,15000,20000,25000,30000]:
+XS=5000 if x1<=40000 else 25000
+for v in range(XS,int(rows[-1][0]*1.01)+1,XS):   # ticks up to the last point
     p.append(f'<line y1="{T}" y2="{HM}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(f'<line y1="{H-B-S}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
@@ -57,10 +60,9 @@ for name,col,color,dash,wd in series:
     else:    # at the line end, above (dy<0) or below (dy>0)
         p.append(txt(X(last[0])-12,Y(last[col])+dy,lab,size=24,anchor='end',fill=fill))
 # overhead strip: total / payloads, cumulative
-for v in range(R0,R1+1):
+for v in range(R0,R1+1,RS):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,YR(v)+9,f'{v}&#215;',anchor='end'))
-R0,R1=1,5
 for name,f,color,dash in [('commits+snapshots',lambda r:r[5]/r[1],INK,''),('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3')]:
     pts=' '.join(f'{X(r[0]):.1f},{YR(f(r)):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''

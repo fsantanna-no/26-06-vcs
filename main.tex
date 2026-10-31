@@ -1460,15 +1460,12 @@ Bytes       & 2.2kB  & 9.7kB  & 687kB  \\
 
 Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
 commits and bytes in each \code{sync} operation.
-The P90 column demonstrates that 90\% of individual syncs received no more than
-5 commits and 9.7kB, which includes the metadata and payload of actions.
-On average, a sync transfers 2.2kB per commit, which matches the average size
-of a commit and its payload in the chain.
 %
-Even with multiple hops, churn, and offline periods, syncs remain light and
-do not depend on the chain size:
-the medians stay at 1 commit and around 2.2kB as the chain grows, so we omit
-a graph.
+Syncs remain short regardless of the chain size (so we omit a graph):
+the medians are steady around 1 commit and 2.2kB.
+%
+Note that 90\% of individual syncs received no more than 5 commits and 9.7kB,
+which includes the metadata and payload of actions.
 
 \paragraph{Propagation:}
 
@@ -1609,6 +1606,14 @@ evenly than the posts themselves:
     posts;
     and the top 50\% hold 80\% while writing 83\%.
 
+\paragraph{Reputation:}
+
+- local first
+- storage linear / tradeoff
+
+Even with multiple hops, churn, and offline periods, the operation times and
+transfer patterns remain constant, showing that the protocol scales.
+
 \subsection{Online Chat}
 \label{sec.eval.chat}
 
@@ -1617,6 +1622,13 @@ evenly than the posts themselves:
 TODO
 
 \paragraph{Storage:}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{stor-chat}
+\caption{Storage of peer \code{S1} (chat).}
+\label{fig.storage.chat}
+\end{figure}
 
 \begin{table}[t]
 \centering
@@ -1654,7 +1666,7 @@ Bytes       & 555B   & 733B   & --     \\
 \centering
 \includegraphics[width=\columnwidth]{ops-chat}
 \caption{
-    Chat operation times (mean and max per 5k posts) as the chain grows.
+    Chat operation times as chain grows.
 }
 \label{fig.ops.chat}
 \end{figure}
