@@ -25,7 +25,7 @@ for v in [5000,10000,15000,20000,25000,30000]:
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
 if LIN:   # r4 format: median / p90
-    series=[('sync P90',9,INK2,'6 3',3),('sync mean',7,'#999999','2 3',2,7000),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]  # TODO: drop 'sync mean' at END
+    series=[('sync P90',9,INK2,'6 3',3),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]
 else:                    # r2 / chat format: mean / max
     series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
 for name,col,color,dash,wd,*dy in series:

@@ -1375,7 +1375,7 @@ our topology, in which some middle peers act as intermittent servers and leaves
 as end users connecting in sessions.
 
 We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
-messages by 12k authors spanning from 1987 to 2013 (26 years).%
+messages by 11k authors spanning from 1987 to 2013 (26 years).%
 \footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
 %
 Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
@@ -1413,7 +1413,7 @@ It accounts for only 26\% of the storage, with the remaining 74\% being the
 \FC overhead:
     the \emph{commits} (9\%) are the inherent metadata that constitute the
     chain DAG;
-    the \emph{snapshots} (65\%), which dominate storage, optimize the consensus
+    the \emph{snapshots} (64\%), which dominate storage, optimize the consensus
     algorithm (\S\ref{sec.design.consensus}).
 
 The overhead is therefore a tradeoff that favors replay time over disk space.
@@ -1443,16 +1443,16 @@ median}).
 
 Even considering churn and offline periods, 90\% of the syncs take less than
 0.5s to complete (\emph{sync P90}).
-The outliers (\emph{sync max}) stay between 1--4s and are peers reconnecting
-up to 90 commits behind.
+The slowest syncs (4s) are session leaves fetching a whole busy day, up to
+91 commits at 0.04s each.
 
 \begin{table}[t]
 \centering
 \begin{tabular}{@{}lrrr@{}}
 Per sync    & Median & P90    & Max    \\
 \hline
-Commits     & 1      & 4      & 66     \\
-Bytes       & 2.3kB  & 11kB   & 535kB  \\
+Commits     & 1      & 5      & 91     \\
+Bytes       & 2.2kB  & 9.7kB  & 687kB  \\
 \end{tabular}
 \caption{Transfers per \code{sync} operation.}
 \label{tab.eval.usenet.ops}
@@ -1461,13 +1461,13 @@ Bytes       & 2.3kB  & 11kB   & 535kB  \\
 Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
 commits and bytes in each \code{sync} operation.
 The P90 column demonstrates that 90\% of individual syncs received no more than
-4 commits and 11kB, which includes the metadata and payload of actions.
-On average, a sync transfers 2.6kB per commit, which matches the average size
+5 commits and 9.7kB, which includes the metadata and payload of actions.
+On average, a sync transfers 2.2kB per commit, which matches the average size
 of a commit and its payload in the chain.
 %
 Even with multiple hops, churn, and offline periods, syncs remain light and
 do not depend on the chain size:
-the medians stay at 1 commit and around 2.3kB as the chain grows, so we omit
+the medians stay at 1 commit and around 2.2kB as the chain grows, so we omit
 a graph.
 
 \paragraph{Propagation:}
@@ -1479,12 +1479,12 @@ Author      & Median & P90    & Max    \\
 \hline
 Green       & 27h    & 29h    & 70h    \\
 Yellow      & 29h    & 32h    & 72h    \\
-Red         & 34h    & 44h    & 78h    \\
+Red         & 35h    & 45h    & 88h    \\
 \hline
-All         & 28h    & 36h    & 78h    \\
+All         & 28h    & 36h    & 88h    \\
 \hline
 First peer  & 0h     & 7h     & 24h    \\
-Half peers  & 1.1h   & 9.2h   & 29h    \\
+Half peers  & 1.0h   & 9.2h   & 29h    \\
 \end{tabular}
 \caption{Usenet propagation delay by author class, and reach.}
 \label{tab.eval.usenet.prop}
@@ -1498,10 +1498,10 @@ middles that connect every 6h.
 Posts by red authors wait an extra 6h, since they stay at the offline author
 until its next session.
 %
-The maximum of 78h is a leaf that stayed offline for 64h.
+The maximum of 88h is a post whose middle stayed down for 52h.
 %
 A post reaches its first peer immediately (its own middle, 24h at most when
-the author is offline) and half of the peers in 1.1h, after a median of 4
+the author is offline) and half of the peers in 1.0h, after a median of 4
 hops (12 at most).
 
 \paragraph{Forks:}
@@ -1524,30 +1524,30 @@ hops (12 at most).
 \begin{tabular}{@{}lrrr@{}}
 Forks                   & Median & P90    & Max    \\
 \hline
-Missing posts           & 1      & 7      & 56     \\
-Reorders per merge      & 1      & 6      & 18     \\
+Missing posts           & 2      & 8      & 61     \\
+Reorders per merge      & 1      & 4      & 22     \\
 Voided per merge        & 0      & 0      & 0      \\
-Clamps ($P_i - S_i$)    & 4.8h   & 16.6h  & 69h    \\
-Fork life               & 11.3h  & 26.9h  & 58.0h  \\
+Clamps ($P_i - S_i$)    & 4.4h   & 14.0h  & 49h    \\
+Fork life               & 11.4h  & 27.0h  & 58.0h  \\
 \end{tabular}
-\caption{Usenet forks: 66\% of posts (55\% / 67\% / 89\% at green / yellow /
-red peers), and 31\% clamped.}
+\caption{Usenet forks: 63\% of posts (51\% / 64\% / 88\% at green / yellow /
+red peers), and 28\% clamped.}
 \label{tab.eval.usenet.forks}
 \end{table}
 
-Sessions of hours make forks the norm: 66\% of the posts fork the chain,
-from 55\% at green leaves to 89\% at local-first red leaves.
+Sessions of hours make forks the norm: 63\% of the posts fork the chain,
+from 51\% at green leaves to 88\% at local-first red leaves.
 % TODO: an always-on baseline (5k prefix, build r160) gave 0% forks
-Forks are shallow, though: a forking post misses a median of 1 earlier post
-(7 at the 90th percentile, 56 at most), and the 16k merges resolve them with
-no coordination, moving a median of 1 action of the losing branch (6 at the
-90th percentile, 18 at most) and voiding none, since there are no likes to
+Forks are shallow, though: a forking post misses a median of 2 earlier posts
+(8 at the 90th percentile, 61 at most), and the 15k merges resolve them with
+no coordination, moving a median of 1 action of the losing branch (4 at the
+90th percentile, 22 at most) and voiding none, since there are no likes to
 double spend.
-Clamped posts follow the same pattern: 31\% of the posts are positioned after
-their declared time ($P_i > S_i$), by a median of 4.8h and at most 69h, all
+Clamped posts follow the same pattern: 28\% of the posts are positioned after
+their declared time ($P_i > S_i$), by a median of 4.4h and at most 49h, all
 well within the 7-day window.
 %
-Forks live for a median of 11.3h until their merge (58.0h at most), also far
+Forks live for a median of 11.4h until their merge (58.0h at most), also far
 within the window.
 
 \paragraph{Reputation:}
@@ -1570,8 +1570,8 @@ within the window.
 \begin{tabular}{@{}lrr@{}}
 Admission like  & Begs     & Authors \\
 \hline
-\nreps{500}     & 0.86\%   & 3.4\%   \\
-\nreps{1000}    & 0.02\%   & 0.07\%  \\
+\nreps{500}     & 0.95\%   & 4.9\%   \\
+\nreps{1000}    & 0.07\%   & 0.36\%  \\
 \end{tabular}
 \caption{Usenet posts and authors requiring extra begs.}
 \label{tab.eval.usenet.begs}
@@ -1580,12 +1580,12 @@ Admission like  & Begs     & Authors \\
 A post requires an extra beg when its author is already a member but lacks
 the \reps to cover it after the admission like (\R{4.a}).
 Since the newsgroup has no likes, we replay the admission rule
-counterfactually over the 5.6k posts by 1.4k returning authors, for the two
+counterfactually over the 21.8k posts by 3.9k returning authors, for the two
 admission likes in Table~\ref{tab.eval.usenet.begs}.
 %
-Only 0.86\% of these posts would require an extra beg after the smallest
-admission like (\nreps{500}), affecting 3.4\% of returning authors with at
-most 2 begs each, and only 0.02\% after a like of \nreps{1000}.
+Only 0.95\% of these posts would require an extra beg after the smallest
+admission like (\nreps{500}), affecting 4.9\% of returning authors with at
+most 3 begs each, and only 0.07\% after a like of \nreps{1000}.
 %
 Figure~\ref{fig.reps.usenet} explains the low ratios:
 an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
@@ -1598,16 +1598,16 @@ Figure~\ref{fig.reps.usenet} shows the resulting economy of \reps.
 Since the newsgroup has no likes or dislikes, \reps come only from posting
 (\R{1.b}):
     every author ends with \nreps{1000} per day with a post (dashed line), up
-    to the cap of \nreps{50K} (\R{4.b}), which 39 authors reach.
+    to the cap of \nreps{50K} (\R{4.b}), which 44 authors reach.
 Authors below the line posted several times in the same tick, which rewards
 them only once.
 %
 Reputation thus works as an activity counter, which distributes \reps more
 evenly than the posts themselves:
-    the 8.5k authors (68\%) with a single post all hold \nreps{1000};
-    the top 1\% of authors hold 16\% of all \reps while writing 25\% of the
+    the 7.4k authors (65\%) with a single post all hold \nreps{1000};
+    the top 1\% of authors hold 16\% of all \reps while writing 26\% of the
     posts;
-    and the top 50\% hold 78\% while writing 81\%.
+    and the top 50\% hold 80\% while writing 83\%.
 
 \subsection{Online Chat}
 \label{sec.eval.chat}

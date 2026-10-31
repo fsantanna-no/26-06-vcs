@@ -37,8 +37,9 @@ p.append(txt(X(280),Y(CAP)-14,'cap 50,000',size=24,anchor='middle'))
 for (pp,r),n in sorted(c.items(), key=lambda kv: -kv[1]):
     rad=max(2.5,math.sqrt(n)/3.0)
     p.append(f'<circle cx="{X(pp):.1f}" cy="{Y(r):.1f}" r="{rad:.1f}" fill="{FILL}" fill-opacity="0.55" stroke="{SURF}" stroke-width="1"/>')
-for pp,r,lab,dy in [(1,1000,'8,465 authors',9),(2,2000,'1,687',9),(3,3000,'645',9)]:
-    p.append(txt(X(pp)+max(2.5,math.sqrt(c[(pp,r)])/3.0)+6,Y(r)+dy,lab,size=24,fill=INK))
+for pp,r,suf,dy in [(1,1000,' authors',9),(2,2000,'',9),(3,3000,'',9)]:   # counts from the data
+    p.append(txt(X(pp)+max(2.5,math.sqrt(c[(pp,r)])/3.0)+6,Y(r)+dy,f'{c[(pp,r)]:,}{suf}',size=24,fill=INK))
 p.append(txt(X(5.5),Y(1150),'below the line: several posts in one tick',size=22))
-p.append(txt(W-R-6,Y(CAP)+40,'39 authors at the cap',size=22,anchor='end'))
+ncap=sum(n for (pp,r),n in c.items() if r>=CAP)
+p.append(txt(W-R-6,Y(CAP)+40,f'{ncap} authors at the cap',size=22,anchor='end'))
 p.append('</svg>'); print('\n'.join(p))
