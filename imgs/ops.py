@@ -28,6 +28,7 @@ if LIN:   # r4 format: median / p90
     series=[('sync P90',9,INK2,'6 3',3),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]
 else:                    # r2 / chat format: mean / max
     series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
+BELOW={'sync P90':32}   # labels placed below the line end (dy), default above
 for name,col,color,dash,wd,*dy in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
@@ -35,7 +36,7 @@ for name,col,color,dash,wd,*dy in series:
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    lx,ly=(X(last[0])-12,Y(last[col])-14)
+    lx,ly=(X(last[0])-12,Y(last[col])+BELOW.get(name,-14))   # label at the line end
     if dy:   # label at a given x (middle of the plot), above the line
         r=min(rows,key=lambda r:abs(r[0]-dy[0])); lx,ly=X(r[0]),Y(r[col])-12
     p.append(txt(lx,ly,name,size=24,anchor='middle' if dy else 'end',fill=color if color!='#999999' else INK2))

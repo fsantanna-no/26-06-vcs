@@ -42,7 +42,9 @@ for name,col,color,dash,wd in series:
         for r in rows:
             p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    lab=name if name=='archive' else f'{name} ({100*last[col]/last[5]:.0f}%)'
+    pct=lambda c: round(100*last[c]/last[5])
+    share=100-pct(1)-pct(2) if name=='snapshots' else pct(col)   # shares sum to 100
+    lab=name if name=='archive' else f'{name} ({share}%)'
     fill=color if color!='#999999' else INK2
     if LABEL.get(name,0) is None:   # legend entry, top-left
         k=[n for n,*_ in series if LABEL.get(n,0) is None].index(name); y=T+30+k*32

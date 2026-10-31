@@ -98,7 +98,7 @@
 <circle cx="804.9" cy="217.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="826.6" cy="209.1" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="844.2" cy="201.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="832.2" y="187.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >snapshots (64%)</text>
+<text x="832.2" y="187.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >snapshots (65%)</text>
 <polyline fill="none" stroke="#555555" stroke-width="3"  points="131.7,506.6 153.4,503.2 175.1,499.7 196.9,496.2 218.6,491.6 240.3,486.0 262.0,481.1 283.7,477.1 305.4,471.3 327.1,466.1 348.9,460.5 370.6,456.0 392.3,450.2 414.0,445.5 435.7,442.3 457.4,439.5 479.1,436.6 500.9,433.6 522.6,430.7 544.3,427.8 566.0,424.8 587.7,421.7 609.4,418.8 631.1,415.9 652.9,412.9 674.6,409.9 696.3,406.7 718.0,403.8 739.7,400.7 761.4,397.6 783.1,394.5 804.9,391.1 826.6,387.1 844.2,383.2"/>
 <circle cx="131.7" cy="506.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="503.2" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
