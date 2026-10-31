@@ -1402,34 +1402,30 @@ Next we discuss the measures of each metric.
 \label{fig.storage.usenet}
 \end{figure}
 
-Table~\ref{tab.eval.usenet.storage} shows an overhead of 3.9$\times$, dominated
-by state snapshots (\S\ref{sec.design.consensus}).
-The overhead is a tradeoff that favors replay time over disk space.
-Without snapshots, the overhead shrinks to only 1.4$\times$.
-An alternative we did not explore is to snapshot every $N$ actions, trading
-replay time for an overhead between 1.4$\times$ and 3.9$\times$.
-
 Figure~\ref{fig.storage.usenet} shows that storage grows linearly with the
 chain size.
-The \emph{archive} line is our benchmark and corresponds the original
+The solid \emph{archive} line is our benchmark and corresponds to the original
 compressed forum messages.
-The matching \emph{payloads} line corresponds for the same archive data, but
-now held by the chain Git repository.
-It only accounts for 26\% of storage, with the remainder 74\% being the \FC
-overhead:
+The matching \emph{payloads} line holds the same data, now as objects in the
+Git repository of the chain.
+It accounts for only 26\% of the storage, with the remaining 74\% being the
+\FC overhead:
+    the \emph{commits} (9\%) are the inherent metadata that constitute the
+    chain DAG;
+    the \emph{snapshots} (65\%), which dominate storage, optimize the consensus
+    algorithm (\S\ref{sec.design.consensus}).
+
+The overhead is therefore a tradeoff that favors replay time over disk space.
+The line \emph{commit+snapshots} measures this overhead between
+3$\times$--4$\times$ ($total/payload$).
+An alternative we did not explore is to snapshot every $N$ actions, favoring
+disk space over replay time.
+The line \emph{commit} shows the overhead floor of 1.4$\times$ with no
+snapshots.
 
 
-, matching the steady
+and 3.9$\times$.
 
-which is expected to match
-The payloads account for 26\%
-
-
-, dominated by 65\% of state snapshots (\S\ref{sec.design.consensus}).
-
-
-, around 4.5MB per 1k posts: 1.2MB of payloads, 0.4MB of commits, and
-2.8MB of state snapshots (\S\ref{sec.design.consensus}).
 
 
 %
