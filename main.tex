@@ -1437,12 +1437,13 @@ snapshots.
 
 Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
 constant over chain size.
-Thanks to the snapshots (\S\ref{sec.eval.usenet.storage}), it takes 0.1s for a
+Thanks to snapshots (\S\ref{sec.eval.usenet.storage}), it takes 0.1s for a
 local post (\emph{post median}) and 0.2s for a remote sync (\emph{sync
 median}).
+Even considering churn and long offline periods, 90\% of the syncs take less
+than 0.5s to complete (\emph{sync P90}).
 
-Even considering churn and offline periods, 90\% of the syncs take less than
-0.5s to complete (\emph{sync P90}).
+\iffalse
 The slowest syncs (4s) are session leaves fetching a whole busy day, up to
 91 commits at 0.04s each.
 
@@ -1466,6 +1467,7 @@ the medians are steady around 1 commit and 2.2kB.
 %
 Note that 90\% of individual syncs received no more than 5 commits and 9.7kB,
 which includes the metadata and payload of actions.
+\fi
 
 \paragraph{Propagation:}
 
