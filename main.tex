@@ -1439,12 +1439,12 @@ Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
 constant over chain size.
 Thanks to the snapshots (\S\ref{sec.eval.usenet.storage}), it takes 0.1s for a
 local post (\emph{post median}) and 0.2s for a remote sync (\emph{sync
-median}), regardless of the chain size.
+median}).
 
 Even considering churn and offline periods, 90\% of the syncs take less than
 0.5s to complete (\emph{sync P90}).
-The outliers remain between 1--5s (\emph{sync max}), which reconnect after up
-to almost 100 commits behind.
+The outliers (\emph{sync max}) stay between 1--4s and are peers reconnecting
+up to 90 commits behind.
 
 \begin{table}[t]
 \centering
