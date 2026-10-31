@@ -1392,12 +1392,13 @@ operations and over 1M \code{sync} operations that effectively transfer data
 Next we discuss the measures of each metric.
 
 \paragraph{Storage:}
+\label{sec.eval.usenet.storage}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{stor}
 \caption{
-    Storage of peer \code{S1}.
+    Storage of peer \code{S1} as chain grows.
 }
 \label{fig.storage.usenet}
 \end{figure}
@@ -1416,32 +1417,12 @@ It accounts for only 26\% of the storage, with the remaining 74\% being the
     algorithm (\S\ref{sec.design.consensus}).
 
 The overhead is therefore a tradeoff that favors replay time over disk space.
-The line \emph{commit+snapshots} measures this overhead between
-3$\times$--4$\times$ ($total/payload$).
+The line \emph{commits+snapshots} measures this overhead between
+3$\times$--4$\times$ (\emph{total/payloads}).
 An alternative we did not explore is to snapshot every $N$ actions, favoring
 disk space over replay time.
-The line \emph{commit} shows the overhead floor of 1.4$\times$ with no
+The line \emph{commits} shows the overhead floor of 1.3$\times$ with no
 snapshots.
-
-
-and 3.9$\times$.
-
-
-
-%
-Each post stores the full state, so raw snapshots grow quadratically (1.3GB
-at 30k posts), but git stores consecutive states as deltas, so each costs
-around 3kB on disk, as much as a payload.
-%
-The overhead of 3.8$\times$ is relative to Usenet payloads (1.2kB on
-average); the Chat scenario pays the same per post, but 50$\times$ its
-shorter messages (\S\ref{sec.eval.chat}).
-%
-The overhead is a tradeoff that favors replay time over disk space.
-%
-An alternative we did not explore is to snapshot every $N$ posts, trading
-replay time for an overhead between 1.3$\times$ (commits only) and
-3.8$\times$.
 
 \paragraph{Operations:}
 
@@ -1454,13 +1435,16 @@ replay time for an overhead between 1.3$\times$ (commits only) and
 \label{fig.ops.usenet}
 \end{figure}
 
-Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times grow
-linearly with the chain size:
-    a post goes from 0.08s up to 0.12s,
-    whereas a sync goes from 0.26s up to 1.04s.
-%
-For a huge forum with a few posts per day, a sync time of 1.04s is still
-usable... TODO
+Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
+constant over chain size.
+Thanks to the snapshots (\S\ref{sec.eval.usenet.storage}), it takes 0.1s for a
+local post (\emph{post median}) and 0.2s for a remote sync (\emph{sync
+median}), regardless of the chain size.
+
+Even considering churn and offline periods, 90\% of the syncs take less than
+0.5s to complete (\emph{sync P90}).
+The outliers remain between 1--5s (\emph{sync max}), which reconnect after up
+to almost 100 commits behind.
 
 \begin{table}[t]
 \centering
