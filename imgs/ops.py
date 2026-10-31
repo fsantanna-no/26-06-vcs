@@ -1,5 +1,5 @@
 # Usenet operation times vs chain size (grayscale SVG for the paper).
-# Data: ops.tsv (r2 log sliced per 1k posts). Fonts sized for one column.
+# Data: ops.tsv (r4 per 1k: median/p90/max) or ops-r2/ops-chat (mean/max). Fonts for one column.
 # Usage: python3 ops.py [ops.tsv] > ops.svg; soffice --headless --convert-to pdf ops.svg
 import math, sys
 DATA=sys.argv[1] if len(sys.argv)>1 else 'ops.tsv'
@@ -22,13 +22,17 @@ for v in [5000,10000,15000,20000,25000,30000]:
     p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
-series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
-for name,col,color,dash,wd in series:
+hdr=open(DATA).readline()
+if 'ff_median' in hdr:   # r4 format: median / p90 / max
+    series=[('sync max',10,'#999999','4 4',2),('sync P90',9,INK2,'6 3',3),('sync mean',7,'#999999','2 3',2,30),('sync median',8,INK,'',3),('post median',3,INK2,'',3)]  # TODO: drop 'sync mean' at END
+else:                    # r2 / chat format: mean / max
+    series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
+for name,col,color,dash,wd,*dy in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{pts}"/>')
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    p.append(txt(X(last[0])-12,Y(last[col])-14,name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
+    p.append(txt(X(last[0])-12,Y(last[col])+(dy[0] if dy else -14),name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
 p.append('</svg>'); print('\n'.join(p))
