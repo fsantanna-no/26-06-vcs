@@ -58,7 +58,7 @@
 <circle cx="718.0" cy="91.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="80.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="68.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<text x="749.4" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000" >total</text>
+<text x="749.4" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000" >total (100%)</text>
 <polyline fill="none" stroke="#555555" stroke-width="3" stroke-dasharray="6 3" points="131.7,386.0 153.4,381.1 175.1,375.9 196.9,370.4 218.6,364.7 240.3,359.1 262.0,353.1 283.7,346.8 305.4,340.4 327.1,333.3 348.9,326.2 370.6,318.7 392.3,311.2 414.0,304.0 435.7,296.1 457.4,288.5 479.1,280.9 500.9,272.8 522.6,265.6 544.3,258.6 566.0,251.3 587.7,244.3 609.4,236.6 631.1,229.2 652.9,221.7 674.6,214.0 696.3,206.3 718.0,198.2 739.7,190.6 761.4,181.8"/>
 <circle cx="131.7" cy="386.0" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="381.1" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
@@ -90,7 +90,7 @@
 <circle cx="718.0" cy="198.2" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="190.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="181.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="749.4" y="167.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >snapshots</text>
+<text x="631.1" y="195.2" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >snapshots (65%)</text>
 <polyline fill="none" stroke="#555555" stroke-width="3"  points="131.7,387.5 153.4,384.9 175.1,382.3 196.9,379.6 218.6,376.2 240.3,372.0 262.0,368.3 283.7,365.4 305.4,361.0 327.1,357.1 348.9,352.9 370.6,349.5 392.3,345.1 414.0,341.6 435.7,339.2 457.4,337.1 479.1,334.9 500.9,332.7 522.6,330.5 544.3,328.3 566.0,326.1 587.7,323.7 609.4,321.6 631.1,319.3 652.9,317.2 674.6,314.9 696.3,312.5 718.0,310.3 739.7,307.9 761.4,305.7"/>
 <circle cx="131.7" cy="387.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="384.9" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
@@ -122,7 +122,7 @@
 <circle cx="718.0" cy="310.3" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="307.9" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="305.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="749.4" y="291.7" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >payloads</text>
+<text x="749.4" y="291.7" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >payloads (26%)</text>
 <polyline fill="none" stroke="#999999" stroke-width="2" stroke-dasharray="4 4" points="131.7,389.0 153.4,388.1 175.1,387.1 196.9,386.1 218.6,385.1 240.3,384.1 262.0,383.2 283.7,382.2 305.4,381.2 327.1,380.2 348.9,379.2 370.6,378.2 392.3,377.2 414.0,376.2 435.7,375.2 457.4,374.3 479.1,373.3 500.9,372.3 522.6,371.3 544.3,370.3 566.0,369.3 587.7,368.4 609.4,367.4 631.1,366.4 652.9,365.4 674.6,364.4 696.3,363.5 718.0,362.5 739.7,361.5 761.4,360.6"/>
 <circle cx="131.7" cy="389.0" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="388.1" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
@@ -154,7 +154,7 @@
 <circle cx="718.0" cy="362.5" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="361.5" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="360.6" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
-<text x="749.4" y="346.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >commits</text>
+<text x="749.4" y="346.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >commits (9%)</text>
 <line x1="110" x2="870" y1="560.0" y2="560.0" stroke="#dddddd"/>
 <text x="100.0" y="569.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555" >1&#215;</text>
 <line x1="110" x2="870" y1="527.5" y2="527.5" stroke="#dddddd"/>
@@ -196,7 +196,7 @@
 <circle cx="718.0" cy="470.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="469.7" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="468.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<text x="435.7" y="478.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000" >commits + snapshots</text>
+<text x="435.7" y="468.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000" >commits + snapshots</text>
 <polyline fill="none" stroke="#555555" stroke-width="3" stroke-dasharray="6 3" points="131.7,547.7 153.4,547.6 175.1,547.7 196.9,547.8 218.6,548.5 240.3,549.4 262.0,549.8 283.7,549.7 305.4,550.2 327.1,550.3 348.9,550.5 370.6,550.5 392.3,550.7 414.0,550.8 435.7,550.6 457.4,550.3 479.1,550.1 500.9,550.0 522.6,549.8 544.3,549.6 566.0,549.5 587.7,549.4 609.4,549.3 631.1,549.1 652.9,549.0 674.6,548.9 696.3,548.9 718.0,548.8 739.7,548.7 761.4,548.7"/>
 <circle cx="131.7" cy="547.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="153.4" cy="547.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
@@ -228,6 +228,5 @@
 <circle cx="718.0" cy="548.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="739.7" cy="548.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="761.4" cy="548.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="435.7" y="538.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >commits</text>
-<text x="118.0" y="456.0" font-family="Helvetica, Arial, sans-serif" font-size="22" text-anchor="start" fill="#555555" >overhead over payloads</text>
+<text x="435.7" y="528.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >commits</text>
 </svg>

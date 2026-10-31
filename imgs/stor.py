@@ -39,7 +39,12 @@ for name,col,color,dash,wd in series:
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    p.append(txt(X(last[0])-12,Y(last[col])-14,name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
+    lab=f'{name} ({100*last[col]/last[5]:.0f}%)'
+    if name=='snapshots':   # mid-plot, above the line, away from total
+        m=min(rows,key=lambda r:abs(r[0]-24000))
+        p.append(txt(X(m[0]),Y(m[col])-34,lab,size=24,anchor='middle',fill=INK2))
+    else:
+        p.append(txt(X(last[0])-12,Y(last[col])-14,lab,size=24,anchor='end',fill=color if color!='#999999' else INK2))
 # overhead strip: total / payloads, cumulative
 for v in range(R0,R1+1):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
@@ -53,6 +58,5 @@ for name,f,color,dash in [('commits+snapshots',lambda r:r[5]/r[1],INK,''),('comm
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{YR(f(r)):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
     m=min(rows,key=lambda r:abs(r[0]-15000))   # label mid-plot, above the line
-    p.append(txt(X(m[0]),YR(f(m))-12,name.replace('+',' + '),size=24,anchor='middle',fill=color))
-p.append(txt(L+8,H-B-S+26,'overhead over payloads',size=22,fill=INK2))
+    p.append(txt(X(m[0]),YR(f(m))-22,name.replace('+',' + '),size=24,anchor='middle',fill=color))
 p.append('</svg>'); print('\n'.join(p))
