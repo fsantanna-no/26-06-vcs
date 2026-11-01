@@ -1,4 +1,4 @@
-# Usenet storage vs chain size (grayscale SVG for the paper).
+# Storage vs chain size (grayscale SVG for the paper): main plot and overhead strip.
 # Data: stor.tsv (cumulative disk MB per 1k posts). Fonts sized for one column.
 # Usage: python3 stor.py [stor.tsv] > stor.svg; soffice --headless --convert-to pdf stor.svg
 import sys
@@ -12,20 +12,18 @@ rows=[list(map(float,l.split())) for l in open(DATA) if not l.startswith('#')]
 res=rows[-1][4]; tot=rows[-1][3]
 for r in rows:
     share=res*r[3]/tot; r[3]+=share; r[5]+=share-r[4]; r[4]=0
-YMAX=50*(int(max(r[5] for r in rows)/50)+1)
+TOP=max(r[5] for r in rows); YS=next(st for st in [5,10,25,50,100,250] if TOP/st<=5); YMAX=YS*(int(TOP/YS)+1)   # 3-6 gridlines
 import math
 x0=0; x1=5000*math.ceil(rows[-1][0]/5000)
 def X(v): return L+(v-x0)/(x1-x0)*(W-L-R)
 HM=H-B-S-G   # bottom of the main plot
 def Y(v): return HM-v/YMAX*(HM-T)
-OV=max(r[5]/r[1] for r in rows)   # overhead range (x): 1-5 by 1, else 0-N by 10
-R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10)
 def YR(v): return H-B-(v-R0)/(R1-R0)*S
 def txt(x,y,s,size=26,anchor='start',fill=INK2,extra=''):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}" {extra}>{s}</text>'
 p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
    f'<rect width="{W}" height="{H}" fill="{SURF}"/>']
-for v in range(0,YMAX+1,50):
+for v in range(0,YMAX+1,YS):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,Y(v)+9,f'{v}MB',anchor='end'))
 XS=5000 if x1<=40000 else 25000
@@ -37,6 +35,8 @@ p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=IN
 series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',3),('commits',2,'#999999','4 4',2),
         ('archive',10,INK,'',1.5)]   # archive = gzip of the original posts: thin, no markers
 LABEL={'commits':(None,30),'archive':(None,34)}   # (x or None=end, dy); None = legend
+if rows[-1][1]<0.1*YMAX: LABEL.update({'payloads':None,'archive':None})   # tiny payloads (chat): legend
+MID=x1*0.45   # x of mid-plot labels
 for name,col,color,dash,wd in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
@@ -52,7 +52,7 @@ for name,col,color,dash,wd in series:
     if LABEL.get(name,0) is None:   # legend entry, top-left
         k=[n for n,*_ in series if LABEL.get(n,0) is None].index(name); y=T+30+k*32
         p.append(f'<line x1="{L+20}" x2="{L+70}" y1="{y-8}" y2="{y-8}" stroke="{color}" stroke-width="{wd}" {d}/>')
-        p.append(txt(L+82,y,name,size=24,fill=fill)); continue
+        p.append(txt(L+82,y,lab,size=24,fill=fill)); continue
     lx,dy=LABEL.get(name,(None,-14))
     if lx:   # mid-plot label, above the line
         m=min(rows,key=lambda r:abs(r[0]-lx))
@@ -60,16 +60,27 @@ for name,col,color,dash,wd in series:
     else:    # at the line end, above (dy<0) or below (dy>0)
         p.append(txt(X(last[0])-12,Y(last[col])+dy,lab,size=24,anchor='end',fill=fill))
 # overhead strip: total / payloads, cumulative
+# lines: measured total/payloads; commits only; and total/payloads if every payload had 1 kB
+# (commits and snapshots hold no payload bytes, so they are payload-independent)
+OVS=[('commits+snapshots',lambda r:r[5]/r[1],INK,'',0.35),
+     ('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3',0.65),
+     ('at 1kB payloads',lambda r:(r[0]/1000+r[5]-r[1])/(r[0]/1000),INK,'2 3',0.85)]
+OV=max(f(r) for _,f,*_ in OVS for r in rows); R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10)
 for v in range(R0,R1+1,RS):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,YR(v)+9,f'{v}&#215;',anchor='end'))
-for name,f,color,dash in [('commits+snapshots',lambda r:r[5]/r[1],INK,''),('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3')]:
+for name,f,color,dash,fx in OVS:
     pts=' '.join(f'{X(r[0]):.1f},{YR(f(r)):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="3" {d} points="{pts}"/>')
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{YR(f(r)):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-    m=min(rows,key=lambda r:abs(r[0]-15000))   # label mid-plot, above the line
-    p.append(txt(X(m[0]),YR(f(m))-22,name.replace('+',' + '),size=24,anchor='middle',fill=color))
+labs=[]   # labels drawn after all lines: measured below its line, others above; white box behind
+for name,f,color,dash,fx in OVS:
+    m=min(rows,key=lambda r:abs(r[0]-fx*x1)); dy=32 if name=='commits+snapshots' else -22
+    lab=name.replace('+',' + '); bw=0.5*24*len(lab)
+    labs.append(f'<rect x="{X(m[0])-bw/2:.1f}" y="{YR(f(m))+dy-19:.1f}" width="{bw:.1f}" height="25" fill="{SURF}"/>')
+    labs.append(txt(X(m[0]),YR(f(m))+dy,lab,size=24,anchor='middle',fill=color))
+p+=labs
 p.append('</svg>'); print('\n'.join(p))

@@ -38,13 +38,17 @@ for v in range(step,int(rows[-1][0]*1.01)+1,step):   # ticks up to the last poin
     p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
-BELOW={'sync P90':32,'sync median':32}   # labels placed below the line end (dy), default above
+LABEL={'sync P90':(None,32)}   # name -> (x or None=line end, dy); default above the end
+if ALL: LABEL={'sync mean':(x1*0.45,-14),'post median':(None,32)}   # mean ~ median: mean mid-plot
 for name,col,color,dash,wd in series:
     pts=[r for r in rows if r[col] is not None]
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{" ".join(f"{X(r[0]):.1f},{Y(r[col]):.1f}" for r in pts)}"/>')
     for r in pts:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
-    last=pts[-1]
-    p.append(txt(X(last[0])-12,Y(last[col])+BELOW.get(name,-14),name,size=24,anchor='end',fill=color if color!='#999999' else INK2))
+    lx,dy=LABEL.get(name,(None,-14)); fill=color if color!='#999999' else INK2
+    if lx:   # mid-plot label
+        m=min(pts,key=lambda r:abs(r[0]-lx)); p.append(txt(X(m[0]),Y(m[col])+dy,name,size=24,anchor='middle',fill=fill))
+    else:    # at the line end
+        last=pts[-1]; p.append(txt(X(last[0])-12,Y(last[col])+dy,name,size=24,anchor='end',fill=fill))
 p.append('</svg>'); print('\n'.join(p))

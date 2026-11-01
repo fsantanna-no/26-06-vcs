@@ -1392,7 +1392,6 @@ operations and over 1M \code{sync} operations that effectively transfer data
 Next we discuss the measures of each metric.
 
 \paragraph{Storage:}
-\label{sec.eval.usenet.storage}
 
 \begin{figure}[t]
 \centering
@@ -1437,9 +1436,8 @@ snapshots.
 
 Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
 constant over chain size.
-Thanks to snapshots (\S\ref{sec.eval.usenet.storage}), it takes 0.1s for a
-local post (\emph{post median}) and 0.2s for a remote sync (\emph{sync
-median}).
+Thanks to stored snapshots, it takes 0.1s for a local post (\emph{post median})
+and 0.2s for a remote sync (\emph{sync median}).
 Even considering churn and long offline periods, 90\% of the syncs take less
 than 0.5s to complete (\emph{sync P90}).
 
