@@ -1480,20 +1480,24 @@ which includes the metadata and payload of actions.
 
 Figure~\ref{fig.prop.cov.usenet} shows how long it takes for posts to propagate
 through the network.
-The four lines represent posts from green, yellow and red leaves, plus the
-aggregate of the three.
-We highlight three data points as follows:
-    (i) it takes 3 minutes to reach 22\% of the network,
-    (ii) 6 hours for 50\%, and
-    (iii) 23h for 90\%.
+The four lines represent posts initiating from green, yellow and red leaves,
+plus the aggregate of the three:
+    it takes 3 minutes to reach 22\% of the network,
+    6 hours for 50\%, and
+    23h for 90\%.
 
-Looking at the green line, it takes 1 hour for a post to reach 50\% of the
+Looking at the green line, it takes only 1 hour for a post to reach 50\% of the
+network, which is justified by the fact that 50\% of the leaves are green.
+%
+Looking at the yellow and red lines, the jump around 6 hours is justified by 
+Yellow peers connect every ∼6h (middles)
+
+
+ for a post to reach 60\% of the
 network.
-Considering that 50\% of the leaves are green, and that middle and super peers
-are also subject to churn and offline periods, a post reaches nearly all online
-peers within the hour.
+The high jump around 6h 
 
-The yellow line jumps at 6h, the period of yellow middles:
+ jumps at 6h, the period of yellow middles:
   a yellow post waits at its middle until the next synchronization,
   and from
   there spreads to the online peers as fast as a green post.
