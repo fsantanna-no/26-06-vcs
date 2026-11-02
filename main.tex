@@ -1441,9 +1441,10 @@ and 0.2s for a remote sync (\emph{sync median}).
 Even considering churn and long offline periods, 90\% of the syncs take less
 than 0.5s to complete (\emph{sync P90}).
 
-We argue that constant operation time is key for \FC to scale to large forums.
-Although the storage overhead can be very large, it's still linear and cheap in
-comparison to CPU time.
+We argue that operation times that do not grow with the chain are key for \FC
+to scale to large forums.
+Although the storage overhead can be even higher (\S\ref{sec.eval.chat}), it
+grows linearly, and disk is cheaper than CPU time.
 
 \paragraph{Propagation:}
 
