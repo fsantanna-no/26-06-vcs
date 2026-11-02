@@ -1473,7 +1473,7 @@ which includes the metadata and payload of actions.
 \centering
 \includegraphics[width=\columnwidth]{prop-cov}
 \caption{
-    Post propagation over time.
+    Post propagation ratio over time.
 }
 \label{fig.prop.cov.usenet}
 \end{figure}
@@ -1485,12 +1485,19 @@ aggregate of the three.
 We highlight three data points as follows:
     (i) it takes 3 minutes to reach 22\% of the network,
     (ii) 6 hours for 50\%, and
-    (iii) 78h for 100\%.
+    (iii) 23h for 90\%.
 
 Looking at the green line, it takes 1 hour for a post to reach 50\% of the
 network.
 Considering that 50\% of the leaves are green, and that middle and super peers
-are also subject to churn and offline periods, TODO.
+are also subject to churn and offline periods, a post reaches nearly all online
+peers within the hour.
+
+The yellow line jumps at 6h, the period of yellow middles:
+  a yellow post waits at its middle until the next synchronization,
+  and from
+  there spreads to the online peers as fast as a green post.
+
 
 \paragraph{Forks:}
 

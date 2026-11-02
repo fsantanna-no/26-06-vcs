@@ -42,7 +42,7 @@
 <line x1="635.7" y1="235.0" x2="625.7" y2="319.0" stroke="#555555" stroke-width="1.5"/>
 <circle cx="635.7" cy="235.0" r="8" fill="#ffffff" stroke="#000000" stroke-width="3"/>
 <text x="625.7" y="345.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000">6h→50%</text>
-<line x1="850.3" y1="30.0" x2="797.5" y2="250.0" stroke="#555555" stroke-width="1.5"/>
-<circle cx="850.3" cy="30.0" r="8" fill="#ffffff" stroke="#000000" stroke-width="3"/>
-<text x="850.3" y="276.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000">78h→100%</text>
+<line x1="751.9" y1="71.0" x2="813.9" y2="188.5" stroke="#555555" stroke-width="1.5"/>
+<circle cx="751.9" cy="71.0" r="8" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+<text x="813.9" y="214.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000">23h→90%</text>
 </svg>
