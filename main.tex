@@ -1441,32 +1441,6 @@ and 0.2s for a remote sync (\emph{sync median}).
 Even considering churn and long offline periods, 90\% of the syncs take less
 than 0.5s to complete (\emph{sync P90}).
 
-\iffalse
-The slowest syncs (4s) are session leaves fetching a whole busy day, up to
-91 commits at 0.04s each.
-
-\begin{table}[t]
-\centering
-\begin{tabular}{@{}lrrr@{}}
-Per sync    & Median & P90    & Max    \\
-\hline
-Commits     & 1      & 5      & 91     \\
-Bytes       & 2.2kB  & 9.7kB  & 687kB  \\
-\end{tabular}
-\caption{Transfers per \code{sync} operation.}
-\label{tab.eval.usenet.ops}
-\end{table}
-
-Table~\ref{tab.eval.usenet.ops} shows the transfer pattern, with number of
-commits and bytes in each \code{sync} operation.
-%
-Syncs remain short regardless of the chain size (so we omit a graph):
-the medians are steady around 1 commit and 2.2kB.
-%
-Note that 90\% of individual syncs received no more than 5 commits and 9.7kB,
-which includes the metadata and payload of actions.
-\fi
-
 \paragraph{Propagation:}
 
 \begin{figure}[t]
