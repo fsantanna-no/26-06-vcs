@@ -54,9 +54,8 @@ p.append(f'<line y1="{T}" y2="{H-B}" x1="{Xb(168):.1f}" x2="{Xb(168):.1f}" strok
 p.append(txt(Xb(168)-10,Y(0.5),'settling window',size=22,anchor='end'))
 p.append(cdf(Xb,life,INK,'',3)); legend(p,[('fork life',INK,'',3)],L+20,T+70)
 life.sort()
-for f,lh,lf in [(0.25,1.5,0.45),(0.90,4,0.72)]:   # marks: share of merges, label at (lh, lf)
-    h=life[int(f*len(life))-1]; cx,cy,x,y=Xb(h),Y(f),Xb(lh),Y(lf)
-    p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{x:.1f}" y2="{y+10 if y<cy else y-30:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
+for f in [0.25,0.90]:   # marks: share of merges, label left of the point
+    h=life[int(f*len(life))-1]; cx,cy=Xb(h),Y(f)
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
-    p.append(txt(x,y,f'{round(h)}h→{round(f*100)}%',size=24,anchor='middle',fill=INK))
+    p.append(txt(cx-18,cy+8,f'{round(h)}h→{round(f*100)}%',size=24,anchor='end',fill=INK))
 p.append('</svg>'); open('fork-time.svg','w').write('\n'.join(p))
