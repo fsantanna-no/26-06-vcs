@@ -1035,7 +1035,7 @@
  <dia:attribute name="elem_width"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="elem_height"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="border_width"><dia:real val="0.05"/></dia:attribute>
- <dia:attribute name="inner_color"><dia:color val="#ffd0d0"/></dia:attribute>
+ <dia:attribute name="inner_color"><dia:color val="#fff3b0"/></dia:attribute>
  <dia:attribute name="show_background"><dia:boolean val="true"/></dia:attribute>
  <dia:attribute name="padding"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="text"><dia:composite type="text">
@@ -1052,7 +1052,7 @@
  <dia:attribute name="elem_width"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="elem_height"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="border_width"><dia:real val="0.05"/></dia:attribute>
- <dia:attribute name="inner_color"><dia:color val="#ffd0d0"/></dia:attribute>
+ <dia:attribute name="inner_color"><dia:color val="#fff3b0"/></dia:attribute>
  <dia:attribute name="show_background"><dia:boolean val="true"/></dia:attribute>
  <dia:attribute name="padding"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="text"><dia:composite type="text">
@@ -1086,7 +1086,7 @@
  <dia:attribute name="elem_width"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="elem_height"><dia:real val="0.9"/></dia:attribute>
  <dia:attribute name="border_width"><dia:real val="0.05"/></dia:attribute>
- <dia:attribute name="inner_color"><dia:color val="#ffd0d0"/></dia:attribute>
+ <dia:attribute name="inner_color"><dia:color val="#fff3b0"/></dia:attribute>
  <dia:attribute name="show_background"><dia:boolean val="true"/></dia:attribute>
  <dia:attribute name="padding"><dia:real val="0.05"/></dia:attribute>
  <dia:attribute name="text"><dia:composite type="text">

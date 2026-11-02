@@ -1282,8 +1282,8 @@ differing only in the number of connections and synchronization schedule:
     (leaves), with a churn rate of 10\%.
     They synchronize, post, synchronize again, and disconnect.
 \item
-    \emph{Red peers} are local-first peers posting offline and connecting
-    periodically like yellow peers.
+    \emph{Red peers} are local-first leaves posting offline and connecting
+    periodically like yellow leaves (their middles are yellow).
 \end{itemize}
 %
 In the context of \FC, links and connectivity are abstract: peers keep no open
@@ -1489,19 +1489,8 @@ plus the aggregate of the three:
 Looking at the green line, it takes only 1 hour for a post to reach 50\% of the
 network, which is justified by the fact that 50\% of the leaves are green.
 %
-Looking at the yellow and red lines, the jump around 6 hours is justified by 
-Yellow peers connect every ∼6h (middles)
-
-
- for a post to reach 60\% of the
-network.
-The high jump around 6h 
-
- jumps at 6h, the period of yellow middles:
-  a yellow post waits at its middle until the next synchronization,
-  and from
-  there spreads to the online peers as fast as a green post.
-
+Looking at the yellow and red lines, the jump around 6 hours is justified by
+the fact that they connect every 6 hours only.
 
 \paragraph{Forks:}
 
