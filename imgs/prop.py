@@ -3,7 +3,7 @@
 # and prop-cov.tsv (delivery delay quantiles per author class, r5 dump).
 # Usage: python3 prop.py   -> prop-cdf.svg, prop-cov.svg; soffice --headless --convert-to pdf prop-*.svg
 import math
-W,H=900,520; L,R,T,B=110,30,30,80
+W,H=900,550; L,R,T,B=110,30,60,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
 X0,X1=math.log10(30/3600),math.log10(100)   # 30 s .. 100 h
@@ -41,4 +41,9 @@ p=frame('peers reached')
 for i,(k,name,color,dash,wd) in enumerate([('on','Green authors',INK,'',4),('ps','Yellow authors',INK2,'6 3',3),('lf','Red authors','#888888','2 3',3)]):
     p.append(cdf(cls[k],color,dash,wd)); y=T+70+i*34; d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<line x1="{L+20}" x2="{L+70}" y1="{y}" y2="{y}" stroke="{color}" stroke-width="{wd}" {d}/>'); p.append(txt(L+80,y+8,name,size=24,fill=INK))
+def mark(h,f,s,dx,dy,anchor,color=INK):   # circled point on a curve with a label
+    p.append(f'<circle cx="{X(h):.1f}" cy="{Y(f):.1f}" r="8" fill="{SURF}" stroke="{color}" stroke-width="3"/>'); p.append(txt(X(h)+dx,Y(f)+dy,s,size=24,anchor=anchor,fill=INK))
+on=cls['on']; f3=sum(1 for h in on if h<=3/60)/len(on); h50=on[int(0.50*len(on))-1]; h75=on[int(0.75*len(on))-1]
+mark(3/60,f3,f'{round(f3*100)}% in 3min',0,-22,'middle'); mark(h50,0.50,f'50% in {round(h50)}h',-6,56,'end'); mark(h75,0.75,f'75% in {round(h75)}h',-16,-6,'end')
+mark(cls['lf'][-1],1,f'100% in {round(cls["lf"][-1])}h',10,-18,'end','#888888')
 p.append('</svg>'); open('prop-cov.svg','w').write('\n'.join(p))
