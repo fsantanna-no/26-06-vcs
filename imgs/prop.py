@@ -1,6 +1,6 @@
 # Usenet propagation (grayscale SVGs for the paper, one column).
-# Data: prop-posts.tsv (per post: hours to first/half/all peers) and prop-cov.tsv
-# (delivery delay quantiles per receiver tier). Both from the r4 30k checkpoint.
+# Data: prop-posts.tsv (per post: hours to first/half/all peers, r4 30k checkpoint)
+# and prop-cov.tsv (delivery delay quantiles per author class, r5 dump).
 # Usage: python3 prop.py   -> prop-cdf.svg, prop-cov.svg; soffice --headless --convert-to pdf prop-*.svg
 import math
 W,H=900,520; L,R,T,B=110,30,30,80
@@ -34,12 +34,11 @@ p=frame('posts')
 p.append(cdf(first,INK2,'6 3')); p.append(cdf(half,INK2,'')); p.append(cdf(all_,INK,''))
 lab(p,first,0.6,'first peer',INK2,dx=-12,anchor='end'); lab(p,half,0.35,'half of the peers',INK2,dx=12); lab(p,all_,0.3,'all peers',INK,dx=12)
 p.append('</svg>'); open('prop-cdf.svg','w').write('\n'.join(p))
-# (b) coverage: fraction of deliveries done by time t, pooled and per receiver tier
+# (b) coverage: fraction of deliveries done by time t, per author class
 q=[list(map(float,l.split())) for l in open('prop-cov.tsv') if l[0].isdigit()]
-tier={k:[r[i] for r in q] for i,k in enumerate(['all','S','M','L'],1)}
+cls={k:[r[i] for r in q] for i,k in enumerate(['on','ps','lf'],1)}
 p=frame('peers reached')
-p.append(cdf(tier['all'],INK,'',4))
-for k,color,dash in [('S','#999999','2 3'),('M',INK2,'6 3'),('L',INK2,'')]: p.append(cdf(tier[k],color,dash,2))
-lab(p,tier['all'],0.3,'all peers',INK,dx=-12,dy=-8,anchor='end'); lab(p,tier['S'],0.2,'supers',INK2,dx=12)
-lab(p,tier['M'],0.62,'middles',INK2,dx=-12,dy=-10,anchor='end'); lab(p,tier['L'],0.7,'leaves',INK2,dx=12,dy=8)
+for i,(k,name,color,dash,wd) in enumerate([('on','Green authors',INK,'',4),('ps','Yellow authors',INK2,'6 3',3),('lf','Red authors','#888888','2 3',3)]):
+    p.append(cdf(cls[k],color,dash,wd)); y=T+70+i*34; d=f'stroke-dasharray="{dash}"' if dash else ''
+    p.append(f'<line x1="{L+20}" x2="{L+70}" y1="{y}" y2="{y}" stroke="{color}" stroke-width="{wd}" {d}/>'); p.append(txt(L+80,y+8,name,size=24,fill=INK))
 p.append('</svg>'); open('prop-cov.svg','w').write('\n'.join(p))
