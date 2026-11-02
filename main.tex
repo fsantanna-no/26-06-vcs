@@ -1473,26 +1473,24 @@ which includes the metadata and payload of actions.
 \centering
 \includegraphics[width=\columnwidth]{prop-cov}
 \caption{
-    Usenet coverage: ratio of peers that received a post after a given
-    time, per author class.
+    Post propagation over time.
 }
 \label{fig.prop.cov.usenet}
 \end{figure}
 
-Figure~\ref{fig.prop.cov.usenet} shows the ratio of peers that received a
-post over time, by the class of its author.
-A post reaches all peers in a median of 28h (36h at P90), following the
-peer schedules:
-the last peers to receive a post are leaves that connect once a day, behind
-middles that connect every 6h.
-Posts by red authors take 35h, since they stay at the offline author until
-its next session.
-%
-The maximum of 88h is a post whose middle stayed down for 52h.
-%
-A post reaches its first peer immediately (its own middle, 24h at most when
-the author is offline) and half of the peers in 1.0h, after a median of 4
-hops (12 at most).
+Figure~\ref{fig.prop.cov.usenet} shows how long it takes for posts to propagate
+through the network.
+The four lines represent posts from green, yellow and red leaves, plus the
+aggregate of the three.
+We highlight three data points as follows:
+    (i) it takes 3 minutes to reach 22\% of the network,
+    (ii) 6 hours for 50\%, and
+    (iii) 78h for 100\%.
+
+Looking at the green line, it takes 1 hour for a post to reach 50\% of the
+network.
+Considering that 50\% of the leaves are green, and that middle and super peers
+are also subject to churn and offline periods, TODO.
 
 \paragraph{Forks:}
 
