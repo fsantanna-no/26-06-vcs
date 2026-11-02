@@ -6,8 +6,8 @@ import math
 W,H=900,520; L,R,T,B=110,30,30,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
-X0,X1=math.log10(0.01),math.log10(100)   # 36 s .. 100 h
-def X(h): return L+(math.log10(max(h,0.01))-X0)/(X1-X0)*(W-L-R)
+X0,X1=math.log10(30/3600),math.log10(100)   # 30 s .. 100 h
+def X(h): return L+(math.log10(max(h,30/3600))-X0)/(X1-X0)*(W-L-R)
 def Y(f): return H-B-f*(H-T-B)
 def txt(x,y,s,size=26,anchor='start',fill=INK2):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}">{s}</text>'
@@ -15,7 +15,7 @@ def frame(ylab):
     p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',f'<rect width="{W}" height="{H}" fill="{SURF}"/>']
     for f in [0,0.25,0.5,0.75,1]:
         p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(f):.1f}" y2="{Y(f):.1f}" stroke="{GRID}"/>'); p.append(txt(L-10,Y(f)+9,f'{int(f*100)}%',anchor='end'))
-    for h,lab in [(0.01,'36s'),(0.1,'6min'),(1,'1h'),(6,'6h'),(24,'24h'),(100,'100h')]:
+    for h,lab in [(30/3600,'30s'),(5/60,'5min'),(1,'1h'),(6,'6h'),(24,'24h'),(100,'100h')]:
         p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(h):.1f}" x2="{X(h):.1f}" stroke="{GRID}"/>'); p.append(txt(X(h),H-B+32,lab,anchor='middle'))
     p.append(txt((L+W-R)/2,H-16,'time after the post (log)',size=28,anchor='middle',fill=INK))
     p.append(txt(L+12,T+28,ylab,size=24,fill=INK))

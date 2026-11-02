@@ -1469,51 +1469,24 @@ which includes the metadata and payload of actions.
 
 \paragraph{Propagation:}
 
-\begin{table}[t]
-\centering
-\begin{tabular}{@{}lrrr@{}}
-Author      & Median & P90    & Max    \\
-\hline
-Green       & 27h    & 29h    & 70h    \\
-Yellow      & 29h    & 32h    & 72h    \\
-Red         & 35h    & 45h    & 88h    \\
-\hline
-All         & 28h    & 36h    & 88h    \\
-\hline
-First peer  & 0h     & 7h     & 24h    \\
-Half peers  & 1.0h   & 9.2h   & 29h    \\
-\end{tabular}
-\caption{Usenet propagation delay by author class, and reach.}
-\label{tab.eval.usenet.prop}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{prop-cdf}
-\caption{
-    Usenet propagation: ratio of posts that reached the first peer, half
-    of the peers, and all peers after a given time.
-}
-\label{fig.prop.cdf.usenet}
-\end{figure}
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{prop-cov}
 \caption{
     Usenet coverage: ratio of peers that received a post after a given
-    time, overall and per tier.
+    time, per author class.
 }
 \label{fig.prop.cov.usenet}
 \end{figure}
 
-Table~\ref{tab.eval.usenet.prop} shows the delay for a post to reach all
-peers, by the class of its author.
-The median of 28h follows the peer schedules:
+Figure~\ref{fig.prop.cov.usenet} shows the ratio of peers that received a
+post over time, by the class of its author.
+A post reaches all peers in a median of 28h (36h at P90), following the
+peer schedules:
 the last peers to receive a post are leaves that connect once a day, behind
 middles that connect every 6h.
-Posts by red authors wait an extra 6h, since they stay at the offline author
-until its next session.
+Posts by red authors take 35h, since they stay at the offline author until
+its next session.
 %
 The maximum of 88h is a post whose middle stayed down for 52h.
 %
