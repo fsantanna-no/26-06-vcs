@@ -1438,11 +1438,13 @@ leaves, plus the aggregate of the three (thick gray):
     5h for 50\%, and
     23h for 90\%.
 
-Looking at the green line, it takes only 1h for a post to reach 50\% of the
-network, justified by half of the peers being always online.
-%
-Looking at the yellow and red lines, the jump around 6h is justified by middle
-peers that connect only every 6h.
+The brackets at the bottom mark the jump of each class.
+Green posts reach the always-online half of the network within 3min, and the
+remaining peers only as they connect.
+Yellow posts wait 1--6h for their middle peers ($\sim$6h), and red posts
+6--30h for their own leaves to reconnect ($\sim$24h).
+These delays come from the peer schedules, not from \FC itself, matching the
+asynchronous pace of newsgroups.
 
 \paragraph{Forks \& Merges:}
 

@@ -50,4 +50,8 @@ def mark(h,f,s,dx,dy,anchor,at=None):   # circled point on a curve with a leader
     p.append(txt(x,y,s,size=24,anchor=anchor,fill=INK))
 a=cls['all']; f3=sum(1 for h in a if h<=3/60)/len(a); h50=a[int(0.50*len(a))-1]
 mark(3/60,f3,f'3min→{round(f3*100)}%',30,-30,'start'); mark(h50,0.50,f'{round(h50)}h→50%',-10,110,'middle'); h90=a[int(0.90*len(a))-1]; mark(h90,0.90,f'{round(h90)}h→90%',0,0,'middle',(50,0.55))
+# jumps: thin brackets |---| near the 0% line, in class colors
+for x0,x1,f,c in [(30/3600,3/60,0.05,'#1e8449'),(1,6,0.05,'#d4a017'),(6,30,0.11,'#c0392b')]:
+    y=Y(f); a,b=X(x0),X(x1)
+    p.append(f'<path d="M{a:.1f},{y-8:.1f}V{y+8:.1f}M{a:.1f},{y:.1f}H{b:.1f}M{b:.1f},{y-8:.1f}V{y+8:.1f}" fill="none" stroke="{c}" stroke-width="2"/>')
 p.append('</svg>'); open('prop-cov.svg','w').write('\n'.join(p))
