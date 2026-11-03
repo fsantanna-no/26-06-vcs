@@ -1,6 +1,6 @@
 # Usenet begs per returning author (admission beg + extra begs), like 500 (rule 4.a min).
-# Data: begs.tsv (like, begs, authors), r4 final S1, from 2606-sims p2p/ev/begs.py,
-# and reps.tsv (all authors); authors without extra begs beg once (welcome).
+# Data: begs.tsv (like, begs, authors), r4 final S1, from 2606-sims p2p/ev/begs.py.
+# Returning authors only; the first beg (x=1) is the welcome.
 # Usage: python3 begs.py > begs.svg; soffice --headless --convert-to pdf begs.svg
 import math
 W,H=900,560; L,R,T,B=130,30,70,80
@@ -10,10 +10,8 @@ def txt(x,y,s,size=26,anchor='start',fill=INK2):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}">{s}</text>'
 rows=[l.split() for l in open('begs.tsv') if l[0].isdigit() and l.split()[0]=='500']
 LIKES=sorted({int(r[0]) for r in rows}); N=max(int(r[1]) for r in rows)+1
-ALL=sum(1 for l in open('reps.tsv'))-1   # all authors (minus header)
 cnt={(int(r[0]),int(r[1])):int(r[2]) for r in rows}
-for w in LIKES: cnt[(w,0)]=ALL-sum(n for (x,b),n in cnt.items() if x==w and b>0)
-tot={w:ALL for w in LIKES}
+tot={w:sum(n for (x,b),n in cnt.items() if x==w) for w in LIKES}
 pct={k:100*n/tot[k[0]] for k,n in cnt.items()}
 Y0,Y1=-2,2   # log10 of 0.01% .. 100%
 def Y(v): return H-B-(math.log10(v)-Y0)/(Y1-Y0)*(H-T-B)
