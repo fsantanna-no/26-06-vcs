@@ -55,7 +55,7 @@ def mark(vals,x,lx,lf,anchor):
     p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
-mark(M['all'],1,1.9,0.47,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
+mark(M['all'],0,0.8,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
 # (b) time: fork life per merge, with the 7-day settling window
 X0,X1=math.log10(0.1),math.log10(200)
