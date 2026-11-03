@@ -48,7 +48,7 @@ p.append(points(Xa,[min(v,CAP) for v in reord],INK,'10 4 2 4',2,4))
 legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+430,T+240)
 # marks: share up to a count, label beside the point (dx, dy)
 def le(vals,x): return sum(1 for v in vals if v<=x)/len(vals)
-for vals,x,color,dx,dy in [(M['all'],0,INK2,16,40),(M['lf'],0,COL['lf'][0],16,30),(reord,2,INK,-18,-14)]:
+for vals,x,color,dx,dy in [(M['on'],0,COL['on'][0],16,40),(M['lf'],7,COL['lf'][0],16,30)]:
     f=le(vals,x); cx,cy=Xa(x),Y(f)
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{color}" stroke-width="3"/>')
     lab=f'{x}→{round(f*100)}%'; bw=0.55*24*len(lab); bx=cx+dx if dx>0 else cx+dx-bw
