@@ -58,13 +58,12 @@ def mark(vals,x,lx,lf,anchor,X=Xa):
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
 mark(M['all'],0,1.1,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
-# (b) time: fork life per merge, with the 7-day settling window
-X0,X1=math.log10(0.1),math.log10(200)
-def Xb(v): return L+(math.log10(max(v,0.1))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xb,[(0.1,'6min'),(1,'1h'),(6,'6h'),(24,'24h'),(168,'7d')],'hours (log)','merges')
-p.append(f'<line y1="{T}" y2="{H-B}" x1="{Xb(168):.1f}" x2="{Xb(168):.1f}" stroke="{INK2}" stroke-dasharray="2 4"/>')
-p.append(txt(Xb(168)-10,Y(0.5),'settling window',size=22,anchor='end'))
-p.append(cdf(Xb,life,INK,'',3)); legend(p,[('fork life',INK,'',3)],L+20,T+70)
+# (b) time: fork life per merge
+# zoomed to 1h-60h (0.7% of merges take less than 1h, drawn at 1h)
+X0,X1=math.log10(1),math.log10(60)
+def Xb(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
+p=frame(Xb,[(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'hours (log)','merges')
+p.append(cdf(Xb,life,INK,'',3))
 life.sort()
 for f in [0.25,0.90]:   # marks: share of merges, label left of the point
     h=life[int(f*len(life))-1]; cx,cy=Xb(h),Y(f)

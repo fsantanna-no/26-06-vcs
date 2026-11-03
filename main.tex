@@ -1476,10 +1476,12 @@ Figure~\ref{fig.forks.time.usenet} shows how long it takes to merge a forked
 post.
 Considering a new post $B$, the earliest missing post $A$, and the first merge
 at peer $M$, we calculate the time $T_M-T_A$ for all forks.
-It takes 6h to merge 25\% of the forks, and 27h for 90\%.
-Looking at the dotted line, all forks merge far within the 7-day settling
-window (58h at most).
 %
+It takes 6h to merge 25\% of the forks, and 27h for 90\%.
+Note that all merges periods are far within the 7-day settling window, which
+eliminates hard forks.
+
+
 The bottom panel shows that 80\% of the merges reorder at most 2 actions
 (21 at most), and void none, since there are no likes to double spend.
 %
@@ -1501,27 +1503,23 @@ declared time ($P_i > S_i$), by a median of 4.4h and at most 49h.
 \label{fig.reps.usenet}
 \end{figure}
 
-\begin{table}[t]
+\begin{figure}[t]
 \centering
-\begin{tabular}{@{}lrr@{}}
-Admission like  & Begs     & Authors \\
-\hline
-\nreps{500}     & 0.95\%   & 4.9\%   \\
-\nreps{1000}    & 0.07\%   & 0.36\%  \\
-\end{tabular}
-\caption{Usenet posts and authors requiring extra begs.}
-\label{tab.eval.usenet.begs}
-\end{table}
+\includegraphics[width=\columnwidth]{begs}
+\caption{
+    Extra begs per returning author.
+}
+\label{fig.begs.usenet}
+\end{figure}
 
 A post requires an extra beg when its author is already a member but lacks
-the \reps to cover it after the admission like (\R{4.a}).
+the \reps to cover it after an admission like of \nreps{500} (\R{4.a}).
 Since the newsgroup has no likes, we replay the admission rule
-counterfactually over the 21.8k posts by 3.9k returning authors, for the two
-admission likes in Table~\ref{tab.eval.usenet.begs}.
+counterfactually over the 21.8k posts by 3.9k returning authors.
 %
-Only 0.95\% of these posts would require an extra beg after the smallest
-admission like (\nreps{500}), affecting 4.9\% of returning authors with at
-most 3 begs each, and only 0.07\% after a like of \nreps{1000}.
+Only 0.95\% of these posts would require an extra beg, and
+Figure~\ref{fig.begs.usenet} shows that 95.1\% of returning authors never beg
+again, while the remaining 4.9\% beg at most 3 times.
 %
 Figure~\ref{fig.reps.usenet} explains the low ratios:
 an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
