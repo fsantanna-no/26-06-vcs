@@ -22,9 +22,12 @@ def frame(X,ticks,xlab,ylab):
     p.append(txt((L+W-R)/2,H-16,xlab,size=28,anchor='middle',fill=INK)); p.append(txt(L+12,T+28,ylab,size=24,fill=INK))
     return p
 def dash(d): return f'stroke-dasharray="{d}"' if d else ''
-def cdf(X,vals,color,d,wd=3):   # smooth CDF, ~600 points
+def cdf(X,vals,color,d,wd=3,start=None):   # smooth CDF, ~600 points; start: first (x,share)
     vals=sorted(vals); n=len(vals); step=max(1,n//600)
-    pts=[f'{X(vals[i]):.1f},{Y((i+1)/n):.1f}' for i in range(0,n,step)]+[f'{X(vals[-1]):.1f},{Y(1):.1f}']
+    xy=[(X(vals[i]),Y((i+1)/n)) for i in range(0,n,step)]+[(X(vals[-1]),Y(1))]
+    xy=[q for k,q in enumerate(xy) if k+1==len(xy) or xy[k+1][0]!=q[0]]   # no vertical run at a clamped x
+    if start: xy=[(X(start[0]),Y(start[1]))]+xy
+    pts=[f'{x:.1f},{y:.1f}' for x,y in xy]
     return f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {dash(d)} points="{" ".join(pts)}"/>'
 def points(X,vals,color,d,wd=3,mk=5):   # CDF at each count, joined by a curve, with markers
     c=collections.Counter(vals); n=len(vals); acc=0; xy=[]
@@ -60,19 +63,24 @@ def mark(vals,x,lx,lf,anchor,X=Xa):
 mark(M['all'],0,1.1,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
 # (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
-H=400
-clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv'))
-# zoomed to 1h-60h (below 1h, drawn at 1h: 0.7% of merges, 8% of clamps)
-X0,X1=math.log10(1),math.log10(60)
-def Xb(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xb,[(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'hours (log)','share')
-p.append(cdf(Xb,life,INK,'',3)); p.append(cdf(Xb,clamp,INK2,'8 5',3))
-legend(p,[('merges',INK,'',3),('clamped posts',INK2,'8 5',3)],L+500,T+200)
+H=520
+# clamp delay over all posts: unclamped posts have delay 0 (19,998 posts in S1 list order at 20k)
+POSTS=19998; clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv')); clamp=[0.0]*(POSTS-len(clamp))+clamp
+# x: 30min-60h (log); the left edge "0" holds unclamped posts (delay 0)
+# and delays below 30min
+E=0.5; X0,X1=math.log10(E),math.log10(60)
+def Xb(v): return L+(math.log10(max(v,E))-X0)/(X1-X0)*(W-L-R)
+p=frame(Xb,[(E,'0'),(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'time (log)','share')
+p.append(cdf(Xb,life,INK,'',3)); p.append(cdf(Xb,clamp,INK2,'8 5',3,(0,sum(1 for v in clamp if v<=0)/len(clamp))))   # from the unclamped share
+legend(p,[('merges',INK,'',3),('clamps',INK2,'8 5',3)],L+500,T+260)
 life.sort()
-for vals,f,dx,dy,fmt in [(life,0.25,-18,8,'.0f'),(life,0.90,18,34,'.0f'),(clamp,0.50,-18,8,'.1f')]:   # marks: share, label beside the point
-    h=vals[int(f*len(vals))-1]; cx,cy=Xb(h),Y(f)
+def at(vals,f): return vals[int(f*len(vals))-1]                 # value at share f
+def share(vals,h): return sum(1 for v in vals if v<=h)/len(vals)  # share at value h
+for vals,h,f,dx,dy in [(life,at(life,0.25),0.25,-18,8),(life,at(life,0.90),0.90,18,34),
+                       (clamp,0,share(clamp,0),18,34),(clamp,at(clamp,0.90),0.90,18,34)]:   # marks, label beside
+    cx,cy=Xb(h),Y(f); lab=('0' if h<=0 else f'{round(h)}h')+f'→{round(f*100)}%'
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
-    p.append(txt(cx+dx,cy+dy,f'{h:{fmt}}h→{round(f*100)}%',size=24,anchor='end' if dx<0 else 'start',fill=INK))
+    p.append(txt(cx+dx,cy+dy,lab,size=24,anchor='end' if dx<0 else 'start',fill=INK))
 # (c) reorders per merge, as a shorter panel below (same x scale as (a))
 H0=H; H=260
 q=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'actions reordered','merges')[2:]
