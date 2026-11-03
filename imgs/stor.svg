@@ -253,45 +253,8 @@
 <circle cx="804.9" cy="668.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="826.6" cy="668.6" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="844.2" cy="668.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<polyline fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="2 3" points="131.7,613.3 153.4,606.3 175.1,603.2 196.9,600.5 218.6,598.3 240.3,597.0 262.0,595.4 283.7,593.7 305.4,592.2 327.1,590.0 348.9,588.3 370.6,586.4 392.3,584.7 414.0,583.6 435.7,582.1 457.4,581.1 479.1,580.1 500.9,578.9 522.6,578.4 544.3,578.1 566.0,577.7 587.7,577.5 609.4,576.9 631.1,576.5 652.9,576.1 674.6,575.6 696.3,575.2 718.0,574.6 739.7,574.2 761.4,574.1 783.1,573.8 804.9,574.0 826.6,574.1 844.2,574.1"/>
-<circle cx="131.7" cy="613.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="153.4" cy="606.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="175.1" cy="603.2" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="196.9" cy="600.5" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="218.6" cy="598.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="240.3" cy="597.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="262.0" cy="595.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="283.7" cy="593.7" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="305.4" cy="592.2" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="327.1" cy="590.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="348.9" cy="588.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="370.6" cy="586.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="392.3" cy="584.7" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="414.0" cy="583.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="435.7" cy="582.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="457.4" cy="581.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="479.1" cy="580.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="500.9" cy="578.9" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="522.6" cy="578.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="544.3" cy="578.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="566.0" cy="577.7" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="587.7" cy="577.5" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="609.4" cy="576.9" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="631.1" cy="576.5" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="652.9" cy="576.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="674.6" cy="575.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="696.3" cy="575.2" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="718.0" cy="574.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="739.7" cy="574.2" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="761.4" cy="574.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="783.1" cy="573.8" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="804.9" cy="574.0" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="826.6" cy="574.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<circle cx="844.2" cy="574.1" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="256.6" y="626.4" width="228.0" height="25" fill="#ffffff"/>
 <text x="370.6" y="645.4" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000" >commits + snapshots</text>
 <rect x="567.4" y="628.2" width="84.0" height="25" fill="#ffffff"/>
 <text x="609.4" y="647.2" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >commits</text>
-<rect x="671.4" y="533.1" width="180.0" height="25" fill="#ffffff"/>
-<text x="761.4" y="552.1" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000" >at 1kB payloads</text>
 </svg>

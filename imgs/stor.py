@@ -60,11 +60,9 @@ for name,col,color,dash,wd in series:
     else:    # at the line end, above (dy<0) or below (dy>0)
         p.append(txt(X(last[0])-12,Y(last[col])+dy,lab,size=24,anchor='end',fill=fill))
 # overhead strip: total / payloads, cumulative
-# lines: measured total/payloads; commits only; and total/payloads if every payload had 1 kB
-# (commits and snapshots hold no payload bytes, so they are payload-independent)
+# lines: measured total/payloads; commits only
 OVS=[('commits+snapshots',lambda r:r[5]/r[1],INK,'',0.35),
-     ('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3',0.65),
-     ('at 1kB payloads',lambda r:(r[0]/1000+r[5]-r[1])/(r[0]/1000),INK,'2 3',0.85)]
+     ('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3',0.65)]
 OV=max(f(r) for _,f,*_ in OVS for r in rows); R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10)
 for v in range(R0,R1+1,RS):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
