@@ -46,16 +46,16 @@ p=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'missing posts','p
 for k in ['all','on','ps','lf']: p.append(points(Xa,[min(v,CAP) for v in M[k]],*COL[k],mk=0 if k=='all' else 5))
 p.append(points(Xa,[min(v,CAP) for v in reord],INK,'10 4 2 4',2,4))
 legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+430,T+240)
-# marks: share up to a count, circled, with a leader line to its label at (lx,lf) (lead=False: no line)
+# marks: share up to a count, circled, with a leader line to its label at (lx,lf)
 def le(vals,x): return sum(1 for v in vals if v<=x)/len(vals)
-def mark(vals,x,lx,lf,anchor,lead=True):
+def mark(vals,x,lx,lf,anchor):
     f=le(vals,x); cx,cy=Xa(x),Y(f); s=f'{x}→{round(f*100)}%'
     tx,ty=Xa(lx),Y(lf); w=0.55*24*len(s); x0={'start':tx,'middle':tx-w/2,'end':tx-w}[anchor]
     ex,ey=x0+w/2,min(max(cy,ty-26),ty+10)   # middle of the label, 6px gap
-    if lead: p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
+    p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
-mark(M['all'],1,3.6,0.64,'middle'); mark(M['on'],0,0.9,0.06,'middle'); mark(M['lf'],7,7.25,0.68,'start',False)
+mark(M['all'],1,1.9,0.47,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
 # (b) time: fork life per merge, with the 7-day settling window
 X0,X1=math.log10(0.1),math.log10(200)
