@@ -1314,7 +1314,7 @@ Next we describe the metrics we measure over the simulations:
 \item \emph{Storage:} on-disk size of payloads, commits, and snapshots.
 \item \emph{Operations:} time to \code{post} and \code{sync}.
 \item \emph{Propagation:} share of peers a post reaches over time.
-\item \emph{Forks:} ratio, depth, and lifetime of forks, and clamped posts.
+\item \emph{Forks \& Merges:} ratio, depth, and lifetime of forks, and clamped posts.
 \item \emph{Reputation:} extra begs and \reps distribution among authors.
 \end{enumerate}
 
@@ -1445,7 +1445,7 @@ network, justified by half of the peers being always online.
 Looking at the yellow and red lines, the jump around 6h is justified by middle
 peers that connect only every 6h.
 
-\paragraph{Forks:}
+\paragraph{Forks \& Merges:}
 
 \begin{figure}[t]
 \centering
@@ -1467,7 +1467,7 @@ plus the aggregate of the three (thick gray):
 \centering
 \includegraphics[width=\columnwidth]{fork-time}
 \caption{
-    Fork life and reorders per merge.
+    Merge time and reorders.
 }
 \label{fig.forks.time.usenet}
 \end{figure}
