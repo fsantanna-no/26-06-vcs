@@ -89,6 +89,6 @@ H0=H; H=260
 q=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'actions reordered','merges')[2:]
 top=p; p=q
 p.append(points(Xa,[min(v,CAP) for v in reord],INK,'',3,5))
-mark(reord,2,3.4,0.50,'middle')
+mark(reord,1,2.4,0.40,'middle'); mark(reord,4,5.2,0.70,'middle')
 H=H0+H; top[0]=f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">'; top[1]=f'<rect width="{W}" height="{H}" fill="{SURF}"/>'
 top+=[f'<g transform="translate(0,{H0})">']+p+['</g>','</svg>']; open('fork-time.svg','w').write('\n'.join(top))
