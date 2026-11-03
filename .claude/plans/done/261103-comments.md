@@ -15,7 +15,10 @@
     - done: forks are the norm, merged automatically
 5. [yes] Merge time: within the window, no hard forks
 6. [no] Clamps: numbers only
+    - done: clamps delay by hours, chain time close to declared
 7. [??] Reorders: explains the lone post, no judgement
+    - done: expected as forks are the norm, harmless for honest
+      members (causal order preserved)
 
 # Next steps
 
