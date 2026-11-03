@@ -66,11 +66,14 @@ p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
 H=520
 # clamp delay over all posts: unclamped posts have delay 0 (19,998 posts in S1 list order at 20k)
 POSTS=19998; clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv')); clamp=[0.0]*(POSTS-len(clamp))+clamp
-# x: 30min-60h (log); the left edge "0" holds unclamped posts (delay 0)
-# and delays below 30min
-E=0.5; X0,X1=math.log10(E),math.log10(60)
-def Xb(v): return L+(math.log10(max(v,E))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xb,[(E,'0'),(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'time (log)','share')
+# x: "0" in its own slot, a gap with a break mark, then 30min-60h (log);
+# unclamped posts (delay 0) at 0, delays in (0,30min) at 30min
+E=0.5; X0,X1=math.log10(E),math.log10(60); G=70
+def Xb(v): return L if v<=0 else L+G+(math.log10(max(v,E))-X0)/(X1-X0)*(W-L-R-G)
+p=frame(Xb,[(0,'0'),(E,'30min'),(1,'1h'),(2,'2h'),(4,'4h'),(8,'8h'),(16,'16h'),(32,'32h')],'time (log)','share')   # doubling: evenly spaced
+bx=L+G/2   # break mark on the x axis
+p.append(f'<rect x="{bx-8:.1f}" y="{H-B-12:.1f}" width="16" height="24" fill="{SURF}"/>')
+p+=[f'<line x1="{bx+d-6:.1f}" y1="{H-B+10:.1f}" x2="{bx+d+6:.1f}" y2="{H-B-10:.1f}" stroke="{INK2}" stroke-width="2"/>' for d in (-4,4)]
 p.append(cdf(Xb,life,INK,'',3)); p.append(cdf(Xb,clamp,INK2,'8 5',3,(0,sum(1 for v in clamp if v<=0)/len(clamp))))   # from the unclamped share
 legend(p,[('merges',INK,'',3),('clamps',INK2,'8 5',3)],L+500,T+260)
 life.sort()
