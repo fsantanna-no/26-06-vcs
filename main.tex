@@ -1500,17 +1500,17 @@ harmless for honest members, since causal order is still preserved.
 \centering
 \includegraphics[width=\columnwidth]{begs}
 \caption{
-    Begs per returning author.
+    Begs per returning author (3.9k out of 11.3k).
 }
 \label{fig.begs.usenet}
 \end{figure}
 
 Figure~\ref{fig.begs.usenet} shows the effectiveness of admission begs
-(\S\ref{sec.design.members}), with over 95\% of recurrent authors requiring a
+(\S\ref{sec.design.members}), with over 95\% of returning authors requiring a
 single welcoming like.
 %
 Since the original forum is open, we simulate a beg for every first author post
-and track recurrent authors that require extra begs in further posts.
+and track those requiring extra begs in further posts.
 %
 The results show that a ``natural behavior'' matches the posting rules, and
 chains require very little bookkeeping to stay open to newcomers, especially
@@ -1520,14 +1520,16 @@ considering that the original users were not aware of reputation constraints.
 \centering
 \includegraphics[width=\columnwidth]{reps}
 \caption{
-    Reputation against posts per author at the end of the Usenet simulation
-    (log-log).
-    Bubble areas are proportional to the number of authors.
+    Reputation against posts per author.
 }
 \label{fig.reps.usenet}
 \end{figure}
 
-Figure~\ref{fig.reps.usenet} shows the economy of \reps, which explains the
+Figure~\ref{fig.reps.usenet} shows how \reps spread among authors.
+
+
+
+which explains the
 results above.
 %
 Since the newsgroup has no likes or dislikes, \reps come only from posting
