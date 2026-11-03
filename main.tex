@@ -1407,7 +1407,7 @@ chain size.
 The solid \emph{archive} line is our benchmark and corresponds to the original
 compressed forum messages.
 The matching \emph{payloads} line holds the same data, now as objects in the
-Git repository of the chain.
+chain Git repository.
 It accounts for only 26\% of the storage, with the remaining 74\% being the
 \FC overhead:
     the \emph{commits} (9\%) are the inherent metadata that constitute the
@@ -1415,13 +1415,14 @@ It accounts for only 26\% of the storage, with the remaining 74\% being the
     the \emph{snapshots} (65\%), which dominate storage, optimize the consensus
     algorithm (\S\ref{sec.design.consensus}).
 
-The overhead is therefore a tradeoff that favors replay time over disk space.
-The line \emph{commits+snapshots} measures this overhead between
+The snapshots overhead is therefore a tradeoff that favors replay time over
+disk space.
+The line \emph{commits+snapshots} measures this overhead of
 3$\times$--4$\times$ (\emph{total/payloads}).
-An alternative we did not explore is to snapshot every $N$ actions, favoring
-disk space over replay time.
+An alternative we did not explore in this paper is to snapshot every $N$
+actions, favoring disk space over replay time.
 The line \emph{commits} shows the overhead floor of 1.3$\times$ with no
-snapshots.
+snapshots at all ($N=\infty$).
 
 \paragraph{Operations:}
 
@@ -1438,13 +1439,14 @@ Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
 constant over chain size.
 Thanks to stored snapshots, it takes 0.1s for a local post (\emph{post median})
 and 0.2s for a remote sync (\emph{sync median}).
-Even considering churn and long offline periods, 90\% of the syncs take less
-than 0.5s to complete (\emph{sync P90}).
+Even considering churn and long offline periods, 90\% of syncs take less than
+0.5s to complete (\emph{sync P90}).
 
-We argue that operation times that do not grow with the chain are key for \FC
-to scale to large forums.
+We argue that constant operation times are key for \FC to scale to large
+forums.
 Although the storage overhead of 4$\times$ can be even higher
-(\S\ref{sec.eval.chat}), it grows linearly, and disk is cheaper than CPU time.
+(\S\ref{sec.eval.chat}), it still grows linearly, and disk is cheaper than CPU
+time.
 
 \paragraph{Propagation:}
 
