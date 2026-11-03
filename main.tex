@@ -1451,11 +1451,20 @@ peers that connect only every 6h.
 \centering
 \includegraphics[width=\columnwidth]{fork-depth}
 \caption{
-    Usenet fork depth: posts missing per forking post, per author class, and
-    actions reordered per merge.
+    Fork depth as missing posts.
 }
 \label{fig.forks.depth.usenet}
 \end{figure}
+
+Figure~\ref{fig.forks.depth.usenet} shows how many earlier posts a peer about
+to post is already missing, which leads to forks in the chain DAG.
+The four lines represent posts originating from green, yellow and red leaves,
+plus the aggregate of the three (thick gray):
+    44\% of green posts do not fork, whereas 75\% of red posts miss at most 7
+    earlier posts.
+%
+The black line shows that merges reorder a median of 1 action (19 at most)
+and void none, since there are no likes to double spend.
 
 \begin{figure}[t]
 \centering
@@ -1465,17 +1474,6 @@ peers that connect only every 6h.
 }
 \label{fig.forks.time.usenet}
 \end{figure}
-
-Figure~\ref{fig.forks.depth.usenet} shows how many earlier posts a forking
-post misses.
-The colored lines represent forking posts from green, yellow and red leaves:
-    67\% of the posts fork the chain,
-    but they miss a median of 2 posts, and 8 at the 90th percentile.
-Looking at the red line, local-first leaves fork the most (88\%) and miss
-the most posts (4 median, 61 at most), since they post offline.
-%
-The black line shows that merges reorder a median of 1 action (19 at most)
-and void none, since there are no likes to double spend.
 
 Figure~\ref{fig.forks.time.usenet} shows how long forks live until merged:
     it takes 6h to merge 25\% of the forks, and 27h for 90\%.

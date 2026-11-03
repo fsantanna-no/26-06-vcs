@@ -36,15 +36,24 @@ def legend(p,items,x,y0):
 rows=lambda f: [l.rstrip('\n').split('\t') for l in open(f) if l[0].isdigit()]
 M=collections.defaultdict(list)
 for a,c,m in rows('fork-miss.tsv'):
-    if int(m)>0: M[c].append(int(m)); M['all'].append(int(m))
-mg=rows('fork-merges.tsv'); reord=[int(r[1]) for r in mg if r[1] not in ('','0')]; life=[float(r[2]) for r in mg if r[2]!='']
-# (a) depth: missing posts per forking post (per class) and reorders per merge
-X0,X1=math.log10(1),math.log10(100)
-def Xa(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xa,[(1,'1'),(2,'2'),(5,'5'),(10,'10'),(20,'20'),(50,'50'),(100,'100')],'missing posts (log)','forking posts')
-for k in ['all','on','ps','lf']: p.append(points(Xa,M[k],*COL[k],mk=0 if k=='all' else 5))
-p.append(points(Xa,reord,INK,'10 4 2 4',2,4))
-legend(p,[(NAME[k]+' (missing)',)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+330,T+260)
+    M[c].append(int(m)); M['all'].append(int(m))
+mg=rows('fork-merges.tsv'); reord=[int(r[1]) for r in mg if r[1]!='']; life=[float(r[2]) for r in mg if r[2]!='']
+# (a) depth: missing posts per post (per class; 0 = no fork) and reorders per merge
+# linear axis up to 10; the tail (>10) is folded into one last point
+CAP=11
+def Xa(v): return L+min(v,CAP)/CAP*(W-L-R)
+p=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'missing posts','posts')
+for k in ['all','on','ps','lf']: p.append(points(Xa,[min(v,CAP) for v in M[k]],*COL[k],mk=0 if k=='all' else 5))
+p.append(points(Xa,[min(v,CAP) for v in reord],INK,'10 4 2 4',2,4))
+legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+430,T+240)
+# marks: share up to a count, label beside the point (dx, dy)
+def le(vals,x): return sum(1 for v in vals if v<=x)/len(vals)
+for vals,x,color,dx,dy in [(M['all'],0,INK2,16,40),(M['lf'],0,COL['lf'][0],16,30),(reord,2,INK,-18,-14)]:
+    f=le(vals,x); cx,cy=Xa(x),Y(f)
+    p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{color}" stroke-width="3"/>')
+    lab=f'{x}→{round(f*100)}%'; bw=0.55*24*len(lab); bx=cx+dx if dx>0 else cx+dx-bw
+    p.append(f'<rect x="{bx:.1f}" y="{cy+dy-20:.1f}" width="{bw:.1f}" height="26" fill="{SURF}"/>')
+    p.append(txt(cx+dx,cy+dy,lab,size=24,anchor='start' if dx>0 else 'end',fill=color))
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
 # (b) time: fork life per merge, with the 7-day settling window
 X0,X1=math.log10(0.1),math.log10(200)
