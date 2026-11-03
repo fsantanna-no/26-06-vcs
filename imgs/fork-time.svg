@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
-<rect width="900" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="850" viewBox="0 0 900 850">
+<rect width="900" height="850" fill="#ffffff"/>
 <line x1="110" x2="870" y1="440.0" y2="440.0" stroke="#dddddd"/>
 <text x="100.0" y="449.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0%</text>
 <line x1="110" x2="870" y1="337.5" y2="337.5" stroke="#dddddd"/>
@@ -31,4 +31,58 @@
 <text x="497.6" y="345.5" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000">6h→25%</text>
 <circle cx="669.7" cy="71.0" r="8" fill="#ffffff" stroke="#000000" stroke-width="3"/>
 <text x="651.7" y="79.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000">27h→90%</text>
+<g transform="translate(0,520)">
+<line x1="110" x2="870" y1="250.0" y2="250.0" stroke="#dddddd"/>
+<text x="100.0" y="259.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0%</text>
+<line x1="110" x2="870" y1="195.0" y2="195.0" stroke="#dddddd"/>
+<text x="100.0" y="204.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">25%</text>
+<line x1="110" x2="870" y1="140.0" y2="140.0" stroke="#dddddd"/>
+<text x="100.0" y="149.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">50%</text>
+<line x1="110" x2="870" y1="85.0" y2="85.0" stroke="#dddddd"/>
+<text x="100.0" y="94.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">75%</text>
+<line x1="110" x2="870" y1="30.0" y2="30.0" stroke="#dddddd"/>
+<text x="100.0" y="39.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">100%</text>
+<line y1="30" y2="250" x1="110.0" x2="110.0" stroke="#dddddd"/>
+<text x="110.0" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">0</text>
+<line y1="30" y2="250" x1="179.1" x2="179.1" stroke="#dddddd"/>
+<text x="179.1" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">1</text>
+<line y1="30" y2="250" x1="248.2" x2="248.2" stroke="#dddddd"/>
+<text x="248.2" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">2</text>
+<line y1="30" y2="250" x1="317.3" x2="317.3" stroke="#dddddd"/>
+<text x="317.3" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">3</text>
+<line y1="30" y2="250" x1="386.4" x2="386.4" stroke="#dddddd"/>
+<text x="386.4" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">4</text>
+<line y1="30" y2="250" x1="455.5" x2="455.5" stroke="#dddddd"/>
+<text x="455.5" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">5</text>
+<line y1="30" y2="250" x1="524.5" x2="524.5" stroke="#dddddd"/>
+<text x="524.5" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">6</text>
+<line y1="30" y2="250" x1="593.6" x2="593.6" stroke="#dddddd"/>
+<text x="593.6" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">7</text>
+<line y1="30" y2="250" x1="662.7" x2="662.7" stroke="#dddddd"/>
+<text x="662.7" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">8</text>
+<line y1="30" y2="250" x1="731.8" x2="731.8" stroke="#dddddd"/>
+<text x="731.8" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">9</text>
+<line y1="30" y2="250" x1="800.9" x2="800.9" stroke="#dddddd"/>
+<text x="800.9" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">10</text>
+<line y1="30" y2="250" x1="870.0" x2="870.0" stroke="#dddddd"/>
+<text x="870.0" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">&gt;10</text>
+<text x="490.0" y="314.0" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#000000">actions reordered</text>
+<text x="122.0" y="58.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="start" fill="#000000">merges</text>
+<polyline fill="none" stroke="#000000" stroke-width="3"  points="110.0,248.7 179.1,113.6 248.2,74.8 317.3,56.6 386.4,47.0 455.5,41.1 524.5,37.0 593.6,34.1 662.7,32.6 731.8,31.6 800.9,30.9 870.0,30.0"/>
+<circle cx="110.0" cy="248.7" r="5" fill="#000000"/>
+<circle cx="179.1" cy="113.6" r="5" fill="#000000"/>
+<circle cx="248.2" cy="74.8" r="5" fill="#000000"/>
+<circle cx="317.3" cy="56.6" r="5" fill="#000000"/>
+<circle cx="386.4" cy="47.0" r="5" fill="#000000"/>
+<circle cx="455.5" cy="41.1" r="5" fill="#000000"/>
+<circle cx="524.5" cy="37.0" r="5" fill="#000000"/>
+<circle cx="593.6" cy="34.1" r="5" fill="#000000"/>
+<circle cx="662.7" cy="32.6" r="5" fill="#000000"/>
+<circle cx="731.8" cy="31.6" r="5" fill="#000000"/>
+<circle cx="800.9" cy="30.9" r="5" fill="#000000"/>
+<circle cx="870.0" cy="30.0" r="5" fill="#000000"/>
+<line x1="248.2" y1="74.8" x2="327.6" y2="114.0" stroke="#555555" stroke-width="1.5"/>
+<circle cx="248.2" cy="74.8" r="8" fill="#ffffff" stroke="#000000" stroke-width="3"/>
+<text x="344.9" y="140.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000">2→80%</text>
+</g>
 </svg>

@@ -1,6 +1,7 @@
 # Usenet forks (SVGs for the paper, one column; classes colored G/Y/R).
 # Data: fork-miss.tsv (per post: author class, earlier posts missing) and
 # fork-merges.tsv (per merge: reorders, fork life in hours). Both from r5.
+# fork-time stacks two panels over merges: fork life (top) and reorders (bottom).
 # Usage: python3 forks.py   -> fork-depth.svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
 import math, collections
 W,H=900,520; L,R,T,B=110,30,30,80
@@ -38,20 +39,19 @@ M=collections.defaultdict(list)
 for a,c,m in rows('fork-miss.tsv'):
     M[c].append(int(m)); M['all'].append(int(m))
 mg=rows('fork-merges.tsv'); reord=[int(r[1]) for r in mg if r[1]!='']; life=[float(r[2]) for r in mg if r[2]!='']
-# (a) depth: missing posts per post (per class; 0 = no fork) and reorders per merge
+# (a) depth: missing posts per post (per class; 0 = no fork)
 # linear axis up to 10; the tail (>10) is folded into one last point
 CAP=11
 def Xa(v): return L+min(v,CAP)/CAP*(W-L-R)
 p=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'missing posts','posts')
 for k in ['all','on','ps','lf']: p.append(points(Xa,[min(v,CAP) for v in M[k]],*COL[k],mk=0 if k=='all' else 5))
-p.append(points(Xa,[min(v,CAP) for v in reord],INK,'10 4 2 4',2,4))
-legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+430,T+240)
+legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']],L+430,T+240)
 # marks: share up to a count, circled, with a leader line to the arrow of its label at (lx,lf)
 def le(vals,x): return sum(1 for v in vals if v<=x)/len(vals)
-def mark(vals,x,lx,lf,anchor):
-    f=le(vals,x); cx,cy=Xa(x),Y(f); s=f'{x}→{round(f*100)}%'
+def mark(vals,x,lx,lf,anchor,X=Xa):
+    f=le(vals,x); cx,cy=X(x),Y(f); s=f'{x}→{round(f*100)}%'
     cw=lambda c: 24*{'→':1.0,'%':0.889}.get(c,0.556)   # Helvetica advance widths
-    tx,ty=Xa(lx),Y(lf); w=sum(map(cw,s)); x0={'start':tx,'middle':tx-w/2,'end':tx-w}[anchor]
+    tx,ty=X(lx),Y(lf); w=sum(map(cw,s)); x0={'start':tx,'middle':tx-w/2,'end':tx-w}[anchor]
     i=s.index('→'); ex,ey=x0+sum(map(cw,s[:i]))+cw('→')/2,min(max(cy,ty-26),ty+10)   # at the arrow, 6px gap
     p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
@@ -70,4 +70,11 @@ for f in [0.25,0.90]:   # marks: share of merges, label left of the point
     h=life[int(f*len(life))-1]; cx,cy=Xb(h),Y(f)
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
     p.append(txt(cx-18,cy+8,f'{round(h)}h→{round(f*100)}%',size=24,anchor='end',fill=INK))
-p.append('</svg>'); open('fork-time.svg','w').write('\n'.join(p))
+# (c) reorders per merge, as a shorter panel below (same x scale as (a))
+H0=H; H=330
+q=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'actions reordered','merges')[2:]
+top=p; p=q
+p.append(points(Xa,[min(v,CAP) for v in reord],INK,'',3,5))
+mark(reord,2,3.4,0.50,'middle')
+H=H0+H; top[0]=f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">'; top[1]=f'<rect width="{W}" height="{H}" fill="{SURF}"/>'
+top+=[f'<g transform="translate(0,{H0})">']+p+['</g>','</svg>']; open('fork-time.svg','w').write('\n'.join(top))
