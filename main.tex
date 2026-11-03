@@ -1311,39 +1311,11 @@ subjective) safeguard that would only split the simulation.
 Next we describe the metrics we measure over the simulations:
 %
 \begin{enumerate}
-\item \emph{Storage:} on-disk size of the packed Git repository.
-    \begin{enumerate}
-    \item \emph{Payloads:}   all combined (same as archive)
-    \item \emph{Commits:}    all actions combined
-    \item \emph{Snapshots:}  all per-action state combined
-    \item \emph{Overhead:}   total size over Payloads
-    \end{enumerate}
-\item \emph{Operations:} cost of protocol operations.
-    \begin{enumerate}
-    \item \emph{Post:}       local commit and validation time
-    \item \emph{Sync:}       local pull and validation time
-    \item \emph{Commits:}    commits per sync
-    \item \emph{Bytes:}      bytes per sync
-    \end{enumerate}
-\item \emph{Propagation:} delay for a post to reach all peers.
-    \begin{enumerate}
-    \item \emph{Author:}     delay by author class
-    \item \emph{Reader:}     delay by reader class
-    \item \emph{Reach:}      time to the first, half, and all peers
-    \end{enumerate}
-\item \emph{Forks:} ratio of posts that fork the chain.
-    \begin{enumerate}
-    \item \emph{Classes:}    ratio by peer class
-    \item \emph{Missing:}    earlier posts a forking post lacks
-    \item \emph{Reorders:}   actions reordered per merge
-    \item \emph{Voided:}     actions voided per merge
-    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
-    \end{enumerate}
-\item \emph{Reputation:} how \reps admit and reward authors.
-    \begin{enumerate}
-    \item \emph{Begs:} ratio of posts that require extra begs (after admission).
-    \item \emph{Distribution:} share of \reps of top authors over their share of posts.
-    \end{enumerate}
+\item \emph{Storage:} on-disk size of payloads, commits, and snapshots.
+\item \emph{Operations:} time to \code{post} and \code{sync}.
+\item \emph{Propagation:} share of peers a post reaches over time.
+\item \emph{Forks:} ratio, depth, and lifetime of forks, and clamped posts.
+\item \emph{Reputation:} extra begs and \reps distribution among authors.
 \end{enumerate}
 
 Each \code{sync} runs locally, between repositories in the same disk, to
