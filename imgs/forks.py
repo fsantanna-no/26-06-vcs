@@ -39,9 +39,9 @@ for a,c,m in rows('fork-miss.tsv'):
     if int(m)>0: M[c].append(int(m)); M['all'].append(int(m))
 mg=rows('fork-merges.tsv'); reord=[int(r[1]) for r in mg if r[1] not in ('','0')]; life=[float(r[2]) for r in mg if r[2]!='']
 # (a) depth: missing posts per forking post (per class) and reorders per merge
-X0,X1=math.log10(1),math.log10(50)
+X0,X1=math.log10(1),math.log10(100)
 def Xa(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xa,[(1,'1'),(2,'2'),(5,'5'),(10,'10'),(20,'20'),(50,'50')],'missing posts (log)','forking posts')
+p=frame(Xa,[(1,'1'),(2,'2'),(5,'5'),(10,'10'),(20,'20'),(50,'50'),(100,'100')],'missing posts (log)','forking posts')
 for k in ['all','on','ps','lf']: p.append(points(Xa,M[k],*COL[k],mk=0 if k=='all' else 5))
 p.append(points(Xa,reord,INK,'10 4 2 4',2,4))
 legend(p,[(NAME[k]+' (missing)',)+COL[k] for k in ['all','on','ps','lf']]+[('reorders per merge',INK,'10 4 2 4',2)],L+330,T+260)
