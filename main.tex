@@ -1480,8 +1480,8 @@ It takes 6h to merge 25\% of the forks, and 27h for 90\%.
 Note that all forks merge far within the 7-day settling window, so no hard
 forks occur (\S\ref{sec.design.partitions.hardforks}).
 %
-The dashed line shows that 70\% of posts preserve declared times, while only
-10\% clamp over 7h (\S\ref{sec.design.time}).
+The dashed line shows that 70\% of posts preserve their declared times, while
+only 10\% are clamped ($P_i > S_i$) by over 7h (\S\ref{sec.design.time}).
 %
 The bottom panel shows that 92\% of merges reorder at most 4 actions, and 62\%
 at most 1, typically the lone post of the losing branch.
