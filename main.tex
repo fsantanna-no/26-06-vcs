@@ -1496,7 +1496,25 @@ harmless for honest members, since causal order is still preserved.
 
 \paragraph{Reputation:}
 
-% ratio of posts that require extra begs (after admission).
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{begs}
+\caption{
+    Begs per returning author.
+}
+\label{fig.begs.usenet}
+\end{figure}
+
+Figure~\ref{fig.begs.usenet} shows the effectiveness of admission begs
+(\S\ref{sec.design.members}), with over 95\% of recurrent authors requiring a
+single welcoming like.
+%
+Since the original forum is open, we simulate a beg for every first author post
+and track recurrent authors that require extra begs in further posts.
+%
+The results show that a ``natural behavior'' matches the posting rules, and
+chains require very little bookkeeping to stay open to newcomers, especially
+considering that the original users were not aware of reputation constraints.
 
 \begin{figure}[t]
 \centering
@@ -1509,31 +1527,8 @@ harmless for honest members, since causal order is still preserved.
 \label{fig.reps.usenet}
 \end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{begs}
-\caption{
-    Begs per returning author.
-}
-\label{fig.begs.usenet}
-\end{figure}
-
-A post requires an extra beg when its author is already a member but lacks
-the \reps to cover it after an admission like of \nreps{500} (\R{4.a}).
-Since the newsgroup has no likes, we replay the admission rule
-counterfactually over the 21.8k posts by 3.9k returning authors.
-%
-Only 0.95\% of these posts would require an extra beg, and
-Figure~\ref{fig.begs.usenet} shows that 95.1\% of returning authors beg only
-once (for admission), and the remaining 4.9\% at most 4 times.
-%
-Figure~\ref{fig.reps.usenet} explains the low ratios:
-an author earns \nreps{1000} per day with a post (\R{1.b}), so recurring
-authors never block, and only bursts of posts can block.
-Therefore, the natural posting behavior of users already matches the rules,
-even though they were not aware of them.
-
-Figure~\ref{fig.reps.usenet} shows the resulting economy of \reps.
+Figure~\ref{fig.reps.usenet} shows the economy of \reps, which explains the
+results above.
 %
 Since the newsgroup has no likes or dislikes, \reps come only from posting
 (\R{1.b}):
