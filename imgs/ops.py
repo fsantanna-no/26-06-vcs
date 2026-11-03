@@ -7,7 +7,8 @@
 import math, sys
 args=[a for a in sys.argv[1:] if not a.startswith('--')]
 DATA=args[0] if args else 'ops.tsv'; ALL='--all' in sys.argv
-W,H=900,520; L,R,T,B=110,30,30,80
+W,H=900,400; L,R,T,B=110,30,30,80
+if ALL: H=520   # log axis: keep the height for its tick labels
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
 def num(v): return float(v) if v.strip() else None

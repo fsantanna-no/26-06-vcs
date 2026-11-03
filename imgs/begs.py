@@ -3,7 +3,7 @@
 # Returning authors only; the first beg (x=1) is the welcome.
 # Usage: python3 begs.py > begs.svg; soffice --headless --convert-to pdf begs.svg
 import math
-W,H=900,560; L,R,T,B=130,30,70,80
+W,H=900,420; L,R,T,B=130,30,70,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
 def txt(x,y,s,size=26,anchor='start',fill=INK2):
@@ -18,7 +18,7 @@ def Y(v): return H-B-(math.log10(v)-Y0)/(Y1-Y0)*(H-T-B)
 p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',f'<rect width="{W}" height="{H}" fill="{SURF}"/>']
 for e,lab in zip(range(Y0,Y1+1),['0.01%','0.1%','1%','10%','100%']):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(10**e):.1f}" y2="{Y(10**e):.1f}" stroke="{GRID}"/>'); p.append(txt(L-10,Y(10**e)+9,lab,anchor='end'))
-FILL={500:INK}; CW=(W-L-R)/N; BW=CW*0.4
+FILL={500:'#999999'}; CW=(W-L-R)/N; BW=CW*0.4
 for b in range(N):
     cx=L+CW*(b+0.5); p.append(txt(cx,H-B+32,str(b+1),anchor='middle'))   # +1: the admission beg
     for i,w in enumerate(LIKES):

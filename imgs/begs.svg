@@ -1,27 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
-<rect width="900" height="560" fill="#ffffff"/>
-<line x1="130" x2="870" y1="480.0" y2="480.0" stroke="#dddddd"/>
-<text x="120.0" y="489.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0.01%</text>
-<line x1="130" x2="870" y1="377.5" y2="377.5" stroke="#dddddd"/>
-<text x="120.0" y="386.5" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0.1%</text>
-<line x1="130" x2="870" y1="275.0" y2="275.0" stroke="#dddddd"/>
-<text x="120.0" y="284.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">1%</text>
-<line x1="130" x2="870" y1="172.5" y2="172.5" stroke="#dddddd"/>
-<text x="120.0" y="181.5" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">10%</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="900" height="420" fill="#ffffff"/>
+<line x1="130" x2="870" y1="340.0" y2="340.0" stroke="#dddddd"/>
+<text x="120.0" y="349.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0.01%</text>
+<line x1="130" x2="870" y1="272.5" y2="272.5" stroke="#dddddd"/>
+<text x="120.0" y="281.5" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">0.1%</text>
+<line x1="130" x2="870" y1="205.0" y2="205.0" stroke="#dddddd"/>
+<text x="120.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">1%</text>
+<line x1="130" x2="870" y1="137.5" y2="137.5" stroke="#dddddd"/>
+<text x="120.0" y="146.5" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">10%</text>
 <line x1="130" x2="870" y1="70.0" y2="70.0" stroke="#dddddd"/>
 <text x="120.0" y="79.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555">100%</text>
-<text x="222.5" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">1</text>
-<rect x="185.5" y="72.2" width="74.0" height="407.8" fill="#000000"/>
-<text x="222.5" y="64.2" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">3,744 (95.1%)</text>
-<text x="407.5" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">2</text>
-<rect x="370.5" y="206.9" width="74.0" height="273.1" fill="#000000"/>
-<text x="407.5" y="198.9" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">182 (4.6%)</text>
-<text x="592.5" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">3</text>
-<rect x="555.5" y="336.0" width="74.0" height="144.0" fill="#000000"/>
-<text x="592.5" y="328.0" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">10 (0.25%)</text>
-<text x="777.5" y="512.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">4</text>
-<rect x="740.5" y="407.7" width="74.0" height="72.3" fill="#000000"/>
-<text x="777.5" y="399.7" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">2 (0.05%)</text>
-<text x="500.0" y="544.0" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#000000">begs per author</text>
+<text x="222.5" y="372.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">1</text>
+<rect x="185.5" y="71.5" width="74.0" height="268.5" fill="#999999"/>
+<text x="222.5" y="63.5" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">3,744 (95.1%)</text>
+<text x="407.5" y="372.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">2</text>
+<rect x="370.5" y="160.1" width="74.0" height="179.9" fill="#999999"/>
+<text x="407.5" y="152.1" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">182 (4.6%)</text>
+<text x="592.5" y="372.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">3</text>
+<rect x="555.5" y="245.2" width="74.0" height="94.8" fill="#999999"/>
+<text x="592.5" y="237.2" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">10 (0.25%)</text>
+<text x="777.5" y="372.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#555555">4</text>
+<rect x="740.5" y="292.4" width="74.0" height="47.6" fill="#999999"/>
+<text x="777.5" y="284.4" font-family="Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000">2 (0.05%)</text>
+<text x="500.0" y="404.0" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#000000">begs per author</text>
 <text x="20.0" y="30.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="start" fill="#000000">authors (log)</text>
 </svg>

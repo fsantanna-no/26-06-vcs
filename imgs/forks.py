@@ -58,7 +58,8 @@ def mark(vals,x,lx,lf,anchor,X=Xa):
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
 mark(M['all'],0,1.1,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
-# (b) time: fork life per merge
+# (b) time: fork life per merge (shorter than (a))
+H=400
 # zoomed to 1h-60h (0.7% of merges take less than 1h, drawn at 1h)
 X0,X1=math.log10(1),math.log10(60)
 def Xb(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
@@ -70,7 +71,7 @@ for f in [0.25,0.90]:   # marks: share of merges, label left of the point
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
     p.append(txt(cx-18,cy+8,f'{round(h)}h→{round(f*100)}%',size=24,anchor='end',fill=INK))
 # (c) reorders per merge, as a shorter panel below (same x scale as (a))
-H0=H; H=330
+H0=H; H=260
 q=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'actions reordered','merges')[2:]
 top=p; p=q
 p.append(points(Xa,[min(v,CAP) for v in reord],INK,'',3,5))
