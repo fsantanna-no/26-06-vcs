@@ -12,6 +12,7 @@
     - done: brackets per class jump in Fig. 9 (prop.py);
       text: green 3min, yellow 1-6h, red 6-30h, from schedules
 4. [no] Fork depth: numbers only
+    - done: forks are the norm, merged automatically
 5. [yes] Merge time: within the window, no hard forks
 6. [no] Clamps: numbers only
 7. [??] Reorders: explains the lone post, no judgement
