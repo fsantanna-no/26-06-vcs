@@ -30,8 +30,7 @@ p.append(txt(30,(T+H-B)/2,'reps',size=28,anchor='middle',fill=INK,extra=f'transf
 # minting line: reps = TICK x posts, capped
 p.append(f'<polyline fill="none" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="6 4" '
          f'points="{X(0.8):.1f},{Y(0.8*TICK):.1f} {X(CAP/TICK):.1f},{Y(CAP):.1f} {X(500):.1f},{Y(CAP):.1f}"/>')
-ax,ay=X(2.0),Y(5000)-14
-p.append(txt(ax,ay,'1,000 reps per posting day',size=24,extra=f'transform="rotate(-37 {ax:.0f} {ay:.0f})"'))
+p.append(txt(X(2.6),Y(16000),'1k reps/day',size=24,anchor='middle'))
 p.append(txt(X(280),Y(CAP)-14,'cap 50,000',size=24,anchor='middle'))
 # bubbles: small first so large ones do not hide them
 for (pp,r),n in sorted(c.items(), key=lambda kv: -kv[1]):
@@ -39,7 +38,11 @@ for (pp,r),n in sorted(c.items(), key=lambda kv: -kv[1]):
     p.append(f'<circle cx="{X(pp):.1f}" cy="{Y(r):.1f}" r="{rad:.1f}" fill="{FILL}" fill-opacity="0.55" stroke="{SURF}" stroke-width="1"/>')
 for pp,r,suf,dy in [(1,1000,' authors',9),(2,2000,'',9),(3,3000,'',9)]:   # counts from the data
     p.append(txt(X(pp)+max(2.5,math.sqrt(c[(pp,r)])/3.0)+6,Y(r)+dy,f'{c[(pp,r)]:,}{suf}',size=24,fill=INK))
-p.append(txt(X(5.5),Y(1150),'below the line: several posts in one tick',size=22))
+p.append(txt(X(16),Y(3000),'multiple posts/tick',size=22,anchor='middle'))
 ncap=sum(n for (pp,r),n in c.items() if r>=CAP)
 p.append(txt(W-R-6,Y(CAP)+40,f'{ncap} authors at the cap',size=22,anchor='end'))
+# leads: from the middle of the growing line, and from the cloud below it, to their labels
+mx=math.sqrt(0.8*CAP/TICK)
+p.append(f'<line x1="{X(mx):.1f}" y1="{Y(mx*TICK):.1f}" x2="{X(2.6):.1f}" y2="{Y(16000)+6:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
+p.append(f'<line x1="{X(12):.1f}" y1="{Y(7000):.1f}" x2="{X(16):.1f}" y2="{Y(3000)-22:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
 p.append('</svg>'); print('\n'.join(p))
