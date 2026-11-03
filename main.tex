@@ -1474,35 +1474,6 @@ fact that their middles connect every 6h only.
 
 \paragraph{Forks:}
 
-\iffalse
-\begin{enumerate}
-\item \emph{Forks:} ratio of posts that fork the chain.
-    \begin{enumerate}
-    \item \emph{Classes:}    ratio by peer class
-    \item \emph{Missing:}    earlier posts a forking post lacks
-    \item \emph{Reorders:}   actions reordered per merge
-    \item \emph{Voided:}     actions voided per merge
-    \item \emph{Clamps:}     clamped posts ($P_i > S_i$), and by how much
-    \end{enumerate}
-\end{enumerate}
-\fi
-
-\begin{table}[t]
-\centering
-\begin{tabular}{@{}lrrr@{}}
-Forks                   & Median & P90    & Max    \\
-\hline
-Missing posts           & 2      & 8      & 61     \\
-Reorders per merge      & 1      & 4      & 22     \\
-Voided per merge        & 0      & 0      & 0      \\
-Clamps ($P_i - S_i$)    & 4.4h   & 14.0h  & 49h    \\
-Fork life               & 11.4h  & 27.0h  & 58.0h  \\
-\end{tabular}
-\caption{Usenet forks: 63\% of posts (51\% / 64\% / 88\% at green / yellow /
-red peers), and 28\% clamped.}
-\label{tab.eval.usenet.forks}
-\end{table}
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{fork-depth}
@@ -1522,20 +1493,24 @@ red peers), and 28\% clamped.}
 \label{fig.forks.time.usenet}
 \end{figure}
 
-Sessions of hours make forks the norm: 63\% of the posts fork the chain,
-from 51\% at green leaves to 88\% at local-first red leaves.
-% TODO: an always-on baseline (5k prefix, build r160) gave 0% forks
-Forks are shallow, though: a forking post misses a median of 2 earlier posts
-(8 at the 90th percentile, 61 at most), and the 15k merges resolve them with
-no coordination, moving a median of 1 action of the losing branch (4 at the
-90th percentile, 22 at most) and voiding none, since there are no likes to
-double spend.
-Clamped posts follow the same pattern: 28\% of the posts are positioned after
-their declared time ($P_i > S_i$), by a median of 4.4h and at most 49h, all
-well within the 7-day window.
+Figure~\ref{fig.forks.depth.usenet} shows how many earlier posts a forking
+post misses.
+The colored lines represent forking posts from green, yellow and red leaves:
+    67\% of the posts fork the chain,
+    but they miss a median of 2 posts, and 8 at the 90th percentile.
+Looking at the red line, local-first leaves fork the most (88\%) and miss
+the most posts (4 median, 61 at most), since they post offline.
 %
-Forks live for a median of 11.4h until their merge (58.0h at most), also far
-within the window.
+The black line shows that merges reorder a median of 1 action (19 at most)
+and void none, since there are no likes to double spend.
+
+Figure~\ref{fig.forks.time.usenet} shows how long forks live until merged:
+    it takes 6h to merge 25\% of the forks, and 27h for 90\%.
+Looking at the dotted line, all forks merge far within the 7-day settling
+window (58h at most).
+%
+Clamped posts follow the same pattern: 28\% are positioned after their
+declared time ($P_i > S_i$), by a median of 4.4h and at most 49h.
 
 \paragraph{Reputation:}
 
