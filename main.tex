@@ -1467,26 +1467,29 @@ plus the aggregate of the three (thick gray):
 \centering
 \includegraphics[width=\columnwidth]{fork-time}
 \caption{
-    Merge time and reorders.
+    Merge delay, clamp offset, and post reorders.
 }
 \label{fig.forks.time.usenet}
 \end{figure}
 
-Figure~\ref{fig.forks.time.usenet} shows how long it takes to merge a forked
-post.
+In Figure~\ref{fig.forks.time.usenet}, the solid line shows how long it takes
+to merge a forked post.
 Considering a new post $B$, the earliest missing post $A$, and the first merge
 at peer $M$, we calculate the time $T_M-T_A$ for all forks.
 %
 It takes 6h to merge 25\% of the forks, and 27h for 90\%.
 Note that all merges periods are far within the 7-day settling window, which
 eliminates hard forks.
-
+%
+The dashed line shows how 
+%
 
 The bottom panel shows that 80\% of the merges reorder at most 2 actions
 (21 at most), and void none, since there are no likes to double spend.
 %
 Clamped posts follow the same pattern: 28\% are positioned after their
 declared time ($P_i > S_i$), by a median of 4.4h and at most 49h.
+\ref{sec.design.time}
 
 \paragraph{Reputation:}
 
