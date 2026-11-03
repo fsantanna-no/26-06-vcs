@@ -1,7 +1,8 @@
 # Usenet forks (SVGs for the paper, one column; classes colored G/Y/R).
 # Data: fork-miss.tsv (per post: author class, earlier posts missing) and
 # fork-merges.tsv (per merge: reorders, fork life in hours). Both from r5.
-# fork-time stacks two panels over merges: fork life (top) and reorders (bottom).
+# fork-clamps.tsv (per clamped post: clamp delay P_i - S_i in hours, r5 20k).
+# fork-time stacks two panels: fork life and clamp delay (top), reorders (bottom).
 # Usage: python3 forks.py   -> fork-depth.svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
 import math, collections
 W,H=900,520; L,R,T,B=110,30,30,80
@@ -58,18 +59,20 @@ def mark(vals,x,lx,lf,anchor,X=Xa):
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
 mark(M['all'],0,1.1,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
 p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
-# (b) time: fork life per merge (shorter than (a))
+# (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
 H=400
-# zoomed to 1h-60h (0.7% of merges take less than 1h, drawn at 1h)
+clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv'))
+# zoomed to 1h-60h (below 1h, drawn at 1h: 0.7% of merges, 8% of clamps)
 X0,X1=math.log10(1),math.log10(60)
 def Xb(v): return L+(math.log10(max(v,1))-X0)/(X1-X0)*(W-L-R)
-p=frame(Xb,[(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'hours (log)','merges')
-p.append(cdf(Xb,life,INK,'',3))
+p=frame(Xb,[(1,'1h'),(2,'2h'),(6,'6h'),(12,'12h'),(24,'24h'),(48,'48h')],'hours (log)','share')
+p.append(cdf(Xb,life,INK,'',3)); p.append(cdf(Xb,clamp,INK2,'8 5',3))
+legend(p,[('merges',INK,'',3),('clamped posts',INK2,'8 5',3)],L+500,T+200)
 life.sort()
-for f in [0.25,0.90]:   # marks: share of merges, label left of the point
-    h=life[int(f*len(life))-1]; cx,cy=Xb(h),Y(f)
+for vals,f,dx,dy,fmt in [(life,0.25,-18,8,'.0f'),(life,0.90,18,34,'.0f'),(clamp,0.50,-18,8,'.1f')]:   # marks: share, label beside the point
+    h=vals[int(f*len(vals))-1]; cx,cy=Xb(h),Y(f)
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
-    p.append(txt(cx-18,cy+8,f'{round(h)}h→{round(f*100)}%',size=24,anchor='end',fill=INK))
+    p.append(txt(cx+dx,cy+dy,f'{h:{fmt}}h→{round(f*100)}%',size=24,anchor='end' if dx<0 else 'start',fill=INK))
 # (c) reorders per merge, as a shorter panel below (same x scale as (a))
 H0=H; H=260
 q=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'actions reordered','merges')[2:]
