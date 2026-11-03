@@ -1219,8 +1219,8 @@ the protocol rules, as if the forum had always run on it.
 Unlike synthetic workloads, these archives carry real human activity: bursts
 and silences, a few prolific authors among many occasional ones, and years of
 accumulated content.
-Over these simulations, we measure post and sync times, storage, forks and
-convergence, and the economy of \reps.
+Over these simulations, we measure storage, post and sync times, propagation,
+forks and merges, and the economy of \reps.
 
 We selected four public archives, each representing a scenario with its own
 challenges:
@@ -1314,7 +1314,7 @@ Next we describe the metrics we measure over the simulations:
 \item \emph{Storage:} on-disk size of payloads, commits, and snapshots.
 \item \emph{Operations:} time to \code{post} and \code{sync}.
 \item \emph{Propagation:} share of peers a post reaches over time.
-\item \emph{Forks \& Merges:} ratio, depth, and lifetime of forks, and clamped posts.
+\item \emph{Forks \& Merges:} fork depth, merge time, clamps, and reorders.
 \item \emph{Reputation:} extra begs and \reps distribution among authors.
 \end{enumerate}
 
