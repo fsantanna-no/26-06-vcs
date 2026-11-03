@@ -40,9 +40,10 @@ for pp,r,suf,dy in [(1,1000,' authors',9),(2,2000,'',9),(3,3000,'',9)]:   # coun
     p.append(txt(X(pp)+max(2.5,math.sqrt(c[(pp,r)])/3.0)+6,Y(r)+dy,f'{c[(pp,r)]:,}{suf}',size=24,fill=INK))
 p.append(txt(X(16),Y(3000),'multiple posts/tick',size=22,anchor='middle'))
 ncap=sum(n for (pp,r),n in c.items() if r>=CAP)
-p.append(txt(W-R-6,Y(CAP)+40,f'{ncap} authors at the cap',size=22,anchor='end'))
+p.append(txt(X(142),Y(CAP)+40,f'{ncap} authors',size=22,anchor='middle'))   # left of the cap middle
 # leads: from the middle of the growing line, and from the cloud below it, to their labels
 mx=math.sqrt(0.8*CAP/TICK)
 p.append(f'<line x1="{X(mx):.1f}" y1="{Y(mx*TICK):.1f}" x2="{X(2.6):.1f}" y2="{Y(16000)+6:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
 p.append(f'<line x1="{X(12):.1f}" y1="{Y(7000):.1f}" x2="{X(16):.1f}" y2="{Y(3000)-22:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
+p.append(f'<line x1="{X(math.sqrt(CAP/TICK*500)):.1f}" y1="{Y(CAP):.1f}" x2="{X(142):.1f}" y2="{Y(CAP)+40-22:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
 p.append('</svg>'); print('\n'.join(p))
