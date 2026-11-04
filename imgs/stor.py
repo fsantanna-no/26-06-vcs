@@ -3,8 +3,8 @@
 # Usage: python3 stor.py [stor.tsv] > stor.svg; soffice --headless --convert-to pdf stor.svg
 import sys
 DATA=sys.argv[1] if len(sys.argv)>1 else 'stor.tsv'
-W,H=900,760; L,R,T,B=110,30,30,80
-S=130; G=40   # overhead strip height and gap above it
+W,H=900,830; L,R,T,B=110,30,30,80
+S=200; G=40   # overhead strip height and gap above it
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
 rows=[list(map(float,l.split())) for l in open(DATA) if not l.startswith('#')]
@@ -35,7 +35,7 @@ p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=IN
 series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',3),('commits',2,'#999999','4 4',2),
         ('archive',10,INK,'',1.5)]   # archive = gzip of the original posts: thin, no markers
 LABEL={'commits':(None,30),'archive':(None,34)}   # (x or None=end, dy); None = legend
-if rows[-1][1]<0.1*YMAX: LABEL.update({'payloads':None,'archive':None})   # tiny payloads (chat): legend
+if rows[-1][1]<0.1*YMAX: LABEL.update({'payloads':None,'archive':None,'snapshots':(x1*0.8,64)})   # tiny payloads (chat): legend; snapshots mid-plot, below
 MID=x1*0.45   # x of mid-plot labels
 for name,col,color,dash,wd in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
@@ -74,9 +74,9 @@ for name,f,color,dash,fx in OVS:
     for r in rows:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{YR(f(r)):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
-labs=[]   # labels drawn after all lines: measured below its line, others above; white box behind
+labs=[]   # labels drawn after all lines: above their lines; white box behind
 for name,f,color,dash,fx in OVS:
-    m=min(rows,key=lambda r:abs(r[0]-fx*x1)); dy=32 if name=='commits+snapshots' else -22
+    m=min(rows,key=lambda r:abs(r[0]-fx*x1)); dy=-24 if name=='commits+snapshots' else -10
     lab=name.replace('+',' + '); bw=0.5*24*len(lab)
     labs.append(f'<rect x="{X(m[0])-bw/2:.1f}" y="{YR(f(m))+dy-19:.1f}" width="{bw:.1f}" height="25" fill="{SURF}"/>')
     labs.append(txt(X(m[0]),YR(f(m))+dy,lab,size=24,anchor='middle',fill=color))

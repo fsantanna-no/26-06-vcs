@@ -1372,8 +1372,8 @@ Figure~\ref{fig.storage.usenet} shows that storage grows linearly with the
 chain size.
 The solid \emph{archive} line is our benchmark and corresponds to the original
 compressed forum messages.
-The matching \emph{payloads} line holds the same data, now as objects in the
-chain Git repository.
+The matching \emph{payloads} line just above holds the same data, now as
+objects in the chain Git repository.
 It accounts for only 26\% of the storage, with the remaining 74\% being the
 \FC overhead:
     the \emph{commits} (9\%) are the inherent metadata that constitute the
@@ -1383,11 +1383,11 @@ It accounts for only 26\% of the storage, with the remaining 74\% being the
 
 The snapshots overhead is therefore a tradeoff that favors replay time over
 disk space.
-The line \emph{commits+snapshots} measures this overhead of
+In the bottom panel, the line \emph{commits+snapshots} measures this overhead of
 3$\times$--4$\times$ (\emph{total/payloads}).
 An alternative we did not explore in this paper is to snapshot every $N$
 actions, favoring disk space over replay time.
-The line \emph{commits} shows the overhead floor of 1.3$\times$ with no
+The line \emph{commits} shows the hypothetical floor of 1.3$\times$ with no
 snapshots at all ($N=\infty$).
 
 \paragraph{Operations:}
