@@ -3,8 +3,11 @@
 # fork-merges.tsv (per merge: reorders, fork life in hours). Both from r5.
 # fork-clamps.tsv (per clamped post: clamp delay P_i - S_i in hours, r5 20k).
 # fork-time stacks two panels: fork life and clamp delay (top), reorders (bottom).
-# Usage: python3 forks.py   -> fork-depth.svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
-import math, collections
+# Usage: python3 forks.py [chat]   -> fork-depth[-chat].svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
+# chat: fork-miss-chat.tsv only (no classes, no merges): fork-depth-chat.svg
+import math, collections, os, sys
+SUF=sys.argv[1] if len(sys.argv)>1 else ''
+def F(b,ext): return f'{b}-{SUF}.{ext}' if SUF else f'{b}.{ext}'
 W,H=900,520; L,R,T,B=110,30,30,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
@@ -40,16 +43,19 @@ def legend(p,items,x,y0):
         y=y0+i*34; p.append(f'<line x1="{x}" x2="{x+50}" y1="{y}" y2="{y}" stroke="{color}" stroke-width="{wd}" {dash(d)}/>'); p.append(txt(x+60,y+8,name,size=24,fill=INK))
 rows=lambda f: [l.rstrip('\n').split('\t') for l in open(f) if l[0].isdigit()]
 M=collections.defaultdict(list)
-for a,c,m in rows('fork-miss.tsv'):
-    M[c].append(int(m)); M['all'].append(int(m))
-mg=rows('fork-merges.tsv'); reord=[int(r[1]) for r in mg if r[1]!='']; life=[float(r[2]) for r in mg if r[2]!='']
+for a,c,m in rows(F('fork-miss','tsv')):
+    M['all'].append(int(m))
+    if c!='all': M[c].append(int(m))
+K=[k for k in ['all','on','ps','lf'] if M[k]]   # classes present
+if len(K)==1: COL['all']=(INK,'',3)   # single series: black
+mg=rows(F('fork-merges','tsv')) if os.path.exists(F('fork-merges','tsv')) else [['','','']]; reord=[int(r[1]) for r in mg if r[1]!='']; life=[float(r[2]) for r in mg if r[2]!='']
 # (a) depth: missing posts per post (per class; 0 = no fork)
 # linear axis up to 10; the tail (>10) is folded into one last point
 CAP=11
 def Xa(v): return L+min(v,CAP)/CAP*(W-L-R)
 p=frame(Xa,[(v,str(v)) for v in range(0,11)]+[(CAP,'&gt;10')],'missing posts','posts')
-for k in ['all','on','ps','lf']: p.append(points(Xa,[min(v,CAP) for v in M[k]],*COL[k],mk=0 if k=='all' else 5))
-legend(p,[(NAME[k],)+COL[k] for k in ['all','on','ps','lf']],L+430,T+240)
+for k in K: p.append(points(Xa,[min(v,CAP) for v in M[k]],*COL[k],mk=0 if k=='all' else 5))
+if len(K)>1: legend(p,[(NAME[k],)+COL[k] for k in K],L+430,T+240)
 # marks: share up to a count, circled, with a leader line to the arrow of its label at (lx,lf)
 def le(vals,x): return sum(1 for v in vals if v<=x)/len(vals)
 def mark(vals,x,lx,lf,anchor,X=Xa):
@@ -60,8 +66,11 @@ def mark(vals,x,lx,lf,anchor,X=Xa):
     p.append(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{ex:.1f}" y2="{ey:.1f}" stroke="{INK2}" stroke-width="1.5"/>')
     p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>')
     p.append(txt(tx,ty,s,size=24,anchor=anchor,fill=INK))
-mark(M['all'],0,1.1,0.10,'middle'); mark(M['on'],0,2.3,0.21,'middle'); mark(M['lf'],7,7.9,0.66,'middle')
-p.append('</svg>'); open('fork-depth.svg','w').write('\n'.join(p))
+mark(M['all'],0,*((1.1,0.10) if len(K)>1 else (1.3,0.72)),'middle')
+if M['on']: mark(M['on'],0,2.3,0.21,'middle')
+if M['lf']: mark(M['lf'],7,7.9,0.66,'middle')
+p.append('</svg>'); open(F('fork-depth','svg'),'w').write('\n'.join(p))
+if not life: sys.exit()   # no merges (chat)
 # (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
 H=520
 # clamp delay over all posts: unclamped posts have delay 0 (19,998 posts in S1 list order at 20k)
