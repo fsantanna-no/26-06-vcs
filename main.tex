@@ -1638,11 +1638,18 @@ TODO
 
 TODO
 
-\subsection{Summary:}
+\subsection{Summary}
 
-- local first
-- storage linear / tradeoff
-
+The Usenet simulation shows that \FC supports local-first forums:
+    red leaves post offline and fork 89\% of their posts, but forks merge
+    automatically and live at most 58h, far within the 7-day window.
+%
+Posts reach 90\% of the network in 23h, a delay that comes from the peer
+schedules rather than from \FC itself.
+%
+Storage grows linearly with the chain (4$\times$ the raw posts), trading
+disk for operation times that do not grow with the chain.
+%
 Even with multiple hops, churn, and offline periods, the operation times and
 transfer patterns remain constant, showing that the protocol scales.
 
