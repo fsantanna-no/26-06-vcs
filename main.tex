@@ -1509,8 +1509,8 @@ Figure~\ref{fig.begs.usenet} shows the effectiveness of admission begs
 (\S\ref{sec.design.members}), with over 95\% of returning authors requiring a
 single welcoming like.
 %
-Since the original forum is open, we simulate a beg for every first author post
-and track those requiring extra begs in further posts.
+Since the newsgroup is open, we simulate a beg for every first author post and
+track those requiring extra begs in further posts.
 %
 The results show that a ``natural behavior'' matches the posting rules, and
 chains require very little bookkeeping to stay open to newcomers, especially
@@ -1526,33 +1526,13 @@ considering that the original users were not aware of reputation constraints.
 \end{figure}
 
 Figure~\ref{fig.reps.usenet} shows how \reps spread among authors.
-
-
-
-which explains the
-results above.
-%
 Since the newsgroup has no likes or dislikes, \reps come only from posting
-(\R{1.b}):
-    every author ends with \nreps{1000} per day with a post (dashed line), up
-    to the cap of \nreps{50K} (\R{4.b}), which 44 authors reach.
-Authors below the line posted several times in the same tick, which rewards
-them only once.
-%
-Reputation thus works as an activity counter, which distributes \reps more
-evenly than the posts themselves:
-    the 7.4k authors (65\%) with a single post all hold \nreps{1000};
-    the top 1\% of authors hold 16\% of all \reps while writing 26\% of the
-    posts;
-    and the top 50\% hold 80\% while writing 83\%.
-
-\paragraph{Reputation:}
-
-- local first
-- storage linear / tradeoff
-
-Even with multiple hops, churn, and offline periods, the operation times and
-transfer patterns remain constant, showing that the protocol scales.
+(\R{1.b}).
+The dasehd line \emph{1k \reps/day} concentrates most of members with
+proportional bubbles (e.g., 7358 members have \nreps{1000} from a single post).
+Members below the line posted several times in the same tick
+(\S\ref{sec.design.time}), which rewards them only once.
+Only 44 authors reached the \nreps{50K} cap, showing that ...
 
 \subsection{Online Chat}
 \label{sec.eval.chat}
@@ -1652,6 +1632,14 @@ TODO
 \label{sec.eval.lemmy}
 
 TODO
+
+\subsection{Summary:}
+
+- local first
+- storage linear / tradeoff
+
+Even with multiple hops, churn, and offline periods, the operation times and
+transfer patterns remain constant, showing that the protocol scales.
 
 \section{Related Work}
 \label{sec.related}
