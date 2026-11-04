@@ -1264,7 +1264,7 @@ in Figure~\ref{fig.topo}:
     attached to 1--3 supers.
 \item
     45 \emph{leaf peers} (\code{01}--\code{45}), split into groups of 1--15
-    siblings, each attached to a primary middle, and 33 with backups links.
+    siblings, each attached to a primary middle, and 33 with backup links.
 \end{itemize}
 %
 This core-periphery shape is typical of peer-to-peer and federated
@@ -1286,9 +1286,9 @@ differing only in the number of connections and synchronization schedule:
     periodically like yellow leaves.
 \end{itemize}
 %
-In the context of \FC, links and connectivity are only abstract
-representations, since peers keep no open connections, but only synchronize
-point-to-point during online periods (connect, sync, disconnect).
+In the context of \FC, links and connectivity are only abstract: peers keep no
+open connections, and synchronize point-to-point during online periods
+(connect, sync, disconnect).
 
 Each simulation distributes authors uniformly over the leaves and replays all
 original messages in a fresh chain as signed posts by their authors, issued
@@ -1314,7 +1314,7 @@ For each simulation, we measure the following:
 \item \emph{Storage:} on-disk size of payloads, commits, and snapshots.
 \item \emph{Operations:} time to \code{post} and \code{sync}.
 \item \emph{Propagation:} share of peers a post reaches over time.
-\item \emph{Forks \& Merges:} fork depth, merge time, posts clamps and reorders.
+\item \emph{Forks \& Merges:} fork depth, merge time, post clamps, and reorders.
 \item \emph{Reputation:} extra begs and \reps distribution.
 \end{enumerate}
 
