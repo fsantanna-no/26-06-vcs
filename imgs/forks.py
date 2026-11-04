@@ -1,7 +1,7 @@
 # Usenet forks (SVGs for the paper, one column; classes colored G/Y/R).
 # Data: fork-miss.tsv (per post: author class, earlier posts missing) and
 # fork-merges.tsv (per merge: reorders, fork life in hours). Both from r5.
-# fork-clamps.tsv (per clamped post: clamp delay P_i - S_i in hours, r5 20k).
+# fork-clamps.tsv (per clamped post: clamp delay P_i - S_i in hours, r5 final).
 # fork-time stacks two panels: fork life and clamp delay (top), reorders (bottom).
 # Usage: python3 forks.py [chat]   -> fork-depth[-chat].svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
 # chat: fork-miss-chat.tsv only (no classes, no merges): fork-depth-chat.svg
@@ -73,8 +73,8 @@ p.append('</svg>'); open(F('fork-depth','svg'),'w').write('\n'.join(p))
 if not life: sys.exit()   # no merges (chat)
 # (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
 H=520
-# clamp delay over all posts: unclamped posts have delay 0 (19,998 posts in S1 list order at 20k)
-POSTS=19998; clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv')); clamp=[0.0]*(POSTS-len(clamp))+clamp
+# clamp delay over all posts: unclamped posts have delay 0 (33,814 posts in S1 list order at the final keep)
+POSTS=33814; clamp=sorted(float(r[2]) for r in rows('fork-clamps.tsv')); clamp=[0.0]*(POSTS-len(clamp))+clamp
 # x: "0" in its own slot, a gap with a break mark, then 30min-60h (log);
 # unclamped posts (delay 0) at 0, delays in (0,30min) at 30min
 E=0.5; X0,X1=math.log10(E),math.log10(60); G=70
