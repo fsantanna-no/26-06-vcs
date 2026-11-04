@@ -1213,8 +1213,8 @@ Ultimately, a hard fork is a social conflict, not a numeric dispute.
 We evaluate the performance and robustness of \FC against the actual history of
 real online forums.
 We take public forum archives and simulate them as a new chain: every message
-is replayed with its original time and author, but this time as a post under
-the protocol rules, as if the forum had always run on it.
+is replayed with its original time and author, but as a post under the protocol
+rules, as if the forum had always run on it.
 %
 Unlike synthetic workloads, these archives carry real human activity: bursts
 and silences, a few prolific authors among many occasional ones, and years of
@@ -1264,7 +1264,7 @@ in Figure~\ref{fig.topo}:
     attached to 1--3 supers.
 \item
     45 \emph{leaf peers} (\code{01}--\code{45}), split into groups of 1--15
-    siblings, each attached to a primary middle (33 with backups).
+    siblings, each attached to a primary middle, and 33 with backups links.
 \end{itemize}
 %
 This core-periphery shape is typical of peer-to-peer and federated
@@ -1283,12 +1283,12 @@ differing only in the number of connections and synchronization schedule:
     They synchronize, post, synchronize again, and disconnect.
 \item
     \emph{Red peers} are local-first leaves posting offline and connecting
-    periodically like yellow leaves (their middles are yellow).
+    periodically like yellow leaves.
 \end{itemize}
 %
-In the context of \FC, links and connectivity are abstract: peers keep no open
-connections, but only synchronize point-to-point during online periods
-(connect, sync, disconnect).
+In the context of \FC, links and connectivity are only abstract
+representations, since peers keep no open connections, but only synchronize
+point-to-point during online periods (connect, sync, disconnect).
 
 Each simulation distributes authors uniformly over the leaves and replays all
 original messages in a fresh chain as signed posts by their authors, issued
@@ -1298,7 +1298,7 @@ random relay delay (1--60 seconds).
 The topology dictates the simulation steps: peers synchronize only along their
 links and according to their schedules.
 To handle churn, offline periods, and network partitions, the simulation
-driver (outside \FC) includes an internal queueing mechanism for pending posts.
+driver (outside \FC) includes a queueing mechanism for pending posts.
 
 As expected, all peers in all simulations converge to the same final state and
 consensus order.
