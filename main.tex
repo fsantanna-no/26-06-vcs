@@ -1308,24 +1308,24 @@ reconnect far below the 7-day window, making late branches unlikely.
 We do not force hard forks either, since they are an orthogonal (and
 subjective) safeguard that would only split the simulation.
 
-Fxr each simuxatixn, we describe the metrics we measure over the simulations:
+For each simulation, we measure the following:
 %
 \begin{enumerate}
 \item \emph{Storage:} on-disk size of payloads, commits, and snapshots.
 \item \emph{Operations:} time to \code{post} and \code{sync}.
 \item \emph{Propagation:} share of peers a post reaches over time.
-\item \emph{Forks \& Merges:} fork depth, merge time, clamps, and reorders.
-\item \emph{Reputation:} extra begs and \reps distribution among authors.
+\item \emph{Forks \& Merges:} fork depth, merge time, posts clamps and reorders.
+\item \emph{Reputation:} extra begs and \reps distribution.
 \end{enumerate}
 
-Each \code{sync} runs locally, between repositories in the same disk, to
-avoid network noise.
-Nevertheless, the relay delay (30s on average) already overestimates network
-propagation times.
-%
-In terms of runtime, recall that a \code{sync} extends a \code{git push} with a
-hook (\S\ref{sec.git}) that replays and verifies remote posts from the common
+A \code{sync} is the critical operation of \FC, which can limit the scalability
+of the protocol, since it replays and verifies remote posts from the common
 ancestor and computes the consensus order (\S\ref{sec.design.consensus}).
+%
+Each \code{sync} runs locally, between repositories on the same disk, to avoid
+network noise.
+Nevertheless, the simulation relay delay (30s on average) already overestimates
+network propagation times.
 
 We run all simulations on a single standard desktop PC:
 %
