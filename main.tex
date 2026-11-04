@@ -1403,13 +1403,12 @@ snapshots at all ($N=\infty$).
 
 Figure~\ref{fig.ops.usenet} shows how \code{post} and \code{sync} times remain
 constant over chain size.
-Thanks to stored snapshots, it takes 0.1s for a local post (\emph{post median})
-and 0.2s for a remote sync (\emph{sync median}).
+Thanks to stored snapshots, it takes 0.1s for a post (\emph{post median}) and
+0.2s for a sync (\emph{sync median}).
 Even considering churn and long offline periods, 90\% of syncs take less than
 0.5s to complete (\emph{sync P90}).
 
-We argue that constant operation times are key for \FC to scale to large
-forums.
+We argue that constant operation times are key to scale \FC to large forums.
 Although the storage overhead of 4$\times$ can be even higher
 (\S\ref{sec.eval.chat}), it still grows linearly, and disk is cheaper than CPU
 time.
@@ -1433,7 +1432,7 @@ leaves, plus the aggregate of the three (thick gray):
     5h for 50\%, and
     23h for 90\%.
 
-The brackets at the bottom mark the jump of each class.
+The colored brackets at the bottom mark the jump of each class.
 Green posts reach the always-online half of the network within 3min, and the
 remaining peers only as they connect.
 Yellow posts wait 1--6h for their middle peers ($\sim$6h), and red posts
@@ -1452,14 +1451,17 @@ asynchronous pace of newsgroups.
 \label{fig.forks.depth.usenet}
 \end{figure}
 
-Figure~\ref{fig.forks.depth.usenet} shows how many earlier posts a peer about
-to post is already missing, which leads to forks in the chain DAG.
+Figure~\ref{fig.forks.depth.usenet} shows, for a peer about to post, how many
+earlier posts it did not yet receive, which will lead to forks in the chain
+DAG.
 The four lines represent posts originating from green, yellow, and red
 leaves, plus the aggregate of the three (thick gray):
-    only 37\% of all posts do not fork the chain (49\% of green posts), and
+    only 37\% of all posts do not fork the chain;
+    49\% of green posts do not fork; and
     77\% of red posts miss at most 7 earlier posts.
-Forks are thus the norm rather than the exception, even among always-online
-peers, but \FC merges them automatically without user intervention.
+As expected, forks are the norm rather than the exception, even among
+always-online peers.
+Nevertheless, \FC merges them automatically without user intervention.
 
 \begin{figure}[t]
 \centering
