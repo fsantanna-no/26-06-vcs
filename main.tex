@@ -1458,6 +1458,7 @@ leaves, plus the aggregate of the three (thick gray):
     only 37\% of all posts do not fork the chain;
     49\% of green posts do not fork; and
     77\% of red posts miss at most 7 earlier posts.
+
 As expected, forks are the norm rather than the exception, even among
 always-online peers.
 Nevertheless, \FC merges them automatically without user intervention.
@@ -1477,16 +1478,16 @@ Considering a new post $B$, the earliest missing post $A$, and the first merge
 at peer $M$, we calculate the time $T_M-T_A$ for all forks.
 %
 It takes 6h to merge 25\% of the forks, and 27h for 90\%.
-Note that all forks merge far within the 7-day settling window, so no hard
+Note that all forks merge well within the 7-day settling window, so no hard
 forks occur (\S\ref{sec.design.partitions.hardforks}).
-%
+
 The dashed line shows that 72\% of posts preserve their declared times, while
 only 10\% are clamped ($P_i > S_i$) by over 6h (\S\ref{sec.design.time}).
 Since clamps only delay posts by hours, chain time stays close to the times
 declared by the authors.
-%
+
 The bottom panel shows that 93\% of merges reorder at most 4 actions, and 64\%
-at most 1, typically the lone post of the losing branch.
+at most 1 (typically the lone post of the losing branch).
 As forks are the norm, reordering a few posts is also expected, and
 harmless for honest members, since causal order is still preserved.
 
@@ -1505,7 +1506,7 @@ Figure~\ref{fig.begs.usenet} shows the effectiveness of admission begs
 (\S\ref{sec.design.members}), with over 95\% of returning authors requiring a
 single welcoming like.
 %
-Since the newsgroup is open, we simulate a beg for every first author post and
+Since the newsgroup is open, we simulate a beg for each author's first post and
 track those requiring extra begs in further posts.
 %
 The results show that a ``natural behavior'' matches the posting rules, and
@@ -1538,9 +1539,11 @@ to spend \reps rating content (\S\ref{sec.design.votes}).
 \subsection{Online Chat}
 \label{sec.eval.chat}
 
+TODO
+
+\iffalse
 - red becomes yellow
 - no posts during churns (leaves->mids)
-TODO
 
 \paragraph{Storage:}
 
@@ -1675,6 +1678,8 @@ longer than the previous).
 \label{fig.reps.chat}
 \end{figure}
 
+\fi
+
 \subsection{GitHub Issues}
 \label{sec.eval.github}
 
@@ -1689,7 +1694,7 @@ TODO
 
 The Usenet simulation shows that \FC supports local-first forums:
     red leaves post offline and fork 88\% of their posts, but forks merge
-    automatically and live at most 58h, far within the 7-day window.
+    automatically and live at most 58h, well within the 7-day window.
 %
 Posts reach 90\% of the network in 23h, a delay that comes from the peer
 schedules rather than from \FC itself.
