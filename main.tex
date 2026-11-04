@@ -1528,11 +1528,13 @@ considering that the original users were not aware of reputation constraints.
 Figure~\ref{fig.reps.usenet} shows how \reps spread among authors.
 Since the newsgroup has no likes or dislikes, \reps come only from posting
 (\R{1.b}).
-The dasehd line \emph{1k \reps/day} concentrates most of members with
-proportional bubbles (e.g., 7358 members have \nreps{1000} from a single post).
-Members below the line posted several times in the same tick
+Most authors lie on the dashed line \emph{1k \reps/day}, with bubbles
+proportional to their number (e.g., 7,358 authors hold \nreps{1000} from a
+single post).
+Authors below the line posted several times in the same tick
 (\S\ref{sec.design.time}), which rewards them only once.
-Only 44 authors reached the \nreps{50K} cap, showing that ...
+Only 44 authors reach the cap of \nreps{50K} (\R{4.b}), showing that \reps
+track activity rather than accumulate without bound.
 
 \subsection{Online Chat}
 \label{sec.eval.chat}
