@@ -1341,14 +1341,14 @@ This store-and-forward model naturally leads to forks, especially considering
 our topology, in which some middle peers act as intermittent servers and leaves
 as end users connecting in sessions.
 
-We simulate the \emph{comp.compilers} newsgroup with a corpus of over 33k
-messages by 11k authors spanning from 1987 to 2013 (26 years).%
-\footnote{ Newsgroup: \url{https://archive.org/download/usenet-comp} }
+We simulate the \emph{comp.compilers} newsgroup%
+\footnote{ \url{https://archive.org/download/usenet-comp/} }
+with a corpus of over 30k
+messages by 10k authors spanning from 1987 to 2013 (26 years).
 %
 Compared to chats (\S\ref{sec.eval.chat}), newsgroups combine slower
-interactions with larger payloads:
-in our corpus, the median gap between posts is 2.6h, and the average
-article has 2.6kB (which includes a timestamp, a sender, a subject, and the
+interactions with larger payloads: the median gap between posts is 2.6h, and
+the average article has 2.6kB (with a timestamp, a sender, a subject, and the
 actual message).
 %
 The full simulation takes around 54h to complete with over 1M \code{sync}
