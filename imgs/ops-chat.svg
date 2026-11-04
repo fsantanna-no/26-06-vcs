@@ -51,7 +51,7 @@
 <circle cx="809.2" cy="139.0" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="839.6" cy="124.3" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="870.0" cy="179.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="858.0" y="211.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >sync P90</text>
+<text x="414.0" y="168.1" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >sync P90</text>
 <polyline fill="none" stroke="#000000" stroke-width="3"  points="140.4,244.3 170.8,235.2 201.2,234.8 231.6,230.4 262.0,230.9 292.4,231.7 322.8,231.4 353.2,230.0 383.6,229.4 414.0,228.8 444.4,228.8 474.8,230.1 505.2,227.9 535.6,230.4 566.0,229.0 596.4,231.4 626.8,231.7 657.2,229.3 687.6,228.4 718.0,231.0 748.4,230.1 778.8,225.3 809.2,193.6 839.6,194.4 870.0,219.6"/>
 <circle cx="140.4" cy="244.3" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="170.8" cy="235.2" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
@@ -78,7 +78,7 @@
 <circle cx="809.2" cy="193.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="839.6" cy="194.4" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="870.0" cy="219.6" r="3.5" fill="#000000" stroke="#ffffff" stroke-width="1.5"/>
-<text x="858.0" y="205.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#000000" >sync median</text>
+<text x="414.0" y="260.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#000000" >sync median</text>
 <polyline fill="none" stroke="#555555" stroke-width="3"  points="140.4,277.0 170.8,275.3 201.2,274.7 231.6,270.2 262.0,272.7 292.4,274.0 322.8,273.8 353.2,272.7 383.6,268.9 414.0,269.6 444.4,270.7 474.8,270.1 505.2,267.5 535.6,267.0 566.0,267.8 596.4,270.3 626.8,271.5 657.2,269.4 687.6,267.7 718.0,270.3 748.4,270.1 778.8,262.8 809.2,241.5 839.6,236.5 870.0,259.8"/>
 <circle cx="140.4" cy="277.0" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="170.8" cy="275.3" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
@@ -105,5 +105,5 @@
 <circle cx="809.2" cy="241.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="839.6" cy="236.5" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="870.0" cy="259.8" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<text x="858.0" y="245.8" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >post median</text>
+<text x="414.0" y="301.6" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >post median</text>
 </svg>

@@ -1461,7 +1461,7 @@ Figure~\ref{fig.forks.depth.usenet} shows how many earlier posts a peer about
 to post is already missing, which leads to forks in the chain DAG.
 The four lines represent posts originating from green, yellow, and red
 leaves, plus the aggregate of the three (thick gray):
-    only 32\% of all posts do not fork the chain (43\% of green posts), and
+    only 37\% of all posts do not fork the chain (49\% of green posts), and
     75\% of red posts miss at most 7 earlier posts.
 Forks are thus the norm rather than the exception, even among always-online
 peers, but \FC merges them automatically without user intervention.
@@ -1630,9 +1630,9 @@ longer than the previous).
 
 \paragraph{Propagation:}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\columnwidth}{\centering TODO: prop-cov (chat)}}
+\fbox{\parbox[c][\dimexpr0.578\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: prop-cov (chat)}}   % prop-cov ratio
 \caption{
     Chat post propagation ratio over time.
 }
@@ -1641,7 +1641,7 @@ longer than the previous).
 
 \paragraph{Forks \& Merges:}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
 \includegraphics[width=\columnwidth]{fork-depth-chat}
 \caption{
@@ -1650,9 +1650,9 @@ longer than the previous).
 \label{fig.forks.depth.chat}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\columnwidth}{\centering TODO: fork-time (chat)}}
+\fbox{\parbox[c][\dimexpr0.867\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: fork-time (chat)}}   % fork-time ratio
 \caption{
     Chat fork life and clamp delay (top), and reorders per merge (bottom).
 }
@@ -1661,18 +1661,18 @@ longer than the previous).
 
 \paragraph{Reputation:}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\columnwidth}{\centering TODO: begs (chat)}}
+\fbox{\parbox[c][\dimexpr0.467\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: begs (chat)}}   % begs ratio
 \caption{
     Chat begs per returning author.
 }
 \label{fig.begs.chat}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[tp]
 \centering
-\fbox{\parbox[c][4cm][c]{0.9\columnwidth}{\centering TODO: reps (chat)}}
+\fbox{\parbox[c][\dimexpr0.578\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: reps (chat)}}   % reps ratio
 \caption{
     Chat reputation against posts per author.
 }
@@ -1692,7 +1692,7 @@ TODO
 \subsection{Summary}
 
 The Usenet simulation shows that \FC supports local-first forums:
-    red leaves post offline and fork 89\% of their posts, but forks merge
+    red leaves post offline and fork 88\% of their posts, but forks merge
     automatically and live at most 58h, far within the 7-day window.
 %
 Posts reach 90\% of the network in 23h, a delay that comes from the peer
