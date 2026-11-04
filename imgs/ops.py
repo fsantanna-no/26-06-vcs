@@ -39,7 +39,7 @@ for v in range(step,int(rows[-1][0]*1.01)+1,step):   # ticks up to the last poin
     p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
-LABEL={'sync P90':(None,32)}   # name -> (x or None=line end, dy); default above the end
+LABEL={'sync P90':(None,-48),'post median':(None,32)}   # name -> (x or None=line end, dy); default above the end
 if NEW and rows[-1][9]-rows[-1][8]<0.15:   # P90 close to median (chat): labels mid-plot, P90 above, others below
     LABEL={'sync P90':(x1*0.42,-30),'sync median':(x1*0.42,32),'post median':(x1*0.42,32)}
 if ALL: LABEL={'sync mean':(x1*0.45,-14),'post median':(None,32)}   # mean ~ median: mean mid-plot
