@@ -10,3 +10,4 @@ main.pdf
 *.toc
 *.fdb_latexmk
 *.fls
+data/

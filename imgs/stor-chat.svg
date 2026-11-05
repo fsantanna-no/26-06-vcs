@@ -104,8 +104,7 @@
 <circle cx="809.2" cy="502.7" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="839.6" cy="502.4" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="870.0" cy="502.1" r="3.5" fill="#555555" stroke="#ffffff" stroke-width="1.5"/>
-<line x1="130" x2="180" y1="52" y2="52" stroke="#555555" stroke-width="3" />
-<text x="192.0" y="60.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="start" fill="#555555" >payloads (2%)</text>
+<text x="858.0" y="532.1" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >payloads &amp; archive (2%)</text>
 <polyline fill="none" stroke="#999999" stroke-width="2" stroke-dasharray="4 4" points="140.4,508.1 170.8,506.2 201.2,504.3 231.6,502.5 262.0,500.7 292.4,498.7 322.8,496.8 353.2,494.9 383.6,493.0 414.0,491.2 444.4,489.3 474.8,487.5 505.2,485.7 535.6,483.8 566.0,481.9 596.4,480.1 626.8,478.2 657.2,476.3 687.6,474.4 718.0,472.5 748.4,470.5 778.8,468.5 809.2,466.5 839.6,464.6 870.0,462.7"/>
 <circle cx="140.4" cy="508.1" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="170.8" cy="506.2" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
@@ -132,10 +131,7 @@
 <circle cx="809.2" cy="466.5" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="839.6" cy="464.6" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
 <circle cx="870.0" cy="462.7" r="3.5" fill="#999999" stroke="#ffffff" stroke-width="1.5"/>
-<text x="858.0" y="492.7" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >commits (14%)</text>
-<polyline fill="none" stroke="#000000" stroke-width="1.5"  points="140.4,509.9 170.8,509.7 201.2,509.6 231.6,509.5 262.0,509.4 292.4,509.2 322.8,509.1 353.2,509.0 383.6,508.9 414.0,508.8 444.4,508.7 474.8,508.6 505.2,508.5 535.6,508.3 566.0,508.2 596.4,508.1 626.8,508.0 657.2,507.8 687.6,507.7 718.0,507.6 748.4,507.4 778.8,507.3 809.2,507.2 839.6,507.1 870.0,507.0"/>
-<line x1="130" x2="180" y1="84" y2="84" stroke="#000000" stroke-width="1.5" />
-<text x="192.0" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="start" fill="#000000" >archive</text>
+<text x="858.0" y="448.7" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#555555" >commits (14%)</text>
 <line x1="110" x2="870" y1="750.0" y2="750.0" stroke="#dddddd"/>
 <text x="100.0" y="759.0" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="end" fill="#555555" >0&#215;</text>
 <line x1="110" x2="870" y1="710.0" y2="710.0" stroke="#dddddd"/>

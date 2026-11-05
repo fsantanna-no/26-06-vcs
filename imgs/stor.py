@@ -35,7 +35,8 @@ p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=IN
 series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',3),('commits',2,'#999999','4 4',2),
         ('archive',10,INK,'',1.5)]   # archive = gzip of the original posts: thin, no markers
 LABEL={'commits':(None,30),'archive':(None,34)}   # (x or None=end, dy); None = legend
-if rows[-1][1]<0.1*YMAX: LABEL.update({'payloads':None,'archive':None,'snapshots':(x1*0.8,64)})   # tiny payloads (chat): legend; snapshots mid-plot, below
+TINY=rows[-1][1]<0.1*YMAX   # tiny payloads (chat): one line for payloads & archive, below 0MB; snapshots mid-plot, below
+if TINY: LABEL.update({'payloads':(None,30),'commits':(None,-14),'snapshots':(x1*0.8,64)}); series=[s for s in series if s[0]!='archive']
 MID=x1*0.45   # x of mid-plot labels
 for name,col,color,dash,wd in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
@@ -47,7 +48,7 @@ for name,col,color,dash,wd in series:
     last=rows[-1]
     pct=lambda c: round(100*last[c]/last[5])
     share=100-pct(1)-pct(2) if name=='snapshots' else pct(col)   # shares sum to 100
-    lab=name if name=='archive' else f'{name} ({share}%)'
+    lab=name if name=='archive' else f'payloads &amp; archive ({share}%)' if TINY and name=='payloads' else f'{name} ({share}%)'
     fill=color if color!='#999999' else INK2
     if LABEL.get(name,0) is None:   # legend entry, top-left
         k=[n for n,*_ in series if LABEL.get(n,0) is None].index(name); y=T+30+k*32

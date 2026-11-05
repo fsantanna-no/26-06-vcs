@@ -1,13 +1,16 @@
 # Usenet propagation (SVGs for the paper, one column; prop-cov colors classes G/Y/R).
 # Data: prop-posts.tsv (per post: hours to first/half/all peers, r4 30k checkpoint)
 # and prop-cov.tsv (delivery delay quantiles per author class, r5 dump).
-# Usage: python3 prop.py   -> prop-cdf.svg, prop-cov.svg; soffice --headless --convert-to pdf prop-*.svg
-import math
+# Usage: python3 prop.py [chat]   -> prop-cdf.svg, prop-cov[-chat].svg; soffice --headless --convert-to pdf prop-*.svg
+# chat: prop-cov-chat.tsv only (no classes, delays in seconds): prop-cov-chat.svg
+import math, sys
+CHAT=len(sys.argv)>1 and sys.argv[1]=='chat'
 W,H=900,520; L,R,T,B=110,30,30,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
-X0,X1=math.log10(30/3600),math.log10(120)   # 30 s .. 120 h
-def X(h): return L+(math.log10(max(h,30/3600))-X0)/(X1-X0)*(W-L-R)
+LO,HI=(1/3600,24) if CHAT else (30/3600,120)   # chat: 1s .. 24h; usenet: 30s .. 120h
+X0,X1=math.log10(LO),math.log10(HI)
+def X(h): return L+(math.log10(max(h,LO))-X0)/(X1-X0)*(W-L-R)
 def Y(f): return H-B-f*(H-T-B)
 def txt(x,y,s,size=26,anchor='start',fill=INK2):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}">{s}</text>'
@@ -15,10 +18,11 @@ def frame(ylab):
     p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',f'<rect width="{W}" height="{H}" fill="{SURF}"/>']
     for f in [0,0.25,0.5,0.75,1]:
         p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(f):.1f}" y2="{Y(f):.1f}" stroke="{GRID}"/>'); p.append(txt(L-10,Y(f)+9,f'{int(f*100)}%',anchor='end'))
-    for h,lab in [(30/3600,'30s'),(5/60,'5min'),(1,'1h'),(12,'12h'),(120,'120h')]:   # x10-x12: nearly even
+    TK=[(1/3600,'1s'),(10/3600,'10s'),(1/60,'1min'),(10/60,'10min'),(1,'1h'),(24,'24h')] if CHAT else [(30/3600,'30s'),(5/60,'5min'),(1,'1h'),(12,'12h'),(120,'120h')]   # x10-x12: nearly even
+    for h,lab in TK:
         p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(h):.1f}" x2="{X(h):.1f}" stroke="{GRID}"/>'); p.append(txt(X(h),H-B+32,lab,anchor='middle'))
     p.append(txt((L+W-R)/2,H-16,'time after the post (log)',size=28,anchor='middle',fill=INK))
-    p.append(txt(L+12,T+28,ylab,size=24,fill=INK))
+    p.append(txt(L+12 if not CHAT else W-R-12,T+28 if not CHAT else H-B-12,ylab,size=24,fill=INK,anchor='start' if not CHAT else 'end'))   # chat: curve hugs the top
     return p
 def cdf(vals,color,dash,wd=3):   # vals sorted; ~600 points
     n=len(vals); step=max(1,n//600)
@@ -27,6 +31,16 @@ def cdf(vals,color,dash,wd=3):   # vals sorted; ~600 points
     return f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{" ".join(pts)}"/>'
 def lab(p,vals,f,name,color,dx=10,dy=-10,anchor='start'):   # label next to the curve at quantile f
     h=vals[int(f*(len(vals)-1))]; p.append(txt(X(h)+dx,Y(f)+dy,name,size=24,anchor=anchor,fill=color))
+def chat():   # coverage, a single black series, marks at 5s, 50%, 90%, 99%
+    a=sorted(float(l.split()[1]) for l in open('prop-cov-chat.tsv') if l[0].isdigit())
+    p=frame('peers reached'); p.append(cdf(a,INK,'',3))
+    def at(f): return a[int(f*len(a))-1]
+    for h,f,s,dx,dy,anc in [(at(0.5),0.5,f'{round(at(0.5)*3600)}s→50%',20,40,'start'),(at(0.9),0.9,f'{round(at(0.9)*3600)}s→90%',20,40,'start'),
+                            (at(0.99),0.99,f'{round(at(0.99)*60)}min→99%',-20,40,'end')]:
+        cx,cy=X(h),Y(f)
+        p.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{SURF}" stroke="{INK}" stroke-width="3"/>'); p.append(txt(cx+dx,cy+dy,s,size=24,anchor=anc,fill=INK))
+    p.append('</svg>'); open('prop-cov-chat.svg','w').write('\n'.join(p)); sys.exit()
+if CHAT: chat()
 # (a) CDF over posts: time until the first peer, half of the peers, all peers
 rows=[list(map(float,l.split())) for l in open('prop-posts.tsv') if l[0].isdigit()]
 first,half,all_=(sorted(r[i] for r in rows) for i in range(3))
