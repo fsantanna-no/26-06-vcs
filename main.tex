@@ -1542,8 +1542,8 @@ to spend \reps rating content (\S\ref{sec.design.votes}).
 
 TODO
 
-- red becomes yellow
-- no posts during churns (leaves->mids)
+- each hop is a random delay of 1–2s in chat, against 1–60s in Usenet
+- only greens
 
 \paragraph{Storage:}
 
@@ -1576,7 +1576,7 @@ In absolute terms, however, 20k chat posts take only 41MB.
 
 Figure~\ref{fig.ops.chat} shows the same constant times as in Usenet:
 0.1s for a post and 0.2s for a sync (medians).
-Although chat payloads are 60$\times$ smaller, times do not decrease, which
+Although chat payloads are 55$\times$ smaller, times do not decrease, which
 suggests that they are dominated by the fixed cost of each operation, not by
 the payload size.
 In contrast, the sync P90 is lower (0.3s against 0.5s), since peers are always
@@ -1594,6 +1594,15 @@ online and catch up in small steps:
 }
 \label{fig.prop.cov.chat}
 \end{figure}
+
+Figure~\ref{fig.prop.cov.chat} shows that chat posts propagate in seconds,
+since all peers are always online and relay posts in 1--2s:
+    it takes 4s to reach 50\% of the network, and
+    5s for 90\% (against 23h in Usenet).
+The steps in the first seconds correspond to hops in the topology, of about 1s
+each.
+The remaining 6\% are peers offline due to churn, which receive posts only as
+they reconnect (80min for 99\%).
 
 \paragraph{Forks \& Merges:}
 
