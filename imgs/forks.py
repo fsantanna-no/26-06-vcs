@@ -74,7 +74,7 @@ if not life: sys.exit()   # no merges (chat)
 # (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
 H=520
 # clamp delay over all posts: unclamped posts have delay 0 (33,814 posts in S1 list order at the final keep)
-POSTS=19999 if SUF else 33814; clamp=sorted(float(r[2]) for r in rows(F('fork-clamps','tsv'))); clamp=[0.0]*(POSTS-len(clamp))+clamp   # chat: 20k keep
+POSTS=24999 if SUF else 33814; clamp=sorted(float(r[2]) for r in rows(F('fork-clamps','tsv'))); clamp=[0.0]*(POSTS-len(clamp))+clamp   # chat: 25k keep
 # x: "0" in its own slot, a gap with a break mark, then 30min-60h (log; chat: 1s-1h);
 # unclamped posts (delay 0) at 0, delays in (0,30min) at 30min
 E,HI=(1/3600,1) if SUF else (0.5,60); X0,X1=math.log10(E),math.log10(HI); G=70
