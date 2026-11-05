@@ -1615,6 +1615,15 @@ they reconnect (80min for 99\%).
 \label{fig.forks.depth.chat}
 \end{figure}
 
+Figure~\ref{fig.forks.depth.chat} shows that only 11\% of chat posts fork the
+chain, against 63\% in Usenet.
+Although chat posts are much more frequent (12s between posts, against 2.6h in
+Usenet), they also propagate in seconds (Figure~\ref{fig.prop.cov.chat}).
+Forks thus happen mostly when two posts are issued within the few seconds of
+propagation, and 99.7\% of posts miss at most 2 earlier posts.
+The deeper forks (17 posts, 0.1\%) come mostly from a single conversation among
+three leaves during an outage, when their posts took 1h to reach all peers.
+
 \begin{figure}[tp]
 \centering
 \includegraphics[width=\columnwidth]{fork-time-chat}
