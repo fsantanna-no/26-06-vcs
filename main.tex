@@ -1363,7 +1363,7 @@ Next we discuss the measures of each metric.
 \centering
 \includegraphics[width=\columnwidth]{stor}
 \caption{
-    Storage of peer \code{S1} as chain grows.
+    [Usenet] Storage of peer \code{S1} as chain grows.
 }
 \label{fig.storage.usenet}
 \end{figure}
@@ -1396,7 +1396,7 @@ snapshots at all ($N=\infty$).
 \centering
 \includegraphics[width=\columnwidth]{ops}
 \caption{
-    Operation times as chain grows.
+    [Usenet] Operation times as chain grows.
 }
 \label{fig.ops.usenet}
 \end{figure}
@@ -1420,7 +1420,7 @@ time.
 \centering
 \includegraphics[width=\columnwidth]{prop-cov}
 \caption{
-    Post propagation ratio over time.
+    [Usenet] Post propagation ratio over time.
 }
 \label{fig.prop.cov.usenet}
 \end{figure}
@@ -1447,7 +1447,7 @@ asynchronous pace of newsgroups.
 \centering
 \includegraphics[width=\columnwidth]{fork-depth}
 \caption{
-    Fork depth as missing posts.
+    [Usenet] Fork depth as missing posts.
 }
 \label{fig.forks.depth.usenet}
 \end{figure}
@@ -1468,7 +1468,7 @@ Nevertheless, \FC merges them automatically without user intervention.
 \centering
 \includegraphics[width=\columnwidth]{fork-time}
 \caption{
-    Merge delay, clamp offset, and post reorders.
+    [Usenet] Merge delay, clamp offset, and post reorders.
 }
 \label{fig.forks.time.usenet}
 \end{figure}
@@ -1498,7 +1498,7 @@ harmless for honest members, since causal order is still preserved.
 \centering
 \includegraphics[width=\columnwidth]{begs}
 \caption{
-    Begs per returning author (3.9k out of 11.3k).
+    [Usenet] Begs per returning author (3.9k out of 11.3k).
 }
 \label{fig.begs.usenet}
 \end{figure}
@@ -1518,7 +1518,7 @@ considering that the original users were not aware of reputation constraints.
 \centering
 \includegraphics[width=\columnwidth]{reps}
 \caption{
-    Reputation against posts per author.
+    [Usenet] Reputation against posts per author.
 }
 \label{fig.reps.usenet}
 \end{figure}
@@ -1550,7 +1550,9 @@ TODO
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{stor-chat}
-\caption{Storage of peer \code{S1} (chat).}
+\caption{
+    [Chat, draft] Storage of peer \code{S1} as chain grows.
+}
 \label{fig.storage.chat}
 \end{figure}
 
@@ -1569,7 +1571,7 @@ In absolute terms, however, 25k chat posts take only 53MB.
 \centering
 \includegraphics[width=\columnwidth]{ops-chat}
 \caption{
-    Chat operation times as chain grows.
+    [Chat, draft] Operation times as chain grows.
 }
 \label{fig.ops.chat}
 \end{figure}
@@ -1592,7 +1594,7 @@ three times as many merges, after which times return to their usual levels.
 \centering
 \includegraphics[width=\columnwidth]{prop-cov-chat}
 \caption{
-    Chat post propagation ratio over time (draft: r3, 25k posts).
+    [Chat, draft] Post propagation ratio over time.
 }
 \label{fig.prop.cov.chat}
 \end{figure}
@@ -1612,7 +1614,7 @@ they reconnect (86min for 99\%).
 \centering
 \includegraphics[width=\columnwidth]{fork-depth-chat}
 \caption{
-    Chat posts by earlier posts missing (draft: r3, 25k posts).
+    [Chat, draft] Fork depth as missing posts.
 }
 \label{fig.forks.depth.chat}
 \end{figure}
@@ -1630,8 +1632,7 @@ three leaves during an outage, when their posts took 1h to reach all peers.
 \centering
 \includegraphics[width=\columnwidth]{fork-time-chat}
 \caption{
-    Chat fork life and clamp delay (top), and reorders per merge (bottom)
-    (draft: r3, 25k posts).
+    [Chat, draft] Merge delay, clamp offset, and post reorders.
 }
 \label{fig.forks.time.chat}
 \end{figure}
@@ -1642,7 +1643,7 @@ In Figure~\ref{fig.forks.time.chat}, forks merge in seconds:
 Clamps are also rare and short:
     95\% of posts preserve their declared times, and the clamped ones are
     delayed by 2s (median) and 15min at most.
-In the bottom panel, 88\% of merges reorder at most 1 action, and 98\% at
+In the bottom panel, 87\% of merges reorder at most 1 action, and 98\% at
 most 2.
 In chats, forks are thus short-lived and barely noticeable to users.
 
@@ -1652,7 +1653,7 @@ In chats, forks are thus short-lived and barely noticeable to users.
 \centering
 \fbox{\parbox[c][\dimexpr0.467\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: begs (chat)}}   % begs ratio
 \caption{
-    Chat begs per returning author.
+    [Chat] Begs per returning author.
 }
 \label{fig.begs.chat}
 \end{figure}
@@ -1661,7 +1662,7 @@ In chats, forks are thus short-lived and barely noticeable to users.
 \centering
 \fbox{\parbox[c][\dimexpr0.578\columnwidth-2\fboxsep-2\fboxrule][c]{\dimexpr\columnwidth-2\fboxsep-2\fboxrule}{\centering TODO: reps (chat)}}   % reps ratio
 \caption{
-    Chat reputation against posts per author.
+    [Chat] Reputation against posts per author.
 }
 \label{fig.reps.chat}
 \end{figure}
