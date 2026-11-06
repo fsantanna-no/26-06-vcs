@@ -4,7 +4,7 @@
 # fork-clamps.tsv (per clamped post: clamp delay P_i - S_i in hours, r5 final).
 # fork-time stacks two panels: fork life and clamp delay (top), reorders (bottom).
 # Usage: python3 forks.py [chat]   -> fork-depth[-chat].svg, fork-time.svg; soffice --headless --convert-to pdf fork-*.svg
-# chat: fork-{miss,merges,clamps}-chat.tsv (no classes; r3 20k draft): fork-{depth,time}-chat.svg
+# chat: fork-{miss,merges,clamps}-chat.tsv (no classes; r3 draft): fork-{depth,time}-chat.svg
 import math, collections, os, sys
 SUF=sys.argv[1] if len(sys.argv)>1 else ''
 def F(b,ext): return f'{b}-{SUF}.{ext}' if SUF else f'{b}.{ext}'
@@ -74,7 +74,7 @@ if not life: sys.exit()   # no merges (chat)
 # (b) time: fork life per merge and clamp delay per clamped post (shorter than (a))
 H=520
 # clamp delay over all posts: unclamped posts have delay 0 (33,814 posts in S1 list order at the final keep)
-POSTS=24999 if SUF else 33814; clamp=sorted(float(r[2]) for r in rows(F('fork-clamps','tsv'))); clamp=[0.0]*(POSTS-len(clamp))+clamp   # chat: 25k keep
+POSTS=int(rows(F('stor','tsv'))[-1][0]); clamp=sorted(float(r[2]) for r in rows(F('fork-clamps','tsv'))); clamp=[0.0]*(POSTS-len(clamp))+clamp   # posts at the keep: last stor row
 # x: "0" in its own slot, a gap with a break mark, then 30min-60h (log; chat: 1s-1h);
 # unclamped posts (delay 0) at 0, delays in (0,30min) at 30min
 E,HI=(1/3600,1) if SUF else (0.5,60); X0,X1=math.log10(E),math.log10(HI); G=70
