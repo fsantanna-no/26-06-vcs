@@ -1,10 +1,6 @@
-# r5 final S1 (gc'd copy), 3,939 returning authors: extra begs per author, by admission like (p2p/ev/begs.py)
+# r5 final S1 (gc'd copy), 3,939 returning authors: extra begs per author, W=500 welcome like (p2p/ev/begs.py)
 # like	begs	authors
 500	0	3743
 500	1	184
 500	2	10
 500	3	2
-1000	0	3925
-1000	1	12
-1000	2	2
-1000	3	0

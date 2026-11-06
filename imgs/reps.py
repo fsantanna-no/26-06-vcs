@@ -4,17 +4,19 @@
 # Usage: python3 reps.py > reps.svg; inkscape reps.svg --export-type=pdf
 #        (or: soffice --headless --convert-to pdf reps.svg)
 # Fonts are sized for the figure at ~1/4 scale (one column, 900 px -> 240 pt).
-import math, collections
+# chat: reps-chat.tsv (python3 reps.py chat > reps-chat.svg): wider x, non-positive reps in a bottom row
+import math, collections, sys
+CHAT=len(sys.argv)>1 and sys.argv[1]=='chat'
 W,H=900,520; L,R,T,B=110,30,30,80
 INK='#000000'; INK2='#555555'; GRID='#dddddd'; FILL='#777777'; SURF='#ffffff'
 FONT='font-family="Helvetica, Arial, sans-serif"'
 CAP=50000; TICK=1000
 c=collections.Counter()
-for i,l in enumerate(open('reps.tsv')):
+for i,l in enumerate(open('reps-chat.tsv' if CHAT else 'reps.tsv')):
     if i: _,p,_,r=l.split('\t'); c[(int(p),int(r))]+=1
-x0,x1=math.log10(0.8),math.log10(500); y0,y1=math.log10(400),math.log10(70000)
+x0,x1=math.log10(0.8),math.log10(10000 if CHAT else 500); y0,y1=math.log10(250 if CHAT else 400),math.log10(70000)
 def X(v): return L+(math.log10(v)-x0)/(x1-x0)*(W-L-R)
-def Y(v): return H-B-(math.log10(v)-y0)/(y1-y0)*(H-T-B)
+def Y(v): return H-B-(math.log10(max(v,250) if CHAT and v<=0 else v)-y0)/(y1-y0)*(H-T-B)   # chat: reps <= 0 at the bottom row
 def txt(x,y,s,size=26,anchor='start',fill=INK2,extra=''):
     return f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" text-anchor="{anchor}" fill="{fill}" {extra}>{s}</text>'
 p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
@@ -22,11 +24,20 @@ p=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0
 for v in [500,1000,2000,5000,10000,20000,50000]:
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,Y(v)+9,f'{v//1000}k' if v>=1000 else str(v),anchor='end'))
-for v in [1,2,5,10,20,50,100,200,400]:
+for v in ([1,10,100,1000,5000] if CHAT else [1,2,5,10,20,50,100,200,400]):
     p.append(f'<line y1="{T}" y2="{H-B}" x1="{X(v):.1f}" x2="{X(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(X(v),H-B+32,str(v),anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'posts per author',size=28,anchor='middle',fill=INK))
 p.append(txt(30,(T+H-B)/2,'reps',size=28,anchor='middle',fill=INK,extra=f'transform="rotate(-90 30 {(T+H-B)/2})"'))
+if CHAT:   # bottom row for reps <= 0; few authors, so larger bubbles; cap label and count only
+    p.append(txt(L-10,Y(250)+9,'&#8804;0',anchor='end'))
+    p.append(f'<polyline fill="none" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="6 4" points="{X(0.8):.1f},{Y(0.8*TICK):.1f} {X(CAP/TICK):.1f},{Y(CAP):.1f} {X(10000):.1f},{Y(CAP):.1f}"/>')
+    for (pp,r),n in sorted(c.items(), key=lambda kv: -kv[1]):
+        p.append(f'<circle cx="{X(pp):.1f}" cy="{Y(r):.1f}" r="{max(6,math.sqrt(n)*4):.1f}" fill="{FILL}" fill-opacity="0.55" stroke="{SURF}" stroke-width="1"/>')
+    ncap=sum(n for (pp,r),n in c.items() if r>=CAP); nneg=sum(n for (pp,r),n in c.items() if r<=0)
+    p.append(txt(X(3000),Y(CAP)-14,'cap 50,000',size=24,anchor='middle')); p.append(txt(X(2.6),Y(16000),'1k reps/day',size=24,anchor='middle'))
+    p.append(txt(X(300),Y(CAP)+40,f'{ncap} authors',size=22,anchor='middle')); p.append(txt(X(3),Y(250)+9,f'{nneg} authors',size=22,anchor='middle'))
+    p.append('</svg>'); print('\n'.join(p)); sys.exit()
 # minting line: reps = TICK x posts, capped
 p.append(f'<polyline fill="none" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="6 4" '
          f'points="{X(0.8):.1f},{Y(0.8*TICK):.1f} {X(CAP/TICK):.1f},{Y(CAP):.1f} {X(500):.1f},{Y(CAP):.1f}"/>')
