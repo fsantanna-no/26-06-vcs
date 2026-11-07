@@ -1,6 +1,6 @@
 # Reps vs posts per author (log-log), one bubble per distinct
-# (posts, reps) pair, area ~ members. Data: reps.tsv (Usenet full
-# run r2, S1 final snapshot; address, posts, posting_days, reps).
+# (posts, reps) pair, area ~ members. Data: reps.tsv (Usenet r5
+# closed-chain replay, member likers; address, posts, posting_ticks, reps).
 # Usage: python3 reps.py > reps.svg; inkscape reps.svg --export-type=pdf
 #        (or: soffice --headless --convert-to pdf reps.svg)
 # Fonts are sized for the figure at ~1/4 scale (one column, 900 px -> 240 pt).
@@ -47,7 +47,8 @@ p.append(txt(X(280),Y(CAP)-14,'cap 50,000',size=24,anchor='middle'))
 for (pp,r),n in sorted(c.items(), key=lambda kv: -kv[1]):
     rad=max(2.5,math.sqrt(n)/3.0)
     p.append(f'<circle cx="{X(pp):.1f}" cy="{Y(r):.1f}" r="{rad:.1f}" fill="{FILL}" fill-opacity="0.55" stroke="{SURF}" stroke-width="1"/>')
-for pp,r,suf,dy in [(1,1000,' authors',9),(2,2000,'',9),(3,3000,'',9)]:   # counts from the data
+for pp,suf,dy in [(1,' authors',9),(2,'',9),(3,'',9)]:   # counts from the data: largest bubble per posts
+    r=max((k for k in c if k[0]==pp),key=c.get)[1]
     p.append(txt(X(pp)+max(2.5,math.sqrt(c[(pp,r)])/3.0)+6,Y(r)+dy,f'{c[(pp,r)]:,}{suf}',size=24,fill=INK))
 p.append(txt(X(16),Y(3000),'multiple posts/tick',size=22,anchor='middle'))
 ncap=sum(n for (pp,r),n in c.items() if r>=CAP)
