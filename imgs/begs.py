@@ -1,5 +1,5 @@
 # Usenet begs per returning author (admission beg + extra begs), like 500 (rule 4.a min).
-# Data: begs.tsv (like, begs, authors), r5 final S1, from 2606-sims p2p/ev/begs.py.
+# Data: begs.tsv (like, begs, authors), r5 closed-chain replay (sims closed2.py).
 # Returning authors only; the first beg (x=1) is the welcome.
 # Usage: python3 begs.py [chat] > begs[-chat].svg; soffice --headless --convert-to pdf begs*.svg
 # chat: begs-chat.tsv (every observed begs value, up to 1.4k): bars per log bin of begs

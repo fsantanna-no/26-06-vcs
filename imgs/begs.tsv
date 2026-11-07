@@ -1,6 +1,7 @@
-# r5 final S1 (gc'd copy), 3,939 returning authors: extra begs per author, W=500 welcome like (p2p/ev/begs.py)
+# usenet r5 closed-chain replay (real freechains, paper rule; member likers >=5K active 7d, pioneer fallback 5.7%), 3,990 returning authors: extra begs per author (welcome excluded)
 # like	begs	authors
-500	0	3743
-500	1	184
-500	2	10
-500	3	2
+500	0	3732
+500	1	237
+500	2	17
+500	3	3
+500	4	1
