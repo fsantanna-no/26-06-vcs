@@ -1257,8 +1257,8 @@ in Figure~\ref{fig.topo}:
     70 primary links (gray) and 42 backup links (light dotted), with a diameter
     of 6 hops (e.g., \code{45-M9-S5-S4-S3-M7-43}).
 \item
-    5 \emph{super peers} in a ring (\code{S1}--\code{S5}), with \code{S1} fully
-    connected.
+    5 \emph{super peers} in a ring (\code{S1}--\code{S5}), with \code{S1}
+    connected to all supers.
 \item
     9 \emph{middle peers} in a backup ring (\code{M1}--\code{M9}), each
     attached to 1--3 supers.
@@ -1293,8 +1293,8 @@ open connections, and synchronize point-to-point during online periods
 Each simulation distributes authors uniformly over the leaves and replays all
 original messages in a fresh chain as signed posts by their authors, issued
 from their peers at the declared times.
-A peer that receives new posts pushes them through its links after a short
-random relay delay (1--60 seconds).
+A peer that receives new posts relays them with \code{sync}s through its
+links after a short random delay (1--60 seconds).
 The topology dictates the simulation steps: peers synchronize only along their
 links and according to their schedules.
 To handle churn, offline periods, and network partitions, the simulation
@@ -1352,7 +1352,8 @@ the average article has 2.6kB (with a timestamp, a sender, a subject, and the
 actual message).
 %
 The full simulation takes around 50h to complete with over 1M \code{sync}
-operations that effectively transfer data (35 per post).
+operations that effectively transfer data, which corresponds to 35
+network-wide syncs per post on average.
 % r4 END: 35 syncs per post, 3.3GB wire, 2.8kB mean per sync
 
 Next we discuss the measures of each metric.
@@ -1376,18 +1377,18 @@ The matching \emph{payloads} line just above holds the same data, now as
 objects in the chain Git repository.
 It accounts for only 26\% of the storage, with the remaining 74\% being the
 \FC overhead:
-    the \emph{commits} (9\%) are the inherent metadata that constitute the
-    chain DAG;
+    the \emph{commits} (9\%) are the action metadata (Git commits) that
+    constitute the chain DAG;
     the \emph{snapshots} (65\%), which dominate storage, optimize the consensus
     algorithm (\S\ref{sec.design.consensus}).
 
 The snapshots overhead is therefore a tradeoff that favors replay time over
 disk space.
-In the bottom panel, the line \emph{commits+snapshots} measures this overhead of
+In the bottom panel, the \emph{commits+snapshots} line measures this overhead of
 3$\times$--4$\times$ (\emph{total/payloads}).
 An alternative we did not explore in this paper is to snapshot every $N$
 actions, favoring disk space over replay time.
-The line \emph{commits} shows the hypothetical floor of 1.3$\times$ with no
+The \emph{commits} line shows the hypothetical floor of 1.3$\times$ with no
 snapshots at all ($N=\infty$).
 
 \paragraph{Operations:}
@@ -1433,7 +1434,8 @@ leaves, plus the aggregate of the three (thick gray):
     5h for 50\%, and
     23h for 90\%.
 
-The colored brackets at the bottom mark the jump of each class.
+The colored bars near the x-axis highlight the interval in which each class
+jumps.
 Green posts reach the always-online half of the network within 3min, and the
 remaining peers only as they connect.
 Yellow posts wait 1--6h for their middle peers ($\sim$6h), and red posts
@@ -1462,7 +1464,8 @@ leaves, plus the aggregate of the three (thick gray):
 
 As expected, forks are the norm rather than the exception, even among
 always-online peers.
-Nevertheless, \FC merges them automatically without user intervention.
+Nevertheless, \FC merges them automatically and consistently, without user
+intervention.
 
 \begin{figure}[t]
 \centering
@@ -1535,8 +1538,8 @@ Members below the line posted several times in the same tick
 Ticks have a median of $\sim$24h, because the few members who post each day
 control a small share of \reps.
 Only 44 members (0.4\%) reach the cap of \nreps{50K} (\R{4.b}), which
-requires at least 50 posting days.
-The cap is thus rare in practice, but remains a design choice: it bounds the
+requires at least 50 posting days at \nreps{1000} each.
+The cap is thus rare in practice, but remains a design choice: it limits the
 power of the most active members and, in forums with likes, encourages them
 to spend \reps rating content (\S\ref{sec.design.votes}).
 
@@ -1701,7 +1704,8 @@ transfer patterns remain constant, showing that the protocol scales.
 
 Permissionless consensus is notably
 challenging~\cite{permissionless,blockchain.wild} to the point that
-decentralized forums~\cite{p2p.ecosystem} settle for weaker forms:
+decentralized forums~\cite{p2p.ecosystem} settle for weaker forms of
+consensus:
 %
 \begin{description}
 \item [\S\ref{sec.related.users}]
@@ -1854,8 +1858,8 @@ participation~\cite{forum.reddit.karma}, but both under a central server.
 Social blockchains derive reputation from wealth rather than
 contributions~\cite{p2p.steem.wealth}.
 
-In our permissionless context, two previous results indicate how
-reputation can resist Sybils:
+In our permissionless context, prior work establishes two conditions for
+reputation to resist Sybils:
 %
 since identities are free, members can easily discard bad reputations, so
 newcomers must start with the lowest rank~\cite{rep.pseudonyms}; and
@@ -1869,8 +1873,8 @@ parties are Sybil-resistant~\cite{rep.sybilproof,sybil.guard,sybil.limit}.
 %
 Unlike all of the above, reputation in \FC derives from consensus over the
 content itself.
-In turn, reputation admits members and determines the order and moderation
-of posts.
+In turn, reputation decides who can post and determines the order and
+moderation of posts.
 
 \section{Conclusion}
 \label{sec.conclusion}
