@@ -368,6 +368,5 @@
 <rect x="562.0" y="709.9" width="84.0" height="25" fill="#ffffff"/>
 <text x="604.0" y="728.9" font-family="Helvetica, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#555555" >commits</text>
 <line x1="270.6" x2="270.6" y1="30" y2="510" stroke="#555555" stroke-width="1.5" stroke-dasharray="2 4"/>
-<line x1="270.6" x2="270.6" y1="550" y2="750" stroke="#555555" stroke-width="1.5" stroke-dasharray="2 4"/>
 <text x="278.6" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="22" text-anchor="start" fill="#555555" >Usenet size</text>
 </svg>
