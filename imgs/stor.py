@@ -83,9 +83,4 @@ for name,f,color,dash,fx in OVS:
     labs.append(f'<rect x="{X(m[0])-bw/2:.1f}" y="{YR(f(m))+dy-19:.1f}" width="{bw:.1f}" height="25" fill="{SURF}"/>')
     labs.append(txt(X(m[0]),YR(f(m))+dy,lab,size=24,anchor='middle',fill=color))
 p+=labs
-USENET=33814   # chat: mark the Usenet chain size in both panels
-if x1>2*USENET:
-    for y0,y1 in [(T,HM),(H-B-S,H-B)]:
-        p.append(f'<line x1="{X(USENET):.1f}" x2="{X(USENET):.1f}" y1="{y0}" y2="{y1}" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="2 4"/>')
-    p.append(txt(X(USENET)+8,T+24,'Usenet size',size=22))
 p.append('</svg>'); print('\n'.join(p))

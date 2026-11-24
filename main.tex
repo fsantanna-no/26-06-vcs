@@ -1386,8 +1386,6 @@ The snapshots overhead is therefore a tradeoff that favors replay time over
 disk space.
 In the bottom panel, the \emph{commits+snapshots} line measures this overhead,
 which grows slowly from 2.8$\times$ to 3.8$\times$ (\emph{total/payloads}).
-Each snapshot rewrites the directory trees it touches, which grow with the
-chain, so its cost rises from 1.9kB to 2.6kB.
 An alternative we did not explore in this paper is to snapshot every $N$
 actions, favoring disk space over replay time.
 The \emph{commits} line shows the hypothetical floor with no snapshots at all
@@ -1530,7 +1528,8 @@ constraints.
 \end{figure}
 
 Figure~\ref{fig.reps.usenet} shows how \reps spread among members.
-In the replay, \reps come from posting (\R{1.b}) and from the likes on begs.
+Since original newsgroups have no concept of likes or dislikes, \reps come only
+from replay welcomes and posts (\R{1.b}).
 Most members lie on the dashed line \emph{1k \reps/day}, with bubbles
 proportional to their number (e.g., 7,358 members hold \nreps{1225} from a
 single post and its welcome).
@@ -1569,10 +1568,6 @@ with a much higher overhead than in Usenet.
 Chat messages are tiny (50B on average), so payloads account for only 1\% of
 the storage, while each post still costs a commit (6\%) and a snapshot (93\%).
 In the bottom panel, the overhead grows from 29$\times$ to 103$\times$.
-Up to the size of Usenet (dotted line), it grows by a similar share
-(29$\times$ to 41$\times$, against 2.8$\times$ to 3.6$\times$), but the cost
-of each snapshot keeps rising, from 1.1kB to 8.0kB, since it also stores the
-state of the open tick.
 The floor with no snapshots stays at 7$\times$, against 1.3$\times$ in
 Usenet: one commit weighs more than a chat message.
 In absolute terms, 155k chat posts take 830MB.
