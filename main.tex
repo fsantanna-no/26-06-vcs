@@ -1390,6 +1390,7 @@ An alternative we did not explore in this paper is to snapshot every $N$
 actions, favoring disk space over replay time.
 The \emph{commits} line shows the hypothetical floor with no snapshots at all
 ($N=\infty$), which stays at 1.3$\times$.
+In absolute terms, 34k Usenet posts take 150MB (4.5kB per post).
 
 \paragraph{Operations:}
 
@@ -1586,7 +1587,7 @@ the storage, while each post still costs a commit (6\%) and a snapshot (93\%).
 In the bottom panel, the overhead grows from 29$\times$ to 103$\times$.
 The floor with no snapshots stays at 7$\times$, against 1.3$\times$ in
 Usenet: one commit weighs more than a chat message.
-In absolute terms, 155k chat posts take 830MB.
+In absolute terms, 155k chat posts take 830MB (5.3kB per post).
 
 \paragraph{Operations:}
 
@@ -1710,8 +1711,8 @@ The Usenet simulation shows that \FC supports local-first forums:
 Posts reach 90\% of the network in 23h, a delay that comes from the peer
 schedules rather than from \FC itself.
 %
-Storage grows linearly with the chain (4$\times$ the raw posts), trading
-disk for operation times that do not grow with the chain.
+Storage grows nearly linearly with the chain (4$\times$ the raw posts),
+trading disk for operation times that do not grow with the chain.
 %
 Even with multiple hops, churn, and offline periods, the operation times and
 transfer patterns remain constant, showing that the protocol scales.
