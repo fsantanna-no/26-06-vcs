@@ -2,7 +2,8 @@
 # Data: 16-col per-1k tsv (r4 format: n/mean/median/p90/max per op) or the old
 # 4-col format (slice_end sync_mean sync_max post_mean). Empty cells are skipped.
 # Usage: python3 ops.py [ops.tsv] [--all] > ops.svg; soffice --headless --convert-to pdf ops.svg
-#   default (16 cols): linear axis, sync P90 / sync median / post median
+#   default (16 cols): linear axis, sync P90 / sync median / post median,
+#                      moving median over 5 slices
 #   --all   (16 cols): log axis, also sync max and sync mean
 import math, sys
 args=[a for a in sys.argv[1:] if not a.startswith('--')]
@@ -22,6 +23,14 @@ if NEW:
     if ALL: series=[('sync max',10,'#999999','4 4',2),('sync mean',7,INK2,'2 3',2)]+series[1:]   # mean/max instead of P90
 else:
     series=[('sync max',2,'#999999','4 4',2),('sync mean',1,INK,'',3),('post mean',3,INK2,'',3)]
+SM=5   # default plot: centered moving median over SM slices (hides spikes)
+if LIN:
+    import statistics
+    raw=[r[:] for r in rows]
+    for _,c,*_ in series:
+        for i,r in enumerate(rows):
+            w=[q[c] for q in raw[max(0,i-SM//2):i+SM//2+1] if q[c] is not None]
+            r[c]=statistics.median(w) if w else None
 vals=[r[c] for _,c,*_ in series for r in rows if r[c] is not None]
 YMAX=0.6 if LIN else (20 if max(vals)<=20 else 100)
 x0=0; x1=5000*math.ceil(rows[-1][0]/5000); y0,y1=math.log10(0.05),math.log10(YMAX)

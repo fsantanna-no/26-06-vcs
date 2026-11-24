@@ -1584,7 +1584,10 @@ Figure~\ref{fig.storage.chat} shows storage growing faster than linearly,
 with a much higher overhead than in Usenet.
 Chat messages are tiny (50B on average), so payloads account for only 1\% of
 the storage, while each post still costs a commit (6\%) and a snapshot (93\%).
-In the bottom panel, the overhead grows from 29$\times$ to 103$\times$.
+In the bottom panel, the overhead grows from 29$\times$ to 103$\times$,
+since each snapshot rewrites the directory trees it touches, which grow
+with the chain, and the list of actions in the open tick, which holds
+hundreds of chat posts (43\% of the storage, against 11\% in Usenet).
 The floor with no snapshots stays at 7$\times$, against 1.3$\times$ in
 Usenet: one commit weighs more than a chat message.
 In absolute terms, 155k chat posts take 830MB (5.3kB per post, against
@@ -1596,22 +1599,24 @@ In absolute terms, 155k chat posts take 830MB (5.3kB per post, against
 \centering
 \includegraphics[width=\columnwidth]{ops-chat}
 \caption{
-    [Chat, draft] Operation times as chain grows.
+    [Chat] Operation times as chain grows.
 }
 \label{fig.ops.chat}
 \end{figure}
 
-Figure~\ref{fig.ops.chat} shows the same constant times as in Usenet:
-0.1s for a post and 0.2s for a sync (medians).
-Although chat payloads are 56$\times$ smaller, times do not decrease, which
-suggests that they are dominated by the fixed cost of each operation, not by
-the payload size.
+Figure~\ref{fig.ops.chat} shows that, unlike in Usenet, times grow slowly
+with the chain:
+from 0.09s to 0.14s for a post, and from 0.18s to 0.23s for a sync (medians
+of the first and last 10k posts).
+Although chat payloads are 56$\times$ smaller, times are not lower than in
+Usenet, which suggests that they are dominated by the fixed cost of each
+operation, not by the payload size.
 In contrast, the sync P90 is lower (0.3s against 0.5s), since peers are always
 online and catch up in small steps:
-    a sync carries 1 commit and 556B (2 commits and 733B at P90), against
+    a sync carries 1 commit and 557B (2 commits and 738B at P90), against
     1 commit and 2.2kB (5 commits and 9.7kB at P90) in Usenet.
-The bump at 23k--24k corresponds to a burst of activity in the archive, with
-three times as many merges, after which times return to their usual levels.
+The spikes (e.g., at 23k, 76k, and 116k) coincide with bursts in the archive,
+in which 1k messages arrive within a day instead of the usual 5 days.
 
 \paragraph{Propagation:}
 
