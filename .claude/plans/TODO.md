@@ -31,6 +31,7 @@
     - added 2026-09-30..10-02, unverified against pdfs/: p2p.kademlia,
       p2p.bittorrent, p2p.autobase (docs), p2p.atproto, time.lamport,
       forum.lemmy (docs), fed.defederation, fed.blocklists
+    - added 2026-11-24, unverified: fed.irc (RFC 1459)
     - download each into `pdfs/` as `<key>-<author><year>.{pdf,txt}`
     - verify each corresponds to its bibtex entry (authors, year,
       venue, title)

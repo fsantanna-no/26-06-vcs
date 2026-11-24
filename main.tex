@@ -1547,10 +1547,21 @@ to spend \reps rating content (\S\ref{sec.design.votes}).
 \subsection{Online Chat}
 \label{sec.eval.chat}
 
-TODO
-
-- each hop is a random delay of 1–2s in chat, against 1–60s in Usenet
-- only greens
+In the second experiment, we take IRC~\cite{fed.irc} as representative of
+real-time forums, in which members remain online and exchange short messages in
+quick succession.
+%
+We simulate a chat channel from the Wikimedia Foundation%
+\footnote{ \url{https://archive.org/download/WikimediaIrcLogs/} }
+with a corpus of over 155k messages by 645 authors spanning from 2010 to 2012
+(2 years).
+%
+Compared to newsgroups (\S\ref{sec.eval.usenet}), chats combine faster
+interactions with smaller payloads: the median gap between posts is 13s, and
+the average message has 50B.
+%
+Unlike the other experiments, we make all peers green (keeping churn rate),
+and decrease relay delays to 1--2 seconds (against 1--60 seconds).
 
 \paragraph{Storage:}
 
