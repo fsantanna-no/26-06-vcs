@@ -1369,8 +1369,8 @@ Next we discuss the measures of each metric.
 \label{fig.storage.usenet}
 \end{figure}
 
-Figure~\ref{fig.storage.usenet} shows that storage grows linearly with the
-chain size.
+Figure~\ref{fig.storage.usenet} shows that storage grows nearly linearly with
+the chain size.
 The solid \emph{archive} line is our benchmark and corresponds to the original
 compressed forum messages.
 The matching \emph{payloads} line just above holds the same data, now as
@@ -1384,12 +1384,14 @@ It accounts for only 26\% of the storage, with the remaining 74\% being the
 
 The snapshots overhead is therefore a tradeoff that favors replay time over
 disk space.
-In the bottom panel, the \emph{commits+snapshots} line measures this overhead of
-3$\times$--4$\times$ (\emph{total/payloads}).
+In the bottom panel, the \emph{commits+snapshots} line measures this overhead,
+which grows slowly from 2.8$\times$ to 3.8$\times$ (\emph{total/payloads}).
+Each snapshot rewrites the directory trees it touches, which grow with the
+chain, so its cost rises from 1.9kB to 2.6kB.
 An alternative we did not explore in this paper is to snapshot every $N$
 actions, favoring disk space over replay time.
-The \emph{commits} line shows the hypothetical floor of 1.3$\times$ with no
-snapshots at all ($N=\infty$).
+The \emph{commits} line shows the hypothetical floor with no snapshots at all
+($N=\infty$), which stays at 1.3$\times$.
 
 \paragraph{Operations:}
 
@@ -1528,16 +1530,16 @@ constraints.
 \end{figure}
 
 Figure~\ref{fig.reps.usenet} shows how \reps spread among members.
-Since the newsgroup has no likes or dislikes, \reps come only from posting
-(\R{1.b}).
+In the replay, \reps come from posting (\R{1.b}) and from the likes on begs.
 Most members lie on the dashed line \emph{1k \reps/day}, with bubbles
-proportional to their number (e.g., 7,358 members hold \nreps{1000} from a
-single post).
+proportional to their number (e.g., 7,358 members hold \nreps{1225} from a
+single post and its welcome).
 Members below the line posted several times in the same tick
-(\S\ref{sec.design.time}), which rewards them only once.
+(\S\ref{sec.design.time}), which rewards them only once, or spent \reps
+welcoming newcomers, down to the \nreps{5K} band.
 Ticks have a median of $\sim$24h, because the few members who post each day
 control a small share of \reps.
-Only 44 members (0.4\%) reach the cap of \nreps{50K} (\R{4.b}), which
+Only 19 members (0.2\%) reach the cap of \nreps{50K} (\R{4.b}), which
 requires at least 50 posting days at \nreps{1000} each.
 The cap is thus rare in practice, but remains a design choice: it limits the
 power of the most active members and, in forums with likes, encourages them
@@ -1557,19 +1559,23 @@ TODO
 \centering
 \includegraphics[width=\columnwidth]{stor-chat}
 \caption{
-    [Chat, draft] Storage of peer \code{S1} as chain grows.
+    [Chat] Storage of peer \code{S1} as chain grows.
 }
 \label{fig.storage.chat}
 \end{figure}
 
-Figure~\ref{fig.storage.chat} shows storage growing slightly faster than
-linearly (TODO), with a much higher overhead than in Usenet.
-Chat messages are tiny (46B on average), so payloads account for only 2\% of
-the storage, while each post still costs a commit (12\%) and a snapshot (86\%).
-In the bottom panel, the overhead grows from 29$\times$ to 49$\times$.
-Even the floor with no snapshots is 7$\times$, against 1.3$\times$ in Usenet:
-one commit weighs more than a chat message.
-In absolute terms, however, 40k chat posts take only 95MB.
+Figure~\ref{fig.storage.chat} shows storage growing faster than linearly,
+with a much higher overhead than in Usenet.
+Chat messages are tiny (50B on average), so payloads account for only 1\% of
+the storage, while each post still costs a commit (6\%) and a snapshot (93\%).
+In the bottom panel, the overhead grows from 29$\times$ to 103$\times$.
+Up to the size of Usenet (dotted line), it grows by a similar share
+(29$\times$ to 41$\times$, against 2.8$\times$ to 3.6$\times$), but the cost
+of each snapshot keeps rising, from 1.1kB to 8.0kB, since it also stores the
+state of the open tick.
+The floor with no snapshots stays at 7$\times$, against 1.3$\times$ in
+Usenet: one commit weighs more than a chat message.
+In absolute terms, 155k chat posts take 830MB.
 
 \paragraph{Operations:}
 

@@ -36,14 +36,15 @@ series=[('total',5,INK,'',3),('snapshots',3,INK2,'6 3',3),('payloads',1,INK2,'',
         ('archive',10,INK,'',1.5)]   # archive = gzip of the original posts: thin, no markers
 LABEL={'commits':(None,30),'archive':(None,34)}   # (x or None=end, dy); None = legend
 TINY=rows[-1][1]<0.1*YMAX   # tiny payloads (chat): one line for payloads & archive, below 0MB; snapshots mid-plot, below
-if TINY: LABEL.update({'payloads':(None,30),'commits':(None,-14),'snapshots':(x1*0.8,64)}); series=[s for s in series if s[0]!='archive']
+if TINY: LABEL.update({'payloads':(None,30),'commits':(None,-14),'snapshots':(x1*0.62,70)}); series=[s for s in series if s[0]!='archive']
 MID=x1*0.45   # x of mid-plot labels
+EV=max(1,len(rows)//40)   # markers: at most ~40 per line
 for name,col,color,dash,wd in series:
     pts=' '.join(f'{X(r[0]):.1f},{Y(r[col]):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="{wd}" {d} points="{pts}"/>')
     if name!='archive':
-        for r in rows:
+        for r in rows[::EV]:
             p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
     pct=lambda c: round(100*last[c]/last[5])
@@ -64,7 +65,7 @@ for name,col,color,dash,wd in series:
 # lines: measured total/payloads; commits only
 OVS=[('commits+snapshots',lambda r:r[5]/r[1],INK,'',0.35),
      ('commits',lambda r:(r[1]+r[2])/r[1],INK2,'6 3',0.65)]
-OV=max(f(r) for _,f,*_ in OVS for r in rows); R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10)
+OV=max(f(r) for _,f,*_ in OVS for r in rows); R0,R1,RS=(1,5,1) if OV<=5 else (0,10*math.ceil(OV/10),10) if OV<=50 else (0,25*math.ceil(OV/25),25)   # 4-6 gridlines
 for v in range(R0,R1+1,RS):
     p.append(f'<line x1="{L}" x2="{W-R}" y1="{YR(v):.1f}" y2="{YR(v):.1f}" stroke="{GRID}"/>')
     p.append(txt(L-10,YR(v)+9,f'{v}&#215;',anchor='end'))
@@ -72,7 +73,7 @@ for name,f,color,dash,fx in OVS:
     pts=' '.join(f'{X(r[0]):.1f},{YR(f(r)):.1f}' for r in rows)
     d=f'stroke-dasharray="{dash}"' if dash else ''
     p.append(f'<polyline fill="none" stroke="{color}" stroke-width="3" {d} points="{pts}"/>')
-    for r in rows:
+    for r in rows[::EV]:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{YR(f(r)):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     last=rows[-1]
 labs=[]   # labels drawn after all lines: above their lines; white box behind
@@ -82,4 +83,9 @@ for name,f,color,dash,fx in OVS:
     labs.append(f'<rect x="{X(m[0])-bw/2:.1f}" y="{YR(f(m))+dy-19:.1f}" width="{bw:.1f}" height="25" fill="{SURF}"/>')
     labs.append(txt(X(m[0]),YR(f(m))+dy,lab,size=24,anchor='middle',fill=color))
 p+=labs
+USENET=33814   # chat: mark the Usenet chain size in both panels
+if x1>2*USENET:
+    for y0,y1 in [(T,HM),(H-B-S,H-B)]:
+        p.append(f'<line x1="{X(USENET):.1f}" x2="{X(USENET):.1f}" y1="{y0}" y2="{y1}" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="2 4"/>')
+    p.append(txt(X(USENET)+8,T+24,'Usenet size',size=22))
 p.append('</svg>'); print('\n'.join(p))
