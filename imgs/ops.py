@@ -40,8 +40,7 @@ for v in range(step,int(rows[-1][0]*1.01)+1,step):   # ticks up to the last poin
     p.append(txt(X(v),H-B+32,f'{v//1000}k',anchor='middle'))
 p.append(txt((L+W-R)/2,H-16,'chain size (posts)',size=28,anchor='middle',fill=INK))
 LABEL={'sync P90':(None,-48),'post median':(None,32)}   # name -> (x or None=line end, dy); default above the end
-if NEW and rows[-1][9]-rows[-1][8]<0.15:   # P90 close to median (chat): labels mid-plot, P90 above, others below
-    LABEL={'sync P90':(x1*0.42,-30),'sync median':(x1*0.42,32),'post median':(x1*0.42,32)}
+LEG=NEW and rows[-1][9]-rows[-1][8]<0.15   # P90 close to median (chat): legend top-left, lines too close for labels
 if ALL: LABEL={'sync mean':(x1*0.45,-14),'post median':(None,32)}   # mean ~ median: mean mid-plot
 for name,col,color,dash,wd in series:
     pts=[r for r in rows if r[col] is not None]
@@ -50,6 +49,10 @@ for name,col,color,dash,wd in series:
     for r in pts:
         p.append(f'<circle cx="{X(r[0]):.1f}" cy="{Y(r[col]):.1f}" r="3.5" fill="{color}" stroke="{SURF}" stroke-width="1.5"/>')
     lx,dy=LABEL.get(name,(None,-14)); fill=color if color!='#999999' else INK2
+    if LEG and not ALL:   # legend entry, top-left
+        k=[n for n,*_ in series].index(name); y=T+30+k*32
+        p.append(f'<line x1="{L+20}" x2="{L+70}" y1="{y-8}" y2="{y-8}" stroke="{color}" stroke-width="{wd}" {d}/>')
+        p.append(txt(L+82,y,name,size=24,fill=fill)); continue
     if lx:   # mid-plot label
         m=min(pts,key=lambda r:abs(r[0]-lx)); p.append(txt(X(m[0]),Y(m[col])+dy,name,size=24,anchor='middle',fill=fill))
     else:    # at the line end
