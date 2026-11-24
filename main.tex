@@ -1562,6 +1562,12 @@ the average message has 50B.
 %
 Unlike the other experiments, we make all peers green (keeping churn rate),
 and decrease relay delays to 1--2 seconds (against 1--60 seconds).
+%
+The full simulation takes around 200h to complete with over 7.6M
+\code{sync} operations that effectively transfer data, which corresponds to
+49 network-wide syncs per post on average.
+
+Next we discuss the measures of each metric.
 
 \paragraph{Storage:}
 
